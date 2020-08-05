@@ -41,11 +41,32 @@
 %------------------------------------------------------
 \section{Estimation methods, predictions from a model}
 
-\begin{frame}{Introduction}
+\begin{frame}{Linear regression model (LRM) and OLS estimation}
+$$
+\bm{y} = \bm{X\beta} + \bm{\varepsilon}
+$$
+\textbf{LRM assumptions:}\\
+(Notation follows Greene, Econometric analysis, $7^{\textnormal{th}}$ ed.)
+\medskip
+\begin{enumerate}
+    \item[A1] \textbf{Linearity:} $y_i = \beta_1 + \beta_2 x_{i2} + \dots + \beta_K x_{iK} + \varepsilon_i$ \\LRM describes linear relationship between $y_i$ and $\bm{x}_i$.
+    \item[A2] \textbf{Full rank:} Matrix $\bm{X}$ is an $n \! \times \! K$ matrix with rank $K$.\\ Columns of $\bm{X}$ are linearly independent and $n \geq K$.
+    \item[A3] \textbf{Exogeneity of regressors:} $E[\varepsilon_i | \bm{X}]=0$ (strict form). \\If relaxed to contemporaneous form in TS: $E[\varepsilon_t | \bm{x}_t]=0$.\\Law of iterated expectations: $E[\varepsilon_i | \bm{X}]=0 ~\Rightarrow~ E[\varepsilon]=0$.\\Also, we assume disturbances convey no information on each other: $E[\varepsilon_i|\varepsilon_1,\dots,\varepsilon_{i-1},\varepsilon_{i+1},\dots,\varepsilon_n]=0$.
+\end{enumerate}
+\end{frame}
+%------------------------------------------------------    
+\begin{frame}{Linear regression model (LRM) and OLS estimation}
+$$
+\bm{y} = \bm{X\beta} + \bm{\varepsilon}
+$$
+\textbf{LRM assumptions (continued):}
+\medskip
+\begin{enumerate}
+    \item[A4] \textbf{Homoskedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$.
+    \item[A5] \textbf{DGP of X:} Variables in $\bm{X}$ may be fixed or random.
+    \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}].$$
+\end{enumerate}
 
-\begin{itemize}
-  \item 
-\end{itemize}
 
 \end{frame}
 %------------------------------------------------------
