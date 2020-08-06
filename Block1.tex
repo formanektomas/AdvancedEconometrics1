@@ -70,6 +70,17 @@ $$
 %------------------------------------------------------
 \subsection{General properties of estimators}
 \begin{frame}{Estimators and estimation methods}
+\begin{itemize}
+    \item LRM is not the only type of regression model.
+    \bigskip
+    \item OLS is not the only useful estimator.
+    \bigskip
+    \item Let's approach estimators and their properties more generally.\\~\\
+    (again, notation follows Greene, Econometric analysis.)
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
 Notation/definitions:
 \begin{itemize}
 \item $\bm{x}_j = (x_{1j},\dots,x_{nj})^{\prime}$ - random sample of $n$ observations.
@@ -123,7 +134,7 @@ Properties of estimators - classification:
 \medskip
 \begin{itemize}
     \item[LS] $\hat{\bm{\theta}}_{\textit{LS}}~~~=\textnormal{argmax}\left[ -\frac{1}{n} \displaystyle\sum_{i=1}^n (y_i - h(\bm{x}_i,\bm{\theta}_{\textit{LS}}))^2\right]$,
-    \item[ML] $\hat{\bm{\theta}}_{\textit{ML}}~~\,=\textnormal{argmax}\left[ -\frac{1}{n} \displaystyle\sum_{i=1}^n \log f(y_i|\bm{x}_i,\bm{\theta}_{\textit{ML}})\right]$,
+    \item[ML] $\hat{\bm{\theta}}_{\textit{ML}}~~\,=\textnormal{argmax}\left[ \frac{1}{n} \displaystyle\sum_{i=1}^n \log f(y_i|\bm{x}_i,\bm{\theta}_{\textit{ML}})\right]$,
     \item[GMM] $\hat{\bm{\theta}}_{\textit{GMM}}=\textnormal{argmax}\,\left[ -\overline{\bm{m}}(\textbf{data},\bm{\theta}_{\textit{GMM}})^{\prime}\bm{W}\overline{\bm{m}} (\textbf{data},\bm{\theta}_{\textit{GMM}})\right]$,
 \end{itemize}
 \medskip
@@ -162,16 +173,36 @@ Assumptions for asymptotic properties of extremum estimators:
 Assumptions for asymptotic properties of extremum estimators:
 \medskip
 \begin{itemize}
-    \item[4] \textbf{Behavior of the data:} 
+    \item[4] \textbf{Behavior of the data:} Grenander conditions for well-behaved data:
+    \medskip
+    \begin{itemize}
+        \item[G1] For each $\bm{x}_k$ column of $\bm{X}$ and $d_{nk}^2 = \bm{x}_k^{\prime}\bm{x}_k$, it must hold that: $\lim_{n \rightarrow \infty} d_{nk}^2 = + \infty$. Sum of squares continue to grow with sample size ($\bm{x}_k$ does not degenerate into a series of 0).
+        \smallskip
+        \item[G2] The $\lim_{n \rightarrow \infty} x_{ik}^2 / d_{nk}^2 = 0$ for all $i=1,2,\dots,n$. Single observations become less important as sample size grows. No single observation will dominate $\bm{x}_k^{\prime}\bm{x}_k$.
+        \smallskip
+        \item[G3] Let $\bm{C}_n$ be sample correlation matrix of the columns in $\bm{X}$ (excluding the intercept, if present). Then $\lim_{n \rightarrow \infty} \bm{C}_n = \bm{C}$ where $\bm{C}$ is positive definite. This implies that the full rank condition for $\bm{X}$ (A2) is not asymptotically violated.
+    \end{itemize}
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
-
+\begin{block}{Theorem: Consistency of M estimators}
+If: \\ \smallskip (a) the parameter space is convex and the true parameter vector is a point in its interior,\\(b) the criterion function is concave,\\(c) the parameters are identified by the criterion function, and\\(d) the data are well behaved,\\ \smallskip then the M estimator converges in probability to the true parameter vector. 
+\end{block}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
+\begin{block}{Theorem: Asymptotic normality of M estimators}
+If: \\ \smallskip 
+(a) $\hat{\bm{\theta}}$ is a consistent estimator of $\bm{\theta}_0$ where $\bm{\theta}_0$ is a point in the interior of the parameter space $\bm{\Theta}$, \\  \smallskip 
+(b) $q(\bm{\theta}|\textbf{data})$ is concave and twice continuously differentiable in $\bm{\theta}$ in a neighborhood of $\bm{\theta}_0$, \\  \smallskip 
+(c) $\sqrt{n} \left[ \partial q(\bm{\theta}_0|\textbf{data})/ \partial \bm{\theta}_0 \right] \xrightarrow{~~d~~} N(\bm{0},\bm{\Phi}),$ \\  \smallskip 
+(d) $\underset{n \rightarrow \infty}{\lim} \textnormal{Pr} \left[ |(\partial^2 q(\bm{\theta}|\textbf{data})/ \partial \theta_k \partial \theta_m)- h_{km}(\bm{\theta}) | >\varepsilon \right] = 0~ \forall \varepsilon > 0$ for any $\bm{\theta}$ in $\bm{\Theta}$, where $h_{km}(\bm{\theta})$ is a continuous finite valued function of $\bm{\theta}$, \\  \smallskip 
+(e) the matrix of elements $\bm{H}(\bm{\theta})$ is nonsingular at $\bm{\theta}_0$,\\
 
+\smallskip then $\sqrt{n} (\hat{\bm{\theta}} - \bm{\theta}_0) \xrightarrow{~~d~~} N \lbrace \bm{0},[ \bm{H}^{-1}(\bm{\theta}_0)\bm{\Phi}\bm{H}^{-1}(\bm{\theta}_0)] \rbrace$. 
+\end{block}
+where $\bm{\Phi}$ is    and $\bm{H}$ is
 \end{frame}
 %---------------------------------------------
 
