@@ -63,13 +63,334 @@ $$
 \medskip
 \begin{enumerate}
     \item[A4] \textbf{Homoskedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$.
-    \item[A5] \textbf{DGP of X:} Variables in $\bm{X}$ may be fixed or random.
+    \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
     \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}].$$
 \end{enumerate}
-
-
 \end{frame}
 %------------------------------------------------------
+\subsection{General properties of estimators}
+\begin{frame}{Estimators and estimation methods}
+Notation/definitions:
+\begin{itemize}
+\item $\bm{x}_j = (x_{1j},\dots,x_{nj})^{\prime}$ - random sample of $n$ observations.
+\item $\bm{\theta}$ - population parameter [unknown parameter(s)]
+\item $f(\bm{x}_j,\bm{\theta})$: probability distribution function
+\item $\hat{\bm{\theta}}$ is some estimator of $\bm{\theta}$
+\end{itemize}
+\medskip
+Basic notions: 
+\begin{itemize}
+\item All estimators have sampling distributions\\
+~~mean: $E(\hat{\theta})$\\
+~~variance: $E[(\hat{\theta}-E(\hat{\theta}))^2]$, etc.\\
+\item Estimators $\times$ estimate 
+\item Generally, many estimators exist for a given parameter. \\Population mean example:
+\end{itemize}
+\begin{align*}
+\hat{\theta}_1 & = \overline{x} = \frac{\sum_{i=1}^nx_i}{n}\\
+\hat{\theta}_2 & = \tilde{x} = \frac{1}{2}(x_{max} +x_{min})
+\end{align*}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Properties of estimators - classification:
+\medskip
+\begin{itemize}
+\item \textbf{Unbiasedness}: can be described as $E(\hat{\bm{\theta}})= \bm{\theta}$. \\Rarely useful in finite (small) sample context. Even asymptotically (large sample), discussion would be directed towards consistency (far more desirable feature).
+\medskip
+\item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}$. \\Holds if $\hat{\bm{\theta}}$ is an unbiased estimator of $\bm{\theta}$ and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~i.e. [$\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
+\begin{itemize}
+\item Consistent estimators: unbiased \& their variance shrinks to zero as sample size grows (entire population is used).
+\item Minimal requirement for estimator used in statistics or econometrics.
+\item If some estimator is not consistent, then it does not provide estimates of population $\theta$ values, even with unlimited data.
+\item Unbiased estimators are not necessarily consistent. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Properties of estimators - classification:
+\medskip
+\begin{itemize}
+\item \textbf{Efficiency, asymptotic efficiency:} an estimator is efficient if it is unbiased and no other unbiased estimator has a smaller variance. Often difficult to prove, we usually simplify the concept to \textit{relative efficiency} (e.g.: efficiency with respect to linear unbiased estimators, etc.). Asymptotic efficiency: Holds for an estimator that is asymptotically unbiased and no other asymptotically unbiased estimator has smaller asymptotic variance.
+\medskip
+\item \textbf{Normality, asymptotic normality:} basis for most statistical inference performed with common estimators. 
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{Extremum estimator:} obtained as the optimizer of some criterion function $q(\bm{\theta}|\textbf{data})$. Most common estimators:
+\medskip
+\begin{itemize}
+    \item[LS] $\hat{\bm{\theta}}_{\textit{LS}}~~~=\textnormal{argmax}\left[ -\frac{1}{n} \displaystyle\sum_{i=1}^n (y_i - h(\bm{x}_i,\bm{\theta}_{\textit{LS}}))^2\right]$,
+    \item[ML] $\hat{\bm{\theta}}_{\textit{ML}}~~\,=\textnormal{argmax}\left[ -\frac{1}{n} \displaystyle\sum_{i=1}^n \log f(y_i|\bm{x}_i,\bm{\theta}_{\textit{ML}})\right]$,
+    \item[GMM] $\hat{\bm{\theta}}_{\textit{GMM}}=\textnormal{argmax}\,\left[ -\overline{\bm{m}}(\textbf{data},\bm{\theta}_{\textit{GMM}})^{\prime}\bm{W}\overline{\bm{m}} (\textbf{data},\bm{\theta}_{\textit{GMM}})\right]$,
+\end{itemize}
+\medskip
+where $h(\cdot)$ is a function (linear/non-linear $\rightarrow$ OLS/NLS), \\$\overline{\bm{m}}$ denotes sample moments and $\bm{W}$ is a convenient positive definite matrix (discussed next).\\
+\medskip
+LS and ML estimators belong to a class of \textbf{M estimators} \\(``M'' for maximum likelihood-type).
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Assumptions for asymptotic properties of extremum estimators:
+\medskip
+\begin{itemize}
+    \item[1] \textbf{Parameter space:} must be convex and the parameter vector that is the object of estimation must be point in its interior. Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms \\(settings such as $\sigma^2 > 0$ are OK).
+    \medskip
+    \item[2] \textbf{Criterion function:} must be concave in the parameters (concave in the neighborhood of the true parameter vector). Criterion functions need not be globally concave. In such situation, there may be multiple optima (often associated with poor model specification).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Assumptions for asymptotic properties of extremum estimators:
+\medskip
+\begin{itemize}
+    \item[3] \textbf{Identifiability of parameters:} has a relatively complex technical definition (anything like ``true parameters $\bm{\theta}_0$ are identified if...'' is problematic - leads to a paradox if condition is not met). Simple way to secure identification:
+    \medskip
+    \begin{itemize}
+        \item \textbf{LS:} for a given set of $\bm{x}_i$ observations, any two different parameter vectors $\bm{\theta}$ and $\bm{\theta}_0$ must lead to different conditional mean function ($\hat{y}_i$).
+        \smallskip
+        \item \textbf{ML:} For any data vector $(y_i, \bm{x}_i)$ and two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, it must be possible to produce different values of the density function $f(y_i|\bm{x}_i,\bm{\theta})$. Note: identifiability does not rule out the  $f(y_i|\bm{x}_i,\bm{\theta}) = f(y_i|\bm{x}_{\ell},\bm{\theta}), ~~i \neq \ell$ \\situation (A2 full rank condition must be observed).
+        \smallskip
+        \item \textbf{GMM:} sufficient condition for identification:\\ $E[\overline{\bm{m}}(\textbf{data},\bm{\theta})] \neq \bm{0}$ if $\bm{\theta} \neq \bm{\theta}_0$.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Assumptions for asymptotic properties of extremum estimators:
+\medskip
+\begin{itemize}
+    \item[4] \textbf{Behavior of the data:} 
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+
+\end{frame}
+%---------------------------------------------
+
+
+
+
+\subsection{Ordinary least squares (OLS)}
+\begin{frame}{Ordinary least squares (OLS)}
+    
+\end{frame}
+%---------------------------------------------
+\subsection{Method of moments}
+\begin{frame}{Estimators and estimation methods}
+\textbf{Method of moments}
+\medskip
+\begin{itemize}
+\item With the method of moments, we simply estimate population moments by corresponding sample moments. 
+\item Under very general conditions, sample moments are consistent estimators of the corresponding population moments, but NOT necessarily unbiased estimators.
+\end{itemize}
+\begin{block}{Application example 1}
+Sample covariance is a consistent estimator of population covariance.
+\end{block}
+\begin{block}{Application example 2}
+OLS estimators we have used for parameters in the CLRM can be derived by the method of moments. 
+\end{block}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{Method of moments (MM)}\\
+\smallskip
+\underline{Population moments}, stochastic variable $X$\\
+\begin{itemize}
+\item $\mathbf{E}(X^r)$: $r^{th}$ population moment about zero
+\item $\mathbf{E}(X)$: the population mean is the first moment about zero
+\item $\mathbf{E}[(X-\mathbf{E}(X))^2]$: the population variance is the second moment about the mean
+\end{itemize}
+\underline{Sample moments}, sample observations $(x_1, x_2, \dots,x_n)$
+\begin{itemize}
+\item $\frac{\sum_{i=1}^n x^r_i}{n}$: $r^{th}$ sample moment about zero
+\item $\frac{\sum_{i=1}^n x_i}{n}=\overline{x} $ : sample mean is the first moment about zero
+\item $\frac{\sum_{i=1}^n (x_i-\overline{x})^2}{n-1}$: sample variance is the second sample moment about the mean
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\begin{itemize}
+\item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
+\footnotesize{
+\begin{equation} \label{OLS1}
+\sum_{i=1}^n \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right)^2
+\end{equation}
+} %end footnotesize
+\item In MM, population moment assumptions $E(u)=0$ and $E(x_j \cdot u)=0$ are used for sample-based estimation (identical to $1^{st}$ order conditions for \eqref{OLS1} - OLS is a type of MM estimator):
+\footnotesize{
+\begin{equation*}
+\begin{aligned}
+\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\dots &\\
+\sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\end{aligned}
+\end{equation*}
+} %end footnotesize
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\begin{itemize}
+    \item Let $h (\bm{w}) = h(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model,
+    \\so that $ E (h [( y_i, \bm{x}_i, \bm{z}_i, \bm{\theta} )]) = 0 \, , ~~~ \forall i.$ 
+    \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8.
+    \\For simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$.
+    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ can be shown to minimize:
+    $$
+    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
+    \right]^{\prime}
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
+    \right]
+    $$
+    \item If $\bm{x} \neq \bm{z}$ and \# IVs > \# regressors (overidentification), \textbf{Generalized method of moments} is used (GMM)
+    $$
+    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
+    \right]^{\prime} \bm{W}_n
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
+    \right]
+    $$
+    where $\bm{W}_n$ is a conveniently chosen ($r \times r$) matrix. 
+    \\ \small{(any positive definite matrix that may depend on data but not on $\theta$, e.g. $I_r$. Optimum $\bm{W}_n$: see e.g. Greene, chapter. 13.4.2)}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{MM - consistency conditions}\\
+\medskip
+\begin{itemize}
+  \item \textbf{Convergence of the moments:} Sample moments converge in probability to their population counterparts.
+  \medskip
+  \item \textbf{Identification:} Parameters are identified in terms of the moment equations.
+  \begin{itemize}
+      \item \textbf{Order condition:} \# IVs $\geq$ \# model variables.
+      \item \textbf{Rank condition:} Moment equations are not redundant
+      \item Identification will be discussed in detail during Week 8
+  \end{itemize}
+  \medskip
+  \item \textbf{Limiting Normal distribution for the sample moments:} Population moments obey central limit theorem (CLT) or some similar variant.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{MM - summary}\\
+\begin{itemize}
+\item MM is robust to differences in ``specification'' of the data generating process (DGP). $\rightarrow$ i.e. sample mean or sample variance estimate their population counterparts (assuming they exist) regardless of DGP.
+\medskip
+\item MM is free from distributional assumptions.
+\medskip
+\item ``Cost'' of this approach: if we know the specific distribution of a DGP, MM does not make use of such information $\rightarrow$ inefficient estimates.
+\medskip 
+\item Alternative approach: method of maximum likelihood utilizes distributional information and is more efficient (provided this information is valid).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\subsection{Maximum likelihood estimation}
+\begin{frame}{Estimators and Estimation Methods}
+\textbf{Maximum likelihood estimator}\\
+\medskip
+Single $\theta$ parameter case:\\
+\begin{itemize}
+\item $1^{st}$ step: deriving a likelihood function $L=L(\theta ,y_1, y_2, ... , y_n)$, where $y_i$ is observation of $Y$ (stochastic), $\theta$ is parameter of the distribution.\\
+\item $2^{nd}$ step: finding maximum of $L$ with respect to $\theta$, \\that maximum is $\tilde{\theta} = \theta_{MLE}$
+\end{itemize}
+With more parameters: $\bm{\theta} = (\theta_1, \dots , \theta_m)^{\prime}$
+$$L=L(\theta_1, \theta_2, ... \theta_m, y_1, y_2, ... , y_n)$$
+We find MLEs of the $m$ parameters by partially differentiating the likelihood function $L$ with respect to each $\theta$ and then setting all the partial derivatives obtained to zero.\\
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Likelihood function:\\ 
+$f(y_1,y_2,\dots,y_n|\bm{\theta}) = \prod_{i=1}^n f(y_i|\bm{\theta}) = L(\bm{\theta}|\bm{y})$ \\
+where $f(y|\bm{\theta})$ is the pdf of $y$, conditioned on set of parameters $\bm{\theta}$.\\
+\medskip
+\centerline{\underline{Maximum likelihood estimation of CLRM parameters:}}
+\begin{align*}
+\textnormal{CLRM: } y_i= \alpha + \beta x_i + \varepsilon_i \qquad \mathbf{E}(y_i) & =\alpha +\beta x_i = \bm{x}_i^{\prime}\bm{\beta}\\
+\textit{var}(y_i) & =\textit{var}(\varepsilon_i)=\sigma^2
+\end{align*}
+Probability density function for \textbf{Normal distribution}:\\
+\medskip
+$f(y|\bm{\theta})=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]$\\
+\bigskip
+In the case of CLRM, for each $y_i=\alpha + \beta x_i + \varepsilon_i$: \\
+\medskip
+$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$, that is:\\
+$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\bm{x}_i^{\prime}\bm{\beta})^2/2\sigma^2]$
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Log-likehood ($LL$) function, \textbf{Normal distribution} assumed,\\
+estimation of CLRM parameters:\\
+\begin{align*}
+log L(\bm{\theta}|\bm{y}, \bm{X} ) & =\sum_{i=1}^n log[f(y_i|\bm{x}_i, \bm{\theta})] = \\
+& = -\frac{1}{2} \sum_{i=1}^n \left\lbrace { log(2\pi) + log(\sigma^2)+\frac{1}{\sigma^2}[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2} \right\rbrace = \\ 
+& = -\frac{n}{2}log(2\pi)-\frac{n}{2}log(\sigma^2)-\frac{1}{2\sigma^2} \sum_{i=1}^n [y_i-\bm{x}_i^{\prime}\bm{\beta}]^2
+\end{align*}
+\\ \bigskip
+numerical iterative method is used for $\bm{\theta}=(\alpha, \beta, \sigma^2)$ estimation\\
+(by maximizing the log-likelihood function).\\
+if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{\beta}$ and $\tilde{\sigma}^2$\\ are identical to OLS-generated estimators $\hat{\alpha}$, $\hat{\beta}$ (and $\hat{\sigma}^2$).
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and Estimation Methods}
+\textbf{Basic MLE assumptions}\\
+\begin{itemize}
+    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms (settings such as $\sigma^2 > 0$ are OK).
+    \item \textbf{Identifiability:} The parameter vector $\bm{\theta}$ is identified (estimable), if for two vectors, $\bm{\theta}^{*} \neq \bm{\theta}$ and for some data observations $\bm{x}$, $L(\bm{\theta}^{*}|\bm{x}) \neq L(\bm{\theta}|\bm{x})$.
+    \item \textbf{Well-behaved data:} Laws of large numbers (LLN) apply. Some form of CLT can be applied to the gradient (i.e. for the estimation method).
+    \item \textbf{Regularity conditions:} ``well behaved'' derivatives of $f(y_i|\bm{\theta})$ with respect to $\bm{\theta}$ (see Greene, chapter 14.4.1).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and Estimation Methods}
+\textbf{MLE properties}\\
+\begin{itemize}
+    \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}_0$ ~~($\bm{\theta}_0$ is the true parameter)
+    \medskip
+    \item \textbf{Asymptotic normality} of $\bm{\hat{\theta}}$
+    \medskip
+    \item \textbf{Asymptotic efficiency:}  $\bm{\hat{\theta}}$ is asymptotically efficient and achieves the Cramér-Rao lower bound for consistent estimators (see Greene, chapter 14.4.5)
+    \medskip
+    \item \textbf{Invariance:} MLE of $\bm{\gamma}_0=\bm{c}(\bm{\theta}_0)$ is $\bm{c}(\bm{\hat{\theta}})$ if $\bm{c}(\bm{\theta}_0)$ \\is a continuous and countinuously differentiable function.\\ \smallskip \footnotesize{ 
+    (empirical advantages: we can use reparameterization in MLE, \\~e.g. $\gamma_j = 1/\theta_j$ ~~or~~ $\theta^2 = 1/\sigma^2$).}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{MLE - summary}\\
+\begin{itemize}
+\item MLE is only possible if we know the form of the probability distribution function for the population (Normal, Poisson, Negative Binomial, etc.).
+\medskip
+\item MLEs possess the large sample properties of consistency and asymptotic efficiency. There is no guarantee that they possess any desirable small-sample properties. 
+\medskip
+\item Under CLRM assumptions, MLE estimator are identical to OLS estimators.
+\medskip
+\item MLE-related tests (Likelihood ratio, Wald, LM) will be discussed separately, with reference to a specific model type (e.g. LDVs in Weeks 11 to 13).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+
+
+
+
+
+
+
+
+
+
 \section{Non-linear extensions to LRM, quantile regression}
 
 \begin{frame}{Introduction}
