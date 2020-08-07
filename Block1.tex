@@ -289,20 +289,20 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Method of moments}
-\footnotesize
+%\footnotesize
 \begin{itemize}
-\item In a LRM: $\, \hat{y} = \hat{\beta}_1 + \hat{\beta}_2 x_{2} + \dots + \hat{\beta}_K x_{K} \,$, the $K$ parameters can be OLS-estimated by minimizing:
+%\item In a LRM: $\, \hat{y} = \hat{\beta}_1 + \hat{\beta}_2 x_{2} + \dots + \hat{\beta}_K x_{K} \,$, the $K$ parameters can be OLS-estimated by minimizing:
 
-\begin{equation*}
-\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2
-\end{equation*}
-\item For MM, the usual linear model population assumption (concerning $1^{\textnormal{st}}$ population moment) $E(\bm{x}_i \varepsilon_i)=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0}.$$ 
-This may be transformed in \textbf{population moment equation:}
+%\begin{equation*}
+%\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2
+%\end{equation*}
+\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0},$$ 
+may be transformed in \textbf{population moment equation:}
 $$
 E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
 = E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}\,,
 $$
-and the sample (empirical) moment equation is
+and corresponding sample (empirical) moment equation:
 $$
 \left[ \frac{1}{n} \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\hat{\bm{\beta}}) \right]
 = \overline{\bm{m}}(\hat{\bm{\beta}}) = \bm{0}.
@@ -316,17 +316,59 @@ The equation form of MM empirical equations can be produced as:
 \footnotesize
 \begin{equation*}
 \begin{aligned}
-\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
-\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \dots &\\
-\sum_{i=1}^n x_{iK} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n x_{iK} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \end{aligned}
 \end{equation*}
 \medskip
 \begin{itemize}
-    \item The $\frac{1}{n}$ element were removed as redundant.
+    \item The $\frac{1}{n}$ element can be removed here.
     \item This is a system of $K$ equations with $K$ unknown parameters.
+    \item Equivalent to $1^{st}$ order conditions for the OLS estimator:
+    $$ \underset{\hat{\bm{\beta}}}{\min}\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2$$
 \end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Generalized method of moments}
+\begin{itemize}
+    \item GMM is a very general class of estimators, includes most of other estimators as a special case (IVR, simultaneous equations, Arellano-Bond estimator for dynamic panels). 
+    \medskip
+    \item For single equation linear models, GMM may be conveniently described using the instrumental variable case:\\ \bigskip For the LRM $y_i = \bm{x}_i^{\prime}\bm{\beta} + \varepsilon_i$, 
+    \begin{itemize}
+    \medskip
+        \item  we abandon the assumption $E[\bm{x}_i^{\prime} \varepsilon_i]=0$ and
+        \medskip
+        \item we replace it by $E[\bm{z}_i^{\prime} \varepsilon_i]=0$.
+        \medskip
+        \item Hence, $\bm{X}~(n\!\times\!K)$ is potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Generalized method of moments}
+
+\begin{itemize}
+\item GMM equation can be cast by analogy to the MM case: we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies orthogonality condition: $$\textnormal{cov}[\bm{z}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{z}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0}.$$ 
+and \textbf{population moment equation:}
+$$
+E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{z}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
+= E \left[ \overline{\mathbf{m}}(\bm{\beta}) \right] = \bm{0}\,,
+$$
+and corresponding sample (empirical) moment equation:
+$$
+\left[ \frac{1}{n} \sum_{i=1}^n \bm{z}_i (y_i - \bm{x}_i^{\prime}\hat{\bm{\beta}}) \right]
+= \overline{\mathbf{m}}(\hat{\bm{\beta}}) = \bm{0}.
+$$
+\end{itemize}
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Generalized method of moments}
+
+
+    
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
