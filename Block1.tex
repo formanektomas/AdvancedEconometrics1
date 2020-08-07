@@ -40,12 +40,12 @@
 
 %------------------------------------------------------
 \section{Estimation methods, predictions from a model}
-
+\subsection{Ordinary least squares}
 \begin{frame}{Linear regression model (LRM) and OLS estimation}
 $$
 \bm{y} = \bm{X\beta} + \bm{\varepsilon}
 $$
-\textbf{LRM assumptions:}\\
+\textbf{LRM assumptions (for OLS estimation):}\\
 (Notation follows Greene, Econometric analysis, $7^{\textnormal{th}}$ ed.)
 \medskip
 \begin{enumerate}
@@ -66,6 +66,31 @@ $$
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
     \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}].$$
 \end{enumerate}
+\end{frame}
+%------------------------------------------------------
+\begin{frame}{Ordinary least squares (OLS)}
+\vspace{-0.3cm}
+$$
+\bm{y} = \bm{X\beta} + \bm{\varepsilon}
+$$
+\medskip
+The least squares estimator is unbiased (given A1 -- A3):
+\begin{align*}
+    \hat{\bm{\beta}}=green\bm{b}&=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}~=~\bm{\beta}+(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}, \\
+    &\textnormal{take expectations, iterating over}~\bm{X}:\\
+    E[\bm{b}|\bm{X}]&= \bm{\beta}+E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]~=~\bm{\beta}.\\
+\end{align*}
+
+Variance of the least squares estimator (A1 -- A4):
+\begin{align*}
+    \textnormal{var}[\bm{b}|\bm{X}]&=E[(\bm{b}-\bm{\beta})(\bm{b}-\bm{\beta})^{\prime}|\bm{X}]\\
+    &=E[\bm{A \varepsilon \varepsilon}^{\prime}\bm{A}^{\prime}|\bm{X}] \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
+    &= \sigma^2 (\bm{X}^{\prime}\bm{X})^{-1}.\\
+\end{align*}
+
+Normal distribution of the least squares estimator (A1 -- A6):
+$$\bm{b} | \bm{X} \sim N[\bm{\beta}, \sigma^2(\bm{X}^{\prime}\bm{X})^{-1}].$$
+    
 \end{frame}
 %------------------------------------------------------
 \subsection{General properties of estimators}
@@ -187,31 +212,38 @@ Assumptions for asymptotic properties of extremum estimators:
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
 \begin{block}{Theorem: Consistency of M estimators}
-If: \\ \smallskip (a) the parameter space is convex and the true parameter vector is a point in its interior,\\(b) the criterion function is concave,\\(c) the parameters are identified by the criterion function, and\\(d) the data are well behaved,\\ \smallskip then the M estimator converges in probability to the true parameter vector. 
+If: \\ \smallskip 
+\begin{itemize}
+    \item[(a)] the parameter space is convex and the true parameter vector is a point in its interior,
+    \smallskip
+    \item[(b)] the criterion function is concave,
+    \smallskip
+    \item[(c)] the parameters are identified by the criterion function,
+    \smallskip
+    \item[(d)] the data are well behaved,\\ \smallskip
+\end{itemize}
+then the M estimator converges in probability to the true parameter vector. 
 \end{block}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
+\small 
 \begin{block}{Theorem: Asymptotic normality of M estimators}
-If: \\ \smallskip 
-(a) $\hat{\bm{\theta}}$ is a consistent estimator of $\bm{\theta}_0$ where $\bm{\theta}_0$ is a point in the interior of the parameter space $\bm{\Theta}$, \\  \smallskip 
-(b) $q(\bm{\theta}|\textbf{data})$ is concave and twice continuously differentiable in $\bm{\theta}$ in a neighborhood of $\bm{\theta}_0$, \\  \smallskip 
-(c) $\sqrt{n} \left[ \partial q(\bm{\theta}_0|\textbf{data})/ \partial \bm{\theta}_0 \right] \xrightarrow{~~d~~} N(\bm{0},\bm{\Phi}),$ \\  \smallskip 
-(d) $\underset{n \rightarrow \infty}{\lim} \textnormal{Pr} \left[ |(\partial^2 q(\bm{\theta}|\textbf{data})/ \partial \theta_k \partial \theta_m)- h_{km}(\bm{\theta}) | >\varepsilon \right] = 0~ \forall \varepsilon > 0$ for any $\bm{\theta}$ in $\bm{\Theta}$, where $h_{km}(\bm{\theta})$ is a continuous finite valued function of $\bm{\theta}$, \\  \smallskip 
-(e) the matrix of elements $\bm{H}(\bm{\theta})$ is nonsingular at $\bm{\theta}_0$,\\
-
+If:
+\begin{itemize}
+    \item[(a)] $\hat{\bm{\theta}}$ is a consistent estimator of $\bm{\theta}_0$ where $\bm{\theta}_0$ is a point in the interior of the parameter space $\bm{\Theta}$,
+    \smallskip 
+    \item[(b)] $q(\bm{\theta}|\textbf{data})$ is concave and twice continuously differentiable in $\bm{\theta}$ in a neighborhood of $\bm{\theta}_0$,  
+    \smallskip 
+    \item[(c)] $\sqrt{n} \left[ \partial q(\bm{\theta}_0|\textbf{data})/ \partial \bm{\theta}_0 \right] \xrightarrow{~~d~~} N(\bm{0},\bm{\Phi})$,  
+    \smallskip 
+    \item[(d)] $\underset{n \rightarrow \infty}{\lim} \textnormal{Pr} \left[ |(\partial^2 q(\bm{\theta}|\textbf{data})/ \partial \theta_k \partial \theta_m)- h_{km}(\bm{\theta}) | >\varepsilon \right] = 0~ \forall \varepsilon > 0$ for any $\bm{\theta}$ in $\bm{\Theta}$; $h_{km}(\bm{\theta})$ is a continuous finite valued function of $\bm{\theta}$,
+    \smallskip 
+    \item[(e)] the matrix of elements $\bm{H}(\bm{\theta})$ is nonsingular at $\bm{\theta}_0$,
+\end{itemize}
 \smallskip then $\sqrt{n} (\hat{\bm{\theta}} - \bm{\theta}_0) \xrightarrow{~~d~~} N \lbrace \bm{0},[ \bm{H}^{-1}(\bm{\theta}_0)\bm{\Phi}\bm{H}^{-1}(\bm{\theta}_0)] \rbrace$. 
 \end{block}
-where $\bm{\Phi}$ is    and $\bm{H}$ is
-\end{frame}
-%---------------------------------------------
-
-
-
-
-\subsection{Ordinary least squares (OLS)}
-\begin{frame}{Ordinary least squares (OLS)}
-    
+where $\bm{\Phi}$ is a variance-covariance matrix,   \\and $\bm{H}(\bm{\theta}_0)=\partial^2 q(\bm{\theta}|\textbf{data})/ \partial \bm{\theta} \partial \bm{\theta}^{\prime}$ is a Hessian (evaluated at $\bm{\theta}_0$).
 \end{frame}
 %---------------------------------------------
 \subsection{Method of moments}
