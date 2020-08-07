@@ -289,25 +289,33 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Method of moments}
+\footnotesize
 \begin{itemize}
-\item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
-\footnotesize{
-\begin{equation} \label{OLS1}
-\sum_{i=1}^n \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right)^2
-\end{equation}
-} %end footnotesize
-\item In MM, population moment assumptions $E(u)=0$ and $E(x_j \cdot u)=0$ are used for sample-based estimation (identical to $1^{st}$ order conditions for \eqref{OLS1} - OLS is a type of MM estimator):
+\item In a LRM: $\, \hat{y} = \hat{\beta}_1 + \hat{\beta}_2 x_{2} + \dots + \hat{\beta}_K x_{K} \,$, the $K$ parameters can be OLS-estimated by minimizing:
+
+\begin{equation*}
+\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2
+\end{equation*}
+\item For MM, the usual linear model population assumption (concerning $1^{\textnormal{st}}$ population moment) $E(\bm{x}_i \varepsilon_i)=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0}.$$ 
+This may be transformed in \textbf{population moment equation:}
+$$
+E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}) \right] 
+= E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}
+$$
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Method of moments}
 \footnotesize{
 \begin{equation*}
 \begin{aligned}
-\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
-\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \dots &\\
-\sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\sum_{i=1}^n x_{iK} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \end{aligned}
 \end{equation*}
 } %end footnotesize
-\end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
