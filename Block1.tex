@@ -299,14 +299,21 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \item For MM, the usual linear model population assumption (concerning $1^{\textnormal{st}}$ population moment) $E(\bm{x}_i \varepsilon_i)=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0}.$$ 
 This may be transformed in \textbf{population moment equation:}
 $$
-E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}) \right] 
-= E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}
+E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
+= E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}\,,
+$$
+and the sample (empirical) moment equation is
+$$
+\left[ \frac{1}{n} \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\hat{\bm{\beta}}) \right]
+= \overline{\bm{m}}(\hat{\bm{\beta}}) = \bm{0}.
 $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Method of moments}
-\footnotesize{
+The equation form of MM empirical equations can be produced as:
+\medskip
+\footnotesize
 \begin{equation*}
 \begin{aligned}
 \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
@@ -315,7 +322,11 @@ $$
 \sum_{i=1}^n x_{iK} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \end{aligned}
 \end{equation*}
-} %end footnotesize
+\medskip
+\begin{itemize}
+    \item The $\frac{1}{n}$ element were removed as redundant.
+    \item This is a system of $K$ equations with $K$ unknown parameters.
+\end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
@@ -461,16 +472,11 @@ if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-
-
-
-
-
-
-
-
-
-
+\subsection{Predictions from a model}
+\begin{frame}{Predictions from a model}
+    
+\end{frame}
+%---------------------------------------------
 \section{Non-linear extensions to LRM, quantile regression}
 
 \begin{frame}{Introduction}
