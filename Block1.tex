@@ -247,11 +247,19 @@ where $\bm{\Phi}$ is a variance-covariance matrix,   \\and $\bm{H}(\bm{\theta}_0
 \end{frame}
 %---------------------------------------------
 \subsection{Method of moments}
-\begin{frame}{Estimators and estimation methods}
-\textbf{Method of moments}
-\medskip
+\begin{frame}{Method of moments}
+\begin{itemize}
+    \item Method of moments (MM)
+    \bigskip
+    \item Generalized method of moments (GMM)
+\end{itemize} 
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Method of moments}
+
 \begin{itemize}
 \item With the method of moments, we simply estimate population moments by corresponding sample moments. 
+\medskip
 \item Under very general conditions, sample moments are consistent estimators of the corresponding population moments, but NOT necessarily unbiased estimators.
 \end{itemize}
 \begin{block}{Application example 1}
@@ -262,16 +270,17 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \end{block}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
+\begin{frame}{Method of moments}
 \textbf{Method of moments (MM)}\\
 \smallskip
-\underline{Population moments}, stochastic variable $X$\\
+\underline{Population moments} for a stochastic variable $X$\\
 \begin{itemize}
-\item $\mathbf{E}(X^r)$: $r^{th}$ population moment about zero
-\item $\mathbf{E}(X)$: the population mean is the first moment about zero
-\item $\mathbf{E}[(X-\mathbf{E}(X))^2]$: the population variance is the second moment about the mean
+\item $E(X^r)$: $r^{th}$ population moment about zero
+\item $E(X)$: the population mean: $1^{\textnormal{st}}$ sample moment about zero
+\item $E[(X-E(X))^2]$: the population variance is the second moment about the mean
 \end{itemize}
-\underline{Sample moments}, sample observations $(x_1, x_2, \dots,x_n)$
+\medskip
+\underline{Sample moments} for sample observations $(x_1, x_2, \dots,x_n)$
 \begin{itemize}
 \item $\frac{\sum_{i=1}^n x^r_i}{n}$: $r^{th}$ sample moment about zero
 \item $\frac{\sum_{i=1}^n x_i}{n}=\overline{x} $ : sample mean is the first moment about zero
@@ -279,7 +288,7 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
+\begin{frame}{Method of moments}
 \begin{itemize}
 \item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
 \footnotesize{
