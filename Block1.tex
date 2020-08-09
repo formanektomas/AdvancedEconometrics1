@@ -342,7 +342,7 @@ The equation form of MM empirical equations can be produced as:
         \medskip
         \item we replace it by $E[\bm{z}_i^{\prime} \varepsilon_i]=0$.
         \medskip
-        \item Hence, $\bm{X}~(n\!\times\!K)$ is potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.
+        \item Hence, columns of $\bm{X}~(n\!\times\!K)$ are potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -366,67 +366,106 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
-
-
-    
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
+The equation form of GMM empirical equations can be produced as:
+\medskip
+\footnotesize
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n}\, \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n  z_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\dots &\\
+\frac{1}{n}\, \sum_{i=1}^n z_{iL} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\end{aligned}
+\end{equation*}
+\medskip
 \begin{itemize}
-    \item Let $h (\bm{w}) = h(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model,
-    \\so that $ E (h [( y_i, \bm{x}_i, \bm{z}_i, \bm{\theta} )]) = 0 \, , ~~~ \forall i.$ 
-    \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8.
-    \\For simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$.
-    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ can be shown to minimize:
-    $$
-    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
-    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
-    \right]^{\prime}
-    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
-    \right]
-    $$
-    \item If $\bm{x} \neq \bm{z}$ and \# IVs > \# regressors (overidentification), \textbf{Generalized method of moments} is used (GMM)
-    $$
-    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
-    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
-    \right]^{\prime} \bm{W}_n
-    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
-    \right]
-    $$
-    where $\bm{W}_n$ is a conveniently chosen ($r \times r$) matrix. 
-    \\ \small{(any positive definite matrix that may depend on data but not on $\theta$, e.g. $I_r$. Optimum $\bm{W}_n$: see e.g. Greene, chapter. 13.4.2)}
+    \item First column of $\bm{Z}$ is assumed to be a vector of ones (same as for $\bm{X}$).
+    \smallskip
+    \item For $\bm{Z}=\bm{X}$ as a special case, the above equations are identical to MM (shown previously) and the solution is identical to the OLS estimator: $\hat{\bm{\beta}}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}$.
+    \smallskip
+    \item For $\bm{Z} \neq \bm{X}$, where $\bm{Z}$ is $(n\! \times \!L)$ and $\bm{X}$ is $(n \! \times \!K)$, three identification possibilities have to be considered. 
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-\textbf{MM - consistency conditions}\\
+\begin{frame}{Generalized method of moments}
+\textbf{Identification of GMM equations}
+\bigskip
+\begin{itemize}
+    \item[1] \textbf{Underidentified:} with $L < K$, there are fewer moment equations than unknown parameters ($\beta_j$). Without additional information (parameter restrictions), there is no solution to the system of GMM equations.
+    \bigskip
+    \item[2] \textbf{Exactly identified:} for $L = K$, single solution exists:  
+    \begin{equation*}
+        \begin{aligned}
+        \left[ \frac{1}{n} \sum_{i=1}^n \bm{z}_i (y_i - \bm{x}_i^{\prime}\hat{\bm{\beta}}) \right]
+&= \overline{\mathbf{m}}(\hat{\bm{\beta}}) = \bm{0},\\
+\textnormal{can be convenie} & \textnormal{ntly~re-written as:}\\
+\overline{\mathbf{m}}(\hat{\bm{\beta}}) &= \left( \frac{1}{n} \bm{Z}^{\prime} \bm{y} \right) - \left( \frac{1}{n} \bm{Z}^{\prime} \bm{X} \right) \hat{\bm{\beta}} = \bm{0}\\
+\textnormal{and the solution} & \textnormal{~yields the familiar IV estimator:}\\
+\hat{\bm{\beta}} &=     (\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}\bm{y}.
+        \end{aligned}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Generalized method of moments}
+\textbf{Identification of GMM equations} (continued)
+\bigskip
+\begin{itemize}
+    \item[3] With $L > K$, there is no unique solution to the equation system $\overline{\mathbf{m}}(\hat{\bm{\beta}}) = \bm{0}$. \\
+    \medskip
+    One intuitite solution is the ``least squares approach'':
+    $$\underset{\bm{\beta}}{\min}\left(  \overline{\mathbf{m}}(\hat{\bm{\beta}})^{\prime} \overline{\mathbf{m}}(\hat{\bm{\beta}})  \right)$$
+    Through the first order conditions, we obtain a GMM estimator as
+    $$
+    \hat{\bm{\beta}} =\left[ (\bm{X}^{\prime}\bm{Z}) (\bm{Z}^{\prime}\bm{X}) \right]^{-1} (\bm{X}^{\prime}\bm{Z}) \bm{Z}^{\prime}\bm{y}.
+    $$
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Generalized method of moments}
+\textbf{GMM - consistency conditions}\\
+
 \medskip
 \begin{itemize}
-  \item \textbf{Convergence of the moments:} Sample moments converge in probability to their population counterparts.
+  \item \textbf{Convergence of the moments:} Empirical (sample) moments converge in probability to their population counterparts. DGP meets the conditions for LLN. \\ \smallskip
+  $\overline{\mathbf{m}}(\bm{\beta}) = \frac{1}{n} \left(  \bm{Z}^{\prime} \bm{y} -  \bm{Z}^{\prime} \bm{X}  \bm{\beta} \right) \xrightarrow{p} \bm{0}$.
   \medskip
-  \item \textbf{Identification:} Parameters are identified in terms of the moment equations.
+  \item \textbf{Identification:} For any $n \geq K$ and $\bm{\beta}_1 \neq \bm{\beta}_2$ it holds that $\overline{\mathbf{m}}(\bm{\beta}_1) \neq \overline{\mathbf{m}}(\bm{\beta}_2)$. Three implications:\\
+  \medskip
   \begin{itemize}
-      \item \textbf{Order condition:} \# IVs $\geq$ \# model variables.
-      \item \textbf{Rank condition:} Moment equations are not redundant
-      \item Identification will be discussed in detail during Week 8
+      \item \textbf{Order condition:} $L \geq K$. Number of moment equations \\at least as large as number of parameters.
+      \smallskip
+      \item \textbf{Rank condition:} matrix $\bm{G}(\bm{\beta})=\partial \, \overline{\mathbf{m}}(\bm{\beta}) / \partial \bm{\beta}^{\prime}$ (i.e. $\frac{1}{n}\bm{Z}^{\prime} \bm{X}$) is a $L\! \times \! K$ matrix with row rank equal to $K$. Moment conditions are not redundant (implies order condition).
+      \smallskip
+      \item \textbf{Uniqueness:} unique solution/optimizer exists.
   \end{itemize}
-  \medskip
-  \item \textbf{Limiting Normal distribution for the sample moments:} Population moments obey central limit theorem (CLT) or some similar variant.
+\medskip
+\item \textbf{Limiting Normal distribution for the sample moments:} Population moments obey central limit theorem (CLT) or some similar variant.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-\textbf{MM - summary}\\
+\begin{frame}{Generalized method of moments}
+\textbf{GMM - final remarks \& summary}\\
 \begin{itemize}
-\item MM is robust to differences in ``specification'' of the data generating process (DGP). $\rightarrow$ i.e. sample mean or sample variance estimate their population counterparts (assuming they exist) regardless of DGP.
+\item GMM-based asymptotic covariance matrix of $\hat{\bm{\beta}}$ is discussed in Greene (Econometric analysis, ch. 13.6) for the classical, heteroscedastic and generalized case (includes TS-based estimation).
 \medskip
-\item MM is free from distributional assumptions.
+\item GMM is robust to differences in ``specification'' of the data generating process (DGP). $\rightarrow$ i.e. sample mean or sample variance estimate their population counterparts (assuming they exist) regardless of DGP.
 \medskip
-\item ``Cost'' of this approach: if we know the specific distribution of a DGP, MM does not make use of such information $\rightarrow$ inefficient estimates.
+\item GMM is free from distributional assumptions. ``Cost'' of this approach: if we know the specific distribution of a DGP, GMM does not make use of such information $\rightarrow$ inefficient estimates.
 \medskip 
 \item Alternative approach: method of maximum likelihood utilizes distributional information and is more efficient (provided this information is valid).
 \end{itemize}
 \end{frame}
+
+
+
+
+
+
+
+
+
+
 %---------------------------------------------
 \subsection{Maximum likelihood estimation}
 \begin{frame}{Estimators and Estimation Methods}
