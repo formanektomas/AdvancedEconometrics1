@@ -456,24 +456,63 @@ The equation form of GMM empirical equations can be produced as:
 \item Alternative approach: method of maximum likelihood utilizes distributional information and is more efficient (provided this information is valid).
 \end{itemize}
 \end{frame}
-
-
-
-
-
-
-
-
-
-
 %---------------------------------------------
-\subsection{Maximum likelihood estimation}
-\begin{frame}{Estimators and Estimation Methods}
+\subsection{Maximum likelihood estimator}
+\begin{frame}{Maximum likelihood estimator}
+\begin{itemize}
+    \item Maximum likelihood estimator (MLE)
+    \bigskip
+    \item Normal distribution \& MLE
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{Maximum likelihood estimator -- single parameter}\\
+\medskip
+For a stochastic variable $y$ with a known distribution, described by a single $\theta$ parameter:\\
+\medskip
+\begin{itemize}
+\item $f(y|\theta)$ is the pdf of $y$, conditioned on parameter $\theta$.
+\medskip
+\item For $n$ \textit{iid} observations, joint density of this process: \\
+$f(y_1,y_2,\dots,y_n|\theta)~=~\displaystyle\prod_{i=1}^n f(y_i|\theta)~=~L(\theta|\bm{y})$ \\is the likelihood function.\\
+\medskip
+\item We estimate $\theta$ by maximizing $L(\theta|\bm{y})$ with respect to the parameter ($1^{st}$ order conditions). Solution (MLE) often denoted as $\hat{\theta}_{\textnormal{ML}}$.
+\medskip
+\item For maximization (MLE), it is usually simpler to work with a log-transformed likelihood function:\\
+$\log L(\theta|\bm{y})~=~\displaystyle\sum_{i=1}^n ~ \log f(y_i|\theta)$
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE -- Poisson distribution example}\\
+\begin{itemize}
+    \item Consider 10 \textit{iid} observations from a Poisson distribution:\\$\bm{y}^{\prime}=(5,0,1,1,0,3,2,3,4,1)$.
+    \item pdf: $f(y_i|\lambda) = \frac{e^{-\theta}\theta^{y_i}}{y_i!}$.
+    \item 
+\end{itemize}
+
+
+
+\end{frame}
+%---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Maximum likelihood estimator}
 \textbf{Maximum likelihood estimator}\\
 \medskip
-Single $\theta$ parameter case:\\
+For a stochastic variable $y$ with a known distribution, described by a single $\theta$ parameter:\\
+\medskip
 \begin{itemize}
-\item $1^{st}$ step: deriving a likelihood function $L=L(\theta ,y_1, y_2, ... , y_n)$, where $y_i$ is observation of $Y$ (stochastic), $\theta$ is parameter of the distribution.\\
 \item $2^{nd}$ step: finding maximum of $L$ with respect to $\theta$, \\that maximum is $\tilde{\theta} = \theta_{MLE}$
 \end{itemize}
 With more parameters: $\bm{\theta} = (\theta_1, \dots , \theta_m)^{\prime}$
@@ -481,6 +520,15 @@ $$L=L(\theta_1, \theta_2, ... \theta_m, y_1, y_2, ... , y_n)$$
 We find MLEs of the $m$ parameters by partially differentiating the likelihood function $L$ with respect to each $\theta$ and then setting all the partial derivatives obtained to zero.\\
 \end{frame}
 %---------------------------------------------
+
+
+
+
+
+
+
+
+
 \begin{frame}{Estimators and estimation methods}
 Likelihood function:\\ 
 $f(y_1,y_2,\dots,y_n|\bm{\theta}) = \prod_{i=1}^n f(y_i|\bm{\theta}) = L(\bm{\theta}|\bm{y})$ \\
