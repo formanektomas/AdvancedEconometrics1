@@ -514,48 +514,50 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-
-
-
-
-
-
-
-
-
-\begin{frame}{Estimators and estimation methods}
-Likelihood function:\\ 
-$f(y_1,y_2,\dots,y_n|\bm{\theta}) = \prod_{i=1}^n f(y_i|\bm{\theta}) = L(\bm{\theta}|\bm{y})$ \\
-where $f(y|\bm{\theta})$ is the pdf of $y$, conditioned on set of parameters $\bm{\theta}$.\\
-\medskip
-\centerline{\underline{Maximum likelihood estimation of CLRM parameters:}}
-\begin{align*}
-\textnormal{CLRM: } y_i= \alpha + \beta x_i + \varepsilon_i \qquad \mathbf{E}(y_i) & =\alpha +\beta x_i = \bm{x}_i^{\prime}\bm{\beta}\\
-\textit{var}(y_i) & =\textit{var}(\varepsilon_i)=\sigma^2
-\end{align*}
-Probability density function for \textbf{Normal distribution}:\\
-\medskip
-$f(y|\bm{\theta})=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]$\\
-\bigskip
-In the case of CLRM, for each $y_i=\alpha + \beta x_i + \varepsilon_i$: \\
-\medskip
-$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$, that is:\\
-$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\bm{x}_i^{\prime}\bm{\beta})^2/2\sigma^2]$
-
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE -- Normal distribution} \\ \bigskip
+\begin{itemize}
+    \item $L(\bm{\theta}|\textbf{data})=L(\bm{\beta},\sigma^2|y_i,\bm{x}_i)=
+    \displaystyle\prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}~e^{-\frac{(y_i-\bm{x}_i\bm{\beta})^2}{2\sigma^2}}$
+    \smallskip
+    \item In matrix form, the log likelihood function is:
+    \footnotesize{
+    $$
+    LL(\bm{\beta},\sigma^2|\bm{y},\bm{X})= - \frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2}(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})
+    $$
+    } % end footnotesize
+    Recall that:\\ \bigskip
+    $(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})=
+    \bm{y}^{\prime}\bm{y} - 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{y}+\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X \beta}$\\ \smallskip
+    and \\ \medskip
+    $\frac{\partial (\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})}{\partial \bm{\beta}^{\prime}} = -2\bm{X}^{\prime}\bm{y}+2\bm{X}^{\prime}\bm{X \beta}$.
+\end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-Log-likehood ($LL$) function, \textbf{Normal distribution} assumed,\\
-estimation of CLRM parameters:\\
-\begin{align*}
-log L(\bm{\theta}|\bm{y}, \bm{X} ) & =\sum_{i=1}^n log[f(y_i|\bm{x}_i, \bm{\theta})] = \\
-& = -\frac{1}{2} \sum_{i=1}^n \left\lbrace { log(2\pi) + log(\sigma^2)+\frac{1}{\sigma^2}[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2} \right\rbrace = \\ 
-& = -\frac{n}{2}log(2\pi)-\frac{n}{2}log(\sigma^2)-\frac{1}{2\sigma^2} \sum_{i=1}^n [y_i-\bm{x}_i^{\prime}\bm{\beta}]^2
-\end{align*}
-\\ \bigskip
-numerical iterative method is used for $\bm{\theta}=(\alpha, \beta, \sigma^2)$ estimation\\
-(by maximizing the log-likelihood function).\\
-if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{\beta}$ and $\tilde{\sigma}^2$\\ are identical to OLS-generated estimators $\hat{\alpha}$, $\hat{\beta}$ (and $\hat{\sigma}^2$).
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE -- Normal distribution (continued)} 
+    $$
+    LL(\bm{\beta},\sigma^2|\bm{y},\bm{X})= - \frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2}(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})
+    $$
+
+
+\begin{itemize}
+    \item $1^{st}$ order conditions:\\
+    \medskip
+    \begin{itemize}
+        \item  $\frac{\partial LL}{\partial \bm{\beta}^{\prime}}=
+    \frac{1}{2\sigma^2}[2\bm{X}^{\prime}\bm{y}-2\bm{X}^{\prime}\bm{X \beta}]=\bm{0}$\\ \medskip is solved by:\\ \medskip
+    $\hat{\bm{\beta}} =(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}$
+    \bigskip
+    \item $\frac{\partial LL}{\partial \, \sigma^2}=
+    - \frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}
+    \left[ (\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta}) \right] = 0$\\
+    \medskip is solved by:\\ \medskip
+    $\hat{\sigma}^2 = \frac{(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})}{n} =  \frac{\bm{u}^{\prime}\bm{u}}{n} = \frac{\textnormal{SSR}}{n}$.\\ \medskip
+    Note: the MLE estimate $\hat{\sigma}^2$ is biased downwards in small samples, as the unbiased estimate is equal to $\textnormal{SSR}/(n-K)$.
+    \end{itemize}
+    
+\end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and Estimation Methods}
