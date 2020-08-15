@@ -480,44 +480,38 @@ $f(y_1,y_2,\dots,y_n|\theta)~=~\displaystyle\prod_{i=1}^n f(y_i|\theta)~=~L(\the
 \item We estimate $\theta$ by maximizing $L(\theta|\bm{y})$ with respect to the parameter ($1^{st}$ order conditions). Solution (MLE) often denoted as $\hat{\theta}_{\textnormal{ML}}$.
 \medskip
 \item For maximization (MLE), it is usually simpler to work with a log-transformed likelihood function:\\
-$\log L(\theta|\bm{y})~=~\displaystyle\sum_{i=1}^n ~ \log f(y_i|\theta)$
+$\log L(\theta|\bm{y})~=~\displaystyle\sum_{i=1}^n ~ \log f(y_i|\theta)$.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Maximum likelihood estimator}
-\textbf{MLE -- Poisson distribution example}\\
+\textbf{MLE -- Poisson distribution example}\\ \smallskip
 \begin{itemize}
     \item Consider 10 \textit{iid} observations from a Poisson distribution:\\$\bm{y}^{\prime}=(5,0,1,1,0,3,2,3,4,1)$.
-    \item pdf: $f(y_i|\lambda) = \frac{e^{-\theta}\theta^{y_i}}{y_i!}$.
-    \item 
+    \smallskip
+    \item The pdf: $f(y_i|\lambda) = \frac{e^{-\lambda}\lambda^{y_i}}{y_i!}$.
+    \smallskip
+    \item Hence ($n=10$): $L(\lambda|\bm{y})=\displaystyle\prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{y_i}}{y_i!} =\frac{e^{-10\lambda}\lambda^{\sum_{i=1}^{10}y_i}}{\prod_{i=1}^{10}y_i!}$.
+    \smallskip
+    \item \textit{LL} (general): $\log L(\lambda|\bm{y}) = -n \lambda + \log \lambda \displaystyle\sum_{i=1}^n y_i - \displaystyle\sum_{i=1}^n \log ({y_i !})$,
+    \smallskip
+    \item $1^{st}$ order condition:
+$\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lambda} \displaystyle\sum_{i=1}^n y_i = 0 $.
+\smallskip
+    \item From $1^{st}$ order condition: $\hat{\lambda}_{\textnormal{ML}}=\overline{y}_n$. \\For our empirical example, $\hat{\lambda}_{\textnormal{ML}}=2$.
 \end{itemize}
-
-
-
 \end{frame}
 %---------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
 \begin{frame}{Maximum likelihood estimator}
-\textbf{Maximum likelihood estimator}\\
-\medskip
-For a stochastic variable $y$ with a known distribution, described by a single $\theta$ parameter:\\
+\textbf{\textbf{Maximum likelihood estimator -- vector of parameters}}\\
 \medskip
 \begin{itemize}
-\item $2^{nd}$ step: finding maximum of $L$ with respect to $\theta$, \\that maximum is $\tilde{\theta} = \theta_{MLE}$
+\item $\bm{\theta} = (\theta_1, \dots , \theta_m)^{\prime}$
+\medskip
+\item $L=L(\theta_1, \theta_2, ... \theta_m | y_1, y_2, ... , y_n)$
+\medskip
+\item We find MLEs of the $m$ parameters by partially differentiating the likelihood function $L$ (often, log $L$ is used) with respect to each $\theta$ and then setting all the partial derivatives obtained to zero.
 \end{itemize}
-With more parameters: $\bm{\theta} = (\theta_1, \dots , \theta_m)^{\prime}$
-$$L=L(\theta_1, \theta_2, ... \theta_m, y_1, y_2, ... , y_n)$$
-We find MLEs of the $m$ parameters by partially differentiating the likelihood function $L$ with respect to each $\theta$ and then setting all the partial derivatives obtained to zero.\\
 \end{frame}
 %---------------------------------------------
 
