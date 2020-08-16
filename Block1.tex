@@ -539,8 +539,6 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
     $$
     LL(\bm{\beta},\sigma^2|\bm{y},\bm{X})= - \frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2}(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})
     $$
-
-
 \begin{itemize}
     \item $1^{st}$ order conditions:\\
     \medskip
@@ -556,11 +554,10 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
     $\hat{\sigma}^2 = \frac{(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})}{n} =  \frac{\bm{u}^{\prime}\bm{u}}{n} = \frac{\textnormal{SSR}}{n}$.\\ \medskip
     Note: the MLE estimate $\hat{\sigma}^2$ is biased downwards in small samples, as the unbiased estimate is equal to $\textnormal{SSR}/(n-K)$.
     \end{itemize}
-    
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and Estimation Methods}
+\begin{frame}{Maximum likelihood estimator}
 \textbf{Basic MLE assumptions}\\
 \begin{itemize}
     \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms (settings such as $\sigma^2 > 0$ are OK).
@@ -570,7 +567,7 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and Estimation Methods}
+\begin{frame}{Maximum likelihood estimator}
 \textbf{MLE properties}\\
 \begin{itemize}
     \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}_0$ ~~($\bm{\theta}_0$ is the true parameter)
@@ -584,16 +581,100 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-\textbf{MLE - summary}\\
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE - properties of the estimator \\(Normal distribution):}\\ \bigskip
+Under the above assumption, variance-covariance matrix of $\bm{\theta}$ is the inverse of the Information matrix:\\ \medskip
+$$
+\textnormal{var}(\hat{\bm{\theta}})=\bm{I}[\hat{\bm{\theta}}]^{-1}=
+\begin{bmatrix}
+\sigma^2(\bm{X}^{\prime}\bm{X})^{-1} & \bm{0} \\
+\bm{0} & \frac{2\sigma^4}{n}
+\end{bmatrix},
+$$\\
+\medskip
+where $\bm{I}[\bm{\theta}]=-E[\bm{H}(\bm{\theta})]$. MLE gives the familiar formula for the variance-covariance matrix of the $\hat{\bm{\beta}}$: $\sigma^2(\bm{X}^{\prime}\bm{X})^{-1}$, and \\a simple expression for the variance of $\hat{\sigma}^2$.
+\small
+\begin{itemize}
+    \item The square root of the diagonal elements of $\bm{I}[\hat{\bm{\theta}}]^{-1}$ gives 
+estimates of the standard errors of the parameter estimates.
+    \item We can construct simple $z$-scores to test the null hypothesis concerning any individual parameter, just as in OLS, but using the normal instead of the $t$-distribution.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE - inference, three classic tests:}\\ \medskip
+Consider MLE of parameter $\bm{\theta}$ and a test of the hypothesis
+$H_0 : \bm{h}(\bm{\theta}) = \bm{0}$. Recall that ML parameter
+estimates are asymptotically normally distributed.\\ \medskip
+\begin{itemize}
+    \item[1] \textbf{Likelihood ratio test:} If the restriction $\bm{h}(\bm{\theta}) = \bm{0}$ is valid, then imposing it should not lead to a large reduction in the log-likelihood function.
+    $$
+    \textit{LR}~=~-2(LL_U - LL_R) \underset{H_0}{\sim} \chi^2(r),
+    $$
+    where $LL_U$ is the $LL$ of unconstrained model, $LL_R$ denotes restricted model and $r$ is the number of restrictions imposed. To do this test you have to run two models (one nested) and get the results of both.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE - inference, three classic tests:}\\ \bigskip
+We have a ML estimate $\hat{\bm{\theta}}=(\hat{\theta}_1, \dots, \hat{\theta}_m)^{\prime}$,\\
+and test of the hypothesis $H_0 : \bm{h}(\bm{\theta}) = \bm{0}$,\\
+where $\bm{h}(\bm{\theta})$ is a $(r \times 1)$ vector function of $\bm{\theta}$ (linear/non-linear restrictions, continuous partial derivatives assumed).
+\bigskip
+\begin{itemize}
+    \item[2] \textbf{Wald test:} If the restriction $\bm{h}(\bm{\theta}) = \bm{0}$ is valid, then $\bm{h}(\hat{\bm{\theta}})$ should be close to zero since MLE is consistent.\\ \medskip
+    $$
+    W = \bm{h}(\hat{\bm{\theta}})^{\prime}
+    \left[ \bm{H}\!(\hat{\bm{\theta}}) \, \widehat{\textnormal{cov}}
+    (\hat{\bm{\theta}}) \, \bm{H}^{\prime}\!(\hat{\bm{\theta}})
+    \right]^{-1} \! \bm{h}(\hat{\bm{\theta}})
+    ~~\underset{H_0}{\sim} \chi^2(r),
+    $$
+    where $\bm{H}(\hat{\bm{\theta}})= \partial \bm{h}(\bm{\theta}) / \partial \bm{\theta}^{\prime}$ at $\bm{\theta} = \hat{\bm{\theta}}$ and rank$(\bm{H})=r$.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE - inference, three classic tests:}\\ \bigskip
+We have a ML estimate $\hat{\bm{\theta}}_R$ -- i.e. ML estimation of the restricted model, under $H_0 : \bm{h}(\bm{\theta}) = \bm{0}$,\\ \medskip
+\begin{itemize}
+    \item[3] \textbf{Lagrange multiplier test:} If the restriction is valid, then the restricted estimator should be near the point that maximizes the log-likelihood. Therefore, the slope of the log-likelihood function should be near zero at the restricted estimator. The test is based on the slope of the log-likelihood at the point where the function is maximized subject to the restriction.\\ \smallskip
+    $$
+    \textit{LM} = 
+    \left( \frac{\partial \log L(\hat{\bm{\theta}}_R)}{\partial \hat{\bm{\theta}}_R} \right)^{\prime}
+    \bm{I}[\hat{\bm{\theta}}_R]^{-1}
+    \left( \frac{\partial \log L(\hat{\bm{\theta}}_R)}{\partial \hat{\bm{\theta}}_R} \right)
+    ~~\underset{H_0}{\sim} \chi^2(r),
+    $$
+    where $-\bm{I}[\hat{\bm{\theta}}_R]= \partial^2 LL / \partial \bm{\theta}^{\prime} \partial \bm{\theta}$ evaluated at $\bm{\theta}=\hat{\bm{\theta}}_R$.
+\end{itemize}
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE - inference, three classic tests:}\\ \bigskip
+\begin{itemize}
+    \item The $\chi^2$ distributions of the three test statistics are asymptotically valid.
+    \medskip
+    \item The three tests are asymptotically equivalent, but may differ in small samples:
+    \medskip
+    \item $W ~\geq~ \textit{LR}~\geq~ \textit{LM}$.
+    \medskip
+    \item Hence, in finite samples, $\textit{LR}$ rejects $H_0$ less often than $W$ but more often than $\textit{LM}$.
+    \medskip
+    \item The test are discussed in ML context, i.e. with known distribution of the variable (ML parameter estimates are asymptotically normally distributed).
+    
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Maximum likelihood estimator}
+\textbf{MLE -- summary}\\
 \begin{itemize}
 \item MLE is only possible if we know the form of the probability distribution function for the population (Normal, Poisson, Negative Binomial, etc.).
 \medskip
-\item MLEs possess the large sample properties of consistency and asymptotic efficiency. There is no guarantee that they possess any desirable small-sample properties. 
+\item MLE has the large sample properties of consistency and asymptotic efficiency. There is no guarantee of desirable small-sample properties. 
 \medskip
-\item Under CLRM assumptions, MLE estimator are identical to OLS estimators.
-\medskip
-\item MLE-related tests (Likelihood ratio, Wald, LM) will be discussed separately, with reference to a specific model type (e.g. LDVs in Weeks 11 to 13).
+\item Under CLRM assumptions (A1 -- A6), ML estimator is identical to OLS estimator (for $\hat{\bm{\beta}}$).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -601,6 +682,16 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \begin{frame}{Predictions from a model}
     
 \end{frame}
+%---------------------------------------------
+\begin{frame}{Predictions from a model}
+    
+\end{frame}
+
+
+
+
+
+
 %---------------------------------------------
 \section{Non-linear extensions to LRM, quantile regression}
 
