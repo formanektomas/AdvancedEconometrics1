@@ -65,7 +65,7 @@ $$
 \textbf{LRM assumptions (continued):}
 \medskip
 \begin{enumerate}
-    \item[A4] \textbf{Homoskedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$.
+    \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$.
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
     \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}].$$
 \end{enumerate}
@@ -1053,7 +1053,7 @@ Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \begin{frame}{Predictions from a model}
     \bigskip
     \begin{itemize}
-        \item Predictions from a LRM (repetition from BSc courses)
+        \item Predictions from a CLRM (repetition from BSc courses)
         \bigskip
         \item Predictions: general features, $k$FCV, Variance vs. Bias
     \end{itemize}
@@ -1062,15 +1062,15 @@ Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \subsection{Predictions from a CLRM (repetition from BSc courses)}
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item LRM and its estimate:
+\item CLRM and its estimate:
 \begin{align}\nonumber
-y & = \beta_0 + \beta_1 x_1 +\beta_2 x_2 + \dots + \beta_k x_k + u\\ \nonumber
-\hat{y} & = \hat{\beta}_0 + \hat{\beta}_1 x_1 +\hat{\beta}_2 x_2 + \dots + \hat{\beta}_k x_k \\ \nonumber
+y & = \beta_1 + \beta_2 x_3 +\beta_3 x_3 + \dots + \beta_K x_K + u\\ \nonumber
+\hat{y} & = \hat{\beta}_1 + \hat{\beta}_2 x_2 +\hat{\beta}_3 x_3 + \dots + \hat{\beta}_K x_K \\ \nonumber
 \end{align}
 \item Prediction of expected value: 
 \begin{align}\nonumber
-\hat{y}_p & = E(y|x_1 = c_1, x_2 = c_2,\dots,x_k = c_k)\\ \nonumber
-\hat{y}_p & = \hat{\beta}_0 + \hat{\beta}_1 c_1 +\hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k  \nonumber
+\hat{y}_p & = E(y|x_1 = 1, x_2 = c_2,\dots,x_K = c_K)\\ \nonumber
+\hat{y}_p & = \hat{\beta}_1 + \hat{\beta}_2 c_2 +\hat{\beta}_3 c_3 + \dots + \hat{\beta}_K c_K  \nonumber
 \end{align}
 \item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textnormal{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
 \end{itemize}
@@ -1083,14 +1083,14 @@ $\textnormal{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
 
 \vspace{0.5cm}
 \begin{itemize}
-\item Reparametrized LRM:
-$$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
+\item Reparametrized CLRM:
+$$y^*=\beta^*_1 + \beta^*_2 (x_2 -c_2) + \beta^*_3(x_3 - c_3) + \dots + u$$
 \item The following holds:
 \begin{align} \nonumber
- \hat{y}_p &= \hat{\beta_0^*} \\ \nonumber
+ \hat{y}_p &= \hat{\beta_1^*} \\ \nonumber
  \textnormal{s.e.}(\hat{y}_p ) &= 
-   \textnormal{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
- \textnormal{var}(\hat{y}_p) &= \textnormal{var}(\hat{\beta}_0^*)
+   \textnormal{s.e.}(\hat{\beta_1^*}), \quad i.e. \\ \nonumber
+ \textnormal{var}(\hat{y}_p) &= \textnormal{var}(\hat{\beta}_1^*)
 \end{align} 
 \end{itemize}
 \end{frame}
@@ -1101,14 +1101,14 @@ $$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
 \begin{itemize}
 \item Predicted and actual values of $y_p$:
 \begin{align}\nonumber
-\hat{y}_p &  = \hat{\beta}_0 + \hat{\beta}_1 c_1 + \hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k\\ \nonumber
-y_p & = \beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k + u_p \nonumber
+\hat{y}_p &  = \hat{\beta}_1 + \hat{\beta}_2 c_2 + \hat{\beta}_3 c_3 + \dots + \hat{\beta}_K c_K\\ \nonumber
+y_p & = \beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K + u_p \nonumber
 \end{align} 
 \item Prediction error
-$$\hat{e}_p = y_p - \hat{y}_p = (\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k) + u_p - \hat{y}_p$$
+$$\hat{e}_p = y_p - \hat{y}_p = (\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K) + u_p - \hat{y}_p$$
 \item Prediction error variance
 $$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
-because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
+because~~$\textnormal{var}(\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K)=0$
 \end{itemize}
 \end{frame}
 
@@ -1116,12 +1116,12 @@ because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c
 
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item If homoskedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
+\item In CLRM, homoscedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
 
 \begin{itemize}
 \item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
 \vspace{0.2cm}
-\item We estimate $\sigma^2$ from the original LRM as $(\textit{SSR}/(n-k-1))$
+\item We estimate $\sigma^2$ from the original CLRM as $(\textit{SSR}/(n-K-1))$
 \vspace{0.2cm}
 \item We get $\textnormal{var}(\hat{y}_p)$ from the reparametrized LRM
 \end{itemize}
@@ -1146,8 +1146,8 @@ because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c
 \begin{itemize}
 \item Prediction with logarithmic dependent variable
 \begin{align}\nonumber
-\log(y) &= \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k + u\\\nonumber
-\widehat{\log(y)} &= \hat{\beta}_0 + \hat{\beta}_1 x_1 + \dots + \hat{\beta}_k x_k 
+\log(y) &= \beta_1 + \beta_2 x_2 + \dots + \beta_K x_K + u\\\nonumber
+\widehat{\log(y)} &= \hat{\beta}_1 + \hat{\beta}_2 x_2 + \dots + \hat{\beta}_K x_K 
 \end{align}
 $\hat{y} =e^{\widehat{\log(y)}}$ systematically underestimates $\hat{y}$ , \\
 \vspace{0.3cm}
@@ -1193,7 +1193,7 @@ Variance of $\hat{e}_p$ (continued):
   \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
  \,&=\,
    \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
-   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoskedasticity)}\\
+   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoscedasticity)}\\
   \,&=\,
    \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
    + \hat{\sigma}^2
@@ -1245,20 +1245,18 @@ Prediction intervals: individual vs. mean value predictions:\\
 \subsection{Predictions: general features, \textit{k}FCV, Variance vs. Bias}
 \begin{frame}{Predictions -- general discussion:}
 \begin{itemize}
-\item Why is it difficult to predict individual values? 
+\item Reliability of predictions: \\ \bigskip
+
 \begin{itemize}
-\item they include ``individual'' random errors
-\item we work with estimated parameters
-\item parameters can change in time
+
+\item we work with estimated parameters \\(if we leave the CLRM paradigm, small sample properties of estimators may vary),
+\medskip
+\item parameters can change in time (discussed separately in next Block -- see Chow tests),
+\medskip
+\item predictions include ``individual'' random errors.
 \end{itemize}
 \vspace{0.3cm}
-\item Prediction of expected values
-\begin{itemize}
-\item parameters are estimated
-\item parameters can change in time
-\end{itemize}
-\vspace{0.3cm}
-\item Impacts of random errors on predictions of individual values are usually much bigger than the impacts of (variance in) estimated parameters.
+\item Impacts of random errors on predictions of individual values are usually much bigger than the impacts of variance in estimated parameters.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
