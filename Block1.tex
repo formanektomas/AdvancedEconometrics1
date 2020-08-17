@@ -9,6 +9,7 @@
 \usepackage{bm}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{graphicx}
 %
 % For more themes, color themes and font themes, see:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -24,7 +25,7 @@
 }
 %
 %
-\title[Week1]{Block 1 \\  Repetition from BSc courses  \\ LRM estimators \& non-linear extensions\\ Time series regression models}
+\title[Week1]{Block 1 \\  Repetition from BSc courses  \\ LRM estimators \& non-linear extensions\\ Predictions from regression models}
 \author{Advanced Econometrics 4EK608}
 \institute{Vysoká škola ekonomická v Praze}
 \date{}
@@ -78,7 +79,7 @@ $$
 \medskip
 The least squares estimator is unbiased (given A1 -- A3):
 \begin{align*}
-    \hat{\bm{\beta}}=green\bm{b}&=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}~=~\bm{\beta}+(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}, \\
+    \hat{\bm{\beta}}=\bm{b}&=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}~=~\bm{\beta}+(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}, \\
     &\textnormal{take expectations, iterating over}~\bm{X}:\\
     E[\bm{b}|\bm{X}]&= \bm{\beta}+E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]~=~\bm{\beta}.\\
 \end{align*}
@@ -1048,46 +1049,349 @@ Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \includegraphics[width=10cm, height=6.7cm]{img/quantil_regression.pdf}
 \end{frame}
 %---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%---------------------------------------------
-\section{Predictions from a model}
+\section{Predictions from a regression model}
 \begin{frame}{Predictions from a model}
-    
+    \bigskip
+    \begin{itemize}
+        \item Predictions from a LRM (repetition from BSc courses)
+        \bigskip
+        \item Predictions: general features, $k$FCV, Variance vs. Bias
+    \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Predictions from a model}
-    
+\subsection{Predictions from a CLRM (repetition from BSc courses)}
+\begin{frame}{Predictions - basics}
+\begin{itemize}
+\item LRM and its estimate:
+\begin{align}\nonumber
+y & = \beta_0 + \beta_1 x_1 +\beta_2 x_2 + \dots + \beta_k x_k + u\\ \nonumber
+\hat{y} & = \hat{\beta}_0 + \hat{\beta}_1 x_1 +\hat{\beta}_2 x_2 + \dots + \hat{\beta}_k x_k \\ \nonumber
+\end{align}
+\item Prediction of expected value: 
+\begin{align}\nonumber
+\hat{y}_p & = E(y|x_1 = c_1, x_2 = c_2,\dots,x_k = c_k)\\ \nonumber
+\hat{y}_p & = \hat{\beta}_0 + \hat{\beta}_1 c_1 +\hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k  \nonumber
+\end{align}
+\item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textnormal{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
+\end{itemize}
 \end{frame}
 
+%---------------------------------------------
 
+\begin{frame}{Predictions - basics}
+$\textnormal{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
 
+\vspace{0.5cm}
+\begin{itemize}
+\item Reparametrized LRM:
+$$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
+\item The following holds:
+\begin{align} \nonumber
+ \hat{y}_p &= \hat{\beta_0^*} \\ \nonumber
+ \textnormal{s.e.}(\hat{y}_p ) &= 
+   \textnormal{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
+ \textnormal{var}(\hat{y}_p) &= \textnormal{var}(\hat{\beta}_0^*)
+\end{align} 
+\end{itemize}
+\end{frame}
 
+%---------------------------------------------
 
+\begin{frame}{Predictions - basics}
+\begin{itemize}
+\item Predicted and actual values of $y_p$:
+\begin{align}\nonumber
+\hat{y}_p &  = \hat{\beta}_0 + \hat{\beta}_1 c_1 + \hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k\\ \nonumber
+y_p & = \beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k + u_p \nonumber
+\end{align} 
+\item Prediction error
+$$\hat{e}_p = y_p - \hat{y}_p = (\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k) + u_p - \hat{y}_p$$
+\item Prediction error variance
+$$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
+because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
+\end{itemize}
+\end{frame}
 
+%---------------------------------------------
 
-%------------------------------------------------------
-\section{TS-based regression models, non/stationarity, cointegration}
-
-\begin{frame}{Introduction}
+\begin{frame}{Predictions - basics}
+\begin{itemize}
+\item If homoskedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
 
 \begin{itemize}
-  \item 
+\item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
+\vspace{0.2cm}
+\item We estimate $\sigma^2$ from the original LRM as $(\textit{SSR}/(n-k-1))$
+\vspace{0.2cm}
+\item We get $\textnormal{var}(\hat{y}_p)$ from the reparametrized LRM
 \end{itemize}
+\vspace{0.5cm}
+\item Standard prediction error:
+\begin{itemize}
+\vspace{0.2cm}
+ \item $\textnormal{s.e.}(\hat{e}_p) = \sqrt[]{\textnormal{var}(\hat{e}_p)}$
+\end{itemize}
+\vspace{0.5cm}
+\item Prediction interval (95\%)
+\vspace{0.2cm}
+\begin{itemize}
+\item $\hat{y}_p \pm t_{0.025} \times \textnormal{s.e.}(\hat{e}_p) $
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------
+
+\begin{frame}{Predictions - basics}
+\begin{itemize}
+\item Prediction with logarithmic dependent variable
+\begin{align}\nonumber
+\log(y) &= \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k + u\\\nonumber
+\widehat{\log(y)} &= \hat{\beta}_0 + \hat{\beta}_1 x_1 + \dots + \hat{\beta}_k x_k 
+\end{align}
+$\hat{y} =e^{\widehat{\log(y)}}$ systematically underestimates $\hat{y}$ , \\
+\vspace{0.3cm}
+we can use a correction: $\hat{y}=\widehat{\alpha}_0 e^{\widehat{\log(y)}}$ \\
+\vspace{0.3cm}
+where $\widehat{\alpha}_0 = n^{-1} \sum_{i=1}^n \exp(\hat{u}_i)$ \\
+\vspace{0.3cm}
+is a consistent (not unbiased) estimator of $\exp{(u)}$.
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------
+\begin{frame}{Predictions - basics (Matrix form)}
+Prediction based on estimated model:\\
+\vspace{0.3cm}
+$\hat{y}_p = \bm{x}_{p}^\prime \hat{\bm{\beta}}$\\
+\vspace{0.3cm}
+Difference between prediction and actual $y_p$ value:\\
+\vspace{0.3cm}
+$\hat{e}_p \,=\, \hat{y}_p - y_p
+  \,=\, \bm{x}_{p}^\prime \hat{\bm{\beta}} - \bm{x}_{p}^\prime \bm{\beta} - u_p
+  \,=\, \bm{x}_{p}^\prime (\hat{\bm{\beta}} - \bm{\beta}) - u_p$\\
+\vspace{0.3cm}
+If $\hat{\bm{\beta}}$ is unbiased estimator for $\bm{\beta}$, \\
+$\hat{y}_p$ is an unbiased estimator for $y_p$ value:\\
+\vspace{0.3cm}
+$E(\hat{e}_p) \,=\, E(\hat{y}_p - y_p)
+   \,=\, \bm{x}_{p}^\prime E(\hat{\bm{\beta}} - \bm{\beta}) + E(-u_p) =0$\\
+\vspace{0.3cm}
+and the variance of $\hat{e}_p$ can be expressed as:\\
+\vspace{0.3cm}
+$E(\hat{e}_p^2) \,=\,\textnormal{var}(\hat{e}_p)
+   \,=\, \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p) $
+\end{frame}
+
+%---------------------------------------------
+
+\begin{frame}{Predictions - basics (Matrix form)}
+Variance of $\hat{e}_p$ (continued):
+\begin{equation*}
+\begin{aligned}
+\textnormal{var}(\hat{e}_p) \,&=\,
+  \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
+ \,&=\,
+   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
+   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoskedasticity)}\\
+  \,&=\,
+   \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
+   + \hat{\sigma}^2
+\end{aligned}
+\end{equation*}
+With growing sample size (asymptotically), \\
+$\textnormal{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
+$\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
+  \textnormal{plim} \, \hat{\sigma}_p^2 = 0$
 
 \end{frame}
-%------------------------------------------------------
 
+%---------------------------------------------
+\begin{frame}{Predictions - basics (Matrix form)}
+Variance of $\hat{e}_p$ (continued):
+\begin{equation*}
+\begin{aligned}
+\textnormal{var}(\hat{e}_p) \,&=\,
+\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}
+   + \hat{\sigma}^2\\
+   & \textnormal{after re-arranging, $\textnormal{s.e.}(\hat{e}_p)$ may be written as}\\
+   &~\\
+   \textnormal{s.e.}(\hat{e}_p) \,&=\, \hat{\sigma} \cdot \,  
+   \sqrt[]{1+ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,,\\
+   &\textnormal{which relates to the individual prediction error. }\\~&~\\
+   &\textnormal{For mean prediction errors (considering $\hat{\sigma}_p^2$ only): }\\
+   \textnormal{s.e.}(\widetilde{e}_p) \,&=\, \hat{\sigma} \cdot \,  
+   \sqrt[]{~~~~ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,.\\
+\end{aligned}
+\end{equation*}
+
+\end{frame}
+
+%---------------------------------------------
+\begin{frame}{Predictions - basics (Matrix form)}
+Prediction intervals: individual vs. mean value predictions:\\
+\vspace{0.3cm}
+\textbf{Individual prediction:} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\hat{e}_p)$\\
+\vspace{0.3cm}
+\textbf{Mean value:} \hspace{1.7cm} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\widetilde{e}_p)$
+
+\begin{figure}
+\includegraphics[width=0.6\textwidth]{img/P3_PredError.jpg}
+\end{figure}
+
+\end{frame}
+
+%---------------------------------------------
+\subsection{Predictions: general features, \textit{k}FCV, Variance vs. Bias}
+\begin{frame}{Predictions -- general discussion:}
+\begin{itemize}
+\item Why is it difficult to predict individual values? 
+\begin{itemize}
+\item they include ``individual'' random errors
+\item we work with estimated parameters
+\item parameters can change in time
+\end{itemize}
+\vspace{0.3cm}
+\item Prediction of expected values
+\begin{itemize}
+\item parameters are estimated
+\item parameters can change in time
+\end{itemize}
+\vspace{0.3cm}
+\item Impacts of random errors on predictions of individual values are usually much bigger than the impacts of (variance in) estimated parameters.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+
+\begin{frame}{Mean Squared Error of prediction}
+
+We can generalize the previous discussion on predictions by considering both biased and unbiased predictors and by allowing for different functional forms and complexity levels in predictive models. \\ \bigskip 
+Predictions may be compared/evaluated using:
+
+\medskip
+\begin{itemize}
+   \item $\textit{MSE} = E
+   \left[ \left( y_i - \hat{f}(\bm{x}_i) \right)^2 \right]$\\
+   \smallskip
+   where $\hat{f}(\bm{x}_i)$ is the prediction that $\hat{f}$ generates for the $i$-th regressor set. $\hat{f}$ represents a general class of predictors (linear, non-linear, non-parametric, etc.) and it may produce either biased or unbiased predictions
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+Population equation example: $~y = \textnormal{sin}(x)+u$
+\vspace{-1cm}
+\begin{figure}
+\includegraphics[angle=270,trim = 0cm 1cm 0cm 0cm, clip,width=0.9\textwidth]{img/VarBias.pdf}
+\end{figure}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Train sample \& Test sample}
+
+Suppose we fit a model $\hat{f}(\bm{x})$ to some training data $\textnormal{Tr}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^n$ and we wish to see how well it performs.
+
+\begin{itemize}
+\item We could compute $\textit{MSE}$ over $\textnormal{Tr}$:
+$$ \textit{MSE}_{\textnormal{Tr}} = \frac{1}{n}
+   \sum_{i \in \textnormal{Tr}}
+   \left[y_i - \hat{f}(\bm{x}_i) \right]^2 $$
+\end{itemize}
+
+When searching for the ``best'' model by minimizing $ \textit{MSE}$, the above statistic would lead to over-fit models.
+\medskip
+\begin{itemize}
+\item Instead, we should (if possible) compute the $ \textit{MSE}$ using fresh test
+data $\textnormal{Te}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^m$:
+$$ \textit{MSE}_{\textnormal{Te}} = \frac{1}{m}
+    \sum_{i \in \textnormal{Te}}
+   \left[y_i - \hat{f}(\bm{x}_i) \right]^2 $$
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textnormal{Tr}$ and let $\left\lbrace y_0, \bm{x}_0 \right\rbrace$ be a test observation drawn from the population. If the true model is $y_i = f(\bm{x}_i) + \varepsilon_i$, \\ with $f(\bm{x}_i)= \textnormal{E}(y_i | \bm{x}_i )$,
+then the $\textbf{expected test MSE}$ can be decomposed into:\\
+\medskip
+$E(\textit{MSE}_0)
+   = \textnormal{var}(\hat{f}(\bm{x}_0))
+   + [\textnormal{Bias\,}(\hat{f}(\bm{x}_0))]^2
+   + \textnormal{var}(\varepsilon_0),$
+
+where\\
+\smallskip
+$\textnormal{Bias\,}(\hat{f}(\bm{x}_0)) 
+       = E[\hat{f}(\bm{x}_0)]
+       - f(\bm{x}_0)$,\\
+$\varepsilon_0$ is the irreducible error: $E(\textit{MSE}_0) \geq \varepsilon_0$,\\ 
+all three RHS elements are non-negative,\\
+\smallskip
+The above equation refers to the average test \textit{MSE} that we would obtain if we repeatedly estimated $f(\bm{x})$ using a large number of training sets and then tested each $\hat{f}(\bm{x})$ at $\bm{x}_0$.
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+$E(\textit{MSE}_0)
+   = \textnormal{var}(\hat{f}(\bm{x}_0))
+   + [\textnormal{Bias\,}(\hat{f}(\bm{x}_0))]^2
+   + \textnormal{var}(\varepsilon_0),$\\
+
+\begin{figure}
+\centering
+\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,width=0.6\textwidth]{img/biasvariance.png}
+\end{figure}
+
+\small{This is an illustration, $\textnormal{var}(\varepsilon_0)$ not shown explicitly. \\(lies at the /asymptotic/ minima of Variance and $\textnormal{Bias}^2$)}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{$k$-Fold Cross Validation}
+\begin{itemize}
+\item Training error ($\textit{MSE}_{\textnormal{Tr}}$) can be calculated easily. 
+\item However, $\textit{MSE}_{\textnormal{Tr}}$ is not a good approximation for the $\textit{MSE}_{\textnormal{Te}}$ (out-of sample predictive properties of the model).
+\item Usually, $\textit{MSE}_{\textnormal{Tr}}$ dramatically underestimates $\textit{MSE}_{\textnormal{Te}}$.
+\end{itemize}
+\bigskip
+Cross-validation is based on re-sampling (similar to bootstrap).\\
+\medskip
+Repeatedly fit a model of interest to samples formed from the training set \& make ``test sample'' predictions, in order to obtain additional information about predictive properties of the model.\\
+\end{frame}
+%---------------------------------------------
+\begin{frame}
+\frametitle{$k$-Fold Cross Validation}
+
+\begin{itemize}
+  \item In $k$-Fold Cross-Validation ($k$FCV), the original sample is randomly partitioned into $k$ roughly equal subsamples (divisibility). 
+  \smallskip
+  \item One of the $k$ subsamples is retained as the test sample, and the remaining $(k-1)$ subsamples are used as training data. 
+  \smallskip
+  \item The cross-validation process is then repeated $k$ times \\(the $k$ folds), with each of the $k$ subsamples used exactly once as the test sample. 
+  \smallskip
+  \item The $k$ results from the folds can then be averaged to produce a single estimation. 
+  \smallskip
+  \item $k = 5$ or $k=10$ is commonly used.
+\end{itemize}  
+\end{frame}
+%------------------------------------------------
+\begin{frame}{$k$-Fold Cross Validation}
+\begin{center}
+$k$FCV example for CS data \& $k=5$: \\
+(random sampling, no replacement)
+\begin{figure}
+\includegraphics[width=0.7\textwidth]{img/kFCV2.pdf}
+\end{figure}
+In TS, a similar ``Walk forward'' test procedure may be applied.
+\end{center}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{$k$-Fold Cross Validation}
+$ \textit{CV}_{(k)}= \frac{1}{k}\displaystyle\sum_{s=1}^{k} \textit{MSE}_s ,$
+\vspace{0.3cm}
+\begin{itemize}
+\item [where] $\textit{CV}_{(k)}$ is the cross-validated estimate of \textit{MSE},
+\item[ ] $k$ is the number of folds used (e.g. 5 or 10),
+\item[ ] $\textit{MSE}_s = \frac{1}{m_s} \sum_{i \in C_s}^{}(y_i - \widehat{y}_i)^2 $ 
+\item[ ] $m_s$ is the number of observations in the $s$-th test sample
+\item[ ] $C_s$ refers to the $s$-th set of test sample  observations. 
+\end{itemize}
+\vspace{0.3cm}
+As we evaluate predictions from two or more models, 
+\\we look for the lowest $\textit{CV}_{(k)}$. 
+\end{frame}
 \end{document}
