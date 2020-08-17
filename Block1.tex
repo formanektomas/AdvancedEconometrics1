@@ -785,7 +785,6 @@ $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-
 \begin{frame}{Nonlinear regression: computing NLS estimates}
 For nonlinear models, a closed-form solution (NLS estimator) usually does not exist.\\
 \medskip
@@ -797,12 +796,27 @@ For nonlinear models, a closed-form solution (NLS estimator) usually does not ex
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+\begin{frame}{Nonlinear regression: examples}
+\begin{itemize}
+    \item LRM on TS with autocorrelation:\\ \bigskip
+    $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,\\ \smallskip
+    $y_t=\bm{x}_t^{\prime} \bm{\beta} +\rho u_{t-1}+\varepsilon_t \, \qquad \textnormal{note:~} u_{t-1} = y_{t-1} - \bm{x}_{t-1}^{\prime} \bm{\beta} $, \\ \smallskip ~~~hence: \\ \smallskip
+    $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} + \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \smallskip ~~~which is non-linear in parameters ($\rho \bm{\beta}$). \\ \bigskip
+    \item Non-linear consumption function example:\\ \bigskip 
+    $\textit{cons}_i = \beta_1 + \beta_2 \textit{inc}_i^{\beta_3} + \varepsilon_i$
+    \\ \medskip ~~~special case: model is linear for $\beta_3 = 1$ (can be tested).
+\end{itemize}
 
-\begin{frame}{Nonlinear regression: computing NLS estimates}
+
+
+
+
+    
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Nonlinear regression: examples}
 Examples 7.4 \& 7.8 (Greene):\\ Analysis of a Nonlinear Consumption Function\\
-%OLS \\
-NLS with starting values equal to 0 \\NLS with starting values equal to the parameters from the OLS estimation (c(3) equal to 1).
-%\includegraphics[width=\textwidth, height=6cm]{Obrazek1}
+OLS version: for $\beta_3 = 1$.\\ \medskip
 \tiny
 \begin{table}[]
 \centering
@@ -834,9 +848,9 @@ Prob(F-statistics)                                         & 0.000000           
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Nonlinear regression: computing NLS estimates}
+\begin{frame}{Nonlinear regression: examples}
 Examples 7.4 \& 7.8 (Greene): \\Analysis of a Nonlinear Consumption Function\\
-%\includegraphics[width=\textwidth, height=7cm]{Obrazek2}
+NLS with starting values equal to 0\\ \medskip
 \tiny
 \begin{table}[]
 \centering
@@ -867,9 +881,9 @@ Prob(F-statistics)                                           & 0.000000         
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Nonlinear regression: computing NLS estimates}
+\begin{frame}{Nonlinear regression: examples}
 Examples 7.4 \& 7.8 (Greene): \\Analysis of a Nonlinear Consumption Function\\
-%\includegraphics[width=\textwidth, height=7cm]{Obrazek3}
+NLS with starting values equal to the parameters from the OLS estimation (c(3) equal to 1)\\ \medskip
 \tiny
 \begin{table}[]
 \centering
@@ -944,9 +958,9 @@ $$
 QREG coefficient interpretation example:\\
 \bigskip
 \begin{itemize}
-    \item[(1)] $\textnormal{wage}_i = \beta_0 + u_i$
-    \item[(2)] $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + u_i$
-    \item[(3)] $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + \beta_2 \, \textnormal{exper}_i + u_i$
+    \item[(1)] $\textnormal{wage}_i = \beta_1 + u_i$
+    \item[(2)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + u_i$
+    \item[(3)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + \beta_3 \, \textnormal{exper}_i + u_i$
 \end{itemize}
 \bigskip
 The above equations are estimated by OLS / LAD / QREG:\\
@@ -956,82 +970,20 @@ The above equations are estimated by OLS / LAD / QREG:\\
  \hline
  Coefficient   &     OLS     &   LAD ($q=\tfrac{1}{2}$)   &  QREG ($q=\tfrac{3}{4}$)\\
  \hline 
- (1) $\beta_0$ &   $\hat{\beta}_0=\overline{y}$ & $\hat{\beta}_0=\tilde{\,y\,}$ & $\hat{\beta}_0=Q_3$\\
+ (1) $\beta_1$ &   $\hat{\beta}_1=\overline{y}$ & $\hat{\beta}_1=\tilde{\,y\,}$ & $\hat{\beta}_1=Q_3$\\
  & sample mean  & sample median & sample $3^{rd}$ quartile\\
  \hline
- (2) $\beta_0, \beta_0\!+\!\beta_1$ & conditional sample mean & cond. sample median & conditional sample $Q_3$\\
+ (2) $\beta_1, \beta_1\!+\!\beta_2$ & conditional sample mean & cond. sample median & conditional sample $Q_3$\\
   & wage: male / female & wage: male / female & wage: male / female \\
   \hline
-  (3) $\beta_2$ & change in expected mean & change in exp. median & change in expected $Q_3$\\
+  (3) $\beta_3$ & change in expected mean & change in exp. median & change in expected $Q_3$\\
    & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$\\
    \hline
 \end{tabular}
 \end{frame}
 %---------------------------------------------
+
 \begin{frame}{Quantile regression example}
-Example 7.9 (Greene): \\Cobb-Douglass Production Function\\
-OLS $\rightarrow$ Standardized residuals indicate two outliers $\rightarrow$ LAD
-\tiny
-\begin{table}[]
-\centering
-\begin{tabular}{@{}lllll@{}}
-\toprule
-\multicolumn{5}{l}{\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Depednent Variable: LNYN\\ Method: Least Squares\\ Sample 1 25 \\ Included observations: 25\end{tabular}}} \\
-\multicolumn{5}{l}{}                                                                                                                                                                                 \\
-\multicolumn{5}{l}{}                                                                                                                                                                                 \\
-\multicolumn{5}{l}{}                                                                                                                                                                                 \\
-\multicolumn{5}{l}{}                                                                                                                                                                                 \\ \midrule
-Variable                                     & Coeficient                           & Std.Error                          & t-Statistic                          & Prob.                              \\
-\midrule
-C                                            & 2.293263                             & 0.107183                           & 21.39582                             & 0.0000                             \\
-LNKN                                         & 0.278982                             & 0.080686                           & 3.457639                             & 0.0022                             \\
-LNLN                                         & 0.927312                             & 0.012055                           & 9.431359                             & 0.0000                             \\
-\midrule
-R-squared                                    & 0.959742                             & \multicolumn{2}{l}{Mean dependent var}                                    & 0.771734                           \\
-Adjusted R-squared                           & 0.956082                             & \multicolumn{2}{l}{S.D. dependent var}                                    & 0.899306                           \\
-S.E. of regression                           & 0.188463                             & \multicolumn{2}{l}{Akaike info criterion}                                 & -0.387663                          \\
-Sum squared resid                            & 0.781403                             & \multicolumn{2}{l}{Schwarz criterion}                                     & -0.241398                          \\
-Log likelihood                               & 7.845786                             & \multicolumn{2}{l}{Hannan-Quinn criter.}                                  & -0.347095                          \\
-F-statistics                                 & 262.2396                             & \multicolumn{2}{l}{Durbin-Watson stat}                                    & 1.937830                           \\
-Prob(F-statistics)                           & 0.000000                             & \multicolumn{2}{l}{}                                                      &                                    \\ \bottomrule
-\end{tabular}
-\end{table}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Quantile regression example}
-Example 7.9 (Greene): Cobb-Douglass Production Function\\
-\includegraphics[width=\textwidth, height=7cm]{img/Obrazek5}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Quantile regression example}
-Example 7.9 (Greene): \\Cobb-Douglass Production Function\\
-\small{(results differ from the textbook)}
-\tiny
-\begin{table}[]
-\centering
-\begin{tabular}{@{}lllll@{}}
-\toprule
-\multicolumn{5}{l}{\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Depednent Variable: LNYN\qquad Method: Quantile Regression (Median)\\  Sample 1 25\qquad Included observations: 25\\ Huber Sandwich Standard Errors \& Covariance\\ Sparsity method: Kemel (Epanechnikov) using residuals\\ Bandwidth method: Hall-Sheather, bw=0.33227\\ Estimation successfully identifies unique optimal solution\end{tabular}}} \\
-\multicolumn{5}{l}{}                                                                                                                                                                                                                                                                                                                                                                                                                     \\
-\multicolumn{5}{l}{}                                                                                                                                                                                                                                                                                                                                                                                                                     \\
-\multicolumn{5}{l}{}                                                                                                                                                                                                                                                                                                                                                                                                                     \\
-\multicolumn{5}{l}{}                                                                                                                                                                                                                                                                                                                                                                                                                     \\
-\multicolumn{5}{l}{}                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \midrule
-Variable                                                                                       & Coeficient                                                                       & Std.Error                                                                       & t-Statistic                                                                       & Prob.                                                                          \\ \midrule
-C                                                                                              & 2.275038                                                                         & 0.179268                                                                        & 12.69071                                                                          & 0.0000                                                                         \\
-LNKN                                                                                           & 0.260365                                                                         & 0.122447                                                                        & 2.126351                                                                          & 0.0449                                                                         \\
-LNLN                                                                                           & 0.927243                                                                         & 0.152593                                                                        & 6.076572                                                                          & 0.0000                                                                         \\ \midrule
-Pseudo R-squared                                                                               & 0.794575                                                                         & \multicolumn{2}{l}{Mean dependent var}                                                                                                                              & 0.771734                                                                       \\
-Adjusted R-squared                                                                             & 0.775900                                                                         & \multicolumn{2}{l}{S.D. dependent var}                                                                                                                              & 0.899306                                                                       \\
-S.E. of regression                                                                             & 0.190505                                                                         & \multicolumn{2}{l}{Objective}                                                                                                                                       & 1.627051                                                                       \\
-Quantile dependent va...                                                                       & 0.966677                                                                         & \multicolumn{2}{l}{Restr. objective}                                                                                                                                & 7.920415                                                                       \\
-Sparsity                                                                                       & 0.594465                                                                         & \multicolumn{2}{l}{Quasi-LR statistic}                                                                                                                              & 84.69274                                                                       \\
-Prob(Quasi-LR stat)                                                                            & 0.000000                                                                         & \multicolumn{2}{l}{}                                                                                                                                                &                                                                                \\ \bottomrule
-\end{tabular}
-\end{table}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Quantile regression example 2}
 Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \quad OLS $\quad \& \quad$ LAD $\quad \& \quad$ Income elasticity at different deciles \\
 \tiny
