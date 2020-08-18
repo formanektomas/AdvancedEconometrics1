@@ -270,64 +270,67 @@ $$
 %------------------------------------------------------
 \begin{frame}{Serial correlation in TSRM}
 \begin{itemize}
-\item Causes and effects of autocorrelation (DGP, dynamic completeness of models; unbiased $\hat{\beta}_j$, biased inference, etc.)
-\medskip
+\item Causes and effects of autocorrelation \\ \bigskip DGP, dynamic (in)completeness of models\\ \medskip unbiased $\hat{\beta}_j$, biased inference
+\bigskip
+\bigskip
 \item FGLS (only with strictly exogenous regressors)
+\bigskip
 \item OLS + robust inference (Newey-West \& other HAC s.e.)
-\medskip
-\item Testing AR(1) serial correlation with strictly exogenous regressors
+\end{itemize}
+\end{frame}
+%------------------------------------------------------
+\begin{frame}{Serial correlation in TSRM}
+Testing AR(1) with strictly exogenous regressors\\ \medskip
+\begin{itemize}
+\item $\rho$ estimation:
 \begin{align}\nonumber
 y_t & = \beta_0+\beta_1 x_{t1}+\dots+\beta_k x_{tk}+u_t \\ \nonumber
 u_t & = \rho u_{t-1} + e_t \\ \nonumber
 \hat{u}_t &= \rho \hat{u}_{t-1}+error \\ \nonumber
 H_0 & : \rho=0 \nonumber
 \end{align}
-\item Durbin-Watson test
+\item Durbin-Watson test: $$d = \frac{\sum \limits^n_{t=2} \big(\hat{u}_t - \hat{u}_{t-1}\big)^2}{\sum \limits^n_{t=1}\hat{u}^2_t}$$.
+\begin{itemize}
+\item small sample validity (conditions apply)\\
+\item $d$-statistic: symmetric distribution $\left\langle 0,4 \right\rangle, \> E(d)=2$
+\item $ d \approx 2(1-\hat{\rho}) $    i.e.   $\hat{\rho} \approx 1-d/2$. Test for: \ $ H_0: \rho=0$.
+\end{itemize}
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
 \begin{frame}{Serial correlation}
+Testing serial correlation with general regressors\\ \medskip
 \begin{itemize}
-\item Testing AR(1) serial correlation with general regressors
+\item Testing AR(1):
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho \hat{u}_{t-1} + \textit{error}$$
 $$H_0 : \rho = 0$$
-(We can use a heteroscedasticity-robust version of the test)
-
-\vspace{0.5cm}
-
-\item Breusch-Godfrey test for AR($q$) serial correlation
+We can use a heteroscedasticity-robust version of the $t$-test.\\ \bigskip
+\item Breusch-Godfrey test for AR($q$) serial correlation:
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
-$$H_0 : \rho_1 = \dots = \rho_q = 0$$
-(Use $F$-test \quad or \quad LM-test: $(n-q)R_u^2 \underset{H_0}{\sim} \chi^2_{(q)}$.)
+$$H_0 : \rho_1 = \dots = \rho_q = 0$$ \\ \medskip
+Use $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q)}$.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\section{GLSM – matrix form}
-
-\begin{frame}{GLSM – matrix form}
+\begin{frame}{GLSM, matrix form description}
+Generalized linear regression model (GLRM) accomodates both autocorrelated and heteroscedastic residuals in the LRM.\\ \medskip
 \begin{itemize}
-\item In the generalized linear regression model (GLRM):
+\item GLRM properties:
 \begin{itemize}
 \item $E(\boldsymbol{u})=\boldsymbol{0}$
 \item $E(\boldsymbol{uu}^T)=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
 \end{itemize}
 \vspace{0.5cm}
-\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{T}=\bm{I}_n$) to get: 
-$$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
+\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{T}=\bm{I}_n$) to get: \\ \medskip
+$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$ \\ \medskip
 in the transformed model.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
-\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}$ \\
+\begin{frame}{GLSM, matrix form description}
+\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; OLS estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}$ \\
 ~\\
-\textbf{GLRM:} $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\
+\textbf{GLRM} transformation principle:  $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\ \medskip
 \begin{itemize}
 \item For covariance matrix of the transformed model, we get:
 $$E(\boldsymbol{T}\boldsymbol{u}(\boldsymbol{T}\boldsymbol{u})^T)=
@@ -336,11 +339,9 @@ We need $\boldsymbol{THT}^T \! = \boldsymbol{I}$; from this relation we derive t
 Transformation gives us model that fulfills previously broken G-M assumption.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
-\textbf{GLSM algorithm:}
+\begin{frame}{GLSM, matrix form description}
+\textbf{GLSM algorithm:} \\ \medskip
 \begin{enumerate}
 \item Estimate the model using OLS.
 \item Test assumption $E(\boldsymbol{uu}^T)=\sigma^2 \boldsymbol{I}_n$, if  broken:
@@ -350,15 +351,12 @@ Transformation gives us model that fulfills previously broken G-M assumption.
 \item If necessary, reverse-transform the model estimated to get parameter estimates for the original specification of the LRM.
 \end{enumerate}
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
+\begin{frame}{GLSM, matrix form description}
 \begin{itemize}
 \item Matrices $\boldsymbol{H}$ and $\boldsymbol{T}$ of the GLSM algorithm differ for heteroscedasticity  and autocorrelation.
 \vspace{0.2cm}
 \begin{itemize}
-
 \item heteroscedasticity (CS data, matrix form, quick recap):\\
 $$\sigma^2 \bm{H} = \sigma^2 
 \begin{bmatrix}
@@ -374,25 +372,19 @@ $$\sigma^2 \bm{H} = \sigma^2
      0 & 0 & \cdots & \sigma^2_n 
 \end{bmatrix}
 $$
-
 GLS: $\bm{\hat{\beta}}=(\bm{X}^T \bm{\hat{H}}^{-1} \bm{X})^{-1} \bm{X}^T \bm{\hat{H}}^{-1} \bm{y}$\\
 where WLS or FGLS method is used to estimate/set $\bm{\hat{H}}$.
 \end{itemize}
 \end{itemize}
-
-
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
+\begin{frame}{GLSM, matrix form description}
 Autocorrelation (matrix form):
 \begin{itemize}
 \item Let's assume autocorrelation of the AR(1) form $u_t = \rho u_{t-1}+ \varepsilon_t$  ; \\ where $\rho$ is coefficient of autocorrelation $\rho \in (-1; 1)$
 \end{itemize}
 \vspace{0.2cm}
 If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^T)$ is :
-
 $$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^2}
     \begin{bmatrix}
     1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
@@ -401,13 +393,10 @@ $$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^
     \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
      \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
 \end{bmatrix}$$
-
 ( we assume homoscedasticity and known variance $\textnormal{var}(u_t)$ )
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
+\begin{frame}{GLSM, matrix form description}
 \begin{itemize}
 \item Explanation of matrix $E(\boldsymbol{uu}^T)$: start with $u_t = \rho u_{t-1}+ \varepsilon_t$\\
 $u_t= \varepsilon_t + \rho \varepsilon_{t-1} + \rho^2 \varepsilon_{t-2} + \dots$ \qquad where $\varepsilon$ are $i.i.d.$\\
@@ -418,7 +407,6 @@ Hence, $\sigma^2_u \equiv \textnormal{var}(u_t)=
 (Note: $\textnormal{cov}(u_t,u_{t+s})=\rho^s \sigma^2_u$ is independent of $t$ if $|\rho|<1$.)\\
 \vspace{0.3cm}
 \item That is why: 
-
 $H=\begin{bmatrix}
     1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
     \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
@@ -430,11 +418,9 @@ $H=\begin{bmatrix}
 \item Usually, we do not know the matrix $\boldsymbol{H}$, it must be estimated. In such case, we call the method Feasible General Least Squares (FGLS).
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
-\textbf{Prais - Winsten method (transformation)}
+\begin{frame}{GLSM, matrix form description}
+\textbf{Prais -- Winsten method (transformation)}
 \begin{itemize}
 \item Transformation by $\boldsymbol{T}$: transformed vector $\boldsymbol{y}$ and matrix $\boldsymbol{X}$
 $$\boldsymbol{T}=\sqrt[]{\frac{1}{1-\rho^2}}
@@ -460,39 +446,27 @@ $$ $$
 \cdots & \cdots & \cdots &
 \end{bmatrix}
 $$
-
 \item P-W  transformation: quasi-differencing of all variables of the LRM and an approximation for the first period. In the transformation, we skip the fraction in front of $\boldsymbol{T}$-matrix. As a constant, it does not influence the regression result.
-
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\begin{frame}{GLSM – matrix form}
+\begin{frame}{GLSM, matrix form description}
 \textbf{Cochrane-Orcutt method (transformation)}
 \begin{itemize}
 \item P-W method without the approximation of the first observation.
 \end{itemize}
-
 \vspace{1cm}
-
 For both the P-W and C-O methods, we usually use iterations to make the estimates of the autoregressive coefficient and regression parameters of the model more accurate.
-
 \end{frame}
-
 %------------------------------------------------------
 
-\begin{frame}{Additional TS topics}
-\begin{itemize}
-\item heteroscedasticity in time series
-\vspace{1cm}
-\begin{itemize}
-\item Autoregressive Conditional heteroscedasticity (ARCH) models included
-\end{itemize}
-\end{itemize}
-\end{frame}
 
-%------------------------------------------------------
+
+
+
+
+
+
 
 \begin{frame}{Examples of stochastic processes}
 Weakly dependent time series
