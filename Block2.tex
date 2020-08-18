@@ -175,7 +175,7 @@ $$\hat{\ddot{y}}_{t}=\hat{\beta_2}\ddot{x}_{t2}+\hat{\beta_3}\ddot{x}_{t3}$$
 \section{Stationarity}
 \begin{frame}{Stationary and weakly dependent time series}
 \begin{itemize}
-\item Strict exogeneity, homoskedasticity, absence of serial correlation and normality assumptions are very limiting 
+\item Strict exogeneity, homoscedasticity, absence of serial correlation and normality assumptions are very limiting 
 \medskip
 \item With large samples, weaker assumptions are sufficient
 \medskip
@@ -183,160 +183,104 @@ $$\hat{\ddot{y}}_{t}=\hat{\beta_2}\ddot{x}_{t2}+\hat{\beta_3}\ddot{x}_{t3}$$
 \medskip
 Time series is strictly stationary if its marginal and all joint distributions are invariant across time.
 \medskip
-\item \textbf{Covariance stationarity:} first two moments and auto-covariance do not change over time.
+\item \textbf{Covariance stationarity:} first two moments and auto-covariance do not change over time.\\
+$E(y_t)= \mu,\qquad \textnormal{var}(y_t) = \sigma^2,\qquad \textnormal{cor}(y_t,y_{t+h})=f(h)$
 \medskip
 \item \textbf{Weak dependency:} correlation between $x_t$ and $x_{t+h}$ ``quickly'' converges to zero with $h$ growing to infinity.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-
 \begin{frame}{Stationary and weakly dependent time series}
 \begin{itemize}
 \item For Central Limit Theorem (CLT) and Law of Large Numbers (LLN) to hold, dependency between observations must not be too strong and must sufficiently quickly decrease with growing time distance between them.
-
-\vspace{0.5cm}
-
+\medskip
 \item Time series can be non-stationary and weakly dependent.
 \end{itemize}
-
 \begin{block}{Notes on CLT \& LLN}
 \textbf{CLT} implies that the sum of independent random variables \\(or weakly dependent RVs) -- if centered and standardized by \\its s.d. -- has an asymptotic distribution $N(0,1)$.\\ \vspace{0.1cm}
 \textbf{LLN} theorem implies that the average from a random sample converges in probability to the population average; LLN holds for stationary and weakly dependent series.
 \end{block}
-
 \end{frame}
-
 %------------------------------------------------------
 \begin{frame}{Stationary and weakly dependent time series}
 \textbf{Examples of weakly dependent time series:}
 \bigskip
 \begin{itemize}
 \item Moving average process of order one: \texttt{ma(1)}
-$$x_t=e_t+\alpha_1 e_{t-1},$$
-where $e_t$ is an $\textit{iid}$ time series.\\ $$\textnormal{corr}(x_t,x_{t+1})=\tfrac{\alpha_1}{1+\alpha_1^2},$$ observations with higher time distance than 1 are uncorrelated.
-
+$$y_t=e_t+\alpha_1 e_{t-1},$$
+where $e_t$ is an $\textit{iid}$ time series.\\ $$\textnormal{corr}(y_t,y_{t+1})=\tfrac{\alpha_1}{1+\alpha_1^2},$$ observations with higher time distance than 1 are uncorrelated.
 \bigskip
-
 \item Stable autoregressive process of order 1: \texttt{ar(1)}\\
 \medskip
 Under stability condition $|\rho|<1$, it can be demonstrated that (Wooldridge, Introductory econometrics, ch. 11.1):
 $$y_t=\rho y_{t-1} + e_t \Rightarrow \textnormal{corr}(y_t,y_{t+h})=\rho^h$$
 If stability condition holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
 \end{itemize}
-
 \end{frame}
-
 %------------------------------------------------------
-
 \begin{frame}{Asymptotic properties of OLS estimators}
 \begin{itemize}
 \item TS.1' Linearity \\The stochastic process 
 $\{(x_{t1},x_{t2},\dots,x_{tk},y_t);t=1,2,\dots, n\}$ follows the linear model $ y_t = \beta_0 + \beta_1 x_{t1} + \dots + \beta_k x_{tk}+u_t$ 
 \\ \vspace{0.1cm} We assume both dependent and independent variables are stationary and weakly dependent.
-\vspace{0.5cm}
+\medskip
 \item TS.2' No perfect collinearity \\
 There is no perfect collinearity among regressors. \\
 {\footnotesize Comment: the same assumption as TS.2}
-\vspace{0.5cm}
+\medskip
 \item TS.3' Contemporaneous exogeneity 
 \\Null conditional expected value of errors: 
 $$E(u_t|x_{t1},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$$
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
 \begin{frame}{Asymptotic properties of OLS estimators}
 \begin{itemize}
-\item Under assumptions TS.1', TS.2' and TS.3', \\OLS estimators are consistent (not unbiased)\\
-\vspace{0.5cm}
-TS.1' - TS.3' $\Rightarrow \textnormal{plim}\,\hat{\beta}_j = \beta_j, \hspace{0.5cm} j=0, 1, \dots, k$
-\end{itemize}
-\end{frame}
-
-%------------------------------------------------------
-
-\begin{frame}{Asymptotic properties of OLS estimators}
-
-By removing strict exogeneity (changing TS.3 to TS.3'):
-\vspace{0.5cm}
-\begin{itemize}
-\item There is no restriction on how $u_t$ is related to regressors in other time periods. Hence: 
-\vspace{0.5cm}
-
-\item We allow for feedback from (lagged) explained variable to ``future'' values of explanatory variables 
-\vspace{0.5cm}
-
-\item We can use lagged dependent variable as regressors.
-\end{itemize}
-
-\end{frame}
-
-%------------------------------------------------------
-
-\begin{frame}{Asymptotic properties of OLS estimators}
-\begin{itemize}
-\item TS.4' Contemporaneous homoskedasticity
+\item TS.4' Contemporaneous homoscedasticity
 $$\textnormal{var}(u_t|\boldsymbol{x}_t)=\textnormal{var}(u_t)=\sigma^2$$
-
 \vspace{0.5cm}
-
 \item TS.5' No serial correlation \\(autocorrelation in residuals is not present)
 $$\textnormal{corr}(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s ) = 0, t\neq s$$
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
 \begin{frame}{Asymptotic properties of OLS estimators}
+Under assumptions TS.1', TS.2' and TS.3', \\ \medskip
 \begin{itemize}
-\item Theorem: Asymptotic normality of OLS estimators \\
-\vspace{0.5cm}
-Under assumptions TS.1' – TS.5', OLS estimators are asymptotically normally distributed. Usual OLS standard errors, $t$-statistics and $F$-statistics are asymptotically valid.
+\item OLS estimators are consistent (not unbiased)\\ 
+\medskip
+TS.1' - TS.3' $\Rightarrow \textnormal{plim}\,\hat{\beta}_j = \beta_j, \hspace{0.5cm} j=0, 1, \dots, k$
+\end{itemize} \bigskip
+Removing strict exogeneity (TS.3 $\rightarrow$ TS.3'): no restriction on how $u_t$ is related to regressors in other time periods. Hence: \\
+\medskip
+\begin{itemize}
+\item We allow for feedback from (lagged) explained variable to ``future'' values of explanatory variables 
+\medskip
+\item We can use lagged dependent variable as regressors.
+\end{itemize} \medskip
+Theorem: Asymptotic normality of OLS: Under assumptions TS.1' – TS.5', OLS estimators are asymptotically normally distributed. \medskip
+\begin{itemize}
+\item Usual OLS standard errors, $t$-statistics and $F$-statistics are asymptotically valid.
 $$
 \hat{\bm{\beta}} \rightarrow N(\bm{\beta}, \hat{\sigma}^2(\bm{X}^{\prime} \bm{X})^{-1} )
 \textnormal{~as~} n \rightarrow \infty
 $$
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------------
-
-\section{Additional TS topics}
-\begin{frame}{Additional TS topics}
+\begin{frame}{Serial correlation in TSRM}
 \begin{itemize}
-\item Using trend-stationary time series in regression analysis.
-
-\vspace{0.5cm}
-
-\item Using highly persistent (strongly dependent) time series in regression analysis
-\begin{itemize}
-\item Random walk, random walk with drift, unit root
-process
-\item Order of integration, testing of unit root
-\item Cointegration
-\end{itemize}
-
-\vspace{0.5cm}
-
-\item Dynamically Complete Models
-\end{itemize}
-\end{frame}
-
-%------------------------------------------------------
-
-\begin{frame}{Serial correlation}
-\begin{itemize}
-\item Causes and effects
+\item Causes and effects of autocorrelation (DGP, dynamic completeness of models; unbiased $\hat{\beta}_j$, biased inference, etc.)
+\medskip
 \item FGLS (only with strictly exogenous regressors)
 \item OLS + robust inference (Newey-West \& other HAC s.e.)
-\vspace{0.6cm}
+\medskip
 \item Testing AR(1) serial correlation with strictly exogenous regressors
 \begin{align}\nonumber
 y_t & = \beta_0+\beta_1 x_{t1}+\dots+\beta_k x_{tk}+u_t \\ \nonumber
 u_t & = \rho u_{t-1} + e_t \\ \nonumber
 \hat{u}_t &= \rho \hat{u}_{t-1}+error \\ \nonumber
-H_0 & : \rho=0\\\nonumber
+H_0 & : \rho=0 \nonumber
 \end{align}
 \item Durbin-Watson test
 \end{itemize}
@@ -349,7 +293,7 @@ H_0 & : \rho=0\\\nonumber
 \item Testing AR(1) serial correlation with general regressors
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho \hat{u}_{t-1} + \textit{error}$$
 $$H_0 : \rho = 0$$
-(We can use a heteroskedasticity-robust version of the test)
+(We can use a heteroscedasticity-robust version of the test)
 
 \vspace{0.5cm}
 
@@ -411,11 +355,11 @@ Transformation gives us model that fulfills previously broken G-M assumption.
 
 \begin{frame}{GLSM – matrix form}
 \begin{itemize}
-\item Matrices $\boldsymbol{H}$ and $\boldsymbol{T}$ of the GLSM algorithm differ for heteroskedasticity  and autocorrelation.
+\item Matrices $\boldsymbol{H}$ and $\boldsymbol{T}$ of the GLSM algorithm differ for heteroscedasticity  and autocorrelation.
 \vspace{0.2cm}
 \begin{itemize}
 
-\item Heteroskedasticity (CS data, matrix form, quick recap):\\
+\item heteroscedasticity (CS data, matrix form, quick recap):\\
 $$\sigma^2 \bm{H} = \sigma^2 
 \begin{bmatrix}
     h_1&  0 & \cdots & 0\\
@@ -458,7 +402,7 @@ $$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^
      \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
 \end{bmatrix}$$
 
-( we assume homoskedasticity and known variance $\textnormal{var}(u_t)$ )
+( we assume homoscedasticity and known variance $\textnormal{var}(u_t)$ )
 \end{frame}
 
 %------------------------------------------------------
@@ -540,10 +484,10 @@ For both the P-W and C-O methods, we usually use iterations to make the estimate
 
 \begin{frame}{Additional TS topics}
 \begin{itemize}
-\item Heteroskedasticity in time series
+\item heteroscedasticity in time series
 \vspace{1cm}
 \begin{itemize}
-\item Autoregressive Conditional Heteroskedasticity (ARCH) models included
+\item Autoregressive Conditional heteroscedasticity (ARCH) models included
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -1343,7 +1287,7 @@ because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c
 
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item If homoskedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
+\item If homoscedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
 
 \begin{itemize}
 \item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
@@ -1420,7 +1364,7 @@ Variance of $\hat{e}_p$ (continued):
   \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
  \,&=\,
    \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
-   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoskedasticity)}\\
+   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoscedasticity)}\\
   \,&=\,
    \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
    + \hat{\sigma}^2
