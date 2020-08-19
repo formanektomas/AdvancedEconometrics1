@@ -172,7 +172,6 @@ $$\hat{\ddot{y}}_{t}=\hat{\beta_2}\ddot{x}_{t2}+\hat{\beta_3}\ddot{x}_{t3}$$
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-\section{Stationarity}
 \begin{frame}{Stationary and weakly dependent time series}
 \begin{itemize}
 \item Strict exogeneity, homoscedasticity, absence of serial correlation and normality assumptions are very limiting 
@@ -459,16 +458,18 @@ $$
 For both the P-W and C-O methods, we usually use iterations to make the estimates of the autoregressive coefficient and regression parameters of the model more accurate.
 \end{frame}
 %------------------------------------------------------
-
-
-
-
-
-
-
-
-
-\begin{frame}{Examples of stochastic processes}
+\section{Stationarity, unit root tests, cointegration}
+\begin{frame}{Stationarity, unit root tests, cointegration}
+  \begin{itemize}
+      \item Stationarity
+      \bigskip
+      \item Unit root tests
+      \bigskip
+      \item Cointegration
+  \end{itemize}  
+\end{frame}
+%------------------------------------------------------
+\begin{frame}{Weakly and strongly dependent TS}
 Weakly dependent time series
   \vspace{0.4cm}
 \begin{itemize}
@@ -480,13 +481,10 @@ Weakly dependent time series
   If stability condition $|\rho|<1$  holds, the process is weakly dependent because correlation converges to zero with growing $h$. Also, this process is stationary for $y_0 =0$.
   \vspace{0.4cm}
 \end{itemize}
-
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Examples of stochastic processes}
-
+\begin{frame}{Weakly and strongly dependent TS}
+Strongly dependent time series:\\
 Random walk:  
 \begin{align}\nonumber
 y_t &= y_{t-1}+e_t \\\nonumber 
@@ -495,7 +493,6 @@ y_t &= y_{t-3}+e_{t-2}+e_{t-1}+e_t \\\nonumber
 & \cdots \\ \nonumber
 y_t &= y_0 + e_1 + \dots +e_{t-1} + e_t
 \end{align} 
-
 Shocks have permanent effects, the series is not covariance stationary and is strongly dependent.
 \begin{align}\nonumber
 E(y_t) & =E(y_0) \\\nonumber
@@ -503,22 +500,17 @@ E(y_t) & =E(y_0) \\\nonumber
 \textnormal{cor}(y_t,y_{t+h}) & =\sqrt[]{t/(t+h)}
 \end{align} 
 Correlation decreases very slowly and speed depends on $t$.
-
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Examples of stochastic processes}
+\begin{frame}{Strongly dependent TS}
 \begin{itemize}
 \item Two realizations of a random walk \\
 \vspace{0.5cm}
 \includegraphics[width=0.7\textwidth]{img/random_walk.pdf}
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Examples of stochastic processes}
+\begin{frame}{Strongly dependent TS}
 \begin{itemize}
 \item Random walk with a drift
 $$ y_t=\alpha_0+y_{t-1}+e_t \Rightarrow y_t =\alpha_0 t + e_{t} + e_{t-1} +  \dots +e_1 + y_0$$
@@ -531,32 +523,26 @@ E(y_t) & =\alpha_0 t +E(y_0)\\\nonumber
 Correlation decreases very slowly and decline speed depends on $t$.
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Examples of stochastic processes}
+\begin{frame}{Weakly and strongly dependent TS}
 \begin{itemize}
 \item Realization of random walk with a drift \\ 
 \vspace{0.2cm}
 \includegraphics[width=0.7\textwidth]{img/random_walk_drift.pdf}
-
-\item Different realizations of trending TS may produce \\similar time series.
+\item Different realizations of trending TS (weakly dependent around the trend) may produce similar time series.
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-\section{Unit roots}
-\begin{frame}{Examples of stochastic processes}
-
+\subsection{Unit root tests}
+\begin{frame}{Weakly and strongly dependent TS}
 $y_t = \boxedd{$1 \cdot y_{t-1}$} + \boxedd{$u_t$} = y_{t-1} + u_t$
 \medskip
 \begin{itemize}
 \item Unit root process: $y_t = y_{t-1} + u_t$; \quad  \\
-$u_t$ is a weakly dependent series.
+where: $u_t$ is a weakly dependent series.
 \item Random walk is a special case of the unit root process \\where: $u_t \sim \textit{Distr} \, (0, \sigma_u^2), \textit{iid}$
 \bigskip
 \end{itemize}
-
 We need to distinguish strongly and weakly dependent TS:
 %\vspace{0.5cm}
 \begin{itemize}
@@ -564,9 +550,7 @@ We need to distinguish strongly and weakly dependent TS:
 \item Statistical reasons: \\ Analysis with strongly dependent series must be handled in specific ways.
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Integrated series}
 \textbf{Terminology - Order of integration }
 \vspace{0.5cm}
@@ -583,9 +567,7 @@ y_t & =y_{t-1}+e_t  \hspace{0.55cm} \Rightarrow \Delta y_t = y_t-y_{t-1}=e_t \\\
  \item A time series is integrated of order $d$: $I(d)$, if it becomes \\a weakly dependent TS after being differenced $d$ times.
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Unit roots tests}
 Unit root tests help to decide if a time series is $I(0)$ or not
 \vspace{0.4cm}
@@ -605,9 +587,7 @@ $$\hat{\rho}_1=\hat{\textnormal{corr}}(y_t,y_{t-1})$$
 \begin{frame}{Unit root tests}
 Correlogram:  
 $\, \, \, \, \rho_h = \frac{\textit{cov} \, (y_t, y_{t-h})}{\sigma_{y_t} \cdot \sigma_{y_{t-h}}}$
-
 \includegraphics[width=1\textwidth]{img/corelogramWeek2.jpg}
-
 \hspace{1.5cm} $I(1)$-like series \hspace{3 cm} $I(0)$-like series
 \end{frame}
 %---------------------------------------------
@@ -712,7 +692,6 @@ $$\Delta y_t = \alpha + \rbox{$\theta y_{t-1}$} + \gamma_1 \Delta y_{t-1} + \dot
 \end{tikzpicture}
 \end{frame}
 %---------------------------------------------
-
 \begin{frame}{Unit root tests in R: package \{urca\}}
 Description of the options for the \texttt{ur.df()} function:
 \medskip
@@ -725,19 +704,16 @@ $\Delta y_t = \theta y_{t-1} + e_t$ ~\\
 $\Delta y_t = \alpha + \theta y_{t-1} + e_t$ ~\\
 \texttt{tau2:} $H_0: \theta = 0$ (unit root) \\
 \texttt{phi1:} $H_0: \theta = \alpha = 0$ (unit root and no drift) 
-
 \medskip
 \item \texttt{type "trend"} \\
 $\Delta y_t = \alpha + \theta y_{t-1} + \delta t + e_t$ ~\\
 \texttt{tau3:} $H_0: \theta = 0$ (unit root) \\
 \texttt{phi2:} $H_0: \theta = \alpha = \delta = 0$ (unit root, no drift, no trend) 
 \texttt{phi3:} $H_0: \theta = \delta = 0$ (unit root and no trend) 
-
 \end{enumerate}
+Multiple other unit root tests exist: \\(KPSS, tests for seasonal data, break in the DGP, etc.).
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Unit root tests}
 \begin{itemize}
 \item ADF test for TS with trend
@@ -749,9 +725,7 @@ Under the alternative hypothesis of no unit root, the process is trend-stationar
 \item When using DF/ADF specification 1 or 2 (R-W, R-W with drift) to test for unit root in a clearly trending TS, the test would not have sufficient power (we would not reject $H_0$ for trending weakly dependent TS).
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Unit roots and trend-stationary series}
 \begin{itemize}
 \item $ \Delta y_t = \alpha  + \theta y_{t-1} + \delta t + \gamma_1\Delta y_{t-1}+\dots+\gamma_p\Delta y_{t-p}+e_t$
@@ -764,14 +738,73 @@ Also called \textbf{difference-stationary process}: $y_t$ can be turned into $I(
 \vspace{0.2cm}
 \item Deterministic trend: $\delta \neq 0, \hspace{0.3cm} \theta<0$ \\
 Also called \textbf{trend-stationary process}: has a linear trend, not a unit root. $y_t$ is weakly dependent - $I(0)$ - around its trend. We can use such series in LRMs, if trend is also used as regressor.
-
 \end{itemize}
 \vspace{0.3cm}
 \item DF/ADF tests are not precise tools. Distinguishing between stochastic and deterministic trend is not easy (sample size!). 
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
+\begin{frame}{Stationarity in ar(\textit{p}) processes}
+Lag operators:
+\begin{align*}
+Lx_t &= x_{t-1} \\
+L(Lx_t)=L^2x_t &= x_{t-2} ~~~~~~~~~~~~~~~~~\\
+&\cdots \\
+L^p x_t &= x_{t-p} 
+\end{align*}
+Using lag operators,
+$$ AR(p):  x_t = \alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} +\dots + \phi_p
+  x_{t-p}+u_t$$
+can be rewritten as: 
+$$(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t $$
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Stationarity in ar(\textit{p}) processes}
+\vspace{-0.5cm}
+\begin{equation} \label{eq1}
+(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t
+\end{equation}
+Stochastic process \eqref{eq1} will only be stationary if the roots of corresponding equation \eqref{eq2}  are all greater than unity in absolute value 
+\vspace{-0.5cm}
+\begin{equation} \label{eq2}
+1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p = 0
+\end{equation}
+\vspace{-0.5cm}
+\begin{block}{Illustration 1 - AR(1) process:}
+\vspace{-0.5cm}
+\begin{align}
+\vspace{-0.5cm}
+x_t & =  \alpha + \phi x_{t-1} + u_t \label{eq3}  \\ \nonumber
+(1-\phi L) x_t & =  \alpha + u_t\\ \nonumber
+~ \\ \nonumber
+1- \phi L & = 0 \\ \nonumber
+L & = 1/\phi \\ \nonumber
+\textnormal{For \eqref{eq3} to be stationary} &, \textnormal{$|L|>1 \leftrightarrow -1 < \phi < 1$}
+\end{align}
+\end{block}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Stationarity in ar(\textit{p}) processes}
+\begin{block}{Illustration 2:}
+\begin{equation}
+x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t \label{eq4}
+\end{equation}
+To evaluate stationarity of $x_t$, we use
+\begin{equation*}
+1-3.9 L - 0.6 L^2 + 0.8 L^3  = 0 , 
+\end{equation*}
+which can be factorized:
+$$ (1-0.4L)(1+0.5L)(1-4L) =0 $$
+\vspace{-0.5cm}
+\begin{align} \notag
+1^{st} root: & L = 2.5 \\ \notag
+2^{nd} root: & L =-2 \\ \notag
+3^{rd} root: & L = 0.25 \Rightarrow \textnormal{\eqref{eq4}  is non-stationary}
+\end{align}
+\end{block}
+\end{frame}
+%---------------------------------------------
+
 
 \begin{frame}{Handling trend-stationary time series}
 \begin{itemize}
@@ -837,7 +870,7 @@ Some properties of integrated processes
 \end{frame}
 
 %---------------------------------------------
-\section{Cointegration}
+\subsection{Cointegration}
 
 \begin{frame}{Spurious regression or cointegration}
 \begin{itemize}
@@ -1037,77 +1070,8 @@ to establish ECMs. It is again possible to rearrange and re-parametrize ADL(2,2)
 \end{itemize}
 \end{frame}
 
-\section{Stationarity of ar($p$) processes}
-
-\begin{frame}{Lag operators}
-Lag operators:
-\begin{align*}
-Lx_t &= x_{t-1} \\
-L(Lx_t)=L^2x_t &= x_{t-2} ~~~~~~~~~~~~~~~~~\\
-&\cdots \\
-L^p x_t &= x_{t-p} 
-\end{align*}
-
-Using lag operators,
-$$ AR(p):  x_t = \alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} +\dots + \phi_p
-  x_{t-p}+u_t$$
-can be rewritten as: 
-$$(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t $$
-
-\end{frame}
-
 %---------------------------------------------
 
-\begin{frame}{Stationarity}
-\vspace{-0.5cm}
-\begin{equation} \label{eq1}
-(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t
-\end{equation}
-
-Stochastic process \eqref{eq1} will only be stationary if the roots of corresponding equation \eqref{eq2}  are all greater than unity in absolute value 
-\vspace{-0.5cm}
-\begin{equation} \label{eq2}
-1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p = 0
-\end{equation}
-\vspace{-0.5cm}
-\begin{block}{Illustration 1 - AR(1) process:}
-\vspace{-0.5cm}
-\begin{align}
-\vspace{-0.5cm}
-x_t & =  \alpha + \phi x_{t-1} + u_t \label{eq3}  \\ \nonumber
-(1-\phi L) x_t & =  \alpha + u_t\\ \nonumber
-~ \\ \nonumber
-1- \phi L & = 0 \\ \nonumber
-L & = 1/\phi \\ \nonumber
-\textnormal{For \eqref{eq3} to be stationary} &, \textnormal{$|L|>1 \leftrightarrow -1 < \phi < 1$}
-\end{align}
-\end{block}
-
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Stationarity}
-\begin{block}{Illustration 2:}
-\begin{equation}
-x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t \label{eq4}
-\end{equation}
-To evaluate stationarity of $x_t$, we use
-\begin{equation*}
-1-3.9 L - 0.6 L^2 + 0.8 L^3  = 0 , 
-\end{equation*}
-which can be factorized:
-$$ (1-0.4L)(1+0.5L)(1-4L) =0 $$
-\vspace{-0.5cm}
-\begin{align} \notag
-1^{st} root: & L = 2.5 \\ \notag
-2^{nd} root: & L =-2 \\ \notag
-3^{rd} root: & L = 0.25 \Rightarrow \textnormal{\eqref{eq4}  is non-stationary}
-\end{align}
-\end{block}
-\end{frame}
-
-%---------------------------------------------
 
 \section{Cointegration}
 
