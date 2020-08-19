@@ -120,7 +120,6 @@ $\textnormal{var}(\hat{\beta_j})=\hat{\sigma}^2(\bm{X}^{\prime}\bm{X})^{-1}$~~an
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-\section{Trends and spurious regression}
 \begin{frame}{Trends and spurious regression}
 \begin{itemize}
 \item Regression: $y$ on $t$ \\ If there is a linear trend in $y$
@@ -770,7 +769,7 @@ Stochastic process \eqref{eq1} will only be stationary if the roots of correspon
 1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p = 0
 \end{equation}
 \vspace{-0.5cm}
-\begin{block}{Illustration 1 - AR(1) process:}
+\begin{block}{Illustration 1 -- AR(1) process:}
 \vspace{-0.5cm}
 \begin{align}
 \vspace{-0.5cm}
@@ -785,10 +784,10 @@ L & = 1/\phi \\ \nonumber
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Stationarity in ar(\textit{p}) processes}
-\begin{block}{Illustration 2:}
-\begin{equation}
-x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t \label{eq4}
-\end{equation}
+\begin{block}{Illustration 2 -- AR(1) process:}
+\begin{equation*}
+x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t 
+\end{equation*}
 To evaluate stationarity of $x_t$, we use
 \begin{equation*}
 1-3.9 L - 0.6 L^2 + 0.8 L^3  = 0 , 
@@ -799,36 +798,27 @@ $$ (1-0.4L)(1+0.5L)(1-4L) =0 $$
 \begin{align} \notag
 1^{st} root: & L = 2.5 \\ \notag
 2^{nd} root: & L =-2 \\ \notag
-3^{rd} root: & L = 0.25 \Rightarrow \textnormal{\eqref{eq4}  is non-stationary}
+3^{rd} root: & L = 0.25 \Rightarrow  \textnormal{~TS  is non-stationary}
 \end{align}
 \end{block}
 \end{frame}
 %---------------------------------------------
-
-
+\subsection{Cointegration, ECM}
 \begin{frame}{Handling trend-stationary time series}
 \begin{itemize}
-\item Trend-stationary TS fulfill TS.1' assumption (look at Week1 presentation). \\ 
-\vspace{0.5cm}
-We can use them in regressions if we have time trend among regressors.
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Handling strongly dependent time series}
+\item Trend-stationary TS fulfill TS.1' assumption. We can use them in regressions if we have time trend among regressors.
+\medskip
+\item Strongly dependent time series do not fulfill TS.1' assumption. We cannot use them in regressions directly.
+\medskip
+\item Sometimes, we can transform such series into weakly dependent time series.\\ \medskip
 \begin{itemize}
-\item Strongly dependent time series do not fulfill TS.1' assumption (look at Week1 presentation). We cannot use them in regressions directly.
-\vspace{0.5cm}
-\item Sometimes, taking logarithms helps.
-\vspace{0.5cm}
-\item Sometimes, we can transform such series into weakly dependent time series.
-\vspace{0.5cm}
+    \item Sometimes, taking logarithms helps.
+    \medskip
 \item Differencing is popular, but it has drawbacks.
 \end{itemize}
+\end{itemize}
 \end{frame}
 %---------------------------------------------
-
 \begin{frame}{Handling strongly dependent time series}
 \vspace{-0.5cm}
 \begin{block}{Example}
@@ -840,8 +830,8 @@ y_{t-1} & = \beta_0 + \beta_1 x_{t-1} + \varepsilon_{t-1} & \varepsilon_t \sim i
 \end{align}
 \end{block}
 \begin{enumerate}
-\item Coefficient $\beta_1$ does not change between $(1)$ and $(3)$.
-\\ However, equations $(1)$ and $(3)$ are different.
+\item Coefficient $\beta_1$ does not change between $(4)$ and $(6)$.
+\\ However, equations $(4)$ and $(6)$ are different.
 \\$\Rightarrow~~\beta_1$ is the change in $y_t$ for a unit change in $x_t$, \\but is it also the change in the growth of $y$ for a unit change in the growth of $x$.
 \item Three problems 
 \begin{enumerate}
@@ -852,26 +842,23 @@ $ \Delta \hat{y}_t = \hat{\beta}_1 \Delta x_t$; $ \dots $ what if $\beta_0 \neq 
 \end{enumerate}
 \end{enumerate}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Handling strongly dependent time series}
-
 Some properties of integrated processes
-\vspace{0.5cm}
+\medskip
 \begin{enumerate}
 \item The sum of stationary and non-stationary series must be non-stationary.
+\medskip
 \item Consider a process $y_t=\alpha + \beta x_t$:\\
 ~$\cdot$~~ If $x_t$ is stationary then $y_t$ will be stationary. \\
 ~$\cdot$~~ If $x_t$ is non-stationary then $y_t$ will be non-stationary. 
+\medskip
 \item If two time series are integrated of different orders, then any linear combination of the series will be integrated at the higher of the two orders of integration. 
+\medskip
 \item Sometimes it turns out a linear combination of two $I(d)$ series is integrated of order less then $d$. 
 \end{enumerate}
 \end{frame}
-
 %---------------------------------------------
-\subsection{Cointegration}
-
 \begin{frame}{Spurious regression or cointegration}
 \begin{itemize}
 \item \textbf{Spurious regression}
@@ -882,9 +869,7 @@ high $t$-statistics even if the series are completely independent. Similarly, th
 If there is a stable relationship between time series that, individually, display unit root behavior, these time series are called ``cointegrated''.
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Spurious regression or cointegration}
 \textbf{General definition of cointegration}\\
 \vspace{0.5cm}
@@ -897,9 +882,7 @@ For residuals of the known CI relationship:
 $$e_t := y_t-\alpha-\beta x_t, $$
 test whether the residuals have a unit root (DF/ADF and other unit root tests may be applied ``directly''). \\If the unit root $H_0$ is rejected, $y_t$, $x_t$ are cointegrated. 
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Spurious regression or cointegration}
 \begin{itemize}
 \item \textbf{Testing for CI if the parameters are unknown}\\
@@ -909,9 +892,7 @@ If the two series have differential time trends (drifts in this case), the devia
 \\(Software handles this automatically.)
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
 \begin{frame}{Cointegration tests based on regression residuals}
 \textbf{Engle-Granger test} estimates a $p$-lag ADF equation:\\
 $$
@@ -933,20 +914,14 @@ $$\Delta \hat{u}_t = \theta \, \hat{u}_{t-1} + e_t$$
 \medskip
 In both cases (EG and PO), $H_0$ of unit root in $\hat{u}$ \\i.e. ``no-cointegration'' is tested.
 \end{frame}
-
 %---------------------------------------------
-
-\section{Error correction models}
 \begin{frame}{Error correction model (ECM)}
 \begin{itemize}
 \item It can be shown that when variables are cointegrated, i.e. when there exists a long-term relationship among them, their short-term dynamics are related as in a so-called error correction model (ECM).
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Error Correction Models - motivation}
-
+\begin{frame}{Error correction model (ECM)}
 \textbf{Autoregressive distributed lag models}\\
 \medskip
 \begin{itemize}
@@ -954,7 +929,6 @@ In both cases (EG and PO), $H_0$ of unit root in $\hat{u}$ \\i.e. ``no-cointegra
 $$\textnormal{ADL}(p,q)\!: \, y_t = \beta_0 \, + \sum_{i=1}^p \beta_i y_{t-i} \, + 
          \sum_{j=0}^q \gamma_j x_{t-j} + u_t, \hspace{0.2cm}
          u_t \sim iid(0,\sigma^2)$$
-
 \item There are many useful modifications/simplifications to the $\textnormal{ADL}(p,q)$ process. For example:
 \begin{equation} \label{ADL11}
 \textnormal{ADL}(1,1)\!: \, y_t = \beta_0 + \beta_1 y_{t-1} + 
@@ -964,33 +938,23 @@ $$\textnormal{ADL}(p,q)\!: \, y_t = \beta_0 \, + \sum_{i=1}^p \beta_i y_{t-i} \,
 Additional ADL$(1,1)$ restriction: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$
 $$\textnormal{gives a model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
 \end{itemize}
-
 \end{frame}
-
 %---------------------------------------------
-\begin{frame}{Error Correction Models - motivation}
-
+\begin{frame}{Error correction model (ECM)}
 For ADL(1,1) model \eqref{ADL11}, suppose there is an equilibrium value $x^{\circ}$ and in the absence of shocks, $x_t \rightarrow x^{\circ}$ as $t \rightarrow \infty$. Then, assuming absence of $u_t$ errors, $y_t$ converges to steady state: $y^{\circ}$.\\ 
 \medskip
 Hence, the ADL(1,1) model \eqref{ADL11} can be re-written as:
 $$y^{\circ} = \beta_0 + \beta_1 y^{\circ} + (\gamma_0 + \gamma_1) x^{\circ}$$
-
 Solving this for $y^{\circ}$ as a function of $x^{\circ}$, we get
-
 $$ y^{\circ} = 
    \frac{\beta_0}{1 - \beta_1} + \frac{\gamma_0 + \gamma_1}{1 - \beta_1} x^{\circ} = 
    \frac{\beta_0}{1 - \beta_1} + \lambda x^{\circ}$$
 where $ \lambda \equiv \frac{\gamma_0 + \gamma_1}{1 - \beta_1}$ and $|\beta_1|<1$ is assumed. \\
-
-
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Error Correction Models - motivation}
-
+\begin{frame}{Error correction model (ECM)}
 $$ y^{\circ} =  \frac{\beta_0}{1 - \beta_1} + \lambda x^{\circ}$$
-
 $$ \lambda \equiv \frac{\gamma_0 + \gamma_1}{1 - \beta_1}$$
-
 \begin{itemize}
 \item $\lambda$ is the long-run derivative of $y^{\circ}$ with respect to $x^{\circ}$.
 \medskip
@@ -998,12 +962,9 @@ $$ \lambda \equiv \frac{\gamma_0 + \gamma_1}{1 - \beta_1}$$
 \medskip
 \item $\hat{\lambda}$ can be computed directly from the estimated parameters of the ADL(1,1) model \eqref{ADL11}.
 \end{itemize}
-
-
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Error Correction Models - motivation}
-
+\begin{frame}{Error correction model (ECM)}
 The ADL(1,1) equation \eqref{ADL11} - repeated here for convenience:
 \begin{equation*}
 y_t = \beta_0 + \beta_1 y_{t-1} + 
@@ -1019,7 +980,7 @@ Again, $ \lambda \equiv \frac{\gamma_0 + \gamma_1}{1 - \beta_1}$ and $|\beta_1| 
 Equation \eqref{ECM} is an error-correction model (ECM).
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Error Correction Models}
+\begin{frame}{Error correction model (ECM)}
 \begin{equation*} 
 \textnormal{ECM:} \, \, \, \Delta y_t = \beta_0 + (\beta_1 -1) ( y_{t-1} - \lambda x_{t-1} ) + 
          \gamma_0 \Delta x_t + u_t.
@@ -1030,34 +991,12 @@ Equation \eqref{ECM} is an error-correction model (ECM).
 \item Consequently, $(\beta_1 -1)$ can be interpreted as the proportion of the disequilibrium $( y_{t-1} - \lambda x_{t-1} )$ that is reflected in the movement of $y_t$, i.e. in $\Delta y_t$.
 \item $(\beta_1 -1)( y_{t-1} - \lambda x_{t-1} )$ is the \textbf{error-correction term}.
 \item Many ADL$(p,q)$ specifications can be re-written as ECMs.
-\item \textbf{ECMs can be used with non stationary TS} (Week 3).
-\item ECMs $(\beta_1 -1)$ is essentially the same as $\theta$ from \\Partial adjustment model (see Week 4).
+\item \textbf{ECMs can be used with non stationary TS}.
+\item ECMs $(\beta_1 -1)$ is essentially the same as $\theta$ from \\Partial adjustment model (discussed next).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}
-\begin{block}{Box 1: Partial Adjustment Models \\ {\small (Will be put into context in the 4th week)}}
-\small
-\begin{align}\label{eq:5}
-Y_t^{\ast} = \alpha + \beta X_t + u_t  \hspace*{10mm} \parbox[t][2cm][t]{5cm}{Y_t^{\ast}: \textnormal{optimal or target value} \\ \textnormal{or long-run equilibrium value}}
-\end{align}
-\vspace*{-1.5cm} 
-\begin{align}\label{eq:6}
-Y_t - Y_{t-1} = \theta (Y_t^{\ast} - Y_{t-1})  \hspace*{4mm} \parbox[t][2cm][t]{5cm}{0 < \theta < 1 \\ \theta \,\, \sim \textnormal{coefficient of adjustment} \\ Y_t = \theta Y_t^{\ast} + (1-\theta) Y_{t-1}}
-\end{align}
-\vspace*{-1.2cm} 
-\\\hspace*{5.1mm}As $\theta \rightarrow 1$, the speed of contemporaneous adjustment \\ \hspace*{5.1mm}of $Y_t$ towards $Y_t^{\ast}$ grows. \\
-\vspace*{.5cm} 
-\hspace*{5.1mm}Substituting $Y_t^{\ast}$ from \eqref{eq:5} to \eqref{eq:6} yields
-\begin{align}\label{eq:7}
-Y_t = \alpha \theta + \beta \theta X_t + (1-\theta) Y_{t-1} + \theta u_t
-\end{align}
-We estimate \eqref{eq:7} and then calculate parameters in \eqref{eq:5} and \eqref{eq:6}.
-\end{block}
-\end{frame}
-%---------------------------------------------
-
-\begin{frame}{Error Correction Models}
+\begin{frame}{Error correction model (ECM)}
 \underline{Some more complicated ECMs:}\\
 \bigskip
 \begin{itemize}
@@ -1069,26 +1008,19 @@ to establish ECMs. It is again possible to rearrange and re-parametrize ADL(2,2)
 \item[2)] More than two variables can enter into an equilibrium relationship. 
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
-
-\section{Cointegration}
-
-\begin{frame}{Cointegration between two variables}
+\begin{frame}{ECM: non-stationary \& cointegrated series}
 \textbf{Superconsistency:} $y_t =  \beta_0 + \beta_1 x_t + u_t$\\
 \begin{enumerate}
 \item Provided $x_t$ and $y_t$ are cointegrated, the OLS estimators $\hat{\beta}_0$ and $\hat{\beta}_1$ will be consistent. 
-\item $\hat{\beta}_j$ converge in probability to their true values $\beta_j$ more quickly in the cointegrated non-stationary case than in the stationary case (asymptotic efficiecy).
+\item $\hat{\beta}_j$ converge in probability to their true values $\beta_j$ more quickly in the cointegrated non-stationary case than in the stationary case (asymptotic efficiency).
 \end{enumerate}
 \begin{block}{Consequences:}
 For simple static regression between two cointegrated variables: $y_t, x_t \sim C(1,1)$, super-consistency applies (with deterministic regressors such as intercept and trend added upon relevance). Dynamic misspecifications do not necessarily have serious consequences. This is a large sample property - in small samples, OLS estimators are biased.\\ (Specific statistical inference applies to cointegrating vectors.)
 \end{block}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Cointegration between two variables}
+\begin{frame}{ECM: non-stationary \& cointegrated series}
 \textbf{Granger representation theorem:}\footnote{Engle and Granger (1987)}\\
 If two TS $x_t$ and $y_t$ are cointegrated, the short-term disequilibrium relationship between them can be expressed in the ECM form
 \vspace{-0.2cm}
@@ -1096,286 +1028,69 @@ If two TS $x_t$ and $y_t$ are cointegrated, the short-term disequilibrium relati
  \Delta y_t = lagged(\Delta y, \Delta x) - \delta u_{t-1} + \varepsilon_t 
 \end{equation}
 where $u_{t-1} = y_{t-1} - \beta_0 - \beta_1 x_{t-1}$ is the disequilibrium error and $\delta$ is a short-run adjustment parameter. \\
-\footnotesize{Note: as $u$ is on the scale of $y$, $\delta$ can be interpreted in percentages. Example: $\delta = 0.8 \rightarrow 80 \%$ of the disequilibrium error gets corrected between $t-1$ and $t$ (on average).}
-\vspace{0.1cm}
-
-\textbf{Two implications:}
+\footnotesize{Note: as $u$ is on the scale of $y$, $\delta$ can be interpreted in percentages. Example: $\delta = 0.8 \rightarrow 80 \%$ of the disequilibrium error gets corrected between $t-1$ and $t$ (on average).}\\
+\medskip
+\textbf{Two implications:}\\ \smallskip
 \begin{enumerate}
 \item The general-to-specific model search can focus on ECMs
 \item Engle-Granger two-stage procedure
 \end{enumerate}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Cointegration between two variables}
-\textbf{Engle-Granger two-stage procedure:}
-
+\begin{frame}{ECM: non-stationary \& cointegrated series}
+\textbf{Engle-Granger two-stage procedure:}\\
 \medskip
-We short-cut the search of an ECM from a general model
+We short-cut the search of an ECM from a general model:\\ \medskip
 \begin{itemize}
 \item[ $1^{st}$ ]  stage: Estimation of the cointegrating (static) regression and saving residuals $$\hat{u}_t = y_t - \hat{\beta}_0 - \hat{\beta}_1 x_t$$
-\item [$2^{nd}$]  stage: Use residuals $\hat{u}_{t-1}$ in \eqref{eq6} instead of $u_{t-1}$ and estimate by OLS
-\end{itemize}
-Estimators are consistent and asymptotically efficient, but biased in small samples. 
 
+\item [$2^{nd}$]  stage: Use residuals $\hat{u}_{t-1}$ in \eqref{eq6} instead of $u_{t-1}$ and estimate by OLS
+\end{itemize} \medskip
+Estimators are consistent and asymptotically efficient, but biased in small samples.\\ 
 \medskip
 \small{Assumptions: $y_t$ and $x_t$ are non-stationary and cointegrated.}
 \end{frame}
-
 %---------------------------------------------
-
-%slide 9
-\begin{frame}{Cointegration among more than two variables}
+\begin{frame}{ECM: non-stationary \& cointegrated series}
 \textbf{Possibility of more cointegrating vectors:}\\
 \medskip
 Long-run relationship: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ with all observed variables are $I(1)$\\
-
 \medskip
 If this long-run relationship exists, then the disequilibrium error \\
 \begin{equation}  \label{eq7}
 u_t= [y_t - \beta_0 - \beta_1 x_t - \beta_2 w_t - \beta_3 z_t ]
 \quad \sim I(0). 
 \end{equation} 
-
 \medskip
 If a linear combination of variables such as \eqref{eq7} is stationary, then the coefficients in this relationship form a cointegrating vector, e.g. $(1,-\beta_{1},-\beta_{2},-\beta_{3})$. 
-
 \medskip
-In the multivariate case, there may be more than one linearly independent stationary combinations linking the cointegrated variables (Topic discussed formally during Week 10). 
-
+In the multivariate case, there may be more than one linearly independent stationary combinations linking the cointegrated variables (topic discussed separately). \\
 \medskip
 Cointegration: the existence of at least one cointegrating vector.
-
 \end{frame}
-
 %---------------------------------------------
-
-%slide 10
 \begin{frame}{Cointegration among more than two variables}
 \textbf{Testing and estimation}\\
-Cointegration can be tested using the EG and/or PO tests
-
-\hspace{0.3cm}
-
+Cointegration can be tested using the EG and/or PO tests\\ \medskip
 \textbf{Only one cointegrating vector exists}\\
 Estimation can proceed by the Engle-Granger two-stage method for ECMs. \\ 
-\vspace{0.3cm}
-\textbf{Two or more cointegrating vectors}\\
-Engle-Granger two-stage method is not applicable. Johansen (1988) suggests a maximum likelihood approach. 
-\end{frame}
-
-%---------------------------------------------
-
-\section{Predictions basics - repetition from BSc courses}
-
-\begin{frame}{Predictions - basics}
-\begin{itemize}
-\item LRM and its estimate:
-\begin{align}\nonumber
-y & = \beta_0 + \beta_1 x_1 +\beta_2 x_2 + \dots + \beta_k x_k + u\\ \nonumber
-\hat{y} & = \hat{\beta}_0 + \hat{\beta}_1 x_1 +\hat{\beta}_2 x_2 + \dots + \hat{\beta}_k x_k \\ \nonumber
-\end{align}
-\item Prediction of expected value: 
-\begin{align}\nonumber
-\hat{y}_p & = E(y|x_1 = c_1, x_2 = c_2,\dots,x_k = c_k)\\ \nonumber
-\hat{y}_p & = \hat{\beta}_0 + \hat{\beta}_1 c_1 +\hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k  \nonumber
-\end{align}
-\item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textnormal{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Predictions - basics}
-$\textnormal{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
-
-\vspace{0.5cm}
-\begin{itemize}
-\item Reparametrized LRM:
-$$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
-\item The following holds:
-\begin{align} \nonumber
- \hat{y}_p &= \hat{\beta_0^*} \\ \nonumber
- \textnormal{s.e.}(\hat{y}_p ) &= 
-   \textnormal{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
- \textnormal{var}(\hat{y}_p) &= \textnormal{var}(\hat{\beta}_0^*)
-\end{align} 
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Predictions - basics}
-\begin{itemize}
-\item Predicted and actual values of $y_p$:
-\begin{align}\nonumber
-\hat{y}_p &  = \hat{\beta}_0 + \hat{\beta}_1 c_1 + \hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k\\ \nonumber
-y_p & = \beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k + u_p \nonumber
-\end{align} 
-\item Prediction error
-$$\hat{e}_p = y_p - \hat{y}_p = (\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k) + u_p - \hat{y}_p$$
-\item Prediction error variance
-$$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
-because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Predictions - basics}
-\begin{itemize}
-\item If homoscedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
-
-\begin{itemize}
-\item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
-\vspace{0.2cm}
-\item We estimate $\sigma^2$ from the original LRM as $(\textit{SSR}/(n-k-1))$
-\vspace{0.2cm}
-\item We get $\textnormal{var}(\hat{y}_p)$ from the reparametrized LRM
-\end{itemize}
-\vspace{0.5cm}
-\item Standard prediction error:
-\begin{itemize}
-\vspace{0.2cm}
- \item $\textnormal{s.e.}(\hat{e}_p) = \sqrt[]{\textnormal{var}(\hat{e}_p)}$
-\end{itemize}
-\vspace{0.5cm}
-\item Prediction interval (95\%)
-\vspace{0.2cm}
-\begin{itemize}
-\item $\hat{y}_p \pm t_{0.025} \times \textnormal{s.e.}(\hat{e}_p) $
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Predictions - basics}
-\begin{itemize}
-\item Prediction with logarithmic dependent variable
-\begin{align}\nonumber
-\log(y) &= \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k + u\\\nonumber
-\widehat{\log(y)} &= \hat{\beta}_0 + \hat{\beta}_1 x_1 + \dots + \hat{\beta}_k x_k 
-\end{align}
-$\hat{y} =e^{\widehat{\log(y)}}$ systematically underestimates $\hat{y}$ , \\
-\vspace{0.3cm}
-we can use a correction: $\hat{y}=\widehat{\alpha}_0 e^{\widehat{\log(y)}}$ \\
-\vspace{0.3cm}
-where $\widehat{\alpha}_0 = n^{-1} \sum_{i=1}^n \exp(\hat{u}_i)$ \\
-\vspace{0.3cm}
-is a consistent (not unbiased) estimator of $\exp{(u)}$.
-\end{itemize}
-\end{frame}
-
-%---------------------------------------------
-\begin{frame}{Predictions - basics (Matrix form)}
-Prediction based on estimated model:\\
-\vspace{0.3cm}
-$\hat{y}_p = \bm{x}_{p}^\prime \hat{\bm{\beta}}$\\
-\vspace{0.3cm}
-Difference between prediction and actual $y_p$ value:\\
-\vspace{0.3cm}
-$\hat{e}_p \,=\, \hat{y}_p - y_p
-  \,=\, \bm{x}_{p}^\prime \hat{\bm{\beta}} - \bm{x}_{p}^\prime \bm{\beta} - u_p
-  \,=\, \bm{x}_{p}^\prime (\hat{\bm{\beta}} - \bm{\beta}) - u_p$\\
-\vspace{0.3cm}
-If $\hat{\bm{\beta}}$ is unbiased estimator for $\bm{\beta}$, \\
-$\hat{y}_p$ is an unbiased estimator for $y_p$ value:\\
-\vspace{0.3cm}
-$E(\hat{e}_p) \,=\, E(\hat{y}_p - y_p)
-   \,=\, \bm{x}_{p}^\prime E(\hat{\bm{\beta}} - \bm{\beta}) + E(-u_p) =0$\\
-\vspace{0.3cm}
-and the variance of $\hat{e}_p$ can be expressed as:\\
-\vspace{0.3cm}
-$E(\hat{e}_p^2) \,=\,\textnormal{var}(\hat{e}_p)
-   \,=\, \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p) $
-\end{frame}
-
-%---------------------------------------------
-
-\begin{frame}{Predictions - basics (Matrix form)}
-Variance of $\hat{e}_p$ (continued):
-\begin{equation*}
-\begin{aligned}
-\textnormal{var}(\hat{e}_p) \,&=\,
-  \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
- \,&=\,
-   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
-   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoscedasticity)}\\
-  \,&=\,
-   \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
-   + \hat{\sigma}^2
-\end{aligned}
-\end{equation*}
-With growing sample size (asymptotically), \\
-$\textnormal{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
-$\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
-  \textnormal{plim} \, \hat{\sigma}_p^2 = 0$
-
-\end{frame}
-
-%---------------------------------------------
-\begin{frame}{Predictions - basics (Matrix form)}
-Variance of $\hat{e}_p$ (continued):
-\begin{equation*}
-\begin{aligned}
-\textnormal{var}(\hat{e}_p) \,&=\,
-\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}
-   + \hat{\sigma}^2\\
-   & \textnormal{after re-arranging, $\textnormal{s.e.}(\hat{e}_p)$ may be written as}\\
-   &~\\
-   \textnormal{s.e.}(\hat{e}_p) \,&=\, \hat{\sigma} \cdot \,  
-   \sqrt[]{1+ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,,\\
-   &\textnormal{which relates to the individual prediction error. }\\~&~\\
-   &\textnormal{For mean prediction errors (considering $\hat{\sigma}_p^2$ only): }\\
-   \textnormal{s.e.}(\widetilde{e}_p) \,&=\, \hat{\sigma} \cdot \,  
-   \sqrt[]{~~~~ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,.\\
-\end{aligned}
-\end{equation*}
-
-\end{frame}
-
-%---------------------------------------------
-\begin{frame}{Predictions - basics (Matrix form)}
-Prediction intervals: individual vs. mean value predictions:\\
-\vspace{0.3cm}
-\textbf{Individual prediction:} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\hat{e}_p)$\\
-\vspace{0.3cm}
-\textbf{Mean value:} \hspace{1.7cm} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\widetilde{e}_p)$
-
-\begin{figure}
-\includegraphics[width=0.6\textwidth]{img/P3_PredError.jpg}
-\end{figure}
-
-\end{frame}
-
-%---------------------------------------------
-\section{Chow tests}
-\begin{frame}{Chow tests}
-Focus on DGP stability \& model suitability for predictions.
-
 \medskip
-For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$
-\vspace{0.3cm}
+\textbf{Two or more cointegrating vectors}\\
+Engle-Granger two-stage method is not applicable. Johansen (1988) suggests a maximum likelihood approach. \end{frame}
+%--------------------------------------------
+\section{TS \& forecasting}
+\begin{frame}{TS \& forecasting}
 \begin{itemize}
-\item Chow tests are used to determine whether the regression function differs for different time periods \\(or respondent groups in CS data). 
-\item Time-stability of the estimated coefficients is a necessary condition for forecasting from an estimated model.
-\item Chow tests can be defined for cross-sectional units as well. \\(wages for male/female individuals, etc.)
+    \item Chow tests
+    \bigskip
+    \item Forecasts from TS-based models
 \end{itemize}
-
 \end{frame}
-
-%---------------------------------------------
-
-
+%--------------------------------------------
 \begin{frame}{Chow tests}
-
-For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$
+For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$\\
 \vspace{0.3cm}
-
 \begin{itemize}
-
 \item Say, the sample (time series) for a period $t=1,2, \dots, T$ may be conveniently divided into two groups: $T_1 + T_2 = T$.  \\ 
 ~~$[$ consider two periods: fixed vs. floating F/X rates $]$ \\ 
 ~~$[$ pre-EU accession vs. post-EU accession period $]$ \\
@@ -1391,23 +1106,13 @@ where $\bm{y}_1^\prime = (y_1, \dots , y_{T_1})$,
 $\bm{y}_2^\prime = (y_{T_1+1}, \dots , y_{T})$, etc. 
 \\ i.e. $\left\lbrace\bm{y}_1, \bm{X}_1 \right\rbrace \in T_1$,  
 $\left\lbrace\bm{y}_2, \bm{X}_2 \right\rbrace \in T_2$. 
-
 \end{itemize}
-
 \end{frame}
-
-
-
 %---------------------------------------------
-
-
 \begin{frame}{Chow tests}
-
-For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$, Chow test can be based on an auxiliary regression (unrestricted model for the $F$ test):
+For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$, Chow test can be based on an auxiliary regression (unrestricted model for the $F$ test):\\
 \vspace{0.3cm}
-
 \begin{itemize}
-
 \item 
 $ \begin{bmatrix} \bm{y}_1 \\ \bm{y}_2 \end{bmatrix} = 
 \begin{bmatrix} \bm{X}_1 \\ \bm{X}_2 \end{bmatrix} \bm{\beta} +
@@ -1416,39 +1121,23 @@ $ \begin{bmatrix} \bm{y}_1 \\ \bm{y}_2 \end{bmatrix} =
 \vspace{0.3cm}
 where $\bm{0}$ is a zero-matrix of the same dimensions as $\bm{X}_1$, 
 \\ i.e. $(T_1 \! \times \! k)$.
-\end{itemize}
-
+\end{itemize} \medskip
 Also, we can see that:
-
 \begin{itemize}
-
 \item 
 $ T_1: \hspace{0.5cm} \hat{\bm{y}}= \bm{X} \bm{\hat{\beta}}  $ 
 \item 
 $ T_2: \hspace{0.5cm} \hat{\bm{y}}= \bm{X} 
   ( \bm{\hat{\beta}} + \bm{\hat{\gamma}} ) $ 
-
-\end{itemize}
-
+\end{itemize} \medskip
 Note: Power of the test depends on proper $T_1$ vs. $T_2$ cutoff. 
 \\ Chow test may be generalized for 3+ time periods (groups).
-
 \end{frame}
-
-
-
-
 %---------------------------------------------
-
-
-
 \begin{frame}{Chow tests}
-
-For  our unrestricted model:
-\vspace{0.3cm}
-
+For  our unrestricted model:\\
+\medskip
 \begin{itemize}
-
 \item 
 $ \begin{bmatrix} \bm{y}_1 \\ \bm{y}_2 \end{bmatrix} = 
 \begin{bmatrix} \bm{X}_1 \\ \bm{X}_2 \end{bmatrix} \bm{\beta} +
@@ -1456,9 +1145,8 @@ $ \begin{bmatrix} \bm{y}_1 \\ \bm{y}_2 \end{bmatrix} =
 \begin{bmatrix} \bm{u}_1 \\ \bm{u}_2 \end{bmatrix}$ \\
 \vspace{0.3cm}
 \end{itemize}
-
+\medskip
 We can formulate the null of no structural change in model dynamics between the two time periods (groups) as follows:
-
 \begin{itemize}
 \item 
 $ H_0: \hspace{0.5cm} \bm{\gamma}= \bm{0}$, i.e.: 
@@ -1466,37 +1154,27 @@ $\gamma_1 = \gamma_2 = \gamma_3= \cdots = \gamma_k=0 $
 \item 
 $ H_1: \hspace{0.5cm} \neg H_0$ 
 \end{itemize}
-
+\medskip
 This can be tested using an $F$-test (or its HC version): 
 \vspace{0.3cm}
 \begin{itemize}
 \item 
-$ F = \frac{\textit{SSR}_r- \textit{SSR}_{\textit{ur}}}{\textit{SSR}_{\textit{ur}}} \times \frac{n-2k}{k} \underset{H_0}{\sim } 
-F[k, (n-2k)] $ 
+$ F = \frac{\textit{SSR}_r - \textit{SSR}_{\textit{ur}}}{\textit{SSR}_{\textit{ur}}} \times \frac{n-2K}{K} \underset{H_0}{\sim } F[K, (n-2K)] $ 
 \end{itemize}
-
 \medskip
 \small{Note: Here, $\beta_1$ and $\gamma_1$ both relate to the intercept.}
-
 \end{frame}
-
-
-
 %---------------------------------------------
-
-
-\begin{frame}{Chow test - Example}
+\begin{frame}{Chow test - CS-based example}
 A simple Chow test example for CS data: 
 \\(to assess whether parameters are equal for M/F students.)
 \vspace{0.3cm}
 \begin{itemize}
-
 \item Original model (Chow test restricted model):
 \\ \dots based on the well known Wooldridge dataset.
 \vspace{0.3cm}
 \\ $ \textit{cumgpa} = \beta_1 + \beta_2 \textit{sat} 
      + \beta_3\textit{hsperc}+ \beta_4 \textit{tothrs} + u $
-
 \vspace{0.3cm}
 \item Auxiliary model (Chow test unrestricted model):
 \begin{equation}
@@ -1508,12 +1186,9 @@ A simple Chow test example for CS data:
 \end{aligned}
 \end{equation}
 \end{itemize}
-
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Chow test - Example (contd.) }
+\begin{frame}{Chow test - CS-based example (contd.) }
 \begin{itemize}
 \item Null hypothesis
 \vspace{0.3cm}
@@ -1521,7 +1196,6 @@ $H_0 : \gamma_1 = \gamma_2 = \gamma_3 = \gamma_4 = 0$ \\
 If all interactions effects are zero, we have the same regression function for both groups.
 \vspace{0.3cm}
 \item Estimate of the unrestricted model
-
 \begin{equation} \notag 
 \begin{aligned}
 \widehat{\textit{cumgpa}} &= \underset{(.21)}{1.48} - \underset{(.411)}{.353} \textit{female} + \underset{(.0002)}{.0011} \textit{sat} + \underset{(.00039)}{.0075}(\textit{female} \! \times \! \textit{sat} ) 
@@ -1529,30 +1203,22 @@ If all interactions effects are zero, we have the same regression function for b
 \\&+  \underset{(.0009)}{.0023} \textit{tothrs} - \underset{(.00163)}{.00012} (\textit{female} \! \times \! \textit{tothrs} )
 \end{aligned}
 \end{equation}
-
 \dots $t$-tests cannot be used to evaluate the joint $H_0$. 
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Chow test - Example (contd.)}
+\begin{frame}{Chow test - CS-based example (contd.)}
 \begin{itemize}
 \item $F$-statistic:
-$$F= \frac{(\textit{SSR}_r - \textit{SSR}_{\textit{ur}})/k}{\textit{SSR}_{\textit{ur}}/(n-2k)}=\frac{(85.515 - 78.355)/4}{78.355/(366-8)}\approx8.18$$
-
+$$F= \frac{(\textit{SSR}_r - \textit{SSR}_{\textit{ur}})/K}{\textit{SSR}_{\textit{ur}}/(n-2K)}=\frac{(85.515 - 78.355)/4}{78.355/(366-8)}\approx8.18$$
 \dots using $p$-value, we reject the null hypothesis \\
 \vspace{3cm}
 \item \textbf{Important:} Chow tests (all types) assume constant error variance across groups.
-
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
 \begin{frame}{Chow 1: stability test for TS}
-
 Here, the $F$-statistic for the Chow test is calculated in an alternative way (Chow 1):
-
 \begin{itemize}
 \item For a suitable (potential) ``breakpoint'', we divide our sample $\{t=1,2, \dots, T\}$ in two groups: \\
 ``$T_1$'' with $\{t=1,2, \dots, T_1\}$ and \\
@@ -1568,12 +1234,11 @@ $\dots$ sufficient observations in $T_1$ and $T_2$ are required (d.f.)
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Chow 1: stability test for TS}
-
 ~\\
 $F = \frac{\textit{SSR}_{r}-\textit{SSR}_{ur}}{\textit{SSR}_{ur}}
-   \cdot \frac{T-2k}{k} \,
+   \cdot \frac{T-2K}{K} \,
    \underset{H_0}{\sim} \,
-   F(\,k \,,\, T\!-\!2k \, ) $ \\
+   F(\,K \,,\, T\!-\!2K \, ) $ \\
 ~ \\
 where\\
 $\textit{SSR}_{ur} = \textit{SSR}_{\,T_1} + \textit{SSR}_{\,T_2} $\\
@@ -1586,8 +1251,8 @@ $H_1$: $\neg H_0$ (assume structural change in parameters over time)\\
 ~ \\
 \footnotesize{
 \textbf{Note:} Chow 1 can be generalized for $G$ time periods ($G-1$ ``breakpoints'').\\
-$\dots$ In such case, $\textit{SSR}_{ur}= \sum_{g=1}^G \! \textit{SSR}_{g} $ , d.f. = $T-Gk$ \\
-$\dots$ and we assume $T_g > k \,$ for all time groups.\\
+$\dots$ In such case, $\textit{SSR}_{ur}= \sum_{g=1}^G \! \textit{SSR}_{g} $ , d.f. = $T-GK$ \\
+$\dots$ and we assume $T_g > K \,$ for all time groups.\\
 $\dots$ (only usable for small $G$-values, problematic setup of breakpoints)
 }
 \end{frame}
@@ -1603,15 +1268,13 @@ In such case, we can use Chow 2: test of prediction unsuitability (slightly diff
 \item $T_2$ is the number of ``additional'' observations, it usually corresponds to an ex-post prediction period
 \end{itemize}
 \end{frame}
-
 %---------------------------------------------
 \begin{frame}{Chow 2: prediction test for TS}
-
 ~\\
 $F = \frac{\textit{SSR}_{r}-\textit{SSR}_{ur}}{\textit{SSR}_{ur}}
-   \cdot \frac{T_1-k}{T_2} \,
+   \cdot \frac{T_1-K}{T_2} \,
    \underset{H_0}{\sim} \,
-   F(\,T_2 \,,\, T_1\!-\!k \, ) $ \\
+   F(\,T_2 \,,\, T_1\!-\!K \, ) $ \\
 ~ \\
 where\\
 $\textit{SSR}_{ur} = \textit{SSR}_{\,T_1} $ (from LRM estimated for ``base'' period)\\
@@ -1626,14 +1289,9 @@ $H_1$: $\neg H_0$ (assume significant differences between samples)\\
 ~ \\
 \footnotesize{
 If enough $T_1$ and $T_2$ observations are available, Chow 1 is preferred (compared to Chow 2) as it has more ``power''.}
-
 \end{frame}
-
 %---------------------------------------------
-
-\section{Forecasting time series}
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 \begin{itemize}
 \item \textbf{One-step-ahead forecast $f_t$}\\
 Forecast error $e_{t+1}=y_{t+1}-f_t$\\
@@ -1644,29 +1302,25 @@ Solution: $E(y_{t+1}|I_t)$
 \vspace{0.5cm}
 \item \textbf{Multiple-step-ahead forecast $f_{t,h}$}\\
 Solution: $E(y_{t+h}|I_t)$
-
 \end{itemize}
 \end{frame}
-
-
 %---------------------------------------------
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 For some processes, $E(y_{t+1}|I_t)$ is easy to obtain:
 \begin{enumerate}
 \item \textbf{Martingale process (MP):}\\
 If $E(y_{t+1}|y_{t},y_{t-1},\dots,y_{0})=y_t, \forall t \geq 0$ then $\{y_t\}$ is MP $f_t=y_t$\\
 If a process $\{y_t\}$ is a martingale then $\{\Delta y_t\}$ is martingale difference sequence (MDS) 
 $$ E(\Delta y_{t+1}|y_{t},y_{t-1},\dots,y_{0})=0$$
+\medskip
 \item \textbf{Process with exponential smoothing:}
 $$E(y_{t+1}|I_t)=\alpha y_t + \alpha (1- \alpha) y_{t-1}+ \dots + \alpha(1-\alpha)^ty_0; 
 \hspace{0.2cm} 0 < \alpha < 1.$$
 Set $f_0=y_0$, then for $t\geq 1$ : $f_t = \alpha y_t + (1-\alpha)f_{t-1}$
 \end{enumerate}
 \end{frame}
-
-
-\begin{frame}{Forecasting time series}
+%---------------------------------------------
+\begin{frame}{TS \& forecasting}
 \begin{enumerate}
 \setcounter{enumi}{2}
 \item \textbf{Regression models}
@@ -1679,7 +1333,6 @@ Here, knowledge of $x_{t+1}$ is assumed (forecast condition).\\
 $E(y_{t+1}|I_t)=\beta_0 + \beta_1 E(x_{t+1}|I_t) \rightarrow$ Unconditional forecasting\\
 $I_t$ contains $y_t, x_t,\dots, y_1, x_1$\\
 Here, $x_{t+1}$ needs to be estimated before $y_{t+1}$\\
-
 \vspace{0.5cm}
 \item Dynamic models depending on lagged variables only:\\
 $y_t=\delta_0+\alpha_1 y_{t-1} + \gamma_1 x_{t-1} + u_t$\\
@@ -1689,10 +1342,8 @@ $E(y_{t+1}|I_t)=\delta_0+\alpha_1 y_{t} + \gamma_1 x_{t}$\\
 \end{itemize}
 \end{enumerate}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 One-Step-Ahead Forecasting with \\
 \vspace{0.2cm}
 $y_t=\delta_0+\alpha_1 y_{t-1} + \gamma_1 x_{t-1} + u_t $ :\\
@@ -1707,10 +1358,8 @@ forecast interval: essentially the same as prediction interval \\
 \vspace{0.2cm}
 approximate 95\% forecast interval is:  $\hat{f}_t \pm 1.96 \! \times \! \textnormal{s.e.}(\hat{e}_{t+1})$
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 \begin{block}{Example: File PHILLIPS}
 Forecasting US unemployment rate
 $$\widehat{\textit{unem}}_t = \underset{(.577)}{1.572} 
@@ -1721,10 +1370,8 @@ $$n=48,  \overline{R}^2=.677$$
 Note that these regressions are not meant as causal equations. The hope is that the linear regressions approximate well the conditional expectation. 
 \end{block}
 \end{frame}
-
 %---------------------------------------------
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 \textbf{Evaluating forecast quality}
 \begin{itemize}
 \item We can measure how forecasted values fit to actual observations (in-sample criteria, e.g. $R^2$)
@@ -1739,13 +1386,9 @@ Root Mean Squared Error $\textit{RMSE} = (m^{-1}\sum_{h=1}^{m}\hat{e}_{n+h}^2)^{
 \vspace{0.2 cm}
 $k$-Fold Cross-Validation ($k$FCV) approach
 \end{itemize}
-
 \end{frame}
-
-
 %---------------------------------------------
-
-\begin{frame}{Forecasting time series}
+\begin{frame}{TS \& forecasting}
 \begin{itemize}
 \item \textbf{Additional comments}
 \begin{itemize}
@@ -1759,33 +1402,41 @@ $k$-Fold Cross-Validation ($k$FCV) approach
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-
 \section{Finite and infinite distributed lag models}
 \begin{frame}{Finite and infinite distributed lag models}
 \begin{itemize}
-\item Static models
-$$y_t = \beta_0 + \beta_1 x_t + u_t, \hspace{0.5cm} t=1, 2, \dots, T$$
-\item Finite distributed lag (FDL) Models 
-$$ y_t = \alpha_0 + \delta_0 x_t + \delta_1 x_{t-1} + \delta_2 x_{t-2} + u_t$$
-\item Order of the FDL model, \\impact multiplier vs. long-run multiplier, \\temporary vs. permanent change in $x$, 
-\\lag distribution
+    \item Finite and infinite distributed lag models
+    \medskip
+    \item Polynomial distributed lag
+    \medskip
+    \item Geometric distributed lag (Koyck transformation)
+    \medskip
+    \item Rationad distributed lag
+    \medskip
+    \item Partial adjustment model (PAM)
+    \medskip
+    \item Adaptive expectations hypothesis (AEH)
+    \medskip
+    \item Rational expectations
 \end{itemize}
 \end{frame}
-
-%------------------------------------------------
-
+%---------------------------------------------
 \begin{frame}{Finite and infinite distributed lag models}
-Dynamically complete models
+\begin{itemize}
+  \item Finite distributed Lag (FDL) model:
+  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + u_t $$
+  \item Infinite distributed lag (IDL) model:
+  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \dots + u_t $$
+  \end{itemize}
+Dynamically complete (FDL) models
 \vspace{0.5cm}
 \begin{itemize}
 \item Model is dynamically complete if we have a ``sufficient'' number of lags of regressors, so that no more additional lags would help with explanation of variance in the dependent variable. 
-\vspace{0.5cm}
+\smallskip
 \item In dynamically incomplete models, we usually detect autocorrelation in the error term of the LRM.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Finite and infinite distributed lag models}
 Infinite distributed lag (IDL) models
 \begin{itemize}
@@ -1800,10 +1451,8 @@ Infinite distributed lag (IDL) models
 \\ $\dots$ all analogical to FDL models
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
-\section{Polynomial distributed lag}
+\subsection{Polynomial distributed lag}
 \begin{frame}{FDL: Polynomial distributed lag (Almon)}
 Used in Finite distributed lag models\\
 \dots example below also extends to higher order polynomials
@@ -1821,7 +1470,8 @@ $$
 \begin{equation} \label{eqpol2}
 ~\beta_i = k_0 + k_1 i  + k_2  i^2  \\ 
 \end{equation}
-\hline 
+\hrule 
+\smallskip
 \small{
 \begin{equation*}
 \begin{aligned}
@@ -1840,10 +1490,7 @@ $$
 \end{minipage}
 \end{figure}
 \end{frame}
-
-
 %------------------------------------------------
-
 \begin{frame}{Polynomial distributed lag}
 \begin{itemize}
 \item Almon-type transformation of \eqref{Almon1} for $m=8$ and $k=2$:
@@ -1858,11 +1505,8 @@ We estimate \eqref{eqpol3}, then calculate $\beta_i$ (lags 0 to 8) as in \eqref{
 \dots note the reduction in estimated parameters (10 vs 4).
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Polynomial distributed lag}
-
 \begin{itemize}
 \item Method developed by Shirley Almon in the 60ies.
 \item Equation \eqref{eqpol3} can be generalized: for $m$ lags, sums go to $m$, for higher order polynomials, we add more $W$-terms.
@@ -1876,14 +1520,11 @@ We estimate \eqref{eqpol3}, then calculate $\beta_i$ (lags 0 to 8) as in \eqref{
 \vspace{0.3cm}
 \item In EViews, transformation is slightly modified.
 \item In R, routines are available.
-
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-\section{Geometric distributed lag (Koyck) }
+\subsection{Geometric distributed lag (Koyck) }
 \begin{frame}{Geometric distributed lag (Koyck) }
-
 IDL linear regression model: $y_t = f(x_t, x_{t-1}, x_{t-2}, \dots)$: 
 \\ \vspace{0.3cm}
 $ y_t = \alpha + \delta_0 x_t + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \delta_3 x_{t-3} 
@@ -1899,22 +1540,19 @@ Assumption for the geometric $\delta_j$ weights:
 $\delta_j = \delta_{j-1}\, \rho, \hspace{0.3cm} 0 < \rho < 1 $.\\
 ~~~~alternative notation of the above 
 \end{itemize}
- 
 \vspace{0.3cm}
 Instantaneous propensity (multiplier): $ \delta_0 = \gamma \rho^0 = \gamma$ 
 \\ \vspace{0.3cm}
 Long-run propensity (multiplier):
 \\ \vspace{0.3cm}
 $\delta_0+\delta_1+\dots=\gamma(1+\rho+\rho^2+\rho^3+\dots)=\frac{\gamma}{1-\rho}$
-
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Geometric distributed lag (Koyck) }
 \textbf{Koyck transformation of the IDL model:}
 \begin{align} 
 y_t & = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} \,\,+ \delta_2 x_{t-2} + \dots + u_t \hspace{0.3cm} |\delta_j = \gamma \rho^j  \notag \\
-y_t & = \alpha + \gamma x_t \,\,+ \gamma\rho x_{t-1} \,+ \gamma\rho^2 x_{t-2}+\dots + u_t  \label{IDL} \\ 
-\hline \notag \\ 
+y_t & = \alpha + \gamma x_t \,\,+ \gamma\rho x_{t-1} \,+ \gamma\rho^2 x_{t-2}+\dots + u_t  \label{IDL} \\ \hline \notag \\ 
 y_{t-1} & = \alpha + \gamma x_{t-1} + \gamma\rho x_{t-2} + \gamma\rho^2 x_{t-3} + \dots+u_{t-1} \hspace{0.3cm} |\times \rho 
 \\ \label{eqk3}
 \rho y_{t-1} & = \alpha\rho + \gamma\rho x_{t-1} + \gamma \rho^2 x_{t-2} + \dots + \rho u_{t-1}
@@ -1925,10 +1563,8 @@ y_t-\rho y_{t-1} & = \underbrace{\alpha(1-\rho)}_{\alpha_{0}}+\gamma x_t + \unde
 y_t & = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t \label{Koyck}
 \end{align}
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}{Geometric distributed lag (Koyck) }
-
 IDL model: $\quad \,y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
 \medskip
 Koyck transf.: $y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$ \\
@@ -1943,16 +1579,14 @@ $\quad \hat{\alpha} = \frac{\hat{\alpha}_0}{1-\hat{\rho}}$\\
 \medskip
 Problems of the Koyck transformation:
 \begin{itemize}
-    \item in \eqref{Koyck}, regressor $y_{t-1}$ is not exogenous ($v_t=u_t-\rho u_{t-1}$)\\ \dots IVR will be discussed in Week 8
+    \item in \eqref{Koyck}, regressor $y_{t-1}$ is not exogenous ($v_t=u_t-\rho u_{t-1}$)\\ \dots IVR discussed separately
     \item $v_t=u_t-\rho u_{t-1}$ is not i.i.d.
     \item Koyck transformation extends to models with multiple regressors only if common $\rho$ (geometric decay) can be assumed.
 \end{itemize}
-
-
 \end{frame}
 %------------------------------------------------
-
-\begin{frame}{Rational distributed lag}
+\subsection{Rational distributed lag (RDL)}
+\begin{frame}{Rational distributed lag (RDL)}
 The geometric distributed lag is a special case of \\rational distributed lag (RDL) model:
 \begin{align} \nonumber
 y_t & = \alpha_0+\gamma x_t + \rho y_{t-1} + v_t \hspace{0.3cm} \textnormal{(geometric distributed lag)}\\\label{eqrat1} 
@@ -1963,11 +1597,9 @@ This can be shown by successive substitution for the $y_{t-1}$ term \\of RDL equ
 y_t & = \alpha + \gamma_0 x_t + (\rho \gamma_0 + \gamma_1) x_{t-1} + \rho (\rho \gamma_0 + \gamma_1) x_{t-2} +\\ & + \rho^2 (\rho \gamma_0 + \gamma_1) x_{t-3} + \rho^3 (\rho \gamma_0 + \gamma_1) x_{t-4}+ \dots \nonumber \\  &+\rho^{h-1}(\rho \gamma_0 + \gamma_1)x_{t-h} + \dots + u_t \label{eqrat2}
 \end{align}
 After estimating \eqref{eqrat1}, we can calculate lag distribution for \eqref{eqrat2}
-
 \end{frame}
-
 %------------------------------------------------
-\begin{frame}{Rational distributed lag}
+\begin{frame}{Rational distributed lag (RDL)}
 RDL specification:\\
 \medskip
 $\quad y_t = \alpha_0+\gamma_0 x_t +\gamma_1 x_{t-1} + \rho y_{t-1}  + v_t $\\
@@ -2014,11 +1646,9 @@ LRP & $\frac{\gamma}{1-\rho}$ & $\frac{\gamma_0 + \gamma_1}{1-\rho}$\\
 \hline
 \end{tabular}
 \end{table} 
-
 \end{frame}
 %------------------------------------------------
-\section{PAM, AEH, Rational expectations}
-
+\subsection{Partial adjustment model (PAM)}
 \begin{frame}{Partial adjustment model}
 Partial adjustment model (PAM) \\is based on two main assumptions:
 \begin{enumerate}
@@ -2035,11 +1665,9 @@ Hence, the actual $\Delta y_t$ is only a fraction of the ``desirable'' change fr
 \medskip
 Note: \eqref{eqpam2} can be re-written as: $y_t= \theta {y}_t^\ast + (1-\theta)y_{t-1} $
 \end{enumerate}
-
 \end{frame}
-
 %------------------------------------------------
-\begin{frame}{Partial adjustment model}
+\begin{frame}{Partial adjustment model (PAM)}
 Parameter estimation of PAM:
 \begin{equation*}
 {y}_t^\ast = \alpha + \beta x_t + u_t ~~~~~~~~~~~~~~~~~~~~~~~~~ \tag{\ref{eqpam1}}
@@ -2048,7 +1676,6 @@ Parameter estimation of PAM:
 \begin{equation*}
 y_t= \theta {y}_t^\ast + (1-\theta)y_{t-1}, \hspace{0.5cm} 0 < \theta < 1 \tag{\ref{eqpam2}}
 \end{equation*}
-
 \begin{enumerate}
 \item Substitute for $y_t^\ast$ in \eqref{eqpam2} from \eqref{eqpam1}:\\
 \begin{equation}
@@ -2068,11 +1695,9 @@ $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\theta}$
 \medskip
 \small{\qquad Note that $\theta u_t$ can be independent of $y_{t-1}$ and i.i.d.}
 \end{frame}
-
 %------------------------------------------------
-\begin{frame}{Partial adjustment model}
+\begin{frame}{Partial adjustment model (PAM)}
 Parameter interpretation of PAM:
-
 \begin{equation*}
 \begin{aligned}
 {y}_t^\ast &= \alpha + \beta x_t + u_t \\
@@ -2092,13 +1717,10 @@ Parameters:\\
 \smallskip
 \item [$\beta~:\quad$] $\beta =\beta_1^{\prime}/\theta$ is the long run multiplier.
 \end{itemize}
-
-
 \end{frame}
-
 %------------------------------------------------
-
-\begin{frame}{Adaptive expectations hypothesis}
+\subsection{Adaptive expectations hypothesis (AEH)}
+\begin{frame}{Adaptive expectations hypothesis (AEH)}
 Adaptive expectations hypothesis (AEH) \\ model is based on two main assumptions:
 \bigskip
 \begin{enumerate}
@@ -2121,7 +1743,7 @@ with $\phi=0$ for static expectations\\ and $~\phi=1$ for immediate adjustment.
 \footnotesize{Note: alternative $2^{nd}$ hypothesis: $x_t^\ast =  \phi x_{t-1} + (1-\phi) x^\ast_{t-1}. $}
 \end{frame}
 %------------------------------------------------
-\begin{frame}{Adaptive expectations hypothesis}
+\begin{frame}{Adaptive expectations hypothesis (AEH)}
 Parameter estimation of AEH model:
 \begin{equation}
 y_t = \alpha + \beta x_t^\ast + u_t,~~ \tag{\ref{eqare1}}
@@ -2152,10 +1774,8 @@ $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$ ~~~~~($\beta_1^{\prime}$ and $\
 \footnotesize{\qquad Note: Problems of Koyck-transformed model estimation apply.}
 \end{frame}
 %------------------------------------------------
-
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
 The same underlying regression model (statistical form) is used:
-
 \begin{itemize}
 \item The Koyck transformation:\\
 $y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$\\
@@ -2183,7 +1803,6 @@ Same estimated model for Koyck, PAM, AEH:
 \textnormal{\textbf{Koyck:}} \,\,\, \hat{c}_t & = &\hat{\alpha}_0~&+ &\hat{\gamma} x_t~ &+ &\hat{\rho} c_{t-1} 
 \end{aligned}
 \end{equation*}
-
 Koyck: IDL, geometric decay in $\delta$ parameters assumed:
 \begin{itemize}
 \item $\hat{\rho}=0.501$
@@ -2198,9 +1817,7 @@ Koyck: IDL, geometric decay in $\delta$ parameters assumed:
 + \underbrace{0.101}_{\hat{\gamma} \hat{\rho}^{2}} x_{t-2} + \dots$
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
 \textbf{Example} continued:
 \begin{equation*}
@@ -2209,7 +1826,6 @@ Koyck: IDL, geometric decay in $\delta$ parameters assumed:
 \textnormal{\textbf{PAM:}} \,\,\, \hat{c}_t& = &\hat{\alpha} \hat{\theta}~&+ &\hat{\beta} \hat{\theta} x_t~&+ &(1-\hat{\theta}) c_{t-1} 
 \end{aligned}
 \end{equation*}
-
 \begin{itemize}
 \item $(1-\hat{\theta})=0.501 \Rightarrow \hat{\theta} = 0.499$
 \smallskip
@@ -2223,9 +1839,7 @@ $c_t - c_{t-1} = 0.499 \cdot (c_t^{\ast}-c_{t-1})$
 \item If $c_t$ has a prominent inertia and $\Delta c_t$ significantly follows changes in habits, we might use the PAM approach.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
 \textbf{Example} continued:
 \begin{equation*}
@@ -2234,7 +1848,6 @@ $c_t - c_{t-1} = 0.499 \cdot (c_t^{\ast}-c_{t-1})$
 \textnormal{\textbf{AEH:}} \,\,\, \hat{c}_t& = &\hat{\alpha} \hat{\phi}~&+ &\hat{\beta} \hat{\phi} x_t~&+ &(1-\hat{\phi}) c_{t-1} 
 \end{aligned}
 \end{equation*}
-
 \begin{itemize}
 \item $(1-\hat{\phi})=0.501 \Rightarrow \hat{\phi} = 0.499$
 \smallskip
@@ -2248,8 +1861,8 @@ $~~~~~~~\,x_t^{\ast} = 0.499 x_t + 0.501 x_{t-1}^{\ast}$
 \item If $c_t$ if formed as a function of expected (e.g. permanent) income, we might prefer AEH.
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
+\subsection{Rational expectations}
 \begin{frame}{Rational expectations}
 \begin{itemize}
 \item Rational expectations
@@ -2268,9 +1881,7 @@ We assume that agents:
 Agents can make prediction errors ($v_t$), so: $$x_t=x^\ast_t+v_t $$
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Rational vs. adaptive expectations}
 Under rational expectations:
 \vspace{0.3cm}
@@ -2282,9 +1893,7 @@ Under rational expectations:
 \item These properties can be used for testing the rational expectations hypothesis in different applications \\(e.g. through ex-post simulated dynamic forecasts).
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
 \begin{frame}{Some economic application that use expectations}
 \begin{itemize}
 \item Philips curve (Expectations-augmented Phillips curve)
@@ -2292,113 +1901,5 @@ Under rational expectations:
 \item Consumption function - Permanent income hypothesis
 \end{itemize}
 \end{frame}
-
 %------------------------------------------------
-
-\section{FWL theorem - repetition from BSc courses}
-\begin{frame}{FWL theorem - repetition from BSc courses}
-Frisch and Waugh in the 30-ies: detrending \\
-Lovell in the 60-ies: deseasonalizing
-\begin{itemize}
-\item Example: Spurious regression with trend-stationary series: e.g. Regression of the US GDP on salmon production in Norway
-\begin{block}{Solution (identical $\hat{\beta}_2$ estimates) }
-M1: $\textit{gdp}_t = \beta_0 + \beta_1 \textit{year}_t + \beta_2 \textit{salmon}_t + u_t$\\
-M2: $\textit{gdp.detrended}_t = \beta_2 \textit{salmon.detrended}_t + u_t$\\
-M2: $\textit{gdp.detrended}_t = \beta_0 + \beta_1 \textit{year}_t + \beta_2 \textit{salmon}_t + u_t$\\
-M4: $\textit{gdp}_t = \beta_2 \textit{salmon.detrended}_t + u_t$
-\end{block}
-\item Note that $\beta_0$, $\beta_1$ and $u_t$ may differ among equations.
-\end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{FWL theorem}
-\begin{itemize}
-\item Partitioned regression
-\begin{equation} \label{FWLpart}
-\bm{y} = \bm{X}  \bm{\beta} + u = 
-\bm{X}_1 \bm{\beta}_1 + \bm{X}_2 \bm{\beta}_2 + \bm{u}
-\end{equation}
-\item Projection matrices and residual makers
-\begin{align*}
-\bm{P}  & = \bm{X}(\bm{X}^{\prime}\bm{X})^{-1}\bm{X}^{\prime}, \hspace{0.5cm}
-& \bm{M} & = \bm{I} - \bm{P}\\
-\bm{P}_1 & = \bm{X}_1(\bm{X}_1^{\prime}\bm{X}_1)^{-1}\bm{X}_1^{\prime}, \hspace{0.5cm} & \bm{M}_1 & =\bm{I}-\bm{P}_1\\
-\bm{P}_2 & = \bm{X}_2 (\bm{X}_2^{\prime}\bm{X}_2)^{-1}\bm{X}_2^{\prime}, \hspace{0.5cm} & \bm{M}_2 & =\bm{I}-\bm{P}_2
-\end{align*}
-\item Some properties
-\begin{align*}
-\bm{P}\bm{P}_1 & = \bm{P}_1, \hspace{0.2cm} \bm{P}\bm{X}_1 = \bm{X}_1~~ \textnormal{($\bm{X}_1$ is in the span ($\bm{X}$))}\\
-\bm{P}\bm{P}_1 & = (\bm{P}_1\bm{P})^{\prime}=\bm{P}_1\bm{P}=\bm{P}_1\\
-\bm{M}\bm{M}_1 & = (\bm{M}_1\bm{M})^{\prime}=\bm{M}_1\bm{M}=\bm{M} \\
-\bm{M}_1\bm{X}_1 & = \bm{0}, \quad \bm{X}_2^{\prime}\bm{M}=\bm{0} \\
-\end{align*}
-\end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{FWL theorem}
-M1: $\textit{gdp}_t = \beta_0 + \beta_1 \textit{year}_t + \beta_2 \textit{salmon}_t + u_t$\\
-$ \bm{y} = \bm{X}_1 \bm{\beta}_1 + \bm{X}_2 \bm{\beta}_2 + \bm{u}=\bm{X} \bm{\beta} + u$\\
-\vspace{0.5cm}
-M2: $\textit{gdp.detrended}_t = \beta_2 \textit{salmon.detrended}_t + u_t$\\
-$\bm{M}_1 \bm{y} = \bm{M}_1\bm{X}_2\bm{\beta}_2+\bm{u}$\\
-\vspace{0.5cm}
-M3: $\textit{gdp.detrended}_t = \beta_0 + \beta_1 \textit{year}_t + \beta_2 \textit{salmon}_t + u_t$\\
-$\bm{M}_1 \bm{y} = \bm{X}_1 \bm{\beta}_1 + \bm{X}_2\bm{\beta}_2+\bm{u}$\\
-\vspace{0.5cm}
-M4: $\textit{gdp}_t = \beta_2 \textit{salmon.detrended}_t + u_t$ \\
-$\bm{y} = \bm{M}_1\bm{X}_2 \bm{\beta}_2 +\bm{u}$\\
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{FWL theorem}
-
-\textbf{FWL theorem \& applications}
-
-\begin{enumerate}
-\item Estimates of $\beta_2$ for a partioned model \eqref{FWLpart} in all M1 - M4 models are the same
-\item Residuals from M1, M2, M3 are the same
-\end{enumerate}
-\vspace{0.5cm}
-\textbf{Lemma}: Based on properties of projection matrices and residual makers, we can show that  $\bm{\hat{\beta}}_2$ estimators in all four (M1 to M4) specifications can be expressed as: 
-$$\bm{\hat{\beta}}_2 = (\bm{X}_2^{\prime}\bm{M}_1 \bm{X}_2)^{-1}\bm{X}_2^{\prime}\bm{M}_1\bm{y} $$
-
-\textbf{Application:} deseasonalizing, centered coefficient of determination, interchangeability of reference categories (e.g. quarterly dummies), simplification of many proofs in econometrics
-\end{frame}
-
-%------------------------------------------------
-%
-\begin{frame}{FWL theorem (detrending)}
-$$\bm{y} ~~=~~ 
-\bm{X}\hat{\bm{\beta}} + \hat{\bm{u}} ~~ = 
-~~ 
-\bm{Py} + \bm{My} ~~ =
-~~ 
-\bm{X}_1\hat{\bm{\beta}}_1+\bm{X}_2\hat{\bm{\beta}}_2+\bm{My}$$
-\begin{block}{Skeleton of the proof (for M1 equation):}
-\vspace{-0.3cm}
-\begin{align*}
-\bm{y} & = \bm{X}_1 \bm{\hat{\beta}}_1+ \bm{X}_2\bm{\hat{\beta}}_2+\bm{M}\bm{y} \quad
-| \quad \bm{X}^{\prime}_2\bm{M}_1 \times \\
-\bm{X}^{\prime}_2\bm{M}_1\bm{y} & = \underbrace{\bm{X}^{\prime}_2\underbrace{\bm{M}_1\bm{X}_1}_{\bm{0}} \bm{\hat{\beta}}_1}_{\bm{0}}+ \bm{X}^{\prime}_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2+ \underbrace{\underbrace{\bm{X}^{\prime}_2\underbrace{\bm{M}_1\bm{M}}_{\bm{M}}}_{\bm{0}}\bm{y}}_{\bm{0}}\\
-\bm{X}^{\prime}_2\bm{M}_1\bm{y} & \! = \! \bm{X}^{\prime}_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2 \Rightarrow \! \bm{\hat{\beta}}_2 = (\bm{X}^{\prime}_2\bm{M}_1\bm{X}_2)^{-1}\bm{X}^{\prime}_2\bm{M}_1\bm{y}\Rightarrow \textnormal{QED}
-\end{align*}
-\end{block}
-\end{frame}
-%------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
 \end{document}
