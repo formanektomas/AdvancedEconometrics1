@@ -180,7 +180,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \begin{itemize}
 \item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which all CS units are observed if the panel is balanced.
 \medskip
-\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + c_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods.
+\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + a_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods, $a_i$ is the individual (company, group or other CS-unit) unobserved element. 
 \medskip
 \item In this course (Block 3), we focus on panel data.\\ \medskip Different data dimensions, model types, estimators and tests discussed next.
 \end{itemize}
@@ -258,11 +258,11 @@ $i$ & $t$  & $x_{it}$ & $\overline{x}_i$ & $\overline{x}$ & $x_{it}-\overline{x}
 \end{frame}
 %---------------------------------
 \begin{frame}{Panel data models}
-\underline{Panel data model - a structured notation } \\
+\underline{Panel data model -- a stylized and structured notation } \\
 \medskip
-$y_{it} = \bm{g}_t \bm{\theta} + \bm{z}_i \bm{\delta} + \bm{w}_{it} \bm{\gamma} + a_i + u_{it}$ \\
+$$y_{it} = \bm{g}_t \bm{\theta} + \bm{z}_i \bm{\delta} + \bm{w}_{it} \bm{\gamma} + a_i + u_{it}$$\\
 \medskip
-where $t = 1, 2, \dots, T$; \quad $i = 1,2, \dots, N$,  \\
+where \quad $i = 1,2, \dots, N$; $t = 1, 2, \dots, T$, \\
 \medskip
 $\bm{g}_t$ is a vector of aggregate time effects (often time dummies),\\
 \medskip
@@ -270,7 +270,7 @@ $\bm{z}_i$ is a set of time-constant observed variables, \\
 \medskip
 $\bm{w}_{it}$ changes across $i$ and $t$ (for at least some units $i$ and time periods $t$), can include interactions among time-constant and time varying variables, \\
 \medskip
-$\bm{\theta, \delta}$ and $\bm{\gamma}$ - regression coefficients 
+$\bm{\theta, \delta}$ and $\bm{\gamma}$ -- regression coefficients 
 \end{frame}
 %---------------------------------
 \begin{frame}{Panel data models}
@@ -297,11 +297,11 @@ $(\textit{female} \times \textit{exper})_{it}$ is an interaction element, change
 \end{frame}
 %---------------------------------
 \section{Short panels -- estimation, inference \& testing}
-\begin{frame}{Frame Title}
+\begin{frame}{Short panels -- estimation, inference \& testing}
     \begin{itemize}
         \item Estimation methods -- repetition from BSc courses
         \bigskip
-        \item Choosing estimators: assumptions and tests
+        \item Choosing adequate estimators: assumptions and tests
         \bigskip
         \item Robust inference (autocorrelation and heteroscedasticity)
     \end{itemize}
@@ -309,28 +309,31 @@ $(\textit{female} \times \textit{exper})_{it}$ is an interaction element, change
 %---------------------------------
 \subsection*{Estimation methods -- repetition from BSc courses}
 \begin{frame}{LSDV regression}
-In the model $y_{it} = \bm{x}_{it} \bm{\beta} + \mu_i + u_{it}$, \\
-\medskip
-$\mu_i$ are usually regarded as unobservable variables. \\
+In the model \quad  $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it} \,$, \\
+\bigskip
+Elements $a_i$ are usually regarded as unobservable variables. \\
 This approach gives appropriate interpretation of $\bm{\beta}$. \\
-Traditional (old) approaches to fixed effects estimation view the $\mu_i$ as parameters to be estimated along with $\bm{\beta}$. \\
+Traditional (old) approaches to fixed effects estimation view the $a_i$ as parameters to be estimated along with $\bm{\beta}$. \\
+\bigskip
+How to estimate $a_i$ values along with $\bm{\beta}$?\\
 \medskip
-How to estimate $\mu_i$ values along with $\bm{\beta}$?
 \begin{itemize}
-\item Define $N$ dummy variables - one for each cross-section.
+\item Define $N$ dummy variables - one for each cross-section. \\
+(Amendment for dummy-variable trap is necessary.)
+\smallskip
 \item Convenient LSDV model expansion: use interactions to control for individual slopes for chosen regressors.
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FD estimator}
-We can eliminate unobserved individual heterogeneity from the regression: \quad $y_{it} = \bm{x}_{it} \bm{\beta} + \mu_i + u_{it}$ \\
+We can eliminate unobserved individual heterogeneity from the regression: \quad $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$ \\ \smallskip
 by first differences (FD) transformation: \\
-$\Delta y_{it} = y_{it} - y_{i,t-1} = \Delta \bm{x}_{it} \bm{\beta} + \Delta \mu_i + \Delta u_{it} = \Delta \bm{x}_{it} \bm{\beta} + \Delta u_{it}$
+$\Delta y_{it} = y_{it} - y_{i,t-1} = \Delta \bm{x}_{it} \bm{\beta} + \Delta a_i + \Delta u_{it} = \Delta \bm{x}_{it} \bm{\beta} + \Delta u_{it}$ \\ \medskip
 \begin{itemize}
 \item[$\checkmark$] Removes any unobserved heterogeneity.
 \item[$\times$] We remove all time-invariant factors in $\bm{x}$.\\
 If the time-invariant regressors are of no interest, this is \\a robust estimator.
-\end{itemize}
+\end{itemize} \medskip
 Estimation can be done with FGLS (autocorrelation of transformed residuals), or OLS with HAC robust errors. \\
 \medskip
 FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used with more time periods, we have $N(T-1)$ observations after differencing)
@@ -342,7 +345,7 @@ FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used
 \item[\textbf{FD.2}] We have random sample from cross-sectional units.
 \item[\textbf{FD.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
 \item[\textbf{FD.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \quad $\forall \ t, s$]
-\item[\textbf{FD.5}] Variance of differenced errors conditional on all regressors is constant: $\textit{var}(\Delta u_{it} \mid \bm{X}_i) = \sigma^2$, \quad $t= 2,3, \dots, T$. [homoskedasticity]
+\item[\textbf{FD.5}] Variance of differenced errors conditional on all regressors is constant: $\textit{var}(\Delta u_{it} \mid \bm{X}_i) = \sigma^2$, \quad $t= 2,3, \dots, T$. [homoscedasticity]
 \item[\textbf{FD.6}] No serial correlation exists among differenced errors. $\textit{cov}(\Delta u_{it}, \Delta u_{is} \mid \bm{X}_i) = 0$, \quad $t \neq s$
 \item[\textbf{FD.7}] Differenced errors are normally distributed conditional on all regressors $\bm{X}_i$.
 \end{itemize}
@@ -374,8 +377,8 @@ FD estimators - i.e. pooled OLS on first differences - are normally distributed 
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator}
-``Fixed'' means correlation of $\mu_i$ and $\bm{x}_{it}$, not that $\mu_i$ is non-stochastic.\\ \medskip
-We can rewrite $y_{it} = \bm{x}_{it} \bm{\beta} + \mu_i + u_{it}$ as follows:\\
+``Fixed'' means correlation of $\mu_i$ and $\bm{x}_{it}$, not that $a_i$ is non-stochastic.\\ \medskip
+We can rewrite $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$ as follows:\\
 $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it},$$
 \hfill $$i = 1, \dots, N$, \ $t = 1, \dots,T$ \\ 
 Now, \underline{for each $i$}, we \underline{average} the above equation \underline{over time}:\\
@@ -411,7 +414,7 @@ For each C-S observation $i$, we loose one d.f. in estimation ~ \dots for each $
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
 \item[\textbf{FE.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
 \item[\textbf{FE.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \quad $\forall \ t, s$]
-\item[\textbf{FE.5}] Variance of errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoskedasticity]
+\item[\textbf{FE.5}] Variance of errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
 \item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textit{cov}(u_{it}, u_{is} \mid \bm{X}_i, \mu_i) = 0$, \quad $t \neq s$
 \item[\textbf{FE.7}] Errors are normally distributed conditional on all regressors $(\bm{X}_i, \mu_i)$.
 \end{itemize}
@@ -502,7 +505,7 @@ Interestingly, the FGLS equation is a general form that encompasses both FE and 
 \item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
 \item[\textbf{FE.4}] $\forall \ i, t$: \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \ $\forall \ t, s$]
-\item[\textbf{FE.5}] Variance of idiosyncratic errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoskedasticity]
+\item[\textbf{FE.5}] Variance of idiosyncratic errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
 \item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textit{cov}(u_{it}, u_{is} \mid \bm{X}_i, \mu_i) = 0$, \quad $t \neq s$
 \item[\textcolor{black}{\textbf{FE.7}}] [normality of $u_{it}$ has little actual importance for the RE estimator
 \end{itemize}
@@ -512,7 +515,7 @@ Interestingly, the FGLS equation is a general form that encompasses both FE and 
 \begin{itemize}
 \item[\textbf{RE.1}] There are no perfect linear relationships among explanatory variables. [replaces \textcolor{blue}{\textbf{FE.3}}]
 \item[\textbf{RE.2}] In addition to \textcolor{blue}{\textbf{FE.4}}, the expected value of $\mu_i$ given all regressors is constant: $E(\mu_i \mid \bm{X}_i)=\beta_0$. [Rules out correlation between $\mu_i$ and $\bm{X}_i$]
-\item[\textbf{RE.3}] In addition to \textcolor{blue}{\textbf{FE.5}}, variance of $\mu_i$ given all regressors is constant: $\textit{var}(\mu_i \mid \bm{X}_i)=\sigma^2_a$ [Homoskedasticity imposed on $\mu_i$]
+\item[\textbf{RE.3}] In addition to \textcolor{blue}{\textbf{FE.5}}, variance of $\mu_i$ given all regressors is constant: $\textit{var}(\mu_i \mid \bm{X}_i)=\sigma^2_a$ [homoscedasticity imposed on $\mu_i$]
 \end{itemize}
 \end{frame}
 %---------------------------------
