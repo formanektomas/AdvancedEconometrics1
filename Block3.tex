@@ -65,18 +65,25 @@
 \end{frame}
 %
 %---------------------------------
-\section{Panel data}
+\section{Panel data -- basics (repetition from BSc courses)}
 \begin{frame}{Panel data}
 Panel data -- basics (repetition from BSc courses) \\ \bigskip
 \begin{itemize}
 \item Pooled cross sections
 \bigskip
+\item Longitudinal data
+\bigskip
 \item Panel data
 \bigskip
-\item Longitudinal data
+\item Balanced \& unbalanced panel data sets
+\bigskip
+\item Dimensions of panel data sets \& analysis implications
+\bigskip
+\item Basic features and motivation for panel data use
 \end{itemize}
 \end{frame}
 %---------------------------------
+\subsection*{Pooled cross sections}
 \begin{frame}{Pooled cross sections}
 \begin{itemize}
 \item \underline{\textbf{Pooled cross sections data:}}
@@ -153,16 +160,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Panel data}
-\begin{itemize}
-\item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which all CS units are observed if the panel is balanced.
-\medskip
-\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + c_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods.
-\medskip
-\item In this course (Block 3), we focus on panel data.\\ \medskip Different data dimensions, model types and estimators discussed next.
-\end{itemize}
-\end{frame}
-%---------------------------------
+\subsection*{Longitudinal data}
 \begin{frame}{Longitudinal data}
 \footnotesize
 \begin{itemize}
@@ -170,22 +168,21 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \medskip
 \item Distinction between panel and longitudinal data may be subtle and different authors may use conflicting terminologies \dots
 \medskip
-\item For an observation $y_{it}$, $i$th individual is observed at a time period described by $t$. Number of observations in time may differ and observations may occur at different time periods. \\ \medskip 
-\textbf{Example:} For a medical study, we measure child's weight (plus other data) at birth and repeatedly over a period of one year. Index $t$ denotes days from birth. Due to scheduling, individual children are weighted at different $t$ ``values''. Number of observations differ across children. Children in the study are born on different dates. \\ \medskip Example extends easily to micro-economic environment \\(we can follow newly founded companies, etc.).
+\item For an observation $y_{it}$, $i$th individual is observed at a time period described by $t$. Number of observations in time may differ among CS units and observations may occur at different time periods. \\ \medskip 
+\textbf{Example:} For a medical study, we measure child's weight (plus other data) at birth and repeatedly over a period of one year. For some $y_{it}$ observation, index $t$ denotes days from birth. Due to scheduling, individual children are weighted at different $t$ ``values''. Number of observations differ across children. Children in the study are born on different dates. \\ \medskip Example extends easily to micro-economic environment \\(we can follow newly founded companies, etc.).
 \medskip
 \item Longitudinal data are typically used in Linear mixed effects (LME) models (discussed separately).
 \end{itemize}
 \end{frame}
 %---------------------------------
+\subsection*{Panel data}
 \begin{frame}{Panel data}
-Panel data -- basics (repetition from BSc courses) \\ \bigskip
 \begin{itemize}
-\bigskip
-\item Balanced \& unbalanced panel data sets
-\bigskip
-\item Dimensions of panel data sets \& analysis implications
-\bigskip
-\item Basic features and motivation for panel data use
+\item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which all CS units are observed if the panel is balanced.
+\medskip
+\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + c_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods.
+\medskip
+\item In this course (Block 3), we focus on panel data.\\ \medskip Different data dimensions, model types, estimators and tests discussed next.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -220,14 +217,18 @@ Both CS and TS analysis assumptions apply, specialized estimators exist for larg
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Panel data}
-\textbf{Pooled regression with panel data: \\
-\textit{Heterogeneity bias\\
-(Similar principle as the Simpson's paradox) }}
+\begin{frame}{Basic features and motivation for panel data use}
+\textbf{Pooled regression with panel data:} \\ \medskip
+\begin{itemize}
+    \item Heterogeneity bias
+    \medskip
+    \item Similar principle to the Simpson's paradox
+\end{itemize}
+\medskip
 \includegraphics[width=\textwidth]{./img/Obrazek4}
 \end{frame}
 %---------------------------------
-\begin{frame}{Panel data}
+\begin{frame}{Basic features and motivation for panel data use}
 \textbf{Variation for the dependent variable and regressors}
 \begin{itemize}
 \item Overall variation: variation over time and individuals.
@@ -256,6 +257,11 @@ $i$ & $t$  & $x_{it}$ & $\overline{x}_i$ & $\overline{x}$ & $x_{it}-\overline{x}
 \end{table}
 \end{frame}
 %---------------------------------
+
+
+
+
+
 \begin{frame}{Panel data}
 \underline{\textbf{Panel data model - example}}
 $$\log(\textit{wage}_{it}) = \beta_0 + \beta_1 \textit{trend}_t + \beta_2 \textit{educ}_{it} + \mytikzmark{a}{\circled{$a_i$}} +  \mytikzmark{u}{\circled{$u_{it}$}} $$ 
