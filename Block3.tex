@@ -341,11 +341,11 @@ FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used
 %---------------------------------------------------------------------
 \begin{frame}{FD estimator – assumptions}
 \begin{itemize}
-\item[\textbf{FD.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FD.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FD.2}] We have random sample from cross-sectional units.
 \item[\textbf{FD.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
-\item[\textbf{FD.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \quad $\forall \ t, s$]
-\item[\textbf{FD.5}] Variance of differenced errors conditional on all regressors is constant: $\textit{var}(\Delta u_{it} \mid \bm{X}_i) = \sigma^2$, \quad $t= 2,3, \dots, T$. [homoscedasticity]
+\item[\textbf{FD.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \quad $\forall \ t, s$]
+\item[\textbf{FD.5}] Variance of differenced errors conditional on all regressors is constant: $\textnormal{var}(\Delta u_{it} \mid \bm{X}_i) = \sigma^2$, \quad $t= 2,3, \dots, T$. [homoscedasticity]
 \item[\textbf{FD.6}] No serial correlation exists among differenced errors. $\textit{cov}(\Delta u_{it}, \Delta u_{is} \mid \bm{X}_i) = 0$, \quad $t \neq s$
 \item[\textbf{FD.7}] Differenced errors are normally distributed conditional on all regressors $\bm{X}_i$.
 \end{itemize}
@@ -367,7 +367,7 @@ FD estimators - i.e. pooled OLS on first differences - are normally distributed 
 \end{frame}
 %---------------------------------
 \begin{frame}{FD estimator}
-\underline{\textbf{Problems related to the FD estimator:}}
+\underline{\textbf{Problems related to the FD estimator:}}\\ \medskip
 \begin{itemize}
 \item First-differenced estimates will be imprecise if explanatory variables vary only to a small extent over time (no estimate possible if regressors are time-invariant).
 \item Potentially, there is insufficient (lower) variability in differenced variables.
@@ -377,15 +377,15 @@ FD estimators - i.e. pooled OLS on first differences - are normally distributed 
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator}
-``Fixed'' means correlation of $\mu_i$ and $\bm{x}_{it}$, not that $a_i$ is non-stochastic.\\ \medskip
+``Fixed'' means correlation of $a_i$ and $\bm{x}_{it}$, not that $a_i$ is non-stochastic.\\ \medskip
 We can rewrite $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$ as follows:\\
-$y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it},$$
+$y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it},$$
 \hfill $$i = 1, \dots, N$, \ $t = 1, \dots,T$ \\ 
 Now, \underline{for each $i$}, we \underline{average} the above equation \underline{over time}:\\
 \medskip
-${\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{\mu}_i + \overline{u}_i}$\\ ($N$ equations with individual averages)
+${\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{a}_i + \overline{u}_i}$\\ ($N$ equations with individual averages)\\
 \medskip
-By subtracting individual averages from the original observations (time-demeaning), we get:\\
+By subtracting individual averages from the original observations (time-demeaning), we get:\\ \medskip
 $\Rightarrow \boxed{[y_{it} - \overline{y}_{i}]} = \beta_1 \boxed{[x_{it1}-\overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}-\overline{x}_{ik}]}+\boxed{[u_{it}- \overline{u}_i]}$\\
 \medskip
 Alternative notation: $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$; where $\ddot{y}_{it} = y_{it} - \overline{y}_{i}$, etc.\\
@@ -394,29 +394,29 @@ FE estimator, denoted $\bm{\hat{\beta}}_{FE}$, is the pooled OLS estimator appli
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator}
-\textbf{FE estimator:} by time demeaning, we get rid of the $\mu_i$ element - as it does not vary over time 
-\vspace{0.5cm}
+\textbf{FE estimator:} by time demeaning, we get rid of the $a_i$ element - as it does not vary over time 
+\medskip
 \begin{itemize}
-\item $\mu_i = \overline{\mu}_i \ \rightarrow \ \mu_i - \overline{\mu}_i = 0$
+\item $a_i = \overline{a}_i \ \rightarrow \ a_i - \overline{a}_i = 0$
 \item Intercept and all time-invariant regressors are also eliminated using the FE (within) transformation.
 \end{itemize}
-\vspace{0.5cm}
-After FE estimation, $\mu_i$ elements may be estimated as follows:
-$\hat{\mu}_i =\overline{y}_i - \hat{\beta}_1 \overline{x}_{i1} - \dots - \hat{\beta}_k \overline{x}_{ik},$ \ $i = 1, \dots, N$ \\
-\vspace{0.5cm}
-However, in most practical applications, $\mu_i$ values bear limited useful information.\\ \medskip
+\medskip
+After FE estimation, $a_i$ elements may be estimated as follows:\\ \medskip
+$\hat{a}_i =\overline{y}_i - \hat{\beta}_1 \overline{x}_{i1} - \dots - \hat{\beta}_k \overline{x}_{ik},$ \ $i = 1, \dots, N$ \\
+\medskip
+However, in most practical applications, $a_i$ values bear limited useful information.\\ \medskip
 For each C-S observation $i$, we loose one d.f. in estimation ~ \dots for each $i$, the demeaned errors $\ddot{u}_{it}$ add up to zero when summed over time. Hence \ $df = N(T-1)-k$
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator – assumptions}
 \begin{itemize}
-\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
 \item[\textbf{FE.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
-\item[\textbf{FE.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \quad $\forall \ t, s$]
-\item[\textbf{FE.5}] Variance of errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
-\item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textit{cov}(u_{it}, u_{is} \mid \bm{X}_i, \mu_i) = 0$, \quad $t \neq s$
-\item[\textbf{FE.7}] Errors are normally distributed conditional on all regressors $(\bm{X}_i, \mu_i)$.
+\item[\textbf{FE.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \quad $\forall \ t, s$]
+\item[\textbf{FE.5}] Variance of errors conditional on all regressors is constant: $\textnormal{var}(u_{it} \mid \bm{X}_i, a_i) = \textnormal{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
+\item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textnormal{cov}(u_{it}, u_{is} \mid \bm{X}_i, a_i) = 0$, \quad $t \neq s$
+\item[\textbf{FE.7}] Errors are normally distributed conditional on all regressors $(\bm{X}_i, a_i)$.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -435,61 +435,41 @@ FE estimator is BLUE and $t$ and $F$ statistics have exact $t$ and $F$ distribut
 FE estimators - i.e. pooled OLS on time demeaned data - are normally distributed.
 \end{frame}
 %---------------------------------
-\begin{frame}{FE vs FD estimator}
-\begin{itemize}
-\item For $T=2$, FE and FD estimators produce identical estimates and inference. (FE must include a time dummy for the second period to be actually identical to the FD estimation output)
-\item For $T>2$, FE and FD are both unbiased under FE.1 - FE.4. Both FE and FD are consistent for fixed $T$ as $N \rightarrow \infty$
-\item If $u_{it}$ is not serially correlated, FE is more efficient than FD
-\item If $u_{it}$ follows a random walk (hence $\Delta u_{it}$ is serially uncorrelated) FD is better than FE.
-\item If $u_{it}$ shows some level of positive serial correlation (not a random walk), FD and FE may not be easily compared. For negative correlation of $u_{it}$, we prefer FE.
-\end{itemize}
-\end{frame}
-%---------------------------------
-%\begin{frame}{FE vs FD estimator}
-%\begin{itemize}
-%\item For $T \gg N$, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
-%\item If strict exogeneity is violated, both FE and FD are biased. However, FE is likely to have less bias than FD (unless $T=2$). The bias of FD does not depend on $T$, while the bias in FE tends to zero at rate $1/T$.
-%\item \dots it may be a good idea to use both FD and FE. If the results are not method-sensitive, so much the better. If the results from FE and FD differ significantly, we sometimes report both.
-%\end{itemize}
-%\end{frame}
-%---------------------------------
 \begin{frame}{RE estimator}
-If $\mu_i$ are uncorrelated with $\bm{x}_{it}$, then it may be appropriate to model the individual constant terms as randomly distributed across cross-sectional units (appropriate if C-S units are from a large sample).
+\small 
+If $a_i$ are uncorrelated with $\bm{x}_{it}$, then it may be appropriate to model the individual constant terms as randomly distributed across cross-sectional units. RE models are appropriate if C-S units are from \textbf{a large sample} (good asymptotic properties).
 \bigskip
 
 \begin{itemize}
 \item RE models reduce the number of parameters estimated.
-\item RE estimator is potentially inconsistent, if assumption not met.
-\item $y_{it} = \bm{x}_{it} \bm{\beta} + \mu_i + u_{it}$\\
-\item If we can assume that $\mu_i$ is uncorrelated with each explanatory variable: $\textit{cov}(\bm{x}_{it}, \mu_i) = 0$; \ $t = 1,2, \dots, T$ \\then we may drop $\mu_i$ from the equation and $\beta_j$ estimates will remain unbiased.\\
-\item By dropping $\mu_i$ from the regression, we effectively create a new error term: $v_{it} = \mu_i + u_{it}$\\
+\item RE estimator potentially inconsistent if assumptions not met.
+\item $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
+If we can assume that $a_i$ is uncorrelated with each explanatory variable: $\textnormal{corr}(\bm{x}_{it}, a_i) = 0$; \ $t = 1,2, \dots, T$ \\then we may drop $a_i$ from the equation and $\beta_j$ estimates will remain unbiased.\\
+\item By dropping $a_i$ from the regression, we effectively create a new error term: $v_{it} = a_i + u_{it}$\\
 \medskip
-\item As $\mu_i$ is time-invariant, the random element $v_{it}$ contains a lot of ``inertia'', i.e. autocorrelation (unless $\mu_i = 0$).
+\item As $a_i$ is time-invariant, the random element $v_{it}$ contains a lot of ``inertia'', i.e. autocorrelation (unless $a_i = 0$).
 \end{itemize}
 \end{frame}
 %---------------------------------
 \begin{frame}{RE estimator - FGLS}
+\small 
 $y_{it} = \beta_0 + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + v_{it};$\\
-%\bigskip
-The quasi-demeaning (quasi-differencing) parameter $\lambda$ is used for the FGLS estimation:\\
-$\theta = 1 - \big[ \sigma^2_u / (\sigma^2_u + T \sigma^2_{\mu}) \big]^{1/2}$, \quad  $0 \le \theta \le 1$\\
-%\medskip
-where $\textit{var}(\mu_i) = \sigma^2_{\mu}$; \quad $\textit{var}(u_i) = \sigma^2_u$\\
+\bigskip
+The quasi-demeaning (quasi-differencing) parameter $\theta$ is used for the FGLS estimation:\\ \medskip
+$\theta = 1 - \big[ \sigma^2_u / (\sigma^2_u + T \sigma^2_{\mu}) \big]^{1/2}$, \quad  $0 \le \theta \le 1$\\ \medskip
+where $\textit{var}(a_i) = \sigma^2_{\mu}$; \quad $\textit{var}(u_i) = \sigma^2_u$\\
 \begin{itemize}
 \item \small For each dataset, consistent estimators of $\sigma^2_{\mu}$ and $\sigma^2_u$ are available.\\
-\item \small Their estimation is based on pooled OLS or FE \\ also, we use the fact that $\sigma^2_v = \sigma^2_{\mu} + \sigma^2_u$\\
+\item \small Their estimation is based on pooled OLS or FE. \\ Also, we use the fact that $\sigma^2_v = \sigma^2_{\mu} + \sigma^2_u$
 \end{itemize}
-%\medskip
-\vspace{-0.1cm}
-RE estimator is a pooled OLS used on the quasi-demeaned data:\\
-\vspace{-0.3cm}
-\small $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1  \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+ \boxed{[\mu_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$
+RE estimator is a pooled OLS used on the quasi-demeaned data:\\ \medskip
+{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$} \\ \medskip
 (transformed errors follow G-M assumptions -- not autocorrelated)
 \end{frame}
 %---------------------------------
 \begin{frame}{RE estimator - FGLS}
 \
-{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[\mu_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$}\\
+{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$}\\
 \bigskip
 Interestingly, the FGLS equation is a general form that encompasses both FE and pooled OLS:
 \bigskip
@@ -502,20 +482,20 @@ Interestingly, the FGLS equation is a general form that encompasses both FE and 
 \begin{frame}{RE estimator – Assumptions}
 \footnotesize
 \begin{itemize}
-\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + \mu_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
-\item[\textbf{FE.4}] $\forall \ i, t$: \ $E (u_{it} \mid \bm{X}_i, \mu_i) = 0$. [Alt.: $\textit{corr}(x_{itj}, u_{is} \mid \mu_i)=0$, \ $\forall \ t, s$]
-\item[\textbf{FE.5}] Variance of idiosyncratic errors conditional on all regressors is constant: $\textit{var}(u_{it} \mid \bm{X}_i, \mu_i) = \textit{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
-\item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textit{cov}(u_{it}, u_{is} \mid \bm{X}_i, \mu_i) = 0$, \quad $t \neq s$
-\item[\textcolor{black}{\textbf{FE.7}}] [normality of $u_{it}$ has little actual importance for the RE estimator
+\item[\textbf{FE.4}] $\forall \ i, t$: \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \ $\forall \ t, s$]
+\item[\textbf{FE.5}] Variance of idiosyncratic errors conditional on all regressors is constant: $\textnormal{var}(u_{it} \mid \bm{X}_i, a_i) = \textnormal{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
+\item[\textbf{FE.6}] No serial correlation exists among idiosyncratic errors. $\textnormal{cov}(u_{it}, u_{is} \mid \bm{X}_i, a_i) = 0$, \quad $t \neq s$
+\item[\textcolor{black}{\textbf{FE.7}}] [small sample normality of $u_{it}$ has little importance for RE estimator]
 \end{itemize}
 	\begin{tikzpicture}
 	\draw[thick, color=blue] (0,0) -- (10.5,0);
 	\end{tikzpicture}
 \begin{itemize}
 \item[\textbf{RE.1}] There are no perfect linear relationships among explanatory variables. [replaces \textcolor{blue}{\textbf{FE.3}}]
-\item[\textbf{RE.2}] In addition to \textcolor{blue}{\textbf{FE.4}}, the expected value of $\mu_i$ given all regressors is constant: $E(\mu_i \mid \bm{X}_i)=\beta_0$. [Rules out correlation between $\mu_i$ and $\bm{X}_i$]
-\item[\textbf{RE.3}] In addition to \textcolor{blue}{\textbf{FE.5}}, variance of $\mu_i$ given all regressors is constant: $\textit{var}(\mu_i \mid \bm{X}_i)=\sigma^2_a$ [homoscedasticity imposed on $\mu_i$]
+\item[\textbf{RE.2}] In addition to \textcolor{blue}{\textbf{FE.4}}, the expected value of $a_i$ given all regressors is constant: $E(a_i \mid \bm{X}_i)=\beta_0$. [Rules out correlation between $a_i$ and $\bm{X}_i$]
+\item[\textbf{RE.3}] In addition to \textcolor{blue}{\textbf{FE.5}}, variance of $a_i$ given all regressors is constant: $\textnormal{var}(a_i \mid \bm{X}_i)=\sigma^2_a$ [homoscedasticity imposed on $a_i$]
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -538,9 +518,9 @@ RE is asymptotically efficient
 Correlated Random Effects (CRE) estimator - a synthesis of the RE and FE approaches: 
 \vspace{0.5cm}
 \begin{itemize}
-\item $\mu_i$ viewed as random, yet they can be correlated with $\bm{x}_{it}$.\\
+\item $a_i$ viewed as random, yet they can be correlated with $\bm{x}_{it}$.\\
 \vspace{0.2cm}
-Specifically, as $\mu_i$ do not vary over time, it makes sense to allow for their correlation with the time average of $x_{it}:\overline{x}_i = T^{-1} \sum^T_{t=1}x_{it}$
+Specifically, as $a_i$ do not vary over time, it makes sense to allow for their correlation with the time average of $x_{it}:\overline{x}_i = T^{-1} \sum^T_{t=1}x_{it}$
 \vspace{0.2cm}
 \item CRE allows for incorporation of time-invariant regressors (compare to FE).
 \vspace{0.2cm}
@@ -549,50 +529,51 @@ Specifically, as $\mu_i$ do not vary over time, it makes sense to allow for thei
 \end{frame}
 %---------------------------------
 \begin{frame}{CRE estimator}
-CRE: The individual-specific effect $\mu_i$ is split up into a part that is related to the time-averages of the explanatory variables and a part $r_i$ (a time-constant unobservable) that is unrelated to the explanatory variables: 
+CRE: The individual-specific effect $a_i$ is split up into a part that is related to the time-averages of the explanatory variables and a part $r_i$ (a time-constant unobservable) that is unrelated to the explanatory variables: 
 \begin{align*}
-\textnormal{For } y_{it} & =  \beta_1 x_{it} + \mu_i + u_{it}\textnormal{, we assume (a single-regressor illustration):}\\ \vspace{0.3cm}
-\mu_i & = \alpha + \gamma \overline{x}_i + r_i \textnormal{, now: } \textit{cor}(r_i, \overline{x}_i) = 0 \Rightarrow \textit{cor}(r_i,x_{it}) = 0\\ 
+\textnormal{For } y_{it} & =  \beta_1 x_{it} + a_i + u_{it}, \\
+&\textnormal{~~we assume (a single-regressor illustration):}\\ 
+a_i & = \alpha + \gamma \overline{x}_i + r_i \textnormal{,~~now: } \textnormal{corr}(r_i, \overline{x}_i) = 0 \Rightarrow \textnormal{corr}(r_i,x_{it}) = 0\\ 
 &\textnormal{~~(because $\overline{x}_i$  is a linear function of  $x_{it}$)}
 \end{align*}
 
-By substituting for $\mu_i$ into the first equation, we obtain: \\
+By substituting for $a_i$ into the first equation, we obtain: \\
 $y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$ \\
 \bigskip
 \underline{This equation can be estimated using RE}\\
-As $\gamma \overline{x}_i$ controls for the correlation between $\mu_i$ and $x_{it}$, \\$r_i$ is uncorrelated with regressors.
+As $\gamma \overline{x}_i$ controls for the correlation between $a_i$ and $x_{it}$, \\$r_i$ is uncorrelated with regressors.
 \end{frame}
 %---------------------------------
 \begin{frame}{CRE estimator}
 CRE: \ $y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$ \\
 \medskip
-\small CRE is a modified RE of the original equation $y_{it} =  \beta_1 x_{it} + \mu_i + u_{it}$: \\
+\small CRE is a modified RE of the original equation $y_{it} =  \beta_1 x_{it} + a_i + u_{it}$: \\
 \vspace{0.2cm}
 with uncorrelated random effect $r_i$ but with the time averages as additional regressors. \\
 \vspace{0.3cm}
-\underline{The resulting CRE estimate for $\beta$ is identical to the FE estimator}.
-\begin{itemize}
-\item CRE allows for incorporation of time-invariant regressors: Besides $\hat{\beta}_{\textit{CRE}} = \hat{\beta}_{\textit{FE}}$, we can include arbitrary time invariant regressors and estimate $\gamma_{\textit{CRE}}$ values.
-\item CRE allows for convenient testing of FE vs. RE:
+\underline{The resulting CRE estimate for $\beta$ is identical to the FE estimator}. \\ \medskip
+CRE allows for convenient testing of FE vs. RE:
 	\begin{itemize}
 	\item[$H_0$:] $\gamma = 0$ can be evaluated using $\hat{\gamma}_{\textit{CRE}}$ and appropriate (HCE) standard errors against
-	\item[$H_1$:] $\gamma \neq 0$
+	\item[$H_1$:] $\gamma \neq 0$ [RE assumes $\gamma = 0$: reject $H_0\rightarrow$ reject RE in favor of FE]
 	\end{itemize}
+
+\begin{itemize}
+    \item CRE is a versatile estimator. In terms of model specification, it allows for incorporation of time-invariant regressors into panel data models where $a_i$ is correlated with regressors.
 \end{itemize}
-[RE assumes $\gamma = 0$: if we reject $H_0$, we also reject RE in favor of FE]
 \end{frame}
 %---------------------------------
 \begin{frame}{Arellano-Bond estimator (dynamic panels)}
-Dynamic panel\\
+Dynamic panel model example:\\
 \medskip
-$y_{it} = \delta_1 y_{i,t-1} + \bm{x}^{\prime}_{it} \bm{\beta} + \mu_i + u_{it}$\\
+$y_{it} = \delta_1 y_{i,t-1} + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\
 \medskip
-\dots May be expanded using additional lags of the dependent variable or using lagged exogenous regressors.\\
+\dots may be expanded using additional lags of the dependent variable or using lagged exogenous regressors.\\
 \medskip
 \small
 \textbf{Nickel Bias}
 \begin{itemize}
-\item Related mostly to the lagged exogenous regressors $\bm{x}$
+\item Related (mostly) to the lagged exogenous regressors $\bm{x}$
 \item FEs take up some part of the dynamic effect and therefore dynamic panel data models lead to overestimated FEs and underestimated dynamic interactions. 
 \item Whether the Nickel bias is significant in a particular model/dataset situation is an empirical question. Nevertheless, in theory this bias persists unless the number of time observations goes to infinity.
 \item The inclusion of additional cross-sections to the dataset would worsen the bias in most cases.
@@ -600,16 +581,20 @@ $y_{it} = \delta_1 y_{i,t-1} + \bm{x}^{\prime}_{it} \bm{\beta} + \mu_i + u_{it}$
 \end{frame}
 %---------------------------------
 \begin{frame}{Arellano-Bond estimator (dynamic panels)}
-\textbf{Arellano-Bond} (AB) \textbf{estimator} 
+\textbf{Arellano-Bond (AB) estimator} \\ \medskip
 \begin{itemize}
 \item The model is transformed into first differences to eliminate the individual effects:\\
 $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\beta} + \Delta u_{it}$, 
-\item then a generalized method of moments (GMM) approach is used to produce asymptotically efficient estimates for the dynamic coefficients.
-\item AB approach is based on IV (we need instruments for the lagged dependent variable – this is an endogenous regressor, correlated with the errors in the FD model).
+\medskip
+\item then a generalized method of moments (GMM) approach is used to produce asymptotically efficient estimates of the coefficients.
+\medskip
+\item AB is based on IVR (we need instruments for lagged dependent variable as this is an endogenous regressor in the FD-transformed model ($\Delta y_{i,t-1}$ correlated to $\Delta u_{it}$).
+\medskip
 \item \textcolor{red}{Warning:} AR(2) / not AR(1) / autocorrelation in residuals of the AB-estimated model renders the AB estimator inconsistent. After using the AB estimator, always test for AR(2) autocorrelation in the residuals!
 \end{itemize}
 \end{frame}
-%---------------------------------------------------------------------
+%---------------------------------
+\subsection*{Choosing adequate estimators -- assumptions and tests}
 
 
 
@@ -628,6 +613,41 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%---------------------------------
+\begin{frame}{FE vs FD estimator}
+\begin{itemize}
+\item For $T=2$, FE and FD estimators produce identical estimates and inference. (FE must include a time dummy for the second period to be actually identical to the FD estimation output)
+\item For $T>2$, FE and FD are both unbiased under FE.1 - FE.4. Both FE and FD are consistent for fixed $T$ as $N \rightarrow \infty$
+\item If $u_{it}$ is not serially correlated, FE is more efficient than FD
+\item If $u_{it}$ follows a random walk (hence $\Delta u_{it}$ is serially uncorrelated) FD is better than FE.
+\item If $u_{it}$ shows some level of positive serial correlation (not a random walk), FD and FE may not be easily compared. For negative correlation of $u_{it}$, we prefer FE.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{FE vs FD estimator}
+\begin{itemize}
+\item For $T \gg N$, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
+\item If strict exogeneity is violated, both FE and FD are biased. However, FE is likely to have less bias than FD (unless $T=2$). The bias of FD does not depend on $T$, while the bias in FE tends to zero at rate $1/T$.
+\item \dots it may be a good idea to use both FD and FE. If the results are not method-sensitive, so much the better. If the results from FE and FD differ significantly, we sometimes report both.
+\end{itemize}
+\end{frame}
+%---------------------------------
 
 
 
