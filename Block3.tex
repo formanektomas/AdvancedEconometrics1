@@ -597,29 +597,205 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
 \subsection*{Choosing adequate estimators -- assumptions and tests}
 \begin{frame}{Choosing adequate estimators -- assumptions and tests}
 \begin{itemize}
-    \item Poolability tests
+    \item Poolability tests (pooled regression vs other estimators)
     \medskip
     \item Cross sectional dependency
     \medskip
-    \item Estimator selection
+    \item Estimator selection (FD vs FE;  FE vs RE)
     \medskip 
     \item Heteroscedasticity, autocorrelation and robust inference
 \end{itemize}
 \end{frame}
 %--------------------------------- 
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{frame}{Choosing adequate estimators -- assumptions and tests}
+We start by generalization of the (short) panel data model:
+\begin{itemize}
+   \medskip
+    \item[a)] Model with individual effects: 
+    $$y_{it} = \alpha + \beta_{1} x_{it1} + \dots + \beta_K x_{itK} + a_i + \nu_{it}$$
+    \item[b)] Model with time effects: 
+    $$y_{it} = \alpha + \beta_{1} x_{it1} + \dots + \beta_K x_{itK} + \lambda_t + \nu_{it}$$  
+    \item[c)] Model with twoways effects: 
+    $$~~~~~y_{it} = \alpha + \beta_{1} x_{it1} + \dots + \beta_K x_{itK} + a_i + \lambda_t + \nu_{it}$$\\ \medskip
+    \item For short panels, we often apply models with individual effects only -- and use time dummies if necessary.
+    \item \textbf{Some} of the following test are designed for different variants of unobserved effects.
+    \item In principle, unobserved time effects are dealt with the same way as unobserved individual effects.
+\end{itemize}
+\end{frame}
+%--------------------------------- 
+\begin{frame}{LSDV-based test for individual intercepts}
+\small
+\begin{itemize}
+    \item Null hypothesis of common  intercept ($H_0:~a_1 = a_2 = \cdots = a_N$) is tested against the alternative of individual-specific intercepts. Common slopes (the same $\beta$-coefficients across CS units) are assumed (not tested).
+    \medskip
+    \item Test designed for individual effects (other variants by analogy).
+    \medskip
+    \item Unrestricted model: $y_{it} = \alpha + \bm{d}^{\prime}\bm{\delta} + \bm{x}_t^{\prime} \bm{\beta} + u_{it}$ \\ \medskip
+    where $\bm{d}$ is a vector of CSID-based dummy variables and $\bm{\delta}$ is a vector of regression coefficients ($N-1$ dummies used to avoid dummy variable trap).
+    \medskip
+    \item Restricted model: $~~y_{it} = \alpha + \bm{x}_t^{\prime} \bm{\beta} + u_{it}$.
+    \medskip
+    \item Can be implemented as an $F$-test for linear (zero) restrictions: \\Pooled regression is compared to LSDV model.
+\end{itemize}
+\end{frame}
+%--------------------------------- 
+\begin{frame}{\texttt{pooltest()} -- \textit{F}-test of stability (Chow test)}
+\small 
+\begin{itemize}
+    
+    \smallskip
+    \item Allows for different intercepts \& tests for equal slopes \\in all CS-units. \texttt{R} implementation compares pooling and FE estimators. Algorithm outline:
+    \begin{itemize}
+        \item[1] Estimate model separately for each CS unit (ignore $a_i$).
+        \item[2] Compare with FE estimator (individual intercept, common slopes on regressors) using an $F$-test 
+        \item Are the slopes ($\beta$-coefficients) identical among CS-units?
+    \end{itemize}
+    \smallskip
+    \item \textbf{Drawback:} test cannot handle time-invariant regressors -- as the unrestricted model is estimated individually for each CS-unit, such regressors are perfectly correlated with the intercept. With FE estimator, all time-invariant regressors are eliminated. 
+    \medskip
+    \item Single-regressor example:\\ \medskip Unrestricted model: $y_{it} = \alpha + \beta_{i1} x_{it} + a_i + u_{it}, \quad i=1,2,\dots,N$\\ \smallskip Restricted model: $\,~~y_{it} = \alpha + \beta_1 x_{it} + a_i + u_{it},$
+\begin{itemize}
+    \item[] $H_0:~\beta_{11}=\beta_{21}=\dots=\beta_{N1}$  
+    \item[] $H_1:~\neg H_0$
+\end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{\texttt{pooltest()} -- \textit{F}-test of stability (Chow test)}
+\vspace{2.5cm}
+\vfill
+\bigskip
+$\qquad F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur}}}{\textit{SSR}_{ur}} \cdot \frac{(NT-N-NK)}{(N-1)K};$ \\
+\bigskip
+{\small under $H_0$ of common slopes (no structural break),\\ \medskip $\qquad F \sim F[(N-1)K, (NT- \mytikzmark{TTk}{\circledd{$N-NK$)}}]$} \\
+\bigskip
+\begin{itemize}
+\item \texttt{R} implementation: \texttt{pooltest()} from the \texttt{\{plm\}} package.
+\end{itemize}
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
+\tikzset{
+    mynode/.style={rectangle,draw=blue, dashed, fill=white, semithick, inner sep=.2em, minimum size=2em, text centered, text width=9em},
+    myarrow/.style={->, >=stealth, thin, blue}
+}
+\node[mynode] at (1.8,7.2) (SSRr*){$\textit{SSR}_r$: restricted model – allow for different $a_i$, impute common slopes.};
+\draw[myarrow] (SSRr*) -- ++   (SSRr);
+	\node[mynode] at (5.5,7.2) (SSRur*){$\textit{SSR}_{ur}$:run a regression for each of the CS units. $\textit{SSR}_{ur} = 			\textit{SSR}_1 + \textit{SSR}_2 + \dots + \textit{SSR}_N$};
+	\draw[myarrow] (SSRur*) -- ++   (SSRur);
+		\node[mynode] at (9.3,7.2) (TTk*){$N + NK$ parameters estimated in the unrestricted model, $K$ is \# regressors};
+		\draw[myarrow] (TTk*) -- ++   (TTk);
+\end{tikzpicture}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{\texttt{pFtest()} for unobserved effects}
+\small 
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \lambda_t + \nu_{it}$\\ \medskip
+\begin{itemize}
+    \item Generalization of the previous test. \\ \medskip $F$-test of unobserved effects based on the comparison of ``pooling'' and ``within'' models. Significances of either ``individual'', ``time'' or ``twoways'' effects can be tested.
+    \medskip
+    \item  Based on comparing FE-estimator against the pooling model. 
+    \medskip 
+    \item d.f. of the $F$-test statistic depend on the number of observations and parameters restricted:\\
+    \texttt{df1} is the number of restrictions (parameters restricted), \\
+    \texttt{df2} $= N(T-1)~-$ (\# parameters in the unrestricted model)
+    \medskip
+    \item Hence, two main arguments to the test function are \texttt{plm}-estimated ``pooling'' and ``within'' models. 
+    \medskip
+    \item Implementation: \texttt{pFtest()} from the \texttt{\{plm\}} package
+\end{itemize}    
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+\begin{itemize}
+    \item \texttt{plmtest(..., type="honda")} from the \texttt{\{plm\}} package
+    \medskip
+    \item Using OLS-based (``pooling'') residuals, we test the null hypothesis of redundant individual $(\mu_i)$ and/or time $ (\lambda_t) $ effects.
+    \medskip
+    \item Individual effects: 
+    $$y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \mu_i + \nu_{it}$$
+    \item Time effects: 
+    $$y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \lambda_t + \nu_{it}$$  
+    \item Twoways effects: 
+    $$~~~~~y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \mu_i + \lambda_t + \nu_{it}$$ \item Note: for this LM-based tests, we only use the residuals of the pooling model (if performed on RE of FE model, corresponding pooling model is calculated internally first). \\ \smallskip Notation follows Baltagi (2008)
+\end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+Panel model\\ \bigskip
+\begin{itemize}
+    \item $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$
+    \medskip
+    \item Assumptions for Honda (1985) test: \\ \smallskip {\it i.i.d.} individual effects: $\mu_i \sim N(0,\sigma^2_{\mu})$; \\{\it i.i.d.} time effects: $\lambda_t \sim N(0,\sigma^2_{\lambda})$; \\{\it i.i.d.} idiosyncratic errors: $\nu_{it} \sim N(0,\sigma^2_{\nu})$.
+    \medskip
+    \item Null hypotheses to be tested:
+    \smallskip
+    \begin{itemize}
+        \item $H_0^{\mu}: \sigma^2_{\mu} = 0 \qquad \qquad$ ~~~(no individual effects)
+        \smallskip
+        \item $H_0^{\lambda}: \sigma^2_{\lambda} = 0 \qquad \qquad$ ~~~(no time effects)
+        \smallskip
+        \item $H_0^{\mu \lambda}: \sigma^2_{\mu} = \sigma^2_{\lambda} = 0 \qquad \,$ (no individual nor time effects)
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+\small
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$\\ \smallskip Balanced panel assumed. \bigskip
+\begin{itemize}
+    \item Error component in stacked (matrix form): \\ \smallskip
+    $\bm{u}_i = \left( u_{i1}, u_{i2}, \dots, u_{iT} \right)^{\prime}$ and $\bm{u} = \left( \bm{u}_1^{\prime}, \bm{u}_2^{\prime}, \dots, \bm{u}_N^{\prime} \right)^{\prime}$ \\ \smallskip
+    $\bm{u}_i$ is $T \times 1$ and $\bm{u}$ is $NT \times 1$.
+    \medskip
+    \item In matrix form, $\bm{u}$ can be cast as: \\
+    $\bm{u} = \bm{D}_{\mu} \bm{\mu} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \smallskip
+    where \\$\bm{\mu} = (\mu_1, \dots, \mu_N)^{\prime}$, \\$\bm{\lambda} = (\lambda_1, \dots, \lambda_T)^{\prime}$, \\$\bm{\nu}$ follows the structure of $\bm{u}$,\\
+    $\bm{D}_{\mu} = (\bm{I}_N \otimes \bm{\iota}_T)$ i.e. $\bm{I}_N$ with each row repeated $T$-times; $(NT \times N)$, \\
+    $\bm{D}_{\lambda} = ( \bm{\iota}_N \otimes \bm{I}_T )$ i.e. $\bm{I}_T$ stacked vertically $N$-times; $(NT \times T)$, \\ 
+    note that time is the ``fast index'' here.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$\\ \medskip
+$\bm{u} = \bm{D}_{\mu} \bm{\mu} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \bigskip
+\begin{itemize}
+    \item $\bm{D}_{\mu} \bm{D}_{\mu}^{\prime} = \left(\bm{I}_N \otimes \bm{J}_T \right)$ i.e. block-diagonal matrix of $\bm{J}_T$-matrices \\where $\bm{J}_T=\iota_T \iota_T^{\prime}$  ($\bm{J}_T$ is a $T \times T$ matrix of ones).
+    \medskip
+    \item $\bm{D}_{\lambda} \bm{D}_{\lambda}^{\prime} = \left(\bm{J}_N \otimes \bm{I}_T   \right)$ i.e. $N\times N$ array of $\bm{I}_T$-matrices.
+    \medskip
+    \item Now, we define\\ \medskip
+    $A_r = \left[ \left( \frac{\bm{u}^{\prime}\bm{D}_r \bm{D}_r^{\prime} \bm{u}}{\bm{u}^{\prime}\bm{u}} \right) - 1 \right]$ for $r=\mu$ or $r=\lambda$.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it} \qquad$ (balanced panel)\\ \medskip
+\begin{itemize}
+    \item Honda (1985) derives a uniformly most powerful {\it LM} statistics for \\
+    $H_0^{\mu}: \sigma_{\mu}^2=0$ against a one-sided $H_1^{\mu}: \sigma_{\mu}^2>0$:
+    $$
+    \textnormal{HO}_{\mu} = \sqrt{\frac{NT}{2(T-1)}} ~ A_{\mu} ~ \underset{H_0}{\rightarrow}~N(0,1)
+    $$
+    \item Similarly, for $H_0^{\lambda}: \sigma_{\lambda}^2=0$ against a one-sided $H_1^{\lambda}: \sigma_{\lambda}^2>0$:
+    $$
+    \textnormal{HO}_{\lambda} = \sqrt{\frac{NT}{2(T-1)}} ~ A_{\lambda} ~ \underset{H_0}{\rightarrow}~N(0,1)
+    $$
+\end{itemize}    
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{Honda (1985) test for individual and time effects}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it} \qquad$ (balanced panel)\\ \medskip
+\begin{itemize}
+    \item Honda (1985) provides a test statistic for $H_0^{\mu \lambda}: \sigma_{\mu}^2=\sigma_{\lambda}^2=0$ against a one-sided alternative
+    \\(not derived as a uniformly most powerful {\it LM} statistics):
+    $$
+    \textnormal{HO}_{\mu \lambda} = \frac{\textnormal{HO}_{\mu}+\textnormal{HO}_{\lambda}}{\sqrt{2}} {\rightarrow}~N(0,1)
+    $$
+    \bigskip
+    \item Honda (1985) statistics can be generalized to the unbalanced case. \\see e.g.: \footnotesize{\textcolor{blue}{\underline{http://www.eviews.com/help/}}}
+\end{itemize}    
+\end{frame}
+%---------------------------------------------------------------------
 
 
 
@@ -641,6 +817,76 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
 
 
 %---------------------------------
+\subsection*{Cross sectional dependency}
+\begin{frame}{Cross-sectional dependency (XSD)}
+\begin{itemize}
+    \item In principle, similar to serial correlation in TS data.
+    \medskip
+    \item Can arise if individuals respond to common shocks or if spatial autocorrelation processes are present, relating individuals based on their distances (spatial models).
+    \medskip
+    \item If XSD is present, the consequence is, at a minimum, inefficiency of the usual estimators and invalid inference when using the standard covariance matrix.
+    \medskip
+    \item In \texttt{\{plm\}}, only misspeciffication tests to detect XSD are available – no robust method to perform valid inference in its presence.
+    \medskip
+    \item In case of spatially determined XSD, spatial panel econometric models should be used (discussed separately).
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Cross-sectional dependency (XSD)}
+\small
+\begin{figure}[htbp] 
+\includegraphics[trim = 0cm 5cm 0cm 5.7cm, clip, width=1\textwidth]{img/GCF_total.pdf}
+\caption{\small{Total gross fixed capital formation; 2015 fixed prices, log-transformed EUR values, years 2012 and 2017 shown}} \label{fig:choropleth2}
+\end{figure}
+\begin{itemize}
+    \item Spatial dependency is a common form of XSD. For details, see:\\
+    \textsubscript{ \textcolor{Blue}{\url{https://cran.r-project.org/web/packages/spatialreg/index.html}} }
+    \medskip
+    \item Other forms of XSD may be linked to non-spatially defined groups (e.g. on social networks), etc.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Cross-sectional dependency (XSD) test}
+\small
+\begin{itemize}
+    \item \texttt{pcdtest()} from the \texttt{\{plm\}} package:
+    \medskip
+    \item Test based on transformations of the correlation coefficient of model residuals, defined as
+    $$
+    \hat{\rho}_{ij}=\frac{\sum_{t=1}^T \hat{u}_{it}\hat{u}_{jt}}
+    {\left(\sum_{t=1}^T \hat{u}_{it}^2 \right)^{1/2} \left(\sum_{t=1}^T \hat{u}_{jt}^2 \right)^{1/2} }
+    $$
+    i.e. -- we use averages over the time dimension of pairwise correlation coefficients for each pair of CS-units.
+    \bigskip
+    \item Pesaran's CD test (Pesaran, 2004):
+    $$
+    \textnormal{CD} = \sqrt{\frac{2}{N(N-1)}}
+    \left( \sum_{i=1}^{N-1} \sum_{j=i+1}^N \sqrt{T_{ij}}\, \hat{\rho}_{ij}
+    \right)  \underset{H_0}{\rightarrow} N(0,1)
+    $$
+    CD test is appropriate in both $N$ and $T$-asymptotic settings. \\Also, CD test has good performance in samples of any practically relevant size and is robust to a variety of settings.
+\end{itemize}
+\end{frame}
+%---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%---------------------------------
+\subsection*{Estimator selection}
 \begin{frame}{FE vs FD estimator}
 \begin{itemize}
 \item For $T=2$, FE and FD estimators produce identical estimates and inference. (FE must include a time dummy for the second period to be actually identical to the FD estimation output)
@@ -680,7 +926,7 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
 
 
 %---------------------------------
-\section{Long panels -- estimation \& inference}
+\section{Long panels -- models and estimation}
 \begin{frame}{Frame Title}
     \begin{itemize}
         \item Estimation methods - repetition from BSc courses
