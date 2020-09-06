@@ -456,11 +456,11 @@ If we can assume that $a_i$ is uncorrelated with each explanatory variable: $\te
 $y_{it} = \beta_0 + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + v_{it};$\\
 \bigskip
 The quasi-demeaning (quasi-differencing) parameter $\theta$ is used for the FGLS estimation:\\ \medskip
-$\theta = 1 - \big[ \sigma^2_u / (\sigma^2_u + T \sigma^2_{\mu}) \big]^{1/2}$, \quad  $0 \le \theta \le 1$\\ \medskip
-where $\textit{var}(a_i) = \sigma^2_{\mu}$; \quad $\textit{var}(u_i) = \sigma^2_u$\\
+$\theta = 1 - \big[ \sigma^2_u / (\sigma^2_u + T \sigma^2_{a}) \big]^{1/2}$, \quad  $0 \le \theta \le 1$\\ \medskip
+where $\textit{var}(a_i) = \sigma^2_{a}$; \quad $\textit{var}(u_i) = \sigma^2_u$\\
 \begin{itemize}
-\item \small For each dataset, consistent estimators of $\sigma^2_{\mu}$ and $\sigma^2_u$ are available.\\
-\item \small Their estimation is based on pooled OLS or FE. \\ Also, we use the fact that $\sigma^2_v = \sigma^2_{\mu} + \sigma^2_u$
+\item \small For each dataset, consistent estimators of $\sigma^2_{a}$ and $\sigma^2_u$ are available.\\
+\item \small Their estimation is based on pooled OLS or FE. \\ Also, we use the fact that $\sigma^2_v = \sigma^2_{a} + \sigma^2_u$
 \end{itemize}
 RE estimator is a pooled OLS used on the quasi-demeaned data:\\ \medskip
 {\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$} \\ \medskip
@@ -706,76 +706,71 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \lambda_t + \nu_{it}$
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
 \begin{itemize}
-    \item \texttt{plmtest(..., type="honda")} from the \texttt{\{plm\}} package
-    \medskip
-    \item Using OLS-based (``pooling'') residuals, we test the null hypothesis of redundant individual $(\mu_i)$ and/or time $ (\lambda_t) $ effects.
-    \medskip
-    \item Individual effects: 
-    $$y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \mu_i + \nu_{it}$$
-    \item Time effects: 
-    $$y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \lambda_t + \nu_{it}$$  
-    \item Twoways effects: 
-    $$~~~~~y_{it} = \beta_{0} + \beta_{1} x_{it1} + \dots + \beta_k x_{itk} + \mu_i + \lambda_t + \nu_{it}$$ \item Note: for this LM-based tests, we only use the residuals of the pooling model (if performed on RE of FE model, corresponding pooling model is calculated internally first). \\ \smallskip Notation follows Baltagi (2008)
+    \item Using OLS-based (``pooling'') residuals, we test the null hypothesis of redundant individual $(a_i)$ and/or time $ (\lambda_t) $ effects.
+    \bigskip
+    \item This LM-based tests uses residuals of the pooling model. \\In \texttt{R}, if performed on RE of FE model, corresponding pooling model is calculated internally first. 
+    \bigskip
+    \item Implementation: \\ \medskip \texttt{plmtest(..., type="honda")} from the \texttt{\{plm\}} package
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
-Panel model\\ \bigskip
+Panel model cast as: \\ \bigskip
 \begin{itemize}
-    \item $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$
-    \medskip
-    \item Assumptions for Honda (1985) test: \\ \smallskip {\it i.i.d.} individual effects: $\mu_i \sim N(0,\sigma^2_{\mu})$; \\{\it i.i.d.} time effects: $\lambda_t \sim N(0,\sigma^2_{\lambda})$; \\{\it i.i.d.} idiosyncratic errors: $\nu_{it} \sim N(0,\sigma^2_{\nu})$.
-    \medskip
+    \item $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it}$
+    \bigskip
+    \item Assumptions for Honda (1985) test: \\ \medskip {\it i.i.d.} individual effects: $a_i \sim N(0,\sigma^2_{a})$; \\{\it i.i.d.} time effects: $\lambda_t \sim N(0,\sigma^2_{\lambda})$; \\{\it i.i.d.} idiosyncratic errors: $\nu_{it} \sim N(0,\sigma^2_{\nu})$.
+    \bigskip
     \item Null hypotheses to be tested:
-    \smallskip
+    \medskip
     \begin{itemize}
-        \item $H_0^{\mu}: \sigma^2_{\mu} = 0 \qquad \qquad$ ~~~(no individual effects)
+        \item $H_0^{a}: \sigma^2_{a} = 0 \qquad \qquad$ ~~~(no individual effects)
         \smallskip
         \item $H_0^{\lambda}: \sigma^2_{\lambda} = 0 \qquad \qquad$ ~~~(no time effects)
         \smallskip
-        \item $H_0^{\mu \lambda}: \sigma^2_{\mu} = \sigma^2_{\lambda} = 0 \qquad \,$ (no individual nor time effects)
+        \item $H_0^{a \lambda}: \sigma^2_{a} = \sigma^2_{\lambda} = 0 \qquad \,$ (no individual nor time effects)
     \end{itemize}
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
 \small
-$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$\\ \smallskip Balanced panel assumed. \bigskip
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it}$\\ \medskip Balanced panel assumed. \bigskip
 \begin{itemize}
-    \item Error component in stacked (matrix form): \\ \smallskip
+    \item Error component in matrix form: \\ \smallskip
     $\bm{u}_i = \left( u_{i1}, u_{i2}, \dots, u_{iT} \right)^{\prime}$ and $\bm{u} = \left( \bm{u}_1^{\prime}, \bm{u}_2^{\prime}, \dots, \bm{u}_N^{\prime} \right)^{\prime}$ \\ \smallskip
     $\bm{u}_i$ is $T \times 1$ and $\bm{u}$ is $NT \times 1$.
     \medskip
     \item In matrix form, $\bm{u}$ can be cast as: \\
-    $\bm{u} = \bm{D}_{\mu} \bm{\mu} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \smallskip
-    where \\$\bm{\mu} = (\mu_1, \dots, \mu_N)^{\prime}$, \\$\bm{\lambda} = (\lambda_1, \dots, \lambda_T)^{\prime}$, \\$\bm{\nu}$ follows the structure of $\bm{u}$,\\
-    $\bm{D}_{\mu} = (\bm{I}_N \otimes \bm{\iota}_T)$ i.e. $\bm{I}_N$ with each row repeated $T$-times; $(NT \times N)$, \\
+    $\bm{u} = \bm{D}_{a} \bm{a} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \smallskip
+    where \\$\bm{a} = (a_1, \dots, a_N)^{\prime}$, \\$\bm{\lambda} = (\lambda_1, \dots, \lambda_T)^{\prime}$, \\$\bm{\nu}$ follows the structure of $\bm{u}$,\\
+    $\bm{D}_{a} = (\bm{I}_N \otimes \bm{\iota}_T)$ i.e. $\bm{I}_N$ with each row repeated $T$-times; $(NT \times N)$, \\
     $\bm{D}_{\lambda} = ( \bm{\iota}_N \otimes \bm{I}_T )$ i.e. $\bm{I}_T$ stacked vertically $N$-times; $(NT \times T)$, \\ 
     note that time is the ``fast index'' here.
     \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
-$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it}$\\ \medskip
-$\bm{u} = \bm{D}_{\mu} \bm{\mu} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \bigskip
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it}$\\ \medskip
+
+$\bm{u} = \bm{D}_{a} \bm{a} + \bm{D}_{\lambda} \bm{\lambda} + \bm{\nu}$ \\ \vspace{0.3cm} \hrule \bigskip
 \begin{itemize}
-    \item $\bm{D}_{\mu} \bm{D}_{\mu}^{\prime} = \left(\bm{I}_N \otimes \bm{J}_T \right)$ i.e. block-diagonal matrix of $\bm{J}_T$-matrices \\where $\bm{J}_T=\iota_T \iota_T^{\prime}$  ($\bm{J}_T$ is a $T \times T$ matrix of ones).
+    \item $\bm{D}_{a} \bm{D}_{a}^{\prime} = \left(\bm{I}_N \otimes \bm{J}_T \right)$ i.e. block-diagonal matrix of $\bm{J}_T$-matrices \\where $\bm{J}_T=\iota_T \iota_T^{\prime}$  ($\bm{J}_T$ is a $T \times T$ matrix of ones).
     \medskip
     \item $\bm{D}_{\lambda} \bm{D}_{\lambda}^{\prime} = \left(\bm{J}_N \otimes \bm{I}_T   \right)$ i.e. $N\times N$ array of $\bm{I}_T$-matrices.
     \medskip
     \item Now, we define\\ \medskip
-    $A_r = \left[ \left( \frac{\bm{u}^{\prime}\bm{D}_r \bm{D}_r^{\prime} \bm{u}}{\bm{u}^{\prime}\bm{u}} \right) - 1 \right]$ for $r=\mu$ or $r=\lambda$.
+    $A_r = \left[ \left( \frac{\bm{u}^{\prime}\bm{D}_r \bm{D}_r^{\prime} \bm{u}}{\bm{u}^{\prime}\bm{u}} \right) - 1 \right]$ for $r=a$ or $r=\lambda$.
     \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
-$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it} \qquad$ (balanced panel)\\ \medskip
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it} \qquad$ \\Balanced panel assumed.\\ \vspace{0.3cm} \hrule \medskip
 \begin{itemize}
-    \item Honda (1985) derives a uniformly most powerful {\it LM} statistics for \\
-    $H_0^{\mu}: \sigma_{\mu}^2=0$ against a one-sided $H_1^{\mu}: \sigma_{\mu}^2>0$:
+    \item Honda (1985) provides (uniformly most powerful) {\it LM} statistics for $H_0^{a}: \sigma_{a}^2=0$ against a one-sided $H_1^{a}: \sigma_{a}^2>0$:
     $$
-    \textnormal{HO}_{\mu} = \sqrt{\frac{NT}{2(T-1)}} ~ A_{\mu} ~ \underset{H_0}{\rightarrow}~N(0,1)
-    $$
+    \textnormal{HO}_{a} = \sqrt{\frac{NT}{2(T-1)}} ~ A_{a} ~ \underset{H_0}{\rightarrow}~N(0,1)
+    $$ \\ \medskip
     \item Similarly, for $H_0^{\lambda}: \sigma_{\lambda}^2=0$ against a one-sided $H_1^{\lambda}: \sigma_{\lambda}^2>0$:
     $$
     \textnormal{HO}_{\lambda} = \sqrt{\frac{NT}{2(T-1)}} ~ A_{\lambda} ~ \underset{H_0}{\rightarrow}~N(0,1)
@@ -784,39 +779,18 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
-$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=\mu_i + \lambda_t + \nu_{it} \qquad$ (balanced panel)\\ \medskip
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it} \qquad$ \\Balanced panel assumed.\\ \vspace{0.3cm} \hrule \medskip
 \begin{itemize}
-    \item Honda (1985) provides a test statistic for $H_0^{\mu \lambda}: \sigma_{\mu}^2=\sigma_{\lambda}^2=0$ against a one-sided alternative
-    \\(not derived as a uniformly most powerful {\it LM} statistics):
+    \item Honda (1985) provides a test statistic for\\ \vspace{0.3cm} $H_0^{a \lambda}: \sigma_{a}^2=\sigma_{\lambda}^2=0$ against a one-sided alternative
+    \\(not derived as a uniformly most powerful {\it LM} statistics):\\ \medskip
     $$
-    \textnormal{HO}_{\mu \lambda} = \frac{\textnormal{HO}_{\mu}+\textnormal{HO}_{\lambda}}{\sqrt{2}} {\rightarrow}~N(0,1)
+    \textnormal{HO}_{a \lambda} = \frac{\textnormal{HO}_{a}+\textnormal{HO}_{\lambda}}{\sqrt{2}} {\rightarrow}~N(0,1)
     $$
-    \bigskip
-    \item Honda (1985) statistics can be generalized to the unbalanced case. \\see e.g.: \footnotesize{\textcolor{blue}{\underline{http://www.eviews.com/help/}}}
+    \medskip
+    \item Honda (1985) statistics can be generalized to the unbalanced case -- see e.g.: \footnotesize{\textcolor{blue}{\underline{http://www.eviews.com/help/}}}
 \end{itemize}    
 \end{frame}
 %---------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%---------------------------------
 \subsection*{Cross sectional dependency}
 \begin{frame}{Cross-sectional dependency (XSD)}
 \begin{itemize}
@@ -868,44 +842,85 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection*{Estimator selection (FD vs FE; FE vs RE)}
+\begin{frame}{Estimator selection (FD vs FE; FE vs RE)}
+\begin{itemize}
+    \item FD vs FE estimators
+    \bigskip
+    \item FE vs RE estimators
+\end{itemize}    
+\end{frame}
 %---------------------------------
-\subsection*{Estimator selection}
 \begin{frame}{FE vs FD estimator}
 \begin{itemize}
 \item For $T=2$, FE and FD estimators produce identical estimates and inference. (FE must include a time dummy for the second period to be actually identical to the FD estimation output)
-\item For $T>2$, FE and FD are both unbiased under FE.1 - FE.4. Both FE and FD are consistent for fixed $T$ as $N \rightarrow \infty$
+\medskip
+\item For $T>2$, FE and FD are both unbiased under \\FE.1 - FE.4. Both FE and FD are consistent for fixed $T$ as $N \rightarrow \infty$
+\medskip
 \item If $u_{it}$ is not serially correlated, FE is more efficient than FD
+\medskip
 \item If $u_{it}$ follows a random walk (hence $\Delta u_{it}$ is serially uncorrelated) FD is better than FE.
+\medskip
 \item If $u_{it}$ shows some level of positive serial correlation (not a random walk), FD and FE may not be easily compared. For negative correlation of $u_{it}$, we prefer FE.
 \end{itemize}
 \end{frame}
 %---------------------------------
 \begin{frame}{FE vs FD estimator}
 \begin{itemize}
-\item For $T \gg N$, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
+\item As the time dimension increases, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
+\medskip
 \item If strict exogeneity is violated, both FE and FD are biased. However, FE is likely to have less bias than FD (unless $T=2$). The bias of FD does not depend on $T$, while the bias in FE tends to zero at rate $1/T$.
+\medskip
 \item \dots it may be a good idea to use both FD and FE. If the results are not method-sensitive, so much the better. If the results from FE and FD differ significantly, we sometimes report both.
 \end{itemize}
 \end{frame}
 %---------------------------------
+% short panels
 
+
+
+
+% long panels
+%---------------------------------
+\begin{frame}{Wooldridge's FD-based test: FD vs FE estimator}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
+\begin{itemize}
+    \item \texttt{pwfdtest()} from the \texttt{\{plm\}} package
+    \smallskip
+    \item Serial correlation test that can be used as a specification test to choose the most efficient estimator -- FD vs FE.
+    \item If $\nu_{it}$ are not serially correlated: 
+    \begin{itemize}
+          \item FE is more efficient than FD.
+          \item Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are correlated, \\with~~ $\textnormal{cor}\left(e_{it},e_{i,t-1}\right)=-0.5$.
+        \end{itemize}
+        \item Test (for models with individual effects) can be based on estimating the model $\hat{e}_{it}=\delta \hat{e}_{i,t-1}+\eta_{it}$ based on residuals of the FD model, where we test $H_0: \delta=-0.5$, corresponding to the null of no serial correlation in the original (undifferenced) residuals $\nu_{it}$. 
+        \item If this $H_0$ is not rejected, we would prefer FE.
+        \medskip
+    \item Test performs well for $T$ asymptotics. For short panels, other serial correlation tests are available.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Wooldridge's FD-based test: FD vs FE estimator}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
+\begin{itemize}
+    \item If $\nu_{it}$ follow a random walk: 
+    \begin{itemize}
+          \item FD is more efficient than FE.
+          \item Residuals in the FE model: $\nu_{it}=\nu_{i,t-1}+e_{it}$.
+          \item Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are not serially correlated, \\(definition of a random walk for $\nu_{it}$).
+        \end{itemize}
+        \smallskip
+        \item \texttt{pwfdtest(..., h0="fd")} \\
+        $H_0:$ no serial correlation in FD-errors $e_{it}$, \\if not rejected, use FD.
+        \smallskip
+        \item \texttt{pwfdtest(..., h0="fe")} \\
+        $H_0:$ no serial correlation in FE-errors $\nu_{it}$, \\if not rejected, use FE.
+        \smallskip
+        \item If both rejected, whichever estimator is chosen will have serially correlated errors: use the autocorrelation-robust covariance estimators.
+    \smallskip
+\end{itemize}
+\end{frame}
+%---------------------------------
 
 
 
