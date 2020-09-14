@@ -603,7 +603,7 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
     \medskip
     \item Estimator selection (FD vs FE;  FE vs RE)
     \medskip 
-    \item Heteroscedasticity, autocorrelation and robust inference
+    \item Autocorrelation, heteroscedasticity, and robust inference
 \end{itemize}
 \end{frame}
 %--------------------------------- 
@@ -914,6 +914,168 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{RE vs FE estimator: Hausman test}
+\small
+\begin{itemize}
+
+    \item \textbf{Hausman test} is based on the comparison of two sets of estimates -- RE and FE.
+    \bigskip
+    \item A classical application of the Hausman test for panel data is to compare the coefficient vectors and corresponding covariance matrices of FE and RE estimators:
+    $$H=(\hat{\bm{\beta}}_{FE} - \hat{\bm{\beta}}_{RE})^T [\widehat{\textnormal{Avar}}(\hat{\bm{\beta}}_{FE}) - \widehat{\textnormal{Avar}}(\hat{\bm{\beta}}_{RE})]^{-1} (\hat{\bm{\beta}}_{FE} - \hat{\bm{\beta}}_{RE}) \underset{H_0}{\sim} \chi^2(m)$$
+    where $m$ is the number of regressors varying across $i$ and $t$.
+    \smallskip
+    \begin{itemize}
+    \item[$H_0$] $\textnormal{cov}(\bm{x}_{it},a_i) = 0$ \dots i.e. the crucial RE assumption holds, both FE and RE are consistent (RE is efficient). \\ \smallskip
+    \item[$H_1$] RE assumptions violated.
+    \end{itemize}
+    \medskip
+    \item Implementation: \texttt{phtest()} from the \texttt{\{plm\}} package
+
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{RE vs FE estimator: Hausman test}
+
+\small $$H=(\hat{\bm{\beta}}_{FE} - \hat{\bm{\beta}}_{RE})^T [\widehat{\textnormal{Avar}}(\hat{\bm{\beta}}_{FE}) - \widehat{\textnormal{Avar}}(\hat{\bm{\beta}}_{RE})]^{-1} (\hat{\bm{\beta}}_{FE} - \hat{\bm{\beta}}_{RE}) \underset{H_0}{\sim} \chi^2(m)$$
+\begin{itemize}
+    \item If $\hat{\bm{\beta}}_{FE}$ and $\hat{\bm{\beta}}_{RE}$ do not differ too much [or when the asymptotic variances are relatively large] we do not reject $H_0$. 
+    \medskip
+    \item If we may assume RE assumptions hold, both RE and FE are consistent, RE is efficient. 
+    \medskip
+    \item For asymptotic variance estimators ($\widehat{\textnormal{Avar}}$), see Wooldridge (2010). 
+    \medskip
+    \item If we reject $H_0$, we need to assume that RE assumptions are violated $\rightarrow$ RE is not consistent [we use FE].
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{RE vs FE estimator: CRE-based test}
+$$ \textnormal{CRE:}~~y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$$ \\ \bigskip
+
+CRE allows for FE vs. RE testing: \\ \medskip
+	\begin{itemize}
+	\item[$H_0$:] $\gamma = 0$, i.e. RE assumptions hold -- can be evaluated using $\hat{\gamma}_{\textit{CRE}}$ and appropriate (HCE) standard errors.
+	\medskip
+	\item[$H_1$:] $\gamma \neq 0$ [reject $H_0\rightarrow$ reject RE in favor of FE]
+	\end{itemize}
+\end{frame}
+%---------------------------------
+\subsection*{Autocorrelation, heteroscedasticity, and robust inference}
+\begin{frame}{Autocorrelation, heteroscedasticity, and robust inference}
+\begin{itemize}
+    \item Autocorrelation \& heteroscedasticity in short panels
+    \medskip
+    \item Autocorrelation \& heteroscedasticity tests
+    \medskip
+    \item Robust inference
+\end{itemize}
+\end{frame}
+%--------------------------------- 
+\begin{frame}{Autocorrelation \& heteroscedasticity in short panels}
+$$y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$$
+
+\begin{itemize}
+\small
+    \item \underline{Serial correlation (between-period correlation)} \\
+    $u_{it} = \Bigg\{ \parbox{5cm}{$\boxed{\rho \ } u_{i,t - 1} + \varepsilon_{it} \\ \boxed{\rho_i} u_{i,t - 1} + \varepsilon_{it} $}$
+    \medskip
+    \item \underline{Correlation between cross-sectional units (XSD)}\\
+    $H_0$ of no C-S dependence may be written as follows:\\ \smallskip
+    $\rho_{ij} = \textit{corr}(u_{it}, u_{jt}) = 0 \textit{ \ for \ } i \neq j$ \\ \smallskip
+    (XSD discussed separately, worth mentioning here \\as it is a type of autocorrelation).
+    \medskip
+    \item \underline{Heteroscedasticity} (RE-model example):\\
+    $\textit{var}(v_{it} \mid \bm{X}_i) = \sigma^2_{a_i} + \textit{var}(u_{it} \mid \bm{X}_i) = \Bigg\{ \parbox{2cm}{$\sigma^2_{a_i} + \boxed{\sigma^2_{u_i}} \\ \sigma^2_{a_i} + \boxed{\sigma^2_{u_{t}} }$}$\\ ~\\ \medskip
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Serial correlation tests (RE model)}
+\small 
+\vspace{-0.2cm}
+\begin{itemize}
+    \item \texttt{pwtest()} ~~ Unobserved effects: ``Wooldridge''-type test
+    \smallskip 
+    \item $W = \frac{\displaystyle\sum_{i=1}^N 
+        \displaystyle\sum_{t=1}^{T-1}
+        \displaystyle\sum_{s=t+1}^T \hat{u}_{it}\hat{u}_{is}}
+        {\left[\displaystyle\sum_{i=1}^N \left(
+        \displaystyle\sum_{t=1}^{T-1}
+        \displaystyle\sum_{s=t+1}^T \hat{u}_{it}\hat{u}_{is}
+        \right)^{\!2}~ \right]^{1/2}}~
+        \underset{H_0}{\sim}~ N(0,1)$;~~(asympt.), \\test does not rely on homoscedasticity assumptions.
+    \medskip
+    \item $H_0: \sigma_{a}^2 = 0$, i.e., that there are no unobserved effects in the residuals (of RE model).
+    \item Test has power both against the RE specification (constant $a$ within every $i$), as well as against any kind of serial correlation. Test ``nests'' both RE and serial correlation tests, trading some power against more specific alternatives in exchange for robustness.
+    \item Not rejecting the null favours the use of pooled OLS.\\Rejection may follow from two sources (including serial correlation) \& doesn't truly support RE specification.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Serial correlation tests (RE model)}
+\small 
+\begin{itemize}
+    \item \texttt{pbsytest()} ~~ Bera, Sosa-Escudero, Yoon (2001)
+    \medskip
+    \item Locally robust LM-tests for serial correlation or random effects. Solution to the previous problem: can distinguish between random effect and serial correlation. 
+    \medskip
+    \item Three tests (of the RE-type model):\\ \smallskip
+    \begin{itemize}
+        \item \texttt{test = "ar"}  for $H_0:$ no serial correlation while controlling for random effects
+        \smallskip
+        \item \texttt{test = "re"} for $H_0:$ no random effects (while controlling for possible ser. corr.)
+        \smallskip
+        \item \texttt{test = "j"} for $H_0:$ no random effects \& no serial correlation.
+    \end{itemize}
+        \bigskip
+        \item \texttt{R} implementation can handle both balanced and unbalanced panels. For detailed description of both tests, see:  Wooldridge, 2002 \& \url{https://www.jstatsoft.org/article/view/v027i02}
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Serial correlation tests (general)}
+\begin{itemize}
+    \item \texttt{pbgtest()} ~Direct generalization of the Breusch-Godfrey test for panels, mainly for RE (and pooling) models.\\
+    \smallskip
+    \item Under RE assumptions of homoskedasticity and no serial correlation in the idiosyncratic error, the residuals of the quasi-demeaned regression must be spherical as well.\\
+    Hence, serial correlation test (BG test) is applied to residuals in the quasi-demeaned model (may be applied to pooled OLS residuals as well).\\
+    \smallskip
+    \item Technically, \texttt{pbgtest()} is a wrapper to \texttt{bgtest()} from the \texttt{lmtest()} package. 
+    \smallskip
+    \item With BG-test, we can test for different orders of serial correlation.
+    \smallskip
+    \item NOT suited for FE-estimated models, for $N \gg T$, test is severely biased towards rejecting $H_0$ of no ser. corr.
+    \medskip
+    \item \texttt{pdwtest()} ~~ Durbin-Watson test for panels (\dots analogous).
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Serial correlation tests (general \& FE)}
+$y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
+\begin{itemize}
+    \item \texttt{pwartest()}~~Wooldridge test for FE model (short panels).\\
+    \smallskip
+    \item Under the null hypothesis of no serial correlation in the idiosyncratic errors $u_{it}$, residuals in the FE-estimated model (time demeaned data) are correlated: $$\textnormal{cor}\left(e_{it},e_{i,t-1}\right)=-1/(T-1).$$
+    \item $H_0$ of no serial correlation in $u_{it}$ can be tested using residuals from the FE-estimated model and auxiliary regression:
+    $$ \hat{e}_{it} = \alpha + \delta \, \hat{e}_{i,t-1} + \eta_{it}$$
+    By rejecting $H_0: \delta = -1/(T-1)$, we reject the original null hypothesis of no serial correlation in  $u_{it}$.
+    \smallskip
+    \item Applicable to any ``FE model'', particularly with $N \gg T$.
+    \smallskip
+    \item As $T$ grows, $-1/(T-1) \rightarrow 0$~\&~\texttt{pbgtest()} can be used.
+\end{itemize}
+\end{frame}
+%---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
