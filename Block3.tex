@@ -1062,11 +1062,95 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
+\begin{frame}{Robust inference in short panel data models}
+\begin{itemize}
+    \item Robust inference
+    \bigskip
+    \item Covariance matrix -- White 1 
+    \bigskip
+    \item Covariance matrix -- White 2
+    \bigskip
+    \item Covariance matrix -- Arellano
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Robust statistical inference}
+\begin{itemize}
+    \item Implementation: \texttt{vcovHC()} from the \texttt{\{plm\}} package, 
+    \\used together with functions from \texttt{\{lmtest\}}
+    \medskip
+    \item Three types of HC/HAC covariance matrix estimators are based on the general White's ``sandwich estimator''. The CS-data version can be cast as:\\
+    \medskip
+    $$\textnormal{var} \left(\hat{\bm{\beta}}|\bm{X}\right)= 
+    \left[ \bm{X}^{\prime} \bm{X} \right]^{-1}
+    \left[ \bm{X}^{\prime} \hat{\sigma}^2 \bm{\Sigma} \bm{X} \right]
+    \left[ \bm{X}^{\prime} \bm{X} \right]^{-1}$$ \\ \medskip
+     \medskip
+    \item For the panel extension of White's HC/HAC estimator, \\we assume XSD-independence: no correlation between errors of different CS-units (groups), while allowing for heteroskedasticity across CS-units (and for serial correlation).
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Robust statistical inference}
+\begin{itemize}
+    \item \texttt{vcovHC(... , method="white1")}
+    \medskip
+    \item \texttt{"white1"} allows for general heteroskedasticity but no XSD nor serial correlation, i.e.,\\
+    $$
+    \bm{\Sigma}_i =
+    \begin{bmatrix}
+    \sigma_{i1}^2 & \dots & \dots & 0 \\
+    0 & \sigma_{i2}^2 &  & 0 \\
+    \vdots & & \ddots & 0 \\
+    0 & \dots & \dots & \sigma_{iT}^2
+    \end{bmatrix}
+    $$\\
+    and $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices.
+    \smallskip
+    \medskip
+    \item For FE estimators, ``White 1'' is inconsistent for fixed $T$ as $N$ grows (short-panel asymptotics), so in this case it is advisable to use the ``Arellano'' version.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Robust statistical inference}
+\begin{itemize}
+    \item \texttt{vcovHC(... , method="white2")}
+    \medskip
+    \item \texttt{"white2"} is a special case of \texttt{"white1"}, with common CS-variance: enforced $\bm{\Sigma}_i = \sigma^2_i \bm{I}_T$. Again, $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices
+    \vspace{1.5cm}
+    \item Note (for all three robust estimators): the counterpart to CS-related sandwich estimator element $\left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]$ would be:
+    $$
+    \ddot{\bm{X}}^{\prime} \bm{\Sigma} \ddot{\bm{X}} = 
+    \sum_{i=1}^N \left( 
+    \ddot{\bm{X}}_i^{\prime} \bm{\Sigma}_i \ddot{\bm{X}_i}
+    \right)
+    $$
+    where $\ddot{\bm{X}}$ are the transformed regressors.\\ 
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Robust statistical inference}
+\begin{itemize}
+    \item \texttt{vcovHC(... , method="arellano")}
+    \medskip
+    \item \texttt{"arellano"} allows a fully general structure w.r.t. heteroskedasticity and serial correlation (no XSD):
+    $$
+    \bm{\Sigma}_i = 
+    \begin{bmatrix}
+    \sigma_{i1}^2 & \sigma_{i1,i2} & \dots & \dots & \sigma_{i1,iT} \\
+    \sigma_{i2,i1} & \sigma_{i2}^2 &       &       & \vdots \\
+    \vdots         &               & \ddots &      & \vdots \\
+   \vdots         &               &  &  \sigma_{iT-1}^2    & \sigma_{iT-1,iT} \\
+   \sigma_{iT,i1}       &   \dots & \dots    &  \sigma_{iT,iT-1}    & \sigma_{iT}^2 \\
+    \end{bmatrix}
+    $$
+    and $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices
+    \smallskip
+    \item \texttt{"arellano"}: consistent w.r.t. timewise correlation of the errors, but (unlike \texttt{"white1"},\texttt{"white2"}), it relies on large $N$ asymptotics with small $T$ (short panels).
+    \smallskip
+    \item \texttt{"white1"} is inconsistent for fixed $T$ as $N$ grows \\$\rightarrow$ use \texttt{"arellano"} in such case 
+\end{itemize}
+\end{frame}
+%---------------------------------
 
 
 
@@ -1097,7 +1181,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 
 %---------------------------------
 \section{Long panels -- models and estimation}
-\begin{frame}{Frame Title}
+\begin{frame}{Long panels -- models and estimation}
     \begin{itemize}
         \item Estimation methods - repetition from BSc courses
         \bigskip
@@ -1120,7 +1204,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 
 %---------------------------------
 \section{Large panel data sets -- introduction to estimators and tests}
-\begin{frame}{Frame Title}
+\begin{frame}{Large panels -- introduction to estimators and tests}
     \begin{itemize}
         \item Estimation methods - repetition from BSc courses
         \bigskip
