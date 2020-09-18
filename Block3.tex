@@ -1151,46 +1151,90 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%---------------------------------
 \section{Long panels -- models and estimation}
 \begin{frame}{Long panels -- models and estimation}
     \begin{itemize}
-        \item Estimation methods - repetition from BSc courses
+        \item Quick repetition of topics from BSc courses
         \bigskip
-        \item Choosing estimators: assumptions and tests
+        \item Long panels and the SURE / SUR estimator
         \bigskip
-        \item Robust inference (autocorrelation and heteroscedasticity)
+        \item SURE \& equations with identical regressors
+        \bigskip
+        \item SURE -- additional topics
     \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{Long panels -- models and estimation}
+\footnotesize
+General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
+\begin{itemize}
+    \item[(a)] $\varepsilon_t$ \textit{i.i.d.} -- corresponds to a CLRM: \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X})= 
+    \begin{bmatrix}
+    \sigma^2 		& 	0 	& 	\cdots	& 	0 \\
+        0 	        & 	\sigma^2 		& \cdots 	&  0				\\
+     	\vdots	& 		& 	\ddots	& 	 		\\
+    0 &		0	&	\cdots &		\sigma^2
+\end{bmatrix} = 
+    \sigma^2\bm{I}_N$ 
+    \bigskip
+    \item[(b)] $\varepsilon_t$ under heteroscedasticity (no \texttt{ar} present)\\ \medskip
+    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = 
+    \begin{bmatrix}
+    \sigma^2_1 		& 	0 	& 	\cdots	& 	0 \\
+        0 	        & 	\sigma^2_2 		& \cdots 	&  0				\\
+     	\vdots	& 		& 	\ddots	& 	 		\\
+    0 &		0	&	\cdots &		\sigma^2_N
+\end{bmatrix} = 
+\sigma^2 
+\begin{bmatrix}
+    h_1 		& 	0 	& 	\cdots	& 	0 \\
+        0 	        & 	h_2 		& \cdots 	&  0				\\
+     	\vdots	& 		& 	\ddots	& 	 		\\
+    0 &		0	&	\cdots &		h_N
+\end{bmatrix} = \sigma^2 \bm{H}$\\ \medskip i.e. $\sigma^2_t = \sigma^2 h_{tt}$ ~~and~~ $[h_{ts}]\geq 0$.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- models and estimation}
+\footnotesize
+General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
+\begin{itemize}
+    \item[(c)] $\varepsilon_t$ with \texttt{ar(1)} (no heteroscedasticity): \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X})= 
+    \begin{bmatrix}
+    \sigma^2 		& 	0 	& 	\cdots	& 	0 \\
+        0 	        & 	\sigma^2 		& \cdots 	&  0				\\
+     	\vdots	& 		& 	\ddots	& 	 		\\
+    0 &		0	&	\cdots &		\sigma^2
+\end{bmatrix} = 
+    \sigma^2\bm{I}_N$ 
+    \bigskip
+    \item[(d)] $\varepsilon_t$: general case (both heteroscedasticity and \texttt{ar} may be present\\ \medskip
+    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = 
+    \begin{bmatrix}
+    \sigma^2_1 		& 	0 	& 	\cdots	& 	0 \\
+        0 	        & 	\sigma^2_2 		& \cdots 	&  0				\\
+     	\vdots	& 		& 	\ddots	& 	 		\\
+    0 &		0	&	\cdots &		\sigma^2_N
+\end{bmatrix}$
+\end{itemize}
+\end{frame}
+%---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
