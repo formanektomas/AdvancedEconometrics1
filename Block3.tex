@@ -1226,7 +1226,7 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 General LRM: $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$ ~~\&~~OLS vs FGLS:\\ \bigskip \bigskip
 \begin{itemize}
     \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{I}_N \quad \rightarrow \quad$ use OLS (BLUE, assumptions apply):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{X})^{-1} \bm{X}^{\prime} \bm{y}$$ \\ \bigskip \bigskip
-    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{H} \quad \rightarrow \quad$ use FGLS (efficent w.r.t. OLS):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{H}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{H}^{-1} \bm{y}b$$
+    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{H} \quad \rightarrow \quad$ use FGLS (efficent w.r.t. OLS):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{H}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{H}^{-1} \bm{y}$$
     for empirical applications, we usually have to find some estimate of $\bm{H}$.
 \end{itemize}
 \end{frame}
@@ -1363,10 +1363,38 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
     \sigma_{21} \bm{I}_T & \sigma_{22} \bm{I}_T & \cdots & \sigma_{2M} \bm{I}_T \\ 
       &   & \vdots &  \\ 
     \sigma_{M1} \bm{I}_T & \sigma_{M2} \bm{I}_T & \cdots & \sigma_{MM} \bm{I}_T \\ 
-    \end{bmatrix}.$
+    \end{bmatrix}.$\\ \smallskip
+    This implies both heteroscedasticity (non-constant elements on the main diagonal) and autocorrelation (non-zero off-diagonal elements).
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+\begin{itemize}
+    \item Stacked matrix form of the SUR model:\\
+    \begin{align*}
+        \bm{y} &= \bm{X} \bm{\beta} + \bm{\varepsilon},\\
+        \textnormal{var}(\bm{\varepsilon}) &= \bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T.
+    \end{align*}
+    \item The FGLS estimator for SUR model (SURE):
+    \begin{align*}
+        \bm{\hat{\beta}}_{\textnormal{FGLS}} &= [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y} \\
+        &= [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y} 
+    \end{align*}
+    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model:\\ \smallskip $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald test (LR, LM tests).
+\end{itemize}
+\end{frame}
+%---------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 
