@@ -1154,7 +1154,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \section{Long panels -- models and estimation}
 \begin{frame}{Long panels -- models and estimation}
     \begin{itemize}
-        \item Quick repetition of topics from BSc courses
+        \item Quick repetition of relevant topics from BSc courses
         \bigskip
         \item Long panels and the SURE / SUR estimator
         \bigskip
@@ -1164,7 +1164,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- models and estimation}
+\begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
 General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 \begin{itemize}
@@ -1177,7 +1177,7 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 \end{bmatrix} = 
     \sigma^2\bm{I}_N$ 
     \bigskip
-    \item[(b)] $\varepsilon_t$ under heteroscedasticity (no \texttt{ar} present)\\ \medskip
+    \item[(b)] $\varepsilon_t$ under heteroscedasticity (no \texttt{ar(p)} process present)\\ \medskip
     $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = 
     \begin{bmatrix}
     \sigma^2_1 		& 	0 	& 	\cdots	& 	0 \\
@@ -1195,35 +1195,178 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- models and estimation}
+\begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
 General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 \begin{itemize}
-    \item[(c)] $\varepsilon_t$ with \texttt{ar(1)} (no heteroscedasticity): \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X})= 
-    \begin{bmatrix}
-    \sigma^2 		& 	0 	& 	\cdots	& 	0 \\
-        0 	        & 	\sigma^2 		& \cdots 	&  0				\\
-     	\vdots	& 		& 	\ddots	& 	 		\\
-    0 &		0	&	\cdots &		\sigma^2
-\end{bmatrix} = 
-    \sigma^2\bm{I}_N$ 
+    \item[(c)] $\varepsilon_t$ with \texttt{ar(1)} (no heteroscedasticity): \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) \! = \! E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X}) \!=  \!
+     \frac{\sigma^2_e}{1-\rho^2} \!
+\begin{bmatrix}
+1 		& 	\rho 	& \rho^2		& \dots &	\rho^{n-1} \\
+\rho 	& 	1 		& \rho 	&  	\dots &	\rho^{n-2}		\\
+\dots	& 	\dots 		& \dots 	&  	\dots&	\dots		\\
+ \rho^{n-2}		& \dots &	\rho	& 1		&\rho 		\\
+\rho^{n-1}&	\dots		& \rho^2	&\rho &		1
+\end{bmatrix} \! =\! \frac{\sigma^2_e}{1-\rho^2} \! \bm{H}$ \\ \medskip
+\begin{itemize}
+    \item From~~$y_t = \bm{x}_t^{\prime}\bm{\beta}+\varepsilon_t$~~and~~$\varepsilon_t = \rho \varepsilon_{t-1}+u_t$,~~we get: \\ \smallskip
+    $\varepsilon_t = u_t + \rho u_{t-1} + \rho^2 u_{t-2} + \cdots$,~~by repeated substitution.\\
+    Now, $\textnormal{var}(u_t)=\sigma^2_u + \rho^2 \sigma^2_u + \rho^4 \sigma^2_u + \cdots$, since $u$ are \textit{i.i.d.}\\
+    and the variance-covariance matrix follows from $\textnormal{cov}(\varepsilon_t,\varepsilon_{t-s})=\tfrac{\rho^s \sigma^2_u}{1-\rho^2}$, provided $|\rho|<1$.\\
+    (see Greene, Econometric analysis $7^{\textnormal{th}}$ ed., ch. 20.3.20)
+\end{itemize}
     \bigskip
-    \item[(d)] $\varepsilon_t$: general case (both heteroscedasticity and \texttt{ar} may be present\\ \medskip
-    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = 
-    \begin{bmatrix}
-    \sigma^2_1 		& 	0 	& 	\cdots	& 	0 \\
-        0 	        & 	\sigma^2_2 		& \cdots 	&  0				\\
-     	\vdots	& 		& 	\ddots	& 	 		\\
-    0 &		0	&	\cdots &		\sigma^2_N
-\end{bmatrix}$
+    \item[(d)] $\varepsilon_t$: general case (both heteroscedasticity and \texttt{ar(p)} may be present\\ \medskip
+    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = \bm{\Omega}$, where $\bm{\Omega}$ is a ($N\! \times \! N$) PSD matrix.
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{Long panels -- models and estimation (BSc repetition)}
+\footnotesize
+General LRM: $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$ ~~\&~~OLS vs FGLS:\\ \bigskip \bigskip
+\begin{itemize}
+    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{I}_N \quad \rightarrow \quad$ use OLS (BLUE, assumptions apply):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{X})^{-1} \bm{X}^{\prime} \bm{y}$$ \\ \bigskip \bigskip
+    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{H} \quad \rightarrow \quad$ use FGLS (efficent w.r.t. OLS):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{H}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{H}^{-1} \bm{y}b$$
+    for empirical applications, we usually have to find some estimate of $\bm{H}$.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- models and estimation (BSc repetition)}
+\footnotesize
+Kronecker product (for two general matrices $\bm{A}$ and $\bm{B}$):
+$$
+\bm{A} \otimes \bm{B} =
+\begin{bmatrix}
+    a_{11}\bm{B} 	& 	a_{12}\bm{B} 	& 	\cdots	& 	a_{1K}\bm{B} \\
+    a_{21}\bm{B} 	& 	a_{22}\bm{B} 	& \cdots 	&   a_{2K}\bm{B}	\\
+     		& 		& 	\cdots	& 	 		\\
+    a_{N1}\bm{B}    &	a_{N2}\bm{B}	&	\cdots &	a_{NK}\bm{B}
+\end{bmatrix}
+$$\\ \medskip
+For the Kronecker product: \\ \medskip
+\begin{itemize}
+    \item $(\bm{A} \otimes \bm{B})^{\prime} = \bm{A}^{\prime} \otimes \bm{B}^{\prime}$
+    \medskip
+    \item $(\bm{A} \otimes \bm{B})^{-1} = (\bm{A}^{-1} \otimes \bm{B}^{-1})$
+    \medskip
+    \item $(\bm{A} \otimes \bm{B})(\bm{C} \otimes \bm{D})= \bm{AC} \otimes \bm{BD}$\\ \smallskip
+    \dots given conforming dimensions of $\bm{A},\bm{C}$ and $\bm{B},\bm{D}$ matrices.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- models and estimation (BSc repetition)}
+\footnotesize
+Kronecker product example:\\ \bigskip
+\begin{itemize}
+    \item $\bm{A} = \begin{bmatrix} 
+    a & b \\ b & c
+    \end{bmatrix},\qquad \bm{I}_2 = \begin{bmatrix} 
+    1 & 0 \\ 0 & 1
+    \end{bmatrix}$
+    \bigskip
+    \item $\bm{A} \otimes \bm{I}_2 = 
+    \begin{bmatrix} 
+a & 0 & b & 0 \\ 
+0 & a & 0 & b \\ 
+b & 0 & c & 0 \\ 
+0 & b & 0 & c \\ 
+\end{bmatrix}$
+    \bigskip
+    \item $\bm{I}_2 \otimes \bm{A} = 
+    \begin{bmatrix} 
+a & b & 0 & 0 \\ 
+b & c & 0 & 0 \\ 
+0 & 0 & a & b \\ 
+0 & 0 & b & c \\ 
+\end{bmatrix} = 
+\begin{bmatrix}
+\bm{A} & \bm{0} \\ \bm{0} & \bm{A}
+\end{bmatrix}$\\ \smallskip i.e. the result is a block-diagonal matrix
 
-
-
-
-
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
+\begin{itemize}
+    \item Consider $i=1,\dots,M$ individuals (CS units) and $t=1,\dots,T$ observations for each individual (while $t$ suggest time, SURE may extend to hierarchical CS data as well).\\
+    \bigskip
+    \item Individual regression equations have a common structure: 
+    \begin{align*}
+        \bm{y}_1 &= \bm{X}_1 \bm{\beta}_1 + \bm{\varepsilon}_1, \\
+        \bm{y}_2 &= \bm{X}_2 \bm{\beta}_2 + \bm{\varepsilon}_2, \\
+        &\cdots \\
+        \bm{y}_M &= \bm{X}_M \bm{\beta}_M + \bm{\varepsilon}_M;\\
+        &~ \\
+        \textnormal{general form:~~} \bm{y}_i &= \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots,M.
+    \end{align*}
+    \item Example: GDP dynamics in Germany's NUTS1 units ($M=16$):
+    $$\log (\textit{GDP}_{it}) = \beta_{1i} + \beta_{2i} \textit{Unemp}_{it} +~~ \cdots~~ + \varepsilon_{it}$$
+    
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+\begin{itemize}
+    \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M.$\\ \smallskip 
+    can be written in stacked matrix form as:
+    \medskip
+    \item $\begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M
+    \end{bmatrix} = 
+    \begin{bmatrix} 
+    \bm{X}_1 & \bm{0} & \cdots & \bm{0} \\ 
+    \bm{0} & \bm{X}_2 & \cdots & \bm{0} \\ 
+      &   & \vdots &  \\ 
+    \bm{0} & \bm{0} & \cdots & \bm{X}_M \\ 
+    \end{bmatrix}
+    \begin{bmatrix}
+    \bm{\beta}_1 \\ \bm{\beta}_2 \\ \vdots \\ \bm{\beta}_M
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
+    \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$
+    \medskip
+    \item For the $MT \times 1$ vector of disturbances $\bm{\varepsilon}$, we assume:
+    \begin{itemize}
+        \item Strict exogeneity: $E[\bm{\varepsilon}|\bm{X}_1,\dots,\bm{X}_M]=\bm{0}$,
+        \item Homoscedasticity: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ii}\bm{I}_T$\\ (notation follows Greeene, ch 10.2: $\sigma_{ii}$ is the diagonal element of variance-covariance matrix for CS unit $i$).
+        \item Disturbances uncorrelated across $T$ but contemporaneously correlated between CS units (equations):\\
+        $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.
+    \end{itemize}
+    \item Equation by equation OLS estimation: consistent. \\
+    FGLS is efficent w.r.t. OLS: uses information in $\bm{\Sigma} = [\sigma_{ij}]$.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+\begin{itemize}
+    \item Stacked matrix form of the SUR model:\\ \smallskip 
+    $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$\\ \smallskip 
+    \medskip
+    \item For the $MT \times 1$ vector of errors $\bm{\varepsilon}^{\prime} = (\bm{\varepsilon}_1^{\prime},\dots,\bm{\varepsilon}_M^{\prime})^{\prime}$\\
+    and the ``contemporaneous covariance matrix'' $\bm{\Sigma}$ ($M \times M$):\\ \medskip
+    $\qquad \qquad ~~\bm{\Sigma} = 
+    \begin{bmatrix} 
+    \sigma_{11} & \sigma_{12} & \cdots & \sigma_{1M} \\ 
+    \sigma_{21} & \sigma_{22} & \cdots & \sigma_{2M} \\ 
+      &   & \vdots &  \\ 
+    \sigma_{M1} & \sigma_{M2} & \cdots & \sigma_{MM} \\ 
+    \end{bmatrix},$ \\ \medskip
+    \item the variance-covariance matrix for $\bm{\varepsilon}$ is given as $\bm{\Omega}$ ($MT \times MT$):\\ \medskip
+    $\bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T = 
+    \begin{bmatrix} 
+    \sigma_{11} \bm{I}_T & \sigma_{12} \bm{I}_T & \cdots & \sigma_{1M} \bm{I}_T \\ 
+    \sigma_{21} \bm{I}_T & \sigma_{22} \bm{I}_T & \cdots & \sigma_{2M} \bm{I}_T \\ 
+      &   & \vdots &  \\ 
+    \sigma_{M1} \bm{I}_T & \sigma_{M2} \bm{I}_T & \cdots & \sigma_{MM} \bm{I}_T \\ 
+    \end{bmatrix}.$
+\end{itemize}
+\end{frame}
+%---------------------------------
 
 
 
