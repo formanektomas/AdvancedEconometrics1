@@ -1376,20 +1376,100 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
         \bm{y} &= \bm{X} \bm{\beta} + \bm{\varepsilon},\\
         \textnormal{var}(\bm{\varepsilon}) &= \bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T.
     \end{align*}
-    \item The FGLS estimator for SUR model (SURE):
+    \item The GLS estimator for SUR model (SURE):
     \begin{align*}
-        \bm{\hat{\beta}}_{\textnormal{FGLS}} &= [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y} \\
+        \bm{\hat{\beta}}_{\textnormal{GLS}} &= [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y} \\
         &= [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y} 
     \end{align*}
-    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model:\\ \smallskip $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald test (LR, LM tests).
+    \item Asymptotic covariance matrix of the GLS estimator:
+    \begin{align*}
+        \textnormal{Asy.Cov}(\bm{\hat{\beta}}_{\textnormal{GLS}}) &= [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1}\\
+        &= [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} 
+    \end{align*}
 \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
+\begin{frame}{Long panels -- SUR models}
+\small
+$\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}, \qquad \textnormal{var}(\bm{\varepsilon}) = \bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T.$ \\ \medskip
+$\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y}$\\ \bigskip
+    \begin{itemize}
+    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald test (LR, LM tests).
+    \bigskip
+    \item How much efficiency over OLS is gained by GLS (SURE)?
+    \begin{itemize}
+        \item Higher correlation of disturbances $\rightarrow$ higher efficiency gain.
+        \item Equations in SUR model actually unrelated ($\bm{\Sigma}=\bm{0}$) $\rightarrow$ no payoff in GLS (GLS is just equation-by-equation OLS).
+        \medskip
+        \item The less correlation between the $\bm{X}$ matrices, the greater is the gain in efficency in using GLS (w.r.t. OLS). 
+        \item SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed next).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
+Topic is mostly out of scope in terms of long-panel data. However, SUR models with identical regressors have important empirical applications: \\ \bigskip
+\begin{itemize}
+    \item VAR models (discussed separately in this course).
+    \bigskip
+    \item Capital asset pricing model (for a given financial instrument):
+    $$
+    r_{it} - r_{ft} = \alpha_i + \beta_i (r_{mt} - r_{ft}) + \varepsilon_{it}
+    $$
+    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{ft}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated of each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
+\begin{itemize}
+    \item $\bm{y} = \bm{X\beta}+\bm{\varepsilon},\qquad \textnormal{where:~} \bm{X}=
+    \begin{bmatrix} 
+    \bm{X}_i & \bm{0} & \cdots & \bm{0} \\ 
+    \bm{0} & \bm{X}_i & \cdots & \bm{0} \\ 
+      &   & \vdots &  \\ 
+    \bm{0} & \bm{0} & \cdots & \bm{X}_i \\ 
+    \end{bmatrix} = \bm{I}_{\!M} \otimes \bm{X}_i$
+    \bigskip
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = \textcolor{blue}{[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1}} \textcolor{red}{\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1}} \bm{y}$ \\ \medskip
+    \quad Note that: \\ \smallskip
+    \quad $\bullet$~~ $\bm{X}^{\prime} = (\bm{I}_{\!M} \otimes \bm{X}_i)^{\prime} = \bm{I}_{\!M} \otimes \bm{X}_i^{\prime}$,\\ \smallskip 
+    \quad $\bullet$~~ $(\bm{\Sigma} \otimes \bm{I}_T)^{-1} = \bm{\Sigma}^{-1} \otimes \bm{I}_T$, \\ \smallskip
+    \quad $\bullet$~~ $\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} = (\bm{I}_{\!M} \otimes \bm{X}_i^{\prime}) (\bm{\Sigma}^{-1} \otimes \bm{I}_T) = \textcolor{red}{\bm{\Sigma}^{-1} \otimes \bm{X}_i^{\prime}}$,\\ \smallskip 
+    \quad $\bullet$~~ $[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}] = (\bm{\Sigma}^{-1} \! \otimes \! \bm{X}_i^{\prime})(\bm{I}_{\!M} \! \otimes \! \bm{X}_i) = \bm{\Sigma}^{-1} \! \otimes \! \bm{X}_i^{\prime}\bm{X}_i $,\\ \smallskip
+    \quad $\bullet$~~ $[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} = \textcolor{blue}{\bm{\Sigma} \! \otimes \! (\bm{X}_i^{\prime}\bm{X}_i)^{-1}}$
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR models}
+\small
+SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
+\begin{align*}
+    \bm{\hat{\beta}}_{\textnormal{GLS}} &= \textcolor{blue}{[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1}} \textcolor{red}{\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1}} \bm{y} \\
+    &= \textcolor{blue}{(\bm{\Sigma} \! \otimes \! (\bm{X}_i^{\prime}\bm{X}_i)^{-1})}\textcolor{red}{(\bm{\Sigma}^{-1} \otimes \bm{X}_i^{\prime})}\bm{y}\\
+    &=\left[ \bm{I}_{\!M} \otimes (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime}\right]\bm{y} \\ &~ \\
+    &= \begin{bmatrix} 
+    (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} & \bm{0} & \cdots & \bm{0} \\
+    \bm{0} & (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} & \cdots & \bm{0} \\ 
+      &   & \vdots &  \\ 
+    \bm{0} & \bm{0} & \cdots & (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime}\\ 
+    \end{bmatrix}
+    \begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M \\ 
+    \end{bmatrix}\\ &~ \\
+    &= \begin{bmatrix}
+    (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_1 \\
+    (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_2 \\
+  \vdots \\
+    (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_M
+    \end{bmatrix}\\
+    &\dots \textnormal{ which is the same as equation-by-equation OLS.}
+\end{align*} 
+\end{frame}
+%---------------------------------
 
 
 
