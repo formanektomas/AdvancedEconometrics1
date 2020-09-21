@@ -1156,14 +1156,17 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     \begin{itemize}
         \item Quick repetition of relevant topics from BSc courses
         \bigskip
-        \item Long panels and the SURE / SUR estimator
+        \item Long panels and the SUR model / SURE
         \bigskip
         \item SURE \& equations with identical regressors
         \bigskip
-        \item SURE -- additional topics
+        \item SURE \& ``pooled'' model
+        \bigskip
+        \item SURE -- FGLS
     \end{itemize}
 \end{frame}
 %---------------------------------
+\subsection*{Quick repetition of relevant topics from BSc courses}
 \begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
 General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
@@ -1175,7 +1178,7 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
      	\vdots	& 		& 	\ddots	& 	 		\\
     0 &		0	&	\cdots &		\sigma^2
 \end{bmatrix} = 
-    \sigma^2\bm{I}_N$ 
+    \sigma^2\bm{I}_T$ 
     \bigskip
     \item[(b)] $\varepsilon_t$ under heteroscedasticity (no \texttt{ar(p)} process present)\\ \medskip
     $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = 
@@ -1217,17 +1220,17 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 \end{itemize}
     \bigskip
     \item[(d)] $\varepsilon_t$: general case (both heteroscedasticity and \texttt{ar(p)} may be present\\ \medskip
-    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = \bm{\Omega}$, where $\bm{\Omega}$ is a ($N\! \times \! N$) PSD matrix.
+    $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = \bm{\Omega}$, where $\bm{\Omega}$ is a ($T\! \times \! T$) PSD matrix.
 \end{itemize}
 \end{frame}
 %---------------------------------
 \begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
-General LRM: $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$ ~~\&~~OLS vs FGLS:\\ \bigskip \bigskip
+General LRM: $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$ ~~\&~~OLS vs GLS:\\(for $t=1,2,\dots,T$ observations)\\ \bigskip \bigskip
 \begin{itemize}
     \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{I}_N \quad \rightarrow \quad$ use OLS (BLUE, assumptions apply):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{X})^{-1} \bm{X}^{\prime} \bm{y}$$ \\ \bigskip \bigskip
-    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{H} \quad \rightarrow \quad$ use FGLS (efficent w.r.t. OLS):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{H}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{H}^{-1} \bm{y}$$
-    for empirical applications, we usually have to find some estimate of $\bm{H}$.
+    \item $\textnormal{var}(\bm{\varepsilon}|\bm{X})=\sigma^2\bm{H} \quad \rightarrow \quad$ use GLS (efficent w.r.t. OLS):\\ \smallskip $$\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{H}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{H}^{-1} \bm{y}$$ \bigskip
+    \item FGLS: For empirical applications, we usually have to find $\hat{\bm{H}}$, i.e. some ``good'' estimate of the unobserved $\bm{H}$.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1247,10 +1250,10 @@ For the Kronecker product: \\ \medskip
 \begin{itemize}
     \item $(\bm{A} \otimes \bm{B})^{\prime} = \bm{A}^{\prime} \otimes \bm{B}^{\prime}$
     \medskip
-    \item $(\bm{A} \otimes \bm{B})^{-1} = (\bm{A}^{-1} \otimes \bm{B}^{-1})$
+    \item $(\bm{A} \otimes \bm{B})^{-1} = \bm{A}^{-1} \otimes \bm{B}^{-1}$
     \medskip
     \item $(\bm{A} \otimes \bm{B})(\bm{C} \otimes \bm{D})= \bm{AC} \otimes \bm{BD}$\\ \smallskip
-    \dots given conforming dimensions of $\bm{A},\bm{C}$ and $\bm{B},\bm{D}$ matrices.
+    \dots given conforming dimensions of the matrices.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1281,11 +1284,12 @@ b & c & 0 & 0 \\
 \end{bmatrix} = 
 \begin{bmatrix}
 \bm{A} & \bm{0} \\ \bm{0} & \bm{A}
-\end{bmatrix}$\\ \smallskip i.e. the result is a block-diagonal matrix
+\end{bmatrix}$\\ \smallskip \dots i.e. the result is a block-diagonal matrix
 
 \end{itemize}
 \end{frame}
 %---------------------------------
+\subsection*{Long panels and the SUR model / SURE}
 \begin{frame}{Long panels -- SUR models}
 \small
 Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
@@ -1310,7 +1314,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \begin{frame}{Long panels -- SUR models}
 \small
 \begin{itemize}
-    \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M.$\\ \smallskip 
+    \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
     can be written in stacked matrix form as:
     \medskip
     \item $\begin{bmatrix}
@@ -1337,7 +1341,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
         $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.
     \end{itemize}
     \item Equation by equation OLS estimation: consistent. \\
-    FGLS is efficent w.r.t. OLS: uses information in $\bm{\Sigma} = [\sigma_{ij}]$.
+    GLS is efficent w.r.t. OLS: uses information in $\bm{\Sigma} = [\sigma_{ij}]$.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1394,7 +1398,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}, \qquad \textnormal{var}(\bm{\varepsilon}) = \bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T.$ \\ \medskip
 $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y}$\\ \bigskip
     \begin{itemize}
-    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald test (LR, LM tests).
+    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald, LR and/or LM tests.\\(compare to ``pooling model'' -- discussed next).
     \bigskip
     \item How much efficiency over OLS is gained by GLS (SURE)?
     \begin{itemize}
@@ -1402,15 +1406,16 @@ $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]
         \item Equations in SUR model actually unrelated ($\bm{\Sigma}=\bm{0}$) $\rightarrow$ no payoff in GLS (GLS is just equation-by-equation OLS).
         \medskip
         \item The less correlation between the $\bm{X}$ matrices, the greater is the gain in efficency in using GLS (w.r.t. OLS). 
-        \item SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed next).
+        \item SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed on next page).
     \end{itemize}
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
+\subsection*{SURE \& equations with identical regressors}
+\begin{frame}{Long panels -- SUR models (identical regressors)}
 \small
 SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
-Topic is mostly out of scope in terms of long-panel data. However, SUR models with identical regressors have important empirical applications: \\ \bigskip
+Topic is partially out of scope in terms of long-panel data. However, SUR models with identical regressors have important empirical applications: \\ \bigskip
 \begin{itemize}
     \item VAR models (discussed separately in this course).
     \bigskip
@@ -1422,7 +1427,7 @@ Topic is mostly out of scope in terms of long-panel data. However, SUR models wi
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
+\begin{frame}{Long panels -- SUR models (identical regressors)}
 \small
 SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
 \begin{itemize}
@@ -1444,7 +1449,7 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bi
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
+\begin{frame}{Long panels -- SUR models (identical regressors)}
 \small
 SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
 \begin{align*}
@@ -1470,8 +1475,71 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
 \end{align*} 
 \end{frame}
 %---------------------------------
-
-
+\subsection*{SURE \& ``pooled'' model}
+\begin{frame}{Long panels -- SUR ``pooled model''}
+\small
+SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$) and \\
+all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\
+\begin{itemize}
+    \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
+    can be written in stacked matrix form as:
+    \medskip
+    \item $\begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M
+    \end{bmatrix} = 
+    \begin{bmatrix} 
+    \bm{X}_1 \\ \bm{X}_2 \\ \vdots \\ \bm{X}_M 
+    \end{bmatrix} \bm{\beta} + 
+    \begin{bmatrix}
+    \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
+    \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$
+    \medskip
+    \item For the $MT \times 1$ vector of disturbances $\bm{\varepsilon}$, we assume:
+    \begin{itemize}
+        \item Strict exogeneity: $E[\bm{\varepsilon_i}|\bm{X}]=\bm{0}$,
+        \item Homoscedasticity: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}]=\sigma_{ii}\bm{I}_T$.
+        \item Disturbances uncorrelated across $T$ but contemporaneously correlated between CS units (equations):\\
+        $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.\\ Hence:\\
+        $E[\bm{\varepsilon} \bm{\varepsilon}^{\prime} |\bm{X}] = \bm{\Sigma} \otimes \bm{I}_T$, \quad where $\bm{\Sigma} = [\sigma_{ij}]$.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR ``pooled model''}
+\small
+SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$) and \\
+all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\ \bigskip
+\begin{itemize}
+    \item GLS estimator of the SUR ``pooled'' model:\\ \bigskip
+    $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ 
+    \\ \medskip
+    where $\bm{X}$ is a ($MT\times K)$ matrix -- compare to the block diagonal ($MT \times MK$) in the general SUR model\\ \medskip
+    and $\bm{\beta}$ is ($K\times 1$) instead of the ($MK\times 1$) for the general SUR model.\\
+    \bigskip
+    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\subsection*{SURE -- FGLS}
+\begin{frame}{Long panels -- SURE: FGLS estimator}
+\small
+\begin{itemize}
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ \bigskip
+    \item FGLS estimator is based on OLS-estimated residuals $\bm{e}$:\\ \bigskip
+    $\hat{\sigma}_{ij} = \frac{1}{T}\bm{e}_i^{\prime}\bm{e}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$. \medskip
+    \begin{itemize}
+        \item $\hat{\bm{\Sigma}}$ for the general SUR model:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
+        $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{e}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) block-diagonal matrix with $\bm{X}_1,\dots,\bm{X}_M$ on the diagonal \\
+        (same coefficients and residuals from both approaches). \medskip
+        \item SUR model with identical regressors: FGLS not relevant as GLS = equation-by-equation OLS (shown previously). \\ \medskip
+        \item $\hat{\bm{\Sigma}}$ for the ``pooled'' SUR model: 
+        $\bm{e}_i$ is a subvector of OLS residuals: 
+        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times K$) \medskip
+    \end{itemize}
+    \item $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$
+\end{itemize}
+\end{frame}
+%---------------------------------
 
 
 
