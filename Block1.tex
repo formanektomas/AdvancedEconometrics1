@@ -65,9 +65,14 @@ $$
 \textbf{LRM assumptions (continued):}
 \medskip
 \begin{enumerate}
-    \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$.
+    \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}_n$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip 
+    \tiny{
+    \begin{itemize}
+        \item GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notaion but left as implicit.
+    \end{itemize}}
+    \normalsize
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
-    \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}].$$
+    \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}_n].$$
 \end{enumerate}
 \end{frame}
 %------------------------------------------------------
@@ -90,10 +95,8 @@ Variance of the least squares estimator (A1 -- A4):
     &=E[\bm{A \varepsilon \varepsilon}^{\prime}\bm{A}^{\prime}|\bm{X}] \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
     &= \sigma^2 (\bm{X}^{\prime}\bm{X})^{-1}.\\
 \end{align*}
-
 Normal distribution of the least squares estimator (A1 -- A6):
 $$\bm{b} | \bm{X} \sim N[\bm{\beta}, \sigma^2(\bm{X}^{\prime}\bm{X})^{-1}].$$
-    
 \end{frame}
 %------------------------------------------------------
 \subsection{General properties of estimators}
@@ -166,7 +169,7 @@ Properties of estimators - classification:
     \item[GMM] $\hat{\bm{\theta}}_{\textit{GMM}}=\textnormal{argmax}\,\left[ -\overline{\bm{m}}(\textbf{data},\bm{\theta}_{\textit{GMM}})^{\prime}\bm{W} \, \overline{\bm{m}} (\textbf{data},\bm{\theta}_{\textit{GMM}})\right]$,
 \end{itemize}
 \medskip
-where $h(\cdot)$ is a function (linear/non-linear $\rightarrow$ OLS/NLS), \\$\overline{\bm{m}}$ denotes sample moments and $\bm{W}$ is a convenient positive definite matrix.\\
+where $h(\cdot)$ is a function (linear/non-linear $\rightarrow$ OLS/NLS),\\ $f(\cdot)$ is a probability density function (pdf),\\$\overline{\bm{m}}$ denotes sample moments, \\$\bm{W}$ is a convenient positive definite matrix.\\
 \medskip
 LS and ML estimators belong to a class of \textbf{M estimators} \\(``M'' for maximum likelihood-type).
 \end{frame}
