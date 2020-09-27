@@ -68,7 +68,7 @@ $$
     \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}_n$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip 
     \tiny{
     \begin{itemize}
-        \item GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notaion but left as implicit.
+        \item GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notation but left as implicit.
     \end{itemize}}
     \normalsize
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
@@ -85,15 +85,15 @@ $$
 The least squares estimator is unbiased (given A1 -- A3):
 \begin{align*}
     \hat{\bm{\beta}}=\bm{b}&=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}~=~\bm{\beta}+(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}, \\
-    &\textnormal{take expectations, iterating over}~\bm{X}:\\
-    E[\bm{b}|\bm{X}]&= \bm{\beta}+E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]~=~\bm{\beta}.\\
+    &\textnormal{take expectations}:\\
+    E[\bm{b}|\bm{X}]&= \bm{\beta}+\textcolor{blue}{E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]}~=~\bm{\beta}, ~~(\textnormal{\textcolor{blue}{zero by A3}}).\\
 \end{align*}
 
 Variance of the least squares estimator (A1 -- A4):
 \begin{align*}
     \textnormal{var}[\bm{b}|\bm{X}]&=E[(\bm{b}-\bm{\beta})(\bm{b}-\bm{\beta})^{\prime}|\bm{X}]\\
-    &=E[\bm{A \varepsilon \varepsilon}^{\prime}\bm{A}^{\prime}|\bm{X}] \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
-    &= \sigma^2 (\bm{X}^{\prime}\bm{X})^{-1}.\\
+    &=\textcolor{blue}{E}[\bm{A \textcolor{blue}{\varepsilon \varepsilon}^{\prime}}\bm{A}^{\prime}|\bm{X}] \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
+    &= \textcolor{blue}{\sigma^2} (\bm{X}^{\prime}\bm{X})^{-1}. ~~~~~~\textnormal{(\textcolor{blue}{simplifies by A4})}\\
 \end{align*}
 Normal distribution of the least squares estimator (A1 -- A6):
 $$\bm{b} | \bm{X} \sim N[\bm{\beta}, \sigma^2(\bm{X}^{\prime}\bm{X})^{-1}].$$
@@ -171,7 +171,7 @@ Properties of estimators - classification:
 \medskip
 where $h(\cdot)$ is a function (linear/non-linear $\rightarrow$ OLS/NLS),\\ $f(\cdot)$ is a probability density function (pdf),\\$\overline{\bm{m}}$ denotes sample moments, \\$\bm{W}$ is a convenient positive definite matrix.\\
 \medskip
-LS and ML estimators belong to a class of \textbf{M estimators} \\(``M'' for maximum likelihood-type).
+LS and ML estimators belong to a class of \textbf{M estimators} \\ \footnotesize (type of extremum estimators where objective function is a sample average).
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
@@ -191,9 +191,9 @@ Assumptions for asymptotic properties of extremum estimators:
     \item[3] \textbf{Identifiability of parameters:} has a relatively complex technical definition (anything like ``true parameters $\bm{\theta}_0$ are identified if...'' is problematic - leads to a paradox if condition is not met). Simple way to secure identification:
     \medskip
     \begin{itemize}
-        \item \textbf{LS:} for a given set of $\bm{x}_i$ observations, any two different parameter vectors $\bm{\theta}$ and $\bm{\theta}_0$ must lead to different conditional mean function ($\hat{y}_i$).
+        \item \textbf{LS:} for a given set of any two different parameter vectors $\bm{\theta}$ and $\bm{\theta}_0$, a vector of  observations $\bm{x}_i$ must exist (for some $i$), leading to different conditional mean function ($\hat{y}_i$).
         \smallskip
-        \item \textbf{ML:} For any data vector $(y_i, \bm{x}_i)$ and two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, it must be possible to produce different values of the density function $f(y_i|\bm{x}_i,\bm{\theta})$. Note: identifiability does not rule out the  $f(y_i|\bm{x}_i,\bm{\theta}) = f(y_i|\bm{x}_{\ell},\bm{\theta}), ~~i \neq \ell$ \\situation (A2 full rank condition must be observed).
+        \item \textbf{ML:} For any two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, a data vector $(y_i, \bm{x}_i)$ must exist, for which it is possible to produce different values of the density function $f(y_i|\bm{x}_i,\bm{\theta})$. \\ \smallskip Note: identifiability does not rule out the  $f(y_i|\bm{x}_i,\bm{\theta}) = f(y_i|\bm{x}_{\ell},\bm{\theta}), ~~i \neq \ell$ \\situation (A2 full rank condition must be observed).
         \smallskip
         \item \textbf{GMM:} sufficient condition for identification:\\ $E[\overline{\bm{m}}(\textbf{data},\bm{\theta})] \neq \bm{0}$ if $\bm{\theta} \neq \bm{\theta}_0$.
     \end{itemize}
