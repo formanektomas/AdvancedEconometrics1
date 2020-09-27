@@ -217,6 +217,21 @@ Assumptions for asymptotic properties of extremum estimators:
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
+\textbf{Quick convergence recap:} \\ \bigskip
+\begin{itemize}
+\item Convergence in probability: a sequence of random variables $X_1, X_2, X_3, \dots$ converges in probability to a random variable $X$, denoted as $X_n \overset{p}{\rightarrow} X$, if:
+$$
+\underset{n \rightarrow \infty}{\lim} P (|X_n - X| \geq \epsilon)=0, \qquad \forall~ \epsilon > 0.
+$$
+\smallskip
+\item Convergence in distribution: a weaker type of convergence. It states that the CDF of $X_n$ converges to the CDF of $X$ as $n$ goes to infinity (does not require dependency between $X_n$ and $X$). $X_n \overset{d}{\rightarrow} X$, if: 
+$$
+\underset{n \rightarrow \infty}{\lim} F_{X_n}(x) = F_X(x), \qquad F_X(x) \textnormal{~continuous.}
+$$
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
 \begin{block}{Theorem: Consistency of M estimators}
 If: \\ \smallskip 
 \begin{itemize}
@@ -330,7 +345,7 @@ The equation form of MM empirical equations can be produced as:
 \end{equation*}
 \medskip
 \begin{itemize}
-    \item The $\frac{1}{n}$ element can be removed here.
+    \item Removing $\frac{1}{n}$ elements from equations does not affect the solution.
     \item This is a system of $K$ equations with $K$ unknown parameters.
     \item Equivalent to $1^{st}$ order conditions for the OLS estimator:
     $$ \underset{\hat{\bm{\beta}}}{\min}\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2$$
@@ -530,9 +545,10 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
     \footnotesize{
     $$
     LL(\bm{\beta},\sigma^2|\bm{y},\bm{X})= - \frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2}(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})
-    $$
+    $$\\
     } % end footnotesize
-    Recall that:\\ \bigskip
+    \bigskip
+    Recall that:\\ \medskip
     $(\bm{y}-\bm{X \beta})^{\prime}(\bm{y}-\bm{X \beta})=
     \bm{y}^{\prime}\bm{y} - 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{y}+\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X \beta}$\\ \smallskip
     and \\ \medskip
@@ -754,7 +770,7 @@ $$
 \medskip
 \begin{itemize}
 \item[5] \textbf{Data generating process:} DGP for $\bm{x}_i$ is assumed to be a well-behaved population such that first and second sample moments of the data can be assumed to converge to fixed, finite population counterparts. The crucial assumption is that the process generating $\bm{x}_i$ is strictly exogenous to that generating $\varepsilon_i$
-\item[6] \textbf{Underlying probability model} There is a well-defined probability distribution generating $\varepsilon_i$. At this point, we assume only that this process produces a sample of uncorrelated, identically (marginally) distributed random variables $\varepsilon_i$ with mean zero and variance $\sigma^2$ conditioned on $h(\bm{x}_i, \bm{\beta})$. Thus, at this point, our statement of the model is \textbf{semi-parametric}.
+\item[6] \textbf{Underlying probability model} There is a well-defined probability distribution generating $\varepsilon_i$. At this point, we assume only that this process produces a sample of uncorrelated, identically (marginally) distributed random variables $\varepsilon_i$ with mean zero and variance $\sigma^2$ conditioned on $h(\bm{x}_i, \bm{\beta})$. Hence, our statement of the model is \textbf{semi-parametric} (i.e. specific distributional assumption on residuals are replaced by weaker assumptions).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -764,7 +780,7 @@ $$
 \begin{itemize}
 \item NLS: \qquad min:~~ $S(\bm{\beta})=\sum[y_i-h(\bm{x}_i, \bm{\beta})]^2$
 \medskip
-\item Using standard procedure, we can get $k$ first order conditions for the minimization:
+\item Using the standard procedure, we can get $k$ first order conditions for the minimization:
 $$
 \frac{\partial S(\bm{\beta})}{\partial \bm{\beta} } = 
 \sum_{i=1}^n \, [y_i-h(\bm{x}_i, \bm{\beta})] 
@@ -808,7 +824,7 @@ For nonlinear models, a closed-form solution (NLS estimator) usually does not ex
     $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} + \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \smallskip ~~~which is non-linear in parameters ($\rho \bm{\beta}$). \\ \bigskip
     \item Non-linear consumption function example:\\ \bigskip 
     $\textit{cons}_i = \beta_1 + \beta_2 \textit{inc}_i^{\beta_3} + \varepsilon_i$
-    \\ \medskip ~~~special case: model is linear for $\beta_3 = 1$ (can be tested).
+    \\ \medskip ~~~special case: model is linear for $\beta_3 = 1$ \\~~~(such assumption can be tested).
 \end{itemize}
 
 
