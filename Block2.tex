@@ -1298,7 +1298,9 @@ If enough $T_1$ and $T_2$ observations are available, Chow 1 is preferred (compa
 %---------------------------------------------
 \begin{frame}{TS \& forecasting}
 \begin{itemize}
-\item \textbf{One-step-ahead forecast $f_t$}\\
+\item \textbf{One-step-ahead forecast: $f_t$}\\
+\smallskip
+$f_t \textnormal{~is the forecast of~} y_{t+1}$ made at time $t$\\
 Forecast error $e_{t+1}=y_{t+1}-f_t$\\
 Information set: $I_t$\\
 Loss function: $e^2_{t+1}$ or $|e_{t+1}|$\\
@@ -1306,6 +1308,8 @@ In forecasting, we minimize $E(e^2_{t+1}|I_t)=E[(y_{t+1}-f_t)^2|I_t]$\\
 Solution: $E(y_{t+1}|I_t)$
 \vspace{0.5cm}
 \item \textbf{Multiple-step-ahead forecast $f_{t,h}$}\\
+\smallskip
+$f_{t,h} \textnormal{~is the forecast of~} y_{t+h}$ made at time $t$\\
 Solution: $E(y_{t+h}|I_t)$
 \end{itemize}
 \end{frame}
@@ -1389,7 +1393,7 @@ Mean Absolute Error $\textit{MAE} = m^{-1}\sum_{h=1}^{m}|\hat{e}_{n+h}|$, \\
 \vspace{0.2cm}
 Root Mean Squared Error $\textit{RMSE} = (m^{-1}\sum_{h=1}^{m}\hat{e}_{n+h}^2)^{1/2}$\\
 \vspace{0.2 cm}
-$k$-Fold Cross-Validation ($k$FCV) approach
+$k$-Fold Cross-Validation ($k$FCV) approach\\ \dots has limited empirical benefits in TS analysis
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -1443,7 +1447,7 @@ Dynamically complete (FDL) models
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Finite and infinite distributed lag models}
-Infinite distributed lag (IDL) models
+Infinite distributed lag (IDL) models\\ \medskip
 \begin{itemize}
 \item Lagged regressors extend back to infinity
 \item We cannot estimate IDL models without the use of simplifying restrictions on parameters, \\i.e. restrictions on lag distribution
@@ -1503,7 +1507,7 @@ $$
 y_t & =  \alpha + k_0 x_t + (k_0 + k_1 + k_2)x_{t-1} + (k_0 + 2k_1 + 4k_2)x_{t-2} + \\ & + \dots + (k_0 + 8k_1 + 64k_2)x_{t-8}+u_t 
 \\ \nonumber
 y_t & = \alpha + k_0 (x_t + x_{t-1} + \dots + x_{t-8}) + \\ \nonumber & +  k_1(x_{t-1} + 2 x_{t-2} + \dots + 8 x_{t-8}) + \\ \nonumber & + k_2(x_{t-1} + 4x_{t-2} + \dots + 64x_{t-8}) = \\ 
-y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t\\
+y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t \label{Alm01}\\
 y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
 \end{align}
 We estimate \eqref{eqpol3}, then calculate $\beta_i$ (lags 0 to 8) as in \eqref{eqpol2}\\
@@ -1514,7 +1518,7 @@ We estimate \eqref{eqpol3}, then calculate $\beta_i$ (lags 0 to 8) as in \eqref{
 \begin{frame}{Polynomial distributed lag}
 \begin{itemize}
 \item Method developed by Shirley Almon in the 60ies.
-\item Equation \eqref{eqpol3} can be generalized: for $m$ lags, sums go to $m$, for higher order polynomials, we add more $W$-terms.
+\item Equations \eqref{Alm01}  \& \eqref{eqpol3} can be generalized easily: for $m$ lags, sums go to $m$, for higher order polynomials, we add more $W$-terms.
 \vspace{0.3cm}
 \item Advantages of this approach:
 \begin{itemize}
@@ -1795,7 +1799,7 @@ $y_t = \alpha \phi + \beta \phi x_{t} + (1-\phi) y_{t-1} + v_t $\\
 \vspace{0.3cm}
 We can make three different interpretations from one estimated equation.\\
 \vspace{0.3cm}
-Of course, not all interpretations are always relevant, we must choose according to application and test assumptions.
+Of course, not all interpretations are always relevant, we must choose according to application and have to test the assumptions made.
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
