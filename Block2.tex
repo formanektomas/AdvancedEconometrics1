@@ -59,16 +59,20 @@
 \end{frame}
 %------------------------------------------------------
 \section{Time series-based LRMs -- repetition from BSc. courses}
+\small
 \begin{frame}{Time series-based LRMs -- repetition from BSc. courses}
 \begin{itemize}
   \item TS is a stochastic (random) process, a sequence of observations indexed by time. \\Observed TS: one realization of a stochastic process.
   \medskip
   \item Static models
   $$ y_t = \beta_1 + \beta_2 x_t + u_t , \hspace{1cm} t = 1, 2,  \dots, n $$
-  \item Finite distributed Lag (FDL) model:
-  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + u_t $$
-  \item Infinite distributed lag (IDL) model:
-  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \dots + u_t $$
+  \item Dynamic models
+  \begin{itemize}
+     \item Finite distributed Lag (FDL) model:
+     $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + u_t $$
+     \item Infinite distributed lag (IDL) model:
+     $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \dots + u_t $$
+  \end{itemize}
   \item   Dynamic models: lag order\\ For convenience, $\beta$ subscripts follow lag order, \\
   Impact / lagged / long-run multiplier, \\
   Effect of temporary (one-off) $\times$ permanent increase in $x$, \\
@@ -94,10 +98,10 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 %------------------------------------------------------
 \begin{frame}{G-M assumptions for TSRMs}
 \begin{itemize}
- \item TS.4 Conditional Homoscedasticity 
+ \item TS.4 Conditional homoscedasticity 
  $$\textnormal{var}(u_t|\boldsymbol{X})=\textnormal{var}(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
  \medskip
- \item TS.5 Serial Correlation (Autocorrelation) is not present $$ \textnormal{corr}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
+ \item TS.5 Serial correlation (autocorrelation) is not present $$ \textnormal{corr}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
  \medskip
  \item TS.6 Normality \\
  $u_t$ are independent of $\boldsymbol{X}$ and $\textit{i.i.d.}$ :  $u_t \sim N(0,\sigma^2), \textit{i.i.d.} $
@@ -112,7 +116,7 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 \item Under TS.1 - TS.3, OLS estimators are unbiased.
 \medskip
 \item Under assumptions TS.1 - TS.5, \\ \medskip
-$\textnormal{var}(\hat{\beta_j})=\hat{\sigma}^2(\bm{X}^{\prime}\bm{X})^{-1}$~~and~~$\hat{\sigma}^2=\frac{SSR}{n-K-1}$.
+$\textnormal{var}(\hat{\beta_j})=\hat{\sigma}^2(\bm{X}^{\prime}\bm{X})^{-1}$~~and~~$\hat{\sigma}^2=\frac{SSR}{n-K}$, ~where $(n-K)=\textnormal{~d.f.}$
 \medskip
 \item Under assumptions TS.1 - TS.5, \\ \medskip OLS estimators are \textbf{BLUE} (conditional on $\boldsymbol{X}$).
 \medskip
@@ -151,11 +155,9 @@ $$\overline{R}^2=1-\frac{\hat{\sigma}^2_u}{\hat{\sigma}^2_y}$$
 \item With trending $y$, $\hat{\sigma}^2_y=\frac{SST}{(n-1)}$, where $SST=\sum_{t=1}^n (y_t-\overline{y})^2$ is neither unbiased nor consistent estimator.
 \end{itemize}
 \bigskip
-\item Better approach: regress $\ddot{y}_{t}$ on $\ddot{x}_{t1}$, $\ddot{x}_{t2}$.\\ 
-\medskip
-Coefficient of determination from this regression, i.e.: 
+\item Better approach: regress $\ddot{y}_{t}$ on $\ddot{x}_{t1}$, $\ddot{x}_{t2}$. The corresponding coefficient of determination from this regression, i.e.: 
 $$R^2=1-\frac{SSR}{\sum^n_{t=1}\ddot{y}^2_t}$$ 
-is more reliable (does not overshoot) than that one from the original regression.
+is more reliable (does not overshoot) when compared to the original regression.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
@@ -179,7 +181,7 @@ $$\hat{\ddot{y}}_{t}=\hat{\beta_2}\ddot{x}_{t2}+\hat{\beta_3}\ddot{x}_{t3}$$
 \medskip
 \item For large samples, key assumptions are: \\ \textbf{Covariance stationarity} and \textbf{weak dependency}\\
 \medskip
-Time series is strictly stationary if its marginal and all joint distributions are invariant across time.
+A time series is strictly stationary if its marginal and all joint distributions are invariant across time.
 \medskip
 \item \textbf{Covariance stationarity:} first two moments and auto-covariance do not change over time.\\
 $E(y_t)= \mu,\qquad \textnormal{var}(y_t) = \sigma^2,\qquad \textnormal{cor}(y_t,y_{t+h})=f(h)$
@@ -196,7 +198,7 @@ $E(y_t)= \mu,\qquad \textnormal{var}(y_t) = \sigma^2,\qquad \textnormal{cor}(y_t
 \end{itemize}
 \begin{block}{Notes on CLT \& LLN}
 \textbf{CLT} implies that the sum of independent random variables \\(or weakly dependent RVs) -- if centered and standardized by \\its s.d. -- has an asymptotic distribution $N(0,1)$.\\ \vspace{0.1cm}
-\textbf{LLN} theorem implies that the average from a random sample converges in probability to the population average; LLN holds for stationary and weakly dependent series.
+\textbf{LLN} theorem implies that the average taken from a random sample converges in probability to the population average; LLN holds for stationary and weakly dependent series.
 \end{block}
 \end{frame}
 %------------------------------------------------------
@@ -211,8 +213,8 @@ where $e_t$ is an $\textit{iid}$ time series.\\ $$\textnormal{corr}(y_t,y_{t+1})
 \item Stable autoregressive process of order 1: \texttt{ar(1)}\\
 \medskip
 Under stability condition $|\rho|<1$, it can be demonstrated that (Wooldridge, Introductory econometrics, ch. 11.1):
-$$y_t=\rho y_{t-1} + e_t \Rightarrow \textnormal{corr}(y_t,y_{t+h})=\rho^h$$
-If stability condition holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
+$$y_t=\rho y_{t-1} + e_t \quad \Rightarrow \quad \textnormal{corr}(y_t,y_{t+h})=\rho^h$$
+If the stability condition holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
@@ -268,8 +270,12 @@ $$
 %------------------------------------------------------
 \begin{frame}{Serial correlation in TSRM}
 \begin{itemize}
-\item Causes and effects of autocorrelation \\ \bigskip DGP, dynamic (in)completeness of models\\ \medskip unbiased $\hat{\beta}_j$, biased inference
-\bigskip
+\item Causes and effects of autocorrelation \\ \bigskip 
+ \begin{itemize}
+     \item Causes:  DGP, dynamic incompleteness of models
+     \bigskip
+     \item Effects: Unbiased $\hat{\beta}_j$, biased inference
+ \end{itemize}
 \bigskip
 \item FGLS (only with strictly exogenous regressors)
 \bigskip
@@ -300,11 +306,11 @@ H_0 & : \rho=0 \nonumber
 Testing serial correlation with general regressors\\ \medskip
 \begin{itemize}
 \item Testing AR(1):
-$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho \hat{u}_{t-1} + \textit{error}$$
+$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tK} + \rho \hat{u}_{t-1} + \textit{error}$$
 $$H_0 : \rho = 0$$
 We can use a heteroscedasticity-robust version of the $t$-test.\\ \bigskip
 \item Breusch-Godfrey test for AR($q$) serial correlation:
-$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
+$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tK} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
 $$H_0 : \rho_1 = \dots = \rho_q = 0$$ \\ \medskip
 Use $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q)}$.
 \end{itemize}
@@ -316,24 +322,24 @@ Generalized linear regression model (GLRM) accomodates both autocorrelated and h
 \item GLRM properties:
 \begin{itemize}
 \item $E(\boldsymbol{u})=\boldsymbol{0}$
-\item $E(\boldsymbol{uu}^T)=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
+\item $E(\boldsymbol{uu}^{\prime})=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
 \end{itemize}
 \vspace{0.5cm}
-\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{T}=\bm{I}_n$) to get: \\ \medskip
+\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{\prime}=\bm{I}_n$) to get: \\ \medskip
 $\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$ \\ \medskip
 in the transformed model.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
 \begin{frame}{GLSM, matrix form description}
-\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; OLS estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}$ \\
+\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; OLS estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^{\prime}\boldsymbol{X})^{-1}\boldsymbol{X}^{\prime}\boldsymbol{y}$ \\
 ~\\
 \textbf{GLRM} transformation principle:  $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\ \medskip
 \begin{itemize}
 \item For covariance matrix of the transformed model, we get:
-$$E(\boldsymbol{T}\boldsymbol{u}(\boldsymbol{T}\boldsymbol{u})^T)=
-E(\boldsymbol{T}\boldsymbol{u}\boldsymbol{u}^T\boldsymbol{T}^T)=\boldsymbol{T} E(\boldsymbol{u}\boldsymbol{u}^T)\boldsymbol{T}^T=\sigma^2\boldsymbol{THT}^T$$
-We need $\boldsymbol{THT}^T \! = \boldsymbol{I}$; from this relation we derive the transformation matrix $\boldsymbol{T}$.
+$$E(\boldsymbol{T}\boldsymbol{u}(\boldsymbol{T}\boldsymbol{u})^{\prime})=
+E(\boldsymbol{T}\boldsymbol{u}\boldsymbol{u}^{\prime}\boldsymbol{T}^{\prime})=\boldsymbol{T} E(\boldsymbol{u}\boldsymbol{u}^{\prime})\boldsymbol{T}^{\prime}=\sigma^2\boldsymbol{THT}^{\prime}$$
+We need $\boldsymbol{THT}^{\prime} \! = \boldsymbol{I}$; from this relation we derive the transformation matrix $\boldsymbol{T}$.
 Transformation gives us model that fulfills previously broken G-M assumption.
 \end{itemize}
 \end{frame}
@@ -342,7 +348,7 @@ Transformation gives us model that fulfills previously broken G-M assumption.
 \textbf{GLSM algorithm:} \\ \medskip
 \begin{enumerate}
 \item Estimate the model using OLS.
-\item Test assumption $E(\boldsymbol{uu}^T)=\sigma^2 \boldsymbol{I}_n$, if  broken:
+\item Test assumption $E(\boldsymbol{uu}^{\prime})=\sigma^2 \boldsymbol{I}_n$, if  broken:
 \item Find/set appropriate transformation matrix $\boldsymbol{T}$.
 \item Multiply variables of the model by $\boldsymbol{T}$, to get transformed variables.
 \item Estimate the model with transformed variables (use OLS for estimation).
@@ -370,7 +376,7 @@ $$\sigma^2 \bm{H} = \sigma^2
      0 & 0 & \cdots & \sigma^2_n 
 \end{bmatrix}
 $$
-GLS: $\bm{\hat{\beta}}=(\bm{X}^T \bm{\hat{H}}^{-1} \bm{X})^{-1} \bm{X}^T \bm{\hat{H}}^{-1} \bm{y}$\\
+GLS: $\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{\hat{H}}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{\hat{H}}^{-1} \bm{y}$\\
 where WLS or FGLS method is used to estimate/set $\bm{\hat{H}}$.
 \end{itemize}
 \end{itemize}
@@ -382,8 +388,8 @@ Autocorrelation (matrix form):
 \item Let's assume autocorrelation of the AR(1) form $u_t = \rho u_{t-1}+ \varepsilon_t$  ; \\ where $\rho$ is coefficient of autocorrelation $\rho \in (-1; 1)$
 \end{itemize}
 \vspace{0.2cm}
-If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^T)$ is :
-$$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^2}
+If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^{\prime})$ is :
+$$E(\boldsymbol{uu}^{\prime})= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^2}
     \begin{bmatrix}
     1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
     \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
@@ -396,7 +402,7 @@ $$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^
 %------------------------------------------------------
 \begin{frame}{GLSM, matrix form description}
 \begin{itemize}
-\item Explanation of matrix $E(\boldsymbol{uu}^T)$: start with $u_t = \rho u_{t-1}+ \varepsilon_t$\\
+\item Explanation of matrix $E(\boldsymbol{uu}^{\prime})$: start with $u_t = \rho u_{t-1}+ \varepsilon_t$\\
 $u_t= \varepsilon_t + \rho \varepsilon_{t-1} + \rho^2 \varepsilon_{t-2} + \dots$ \qquad where $\varepsilon$ are $i.i.d.$\\
 Hence, $\sigma^2_u \equiv \textnormal{var}(u_t)= 
 \sigma^2_{\varepsilon} + \rho^2 \sigma^2_{\varepsilon} + \rho^4 \sigma^2_{\varepsilon} 
@@ -486,11 +492,11 @@ Weakly dependent time series
 Strongly dependent time series:\\
 Random walk:  
 \begin{align}\nonumber
-y_t &= y_{t-1}+e_t \\\nonumber 
-y_t &= y_{t-2}+e_{t-1}+e_t \\\nonumber
-y_t &= y_{t-3}+e_{t-2}+e_{t-1}+e_t \\\nonumber
+y_t &= y_{t-1}+e_t, \qquad \qquad \textnormal{by consecutive substitution:} \\\nonumber 
+y_t &= y_{t-2}+e_{t-1}+e_t, \\\nonumber
+y_t &= y_{t-3}+e_{t-2}+e_{t-1}+e_t, \\\nonumber
 & \cdots \\ \nonumber
-y_t &= y_0 + e_1 + \dots +e_{t-1} + e_t
+y_t &= y_0 + e_1 + \dots +e_{t-1} + e_t.
 \end{align} 
 Shocks have permanent effects, the series is not covariance stationary and is strongly dependent.
 \begin{align}\nonumber
@@ -525,7 +531,7 @@ Correlation decreases very slowly and decline speed depends on $t$.
 %---------------------------------------------
 \begin{frame}{Weakly and strongly dependent TS}
 \begin{itemize}
-\item Realization of random walk with a drift \\ 
+\item Realization of a random walk with a drift \\ 
 \vspace{0.2cm}
 \includegraphics[width=0.7\textwidth]{img/random_walk_drift.pdf}
 \item Different realizations of trending TS (weakly dependent around the trend) may produce similar time series.
@@ -545,7 +551,7 @@ where: $u_t$ is a weakly dependent series.
 We need to distinguish strongly and weakly dependent TS:
 %\vspace{0.5cm}
 \begin{itemize}
-\item Economic reasons: \\ In strongly dependent series, shocks or policy changes  have  long or permanent effects; in weakly dependent series, their effect  is only temporary.
+\item Economic reasons: \\ In strongly dependent series, shocks or policy changes  have  long or permanent effects; in weakly dependent series, their effects  are only temporary.
 \item Statistical reasons: \\ Analysis with strongly dependent series must be handled in specific ways.
 \end{itemize}
 \end{frame}
@@ -603,7 +609,7 @@ $ H_0 : \rho = 1, \> \> \> H_1 : \rho <1$ \\
 \item Under $H_0$, $y_t$ has a unit root. 
 \begin{itemize}
 \item[$\circ$] For  $\rho =1 \ \wedge \ \alpha =0 \rightarrow y_t$     is a random walk.
-\item[$\circ$] For  $\rho =1 \ \wedge \ \alpha \neq 0 \rightarrow y_t$     is a randomw walk with a drift   \\and $E(y_t)$ is a linear function of $t$ .
+\item[$\circ$] For  $\rho =1 \ \wedge \ \alpha \neq 0 \rightarrow y_t$     is a random walk with a drift   \\and $E(y_t)$ is a linear function of $t$ .
 \end{itemize}
 \item Under $H_1$, $y_t$  is a weakly dependent \texttt{ar(1)} process. \\
 \bigskip
@@ -658,7 +664,7 @@ $H_1 \ : \rho < 1 \Leftrightarrow H_1 : \theta < 0$};
 %---------------------------------------------
 \begin{frame}{DF test \& ADF test}
 \footnotesize
-Unit root time series can manifest various levels of complexity. Hence, DF  test is usually performed using the following three specifications: \\
+TS with unit root can manifest various levels of complexity. Hence, DF  test for a give $y_t$ TS is usually performed using the following three specifications: \\
 \begin{minipage}[c]{.1\textwidth}
 \begin{flalign*}
 \Delta y_t  = \quad  & \theta y_{t-1} + e_t &&  \\
@@ -678,7 +684,7 @@ DF test is the same ($H_0: \theta = 0$) for all specifications   /critical value
 \medskip
 \underline{Augmented Dickey-Fuller (ADF) test} is a common generalization of DF test\\
 (example: Augmentation of the DF test for the $2^{nd}$ specification) 
-$$\Delta y_t = \alpha + \rbox{$\theta y_{t-1}$} + \gamma_1 \Delta y_{t-1} + \dots + \gamma_p \Delta y_{t-p} + e_t$$
+$$\Delta y_t = \alpha + \rbox{$\theta y_{t-1}$} + \textcolor{blue}{\gamma_1 \Delta y_{t-1} + \dots + \gamma_p \Delta y_{t-p}} + e_t$$
 \begin{itemize}
 \item When estimating $\theta$, we control for possible $\textit{ar}(p)$ behavior in $\Delta y_t$. 
 \item ADF test has the same null hypothesis as a DF test $\rightarrow$ $H_0: \theta = 0$.
@@ -744,7 +750,7 @@ Also called \textbf{trend-stationary process}: has a linear trend, not a unit ro
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Stationarity in ar(\textit{p}) processes}
-Lag operators:
+Lag operators:\\ (for some ar(\textit{p}) TS $x_t$)
 \begin{align*}
 Lx_t &= x_{t-1} \\
 L(Lx_t)=L^2x_t &= x_{t-2} ~~~~~~~~~~~~~~~~~\\
@@ -752,7 +758,7 @@ L(Lx_t)=L^2x_t &= x_{t-2} ~~~~~~~~~~~~~~~~~\\
 L^p x_t &= x_{t-p} 
 \end{align*}
 Using lag operators,
-$$ AR(p):  x_t = \alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} +\dots + \phi_p
+$$ \textnormal{ar}(p) \textnormal{~process}:  x_t = \alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} +\dots + \phi_p
   x_{t-p}+u_t$$
 can be rewritten as: 
 $$(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t $$
@@ -764,12 +770,11 @@ $$(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t $$
 (1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t
 \end{equation}
 Stochastic process \eqref{eq1} will only be stationary if the roots of corresponding equation \eqref{eq2}  are all greater than unity in absolute value 
-\vspace{-0.5cm}
 \begin{equation} \label{eq2}
 1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p = 0
 \end{equation}
 \vspace{-0.5cm}
-\begin{block}{Illustration 1 -- AR(1) process:}
+\begin{block}{Illustration 1 -- ar(1) process:}
 \vspace{-0.5cm}
 \begin{align}
 \vspace{-0.5cm}
@@ -784,7 +789,7 @@ L & = 1/\phi \\ \nonumber
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Stationarity in ar(\textit{p}) processes}
-\begin{block}{Illustration 2 -- AR(1) process:}
+\begin{block}{Illustration 2 -- ar(3) process:}
 \begin{equation*}
 x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t 
 \end{equation*}
@@ -855,7 +860,7 @@ Some properties of integrated processes
 \medskip
 \item If two time series are integrated of different orders, then any linear combination of the series will be integrated at the higher of the two orders of integration. 
 \medskip
-\item Sometimes it turns out a linear combination of two $I(d)$ series is integrated of order less then $d$. 
+\item Sometimes (``special case scenario'') it turns out that a linear combination of two $I(d)$ series is integrated of order less then $d$. 
 \end{enumerate}
 \end{frame}
 %---------------------------------------------
@@ -880,14 +885,14 @@ $$ y_t=\alpha+\beta x_t + e_t,
 \vspace{0.5cm}
 For residuals of the known CI relationship:
 $$e_t := y_t-\alpha-\beta x_t, $$
-test whether the residuals have a unit root (DF/ADF and other unit root tests may be applied ``directly''). \\If the unit root $H_0$ is rejected, $y_t$, $x_t$ are cointegrated. 
+test whether the residuals have a unit root \\(DF/ADF and other unit root tests may be applied ``directly''). \\ \medskip If the unit root $H_0$ is rejected, $y_t$, $x_t$ are cointegrated. 
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Spurious regression or cointegration}
 \begin{itemize}
-\item \textbf{Testing for CI if the parameters are unknown}\\
-If the potential relationship is unknown, it can be estimated by OLS. After that, we test whether the regression residuals have a unit root. If the unit root is rejected, this means that $y_t$, $x_t$ are cointegrated. Due to the pre-estimation of parameters, critical values are different than in the case of known parameters. \\(Software handles this automatically.)
-\item \textbf{The CI relationship may include a time trend}\\
+\item \textbf{Testing for CI if the parameters are unknown}\\ \smallskip
+If the potential relationship is unknown, it can be estimated by OLS. After that, we test whether the regression residuals have a unit root. If the unit root is rejected, this ``means'' (test result interpretation at a given significance level) that $y_t$ \& $x_t$ are cointegrated. Due to the pre-estimation of parameters, critical values are different than in the case of known parameters. \\(Software handles this automatically.)
+\item \textbf{The CI relationship may include a time trend}\\ \smallskip
 If the two series have differential time trends (drifts in this case), the deviation between them may still be $I(0)$ but with a linear time trend. In this case one should include a time trend in the CI-regression. Also, we have to use different critical values when testing residuals.
 \\(Software handles this automatically.)
 \end{itemize}
@@ -929,14 +934,14 @@ In both cases (EG and PO), $H_0$ of unit root in $\hat{u}$ \\i.e. ``no-cointegra
 $$\textnormal{ADL}(p,q)\!: \, y_t = \beta_0 \, + \sum_{i=1}^p \beta_i y_{t-i} \, + 
          \sum_{j=0}^q \gamma_j x_{t-j} + u_t, \hspace{0.2cm}
          u_t \sim iid(0,\sigma^2)$$
-\item There are many useful modifications/simplifications to the $\textnormal{ADL}(p,q)$ process. For example:
+\item There are many useful modifications/simplifications/restrictions to the general $\textnormal{ADL}(p,q)$ process. For example, ADL(1,1) is equivalent to a ECM specification with one lag used in the error-correction mechanism (shown next):
 \begin{equation} \label{ADL11}
 \textnormal{ADL}(1,1)\!: \, y_t = \beta_0 + \beta_1 y_{t-1} + 
          \gamma_0 x_t + \gamma_1 x_{t-1} + u_t \,.
 \end{equation}
 %~\\         
-Additional ADL$(1,1)$ restriction: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$
-$$\textnormal{gives a model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
+Additional ADL$(1,1)$ restrictions: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$
+$$\textnormal{give a model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -1054,17 +1059,15 @@ Estimators are consistent and asymptotically efficient, but biased in small samp
 \begin{frame}{ECM: non-stationary \& cointegrated series}
 \textbf{Possibility of more cointegrating vectors:}\\
 \medskip
-Long-run relationship: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ with all observed variables are $I(1)$\\
-\medskip
-If this long-run relationship exists, then the disequilibrium error \\
+Long-run relationship: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ assume all observed variables are $I(1)$ and cointegrating relationship exists -- then the disequilibrium error is: \\
 \begin{equation}  \label{eq7}
 u_t= [y_t - \beta_0 - \beta_1 x_t - \beta_2 w_t - \beta_3 z_t ]
 \quad \sim I(0). 
-\end{equation} 
+\end{equation} \\
 \medskip
-If a linear combination of variables such as \eqref{eq7} is stationary, then the coefficients in this relationship form a cointegrating vector, e.g. $(1,-\beta_{1},-\beta_{2},-\beta_{3})$. 
+If a linear combination of variables such as \eqref{eq7} is stationary, then the coefficients in this relationship form a cointegrating vector, e.g. $(1,-\beta_{1},-\beta_{2},-\beta_{3})$. \\
 \medskip
-In the multivariate case, there may be more than one linearly independent stationary combinations linking the cointegrated variables (topic discussed separately). \\
+In the multivariate case, there may be more than one linearly independent stationary combination linking the cointegrated variables (topic discussed separately along VAR/VECM estimators). \\
 \medskip
 Cointegration: the existence of at least one cointegrating vector.
 \end{frame}
@@ -1120,7 +1123,7 @@ $ \begin{bmatrix} \bm{y}_1 \\ \bm{y}_2 \end{bmatrix} =
 \begin{bmatrix} \bm{u}_1 \\ \bm{u}_2 \end{bmatrix}$ \\
 \vspace{0.3cm}
 where $\bm{0}$ is a zero-matrix of the same dimensions as $\bm{X}_1$, 
-\\ i.e. $(T_1 \! \times \! k)$.
+\\ i.e. $(T_1 \! \times \! K)$.
 \end{itemize} \medskip
 Also, we can see that:
 \begin{itemize}
@@ -1150,7 +1153,7 @@ We can formulate the null of no structural change in model dynamics between the 
 \begin{itemize}
 \item 
 $ H_0: \hspace{0.5cm} \bm{\gamma}= \bm{0}$, i.e.: 
-$\gamma_1 = \gamma_2 = \gamma_3= \cdots = \gamma_k=0 $
+$\gamma_1 = \gamma_2 = \gamma_3= \cdots = \gamma_K=0 $
 \item 
 $ H_1: \hspace{0.5cm} \neg H_0$ 
 \end{itemize}
@@ -1246,8 +1249,10 @@ $\textit{SSR}_{r} \,\,= \textit{SSR}_{\,T}$\\
 $k$ is the number of parameters (including intercept) in LRM\\
 ~ \\
 $H_0$: stable structure of coefficients - no statistically significant\\ 
-~~~~~~differences between $T_1$ and $T_2$.\\
-$H_1$: $\neg H_0$ (assume structural change in parameters over time)\\
+~~~~~~differences between parameters in $T_1$ and $T_2$.\\
+$H_1$: $\neg H_0$. $H_1$ suggests a structural change in parameters over time.\\ 
+~~~~~~Hence, separate regressions fit the data significantly better and\\
+~~~~~~$\textit{SSR}_{ur} < \textit{SSR}_{r}$ (the difference is statistically significant).\\
 ~ \\
 \footnotesize{
 \textbf{Note:} Chow 1 can be generalized for $G$ time periods ($G-1$ ``breakpoints'').\\
