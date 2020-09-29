@@ -68,7 +68,7 @@ $$
     \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}_n$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip 
     \tiny{
     \begin{itemize}
-        \item GARCH models (i.e. $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$) do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notation but left as implicit.
+        \item GARCH models [i.e. ARCH(1): $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$] do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notation but left as implicit.
     \end{itemize}}
     \normalsize
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
