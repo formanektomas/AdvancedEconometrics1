@@ -72,7 +72,7 @@ $$
     \end{itemize}}
     \normalsize
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
-    \item[A6] \textbf{Normal distribution of disturbances:} $$\varepsilon | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}_n].$$
+    \item[A6] \textbf{Normal distribution of disturbances:} $$\bm{\varepsilon} | \bm{X} \sim N[\bm{0}, \sigma^2\bm{I}_n].$$
 \end{enumerate}
 \end{frame}
 %------------------------------------------------------
@@ -207,7 +207,7 @@ Assumptions for asymptotic properties of extremum estimators:
     \item[4] \textbf{Behavior of the data:} Grenander conditions for well-behaved data:
     \medskip
     \begin{itemize}
-        \item[G1] For each $\bm{x}_k$ column of $\bm{X}$ and $d_{nk}^2 = \bm{x}_k^{\prime}\bm{x}_k$, it must hold that: $\lim_{n \rightarrow \infty} d_{nk}^2 = + \infty$. Sum of squares continue to grow with sample size ($\bm{x}_k$ does not degenerate into a series of 0).
+        \item[G1] For each $\bm{x}_k$ column of $\bm{X}$ and $d_{nk}^2 = \bm{x}_k^{\prime}\bm{x}_k = \sum_{i=1}^n x_{ik}^2$, \\it must hold that: $\lim_{n \rightarrow \infty} d_{nk}^2 = + \infty$. Sum of squares continue to grow with sample size \\($\bm{x}_k$ does not degenerate into a series of 0).
         \smallskip
         \item[G2] The $\lim_{n \rightarrow \infty} x_{ik}^2 / d_{nk}^2 = 0$ for all $i=1,2,\dots,n$. Single observations become less important as sample size grows. No single observation will dominate $\bm{x}_k^{\prime}\bm{x}_k$.
         \smallskip
@@ -312,12 +312,7 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \begin{frame}{Method of moments}
 %\footnotesize
 \begin{itemize}
-%\item In a LRM: $\, \hat{y} = \hat{\beta}_1 + \hat{\beta}_2 x_{2} + \dots + \hat{\beta}_K x_{K} \,$, the $K$ parameters can be OLS-estimated by minimizing:
-
-%\begin{equation*}
-%\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2
-%\end{equation*}
-\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0},$$ 
+\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta})]=\bm{0},$$ 
 may be transformed in \textbf{population moment equation:}
 $$
 E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
@@ -338,7 +333,7 @@ The equation form of MM empirical equations can be produced as:
 \begin{equation*}
 \begin{aligned}
 \frac{1}{n}\, \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
-\frac{1}{n}\, \sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n  x_{i2} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \dots &\\
 \frac{1}{n}\, \sum_{i=1}^n x_{iK} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \end{aligned}
@@ -393,7 +388,7 @@ The equation form of GMM empirical equations can be produced as:
 \begin{equation*}
 \begin{aligned}
 \frac{1}{n}\, \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
-\frac{1}{n}\, \sum_{i=1}^n  z_{i1} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
+\frac{1}{n}\, \sum_{i=1}^n  z_{i2} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \dots &\\
 \frac{1}{n}\, \sum_{i=1}^n z_{iL} \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right) &= 0\\
 \end{aligned}
