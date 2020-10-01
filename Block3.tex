@@ -86,7 +86,7 @@ Panel data -- basics (repetition from BSc courses) \\ \bigskip
 \subsection*{Pooled cross sections}
 \begin{frame}{Pooled cross sections}
 \begin{itemize}
-\item \underline{\textbf{Pooled cross sections data:}}
+\item \underline{\textbf{Pooled cross sections:}}
 Random sampling from a large population at different time periods (i.e. for each time period, we have a different - randomly chosen - set of CS units). 
 \medskip
 \item Should not be confused with ``actual'' panel data. 
@@ -166,12 +166,12 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \begin{itemize}
 \item $N$ individual CS units are followed over time.
 \medskip
-\item Distinction between panel and longitudinal data may be subtle and different authors may use conflicting terminologies \dots
-\medskip
-\item For an observation $y_{it}$, $i$th individual is observed at a time period described by $t$. Number of observations in time may differ among CS units and observations may occur at different time periods. \\ \medskip 
-\textbf{Example:} For a medical study, we measure child's weight (plus other data) at birth and repeatedly over a period of one year. For some $y_{it}$ observation, index $t$ denotes days from birth. Due to scheduling, individual children are weighted at different $t$ ``values''. Number of observations differ across children. Children in the study are born on different dates. \\ \medskip Example extends easily to micro-economic environment \\(we can follow newly founded companies, etc.).
+\item The observation set $\{y_{it},\bm{x}_{it}\}$ denotes some $i$th individual  observed at a time period $t$. The number of observations in time may differ among CS units and observations may occur at different time points. \\ \medskip 
+\textbf{Example:} For a medical study, we measure child's weight (plus other data) at birth and repeatedly over a period of one year. For some $y_{it}$ observation, index $t$ denotes days from birth. Due to doctor visit scheduling, children are weighted at different $t$ ``values''. Typically, the number of doctor visits (observations) differs across children. Children in the study are born on different dates (say, Jan 2015 - Oct 2019). \\ \medskip Example extends easily to economic environment \\(we can follow newly founded companies, etc.).
 \medskip
 \item Longitudinal data are typically used in Linear mixed effects (LME) models (discussed separately).
+\medskip
+\item Note: Distinction between longitudinal and panel data (discussed next) may be subtle and different authors may use conflicting terminologies \dots
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -210,7 +210,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 Working with short panels is similar to CS data analysis. If CS units are randomly drawn from a population and $T$ is small and fixed, then asymptotic analysis (properties) hold for arbitrary time dependence and distributional heterogeneity across time.
 \medskip
 \item Long panels: $T \gg N$ \\
-Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations (with identical regressor structure), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate (see Greene, chapter 10.2)
+Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations under scrutiny (typically with an identical regressor structure), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate \\(see Greene, chapter 10.2)
 \medskip
 \item Large panel datasets: $T$ and $N$ large\\
 Both CS and TS analysis assumptions apply, specialized estimators exist for large (heterogeneous) panels.\\Cointegrated series in panels: estimation and tests by Pesaran.
@@ -222,7 +222,7 @@ Both CS and TS analysis assumptions apply, specialized estimators exist for larg
 \begin{itemize}
     \item Heterogeneity bias
     \medskip
-    \item Similar principle to the Simpson's paradox
+    \item Example similar in principle to the Simpson's paradox
 \end{itemize}
 \medskip
 \includegraphics[width=\textwidth]{./img/Obrazek4}
@@ -258,7 +258,7 @@ $i$ & $t$  & $x_{it}$ & $\overline{x}_i$ & $\overline{x}$ & $x_{it}-\overline{x}
 \end{frame}
 %---------------------------------
 \begin{frame}{Panel data models}
-\underline{Panel data model -- a stylized and structured notation } \\
+\underline{Panel data model -- a structured notation example} \\
 \medskip
 $$y_{it} = \bm{g}_t \bm{\theta} + \bm{z}_i \bm{\delta} + \bm{w}_{it} \bm{\gamma} + a_i + u_{it}$$\\
 \medskip
