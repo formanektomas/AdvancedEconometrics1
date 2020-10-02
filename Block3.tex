@@ -324,6 +324,25 @@ How to estimate $a_i$ values along with $\bm{\beta}$?\\
 \item Convenient LSDV model expansion: use interactions to control for individual slopes for chosen regressors.
 \end{itemize}
 \end{frame}
+%---------------------------------
+\begin{frame}{LSDV regression -- example}
+$$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{i}}} + \alpha_2 \mytikzmark{ind2}{\boxed{\textit{ind}2_{i}}} + \dots + \alpha_N \mytikzmark{indN}{\boxed{\textit{ind}N_{i}}} + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + u_{it}$$
+\medskip
+\begin{itemize}
+\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is identical to $\hat{\bm{\beta}}_{\textnormal{FE}}$ (explained next) - it is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$ \\(actually, consistency applies more generally).
+\item For $\hat{\bm{\alpha}}$ (vector of individual $\hat{\alpha}_i$ values), such consistency does not hold: as $N \rightarrow \infty$, information does not accumulate for $a_i$. \\ \bigskip
+\end{itemize}
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
+\tikzset{
+    mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=30em},
+    myarrow/.style={->, >=stealth, thin, Red}
+}
+\node[mynode] at (5.5,4.3) (dummy){Dummy equals $1$ only if observations (time-invariant) relate to $i$-th C-S unit.};
+\draw[myarrow] (dummy) -- ++   (ind1);
+\draw[myarrow] (dummy) -- ++   (ind2);
+\draw[myarrow] (dummy) -- ++   (indN);
+\end{tikzpicture}
+\end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FD estimator}
 We can eliminate unobserved individual heterogeneity from the regression: \quad $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$ \\ \smallskip
@@ -374,6 +393,35 @@ FD estimators - i.e. pooled OLS on first differences - are normally distributed 
 \item Without strict exogeneity of regressors (e.g. in the case of a lagged dependent variable /say, $y_{i,t-1}$/ among regressors or with measurement errors), adding further periods does not reduce inconsistency.
 \item FD estimator may be worse than pooled OLS if explanatory variables are subject to measurement errors (errors in variables - EIV).
 \end{itemize}
+\end{frame}
+%---------------------------------------------------------------------
+\begin{frame}{FD estimator example}
+$\textit{crmrte}_{it} = \beta_0 + \delta_0 \mytikzmark{d87}{\circled{$d87_{it}$}} + \beta_1 \textit{unem}_{it} + \circled{$a_i$} + \circled{$u_{it}$},$ \ $t= 1982, 1987$
+\medskip
+$$\textit{crmrte}_{i1987} = \beta_0 + \delta_0 \cdot 1 + \beta_1 \textit{unem}_{i1987} + a_i + \mytikzmark{1987}{u_{i1987}}$$
+$$\textit{crmrte}_{i1982} = \beta_0 + \delta_0 \cdot 0 + \beta_1 \textit{unem}_{i1982} + a_i + \mytikzmark{1982}{u_{i1982}}$$
+\medskip
+\hfill $\Rightarrow \boxed{\Delta \textit{crmrte}_{i}} = \circledd{$\delta_0$} + \beta_1 \boxed{\Delta \textit{unem}_{i}} + \boxed{\Delta u_{i}}$
+\medskip
+\begin{align*}
+\Delta \widehat{\textit{crmrte}} = 15.40 &+ 2.22 \ \Delta \textit{unem}\\
+(4.70) &\quad (.88)
+\end{align*}
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
+\tikzset{
+    mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=8em},
+    myarrow/.style={->, >=stealth, thin, Red}
+}
+\node[mynode] at (10.17,5.5) (model){Model expanded: written separately for each time period };
+\draw[myarrow] (model) -- ++   (1987);
+\draw[myarrow] (model) -- ++   (1982);
+	\node[mynode] at (5,5.5) (dammy){Dummy for the second time period};
+	\draw[myarrow] (dammy) -- ++  (d87);
+		\node[mynode] at (10,2) (1){Individual unobserved effect disappears};
+			\node[mynode] at (9,0.7) (2){With OLS estimation, HAC errors should be used};
+				\node[mynode] at (1,3.06) (3){FD applied};
+					\node[mynode] at (6,2.3) (4){$\delta_0$ has a time effect interpretation};
+\end{tikzpicture}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator}
@@ -433,6 +481,58 @@ Asymptotically valid inference for FE estimator holds ($t$ and $F$).\\
 Under  \textcolor{blue}{\textbf{FE.1 - FE.7}}\\
 FE estimator is BLUE and $t$ and $F$ statistics have exact $t$ and $F$ distributions.\\
 FE estimators - i.e. pooled OLS on time demeaned data - are normally distributed.
+\end{frame}
+%---------------------------------
+\begin{frame}{FE estimator – example}
+\textbf{Example: Effect of training grants on firm scrap rate}
+$$\textit{scrap}_{it} = \beta_1 d88_{it} + \beta_2 d89_{it} + \beta_3 \textit{grant}_{it} + \beta_4 \textit{grant}_{it - 1} +\circled{$a_i$} + u_{it}$$
+\bigskip
+\vfill
+\underline{Fixed-effects estimation using the years 1987, 1988, 1989:}
+	\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
+	\tikzset{
+   	 mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.03em, minimum size=3em, text centered, text width=22em}
+   	 }
+	\node[mynode] at (-5,1.5) (The){Time-invariant reasons why one firm is more productive than another are controlled for. \underline{The important point is that} \underline{these may be correlated with other explanatory variables.}};
+		\end{tikzpicture}
+\begin{align*}
+\widehat{\textit{scrap}}^*_{it} = - & .080 \ d88^*_{it} - .247 \ d89^*_{it} \mytikzmark{252}{\boxed{- .252}} \ \textit{grant}^*_{it} \mytikzmark{422}{\boxed{- .422}} \  \mytikzmark{grant*}{\textit{grant}^*_{it-1}} \\
+( & .109) \qquad \quad (.133) \qquad \ \ (.151) \qquad  ~~~(.210)
+\end{align*}
+	\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
+	\tikzset{
+ 	 mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.04em, minimum size=1em, text centered, text width=14em},
+	 myarrow/.style={->, >=stealth, thin, Red}
+	}
+	\node[mynode] at (8,0) (Tr){Training grants significantly improve productivity (with a time lag)};
+  	\draw[myarrow] (Tr) -- ++   (252);
+ 	\draw[myarrow] (Tr) -- ++  (422);
+	\end{tikzpicture}
+		\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
+		\tikzset{
+    		mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.03em, minimum size=1em, text centered, text width=10em},
+    		myarrow/.style={->, >=stealth, thin, Red}
+		}
+		\node[mynode] at (9.5,2.9) (St){Stars denote time-demeaning};
+ 		\draw[myarrow] (St) -- ++   (grant*);
+		\end{tikzpicture}
+$n = 162$, \ $R^2=.201$
+\end{frame}
+%---------------------------------
+\begin{frame}{Between estimator}
+\small
+\begin{itemize}
+\item \textbf{Within estimator $~\Longleftrightarrow~$ FE estimator}\\
+For equation  $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$, the FE estimator (pooled OLS on time-demeaned data) is often called ``within'' estimator, as it uses variation within each cross-section.
+\bigskip
+\item \textbf{Between estimator}\\
+Is obtained as the OLS estimation of $\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{a}_i + \overline{u}_i$ \qquad (see the FE estimator\dots) \\where we add an intercept and ``ignore'' $a_i$ (assume $\overline{a}_i=0$):\\ \medskip
+$\overline{y}_i = \beta_0 + \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} +  \overline{u}_i$
+\medskip
+\\The between estimator uses only variation between the CS observations (ignores information on how the variables change over time). Consistent for $a_i$ and $\bm{X}_i$ independent.\\
+\bigskip
+\item $\bm{\hat{\beta}}_{\textit{Between}}$ is not consistent if $a_i$ is correlated with $\bm{X}_i$, \\If we can reasonably assume no correlation between \\$\bm{X}_i$ and $a_i$, we use the RE estimator (explained next). 
+\end{itemize}
 \end{frame}
 %---------------------------------
 \begin{frame}{RE estimator}
@@ -514,6 +614,31 @@ RE is asymptotically efficient
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{RE estimator – Example}
+\textbf{Example:}\\
+{\small \textbf{Estimated wage equation:}}
+\begin{align*}
+\widehat{\log}(\textit{wage}_{it})
+  = \ & .92 \  \mytikzmark{educ}{\boxed{\textit{educ}_{it}}} - 
+       \textit{black}_{it} + \textit{hisp}_{it}      \\
+( & .011)  \qquad \quad  (.048)  \qquad \quad \ (.043) \\
++ \ & .106 \ \textit{exper}_{it} - .0047 \ \textit{exper}^2_{it} + .064 \ \textit{married}_{it} \\
+( & .015)  \qquad \quad \ \  (.0007)  \qquad \quad \ \ (.017) \\
++ \ & .106 \ \textit{union}_{it} +  \textit{time dummies} \\
+( & .018)
+\end{align*}
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
+\tikzset{
+    mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.2em, minimum size=2em, text centered, text width=10em},
+    myarrow/.style={<-, >=stealth, thin, Red}
+}
+\node[mynode] at (9.4,5.3) (box){Random effects is used because many of the variables are time-invariant. \underline{But is the random effects} \underline{assumption realistic?}};
+  \draw[myarrow] (educ) -- ++   (box);
+\end{tikzpicture}
+
+\textbf{Random effects or fixed effects?} In economics, unobserved individual effects are rarely uncorrelated with explanatory variables (say, individual ability and education would be correlated). Hence, FE model/estimation is more convincing.
+\end{frame}
+%---------------------------------
 \begin{frame}{CRE estimator}
 Correlated Random Effects (CRE) estimator - a synthesis of the RE and FE approaches: 
 \vspace{0.5cm}
@@ -591,6 +716,27 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\be
 \item AB is based on IVR (we need instruments for lagged dependent variable as this is an endogenous regressor in the FD-transformed model ($\Delta y_{i,t-1}$ correlated to $\Delta u_{it}$).
 \medskip
 \item \textcolor{red}{Warning:} AR(2) / not AR(1) / autocorrelation in residuals of the AB-estimated model renders the AB estimator inconsistent. After using the AB estimator, always test for AR(2) autocorrelation in the residuals!
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Arellano-Bond estimator example}
+\small
+\begin{itemize}
+\item Gross fixed capital formation model:
+$$
+I_{it} = \beta_1 I_{i,t-1} + \bm{k}_{it}^{\prime} \bm{\beta}_2  + \bm{x}_{it}^{\prime} \bm{\beta}_3 
++ a_i +\varepsilon_{it}
+$$
+where $I_{it}$ is the GFCF, $\bm{k}_{it}$ is a vector of foreign sources (FDI, loans, etc.) and $\bm{x}_{it}$ contains control variables (e.g. M2 deviation from 3-year trend, GDP growth, etc.). 
+\smallskip
+\item FE creates regressors ($\ddot{\bm{x}}_{it}$) which cannot be distributed independently of errors. Inconsistency of $\hat{\beta}_1$ is of order $1/T$ as $N \rightarrow \infty$ (short panels!). If $\beta_1 > 0$, the bias is invariably negative, $\beta_1$ will be underestimated (Nickel). More precisely,\\ $(\hat{\beta}_1-\beta_1) \approx -(1 + \beta_1)/(T-1)$ for $N\rightarrow \infty$ and for $T$ reasonably large (say, 10). Remaining $\beta_j$ estimates are inconsistent as well.
+\smallskip
+\item AB estimator: FD removes all constant terms (including $a_i$):
+$$
+\Delta I_{it} = \beta_1 \Delta I_{i,t-1} + \Delta \bm{k}_{it}^{\prime} \bm{\beta}_2  + \Delta \bm{x}_{it}^{\prime} \bm{\beta}_3 
+ + \Delta \varepsilon_{it}
+$$
+with $\Delta I_{i,t-1}$ still correlated to $\Delta \varepsilon_{it}$. However, this transformed model can be consistently estimated by GMM (usually, we use lags of regressors as IVs).
 \end{itemize}
 \end{frame}
 %---------------------------------
