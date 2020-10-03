@@ -144,7 +144,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 {\small under $H_0$ of no structural break, $F \sim F((T-1)k, (n- \mytikzmark{TTk}{\circledd{$T-Tk$)}})$} \\
 \bigskip
 \begin{itemize}
-\item [Note:] This test is not robust to heteroskedasticity (including changing variance across time). Robust variants of the test exist, based on interaction terms.
+\item [Note:] This test is not robust to heteroscedasticity (including changing variance across time). Robust variants of the test exist, based on interaction terms.
 \end{itemize}
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
 \tikzset{
@@ -171,16 +171,16 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \medskip
 \item Longitudinal data are typically used in Linear mixed effects (LME) models (discussed separately).
 \medskip
-\item Note: Distinction between longitudinal and panel data (discussed next) may be subtle and different authors may use conflicting terminologies \dots
+\item Note: Distinction between longitudinal and panel data may be subtle and different authors may use conflicting terminologies \dots
 \end{itemize}
 \end{frame}
 %---------------------------------
 \subsection*{Panel data}
 \begin{frame}{Panel data}
 \begin{itemize}
-\item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which all CS units are observed if the panel is balanced.
+\item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which CS units are observed.
 \medskip
-\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + a_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods, $a_i$ is the individual (company, group or other CS-unit) unobserved element. 
+\item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + a_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods, $a_i$ is the individual unobserved element  (person, company, group or other CS-unit). 
 \medskip
 \item In this course (Block 3), we focus on panel data.\\ \medskip Different data dimensions, model types, estimators and tests discussed next.
 \end{itemize}
@@ -210,7 +210,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 Working with short panels is similar to CS data analysis. If CS units are randomly drawn from a population and $T$ is small and fixed, then asymptotic analysis (properties) hold for arbitrary time dependence and distributional heterogeneity across time.
 \medskip
 \item Long panels: $T \gg N$ \\
-Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations under scrutiny (typically with an identical regressor structure), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate \\(see Greene, chapter 10.2)
+Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations under scrutiny (typically with a common model specification), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate \\(see Greene, chapter 10.2)
 \medskip
 \item Large panel datasets: $T$ and $N$ large\\
 Both CS and TS analysis assumptions apply, specialized estimators exist for large (heterogeneous) panels.\\Cointegrated series in panels: estimation and tests by Pesaran.
@@ -1232,7 +1232,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     \left[ \bm{X}^{\prime} \hat{\sigma}^2 \bm{\Sigma} \bm{X} \right]
     \left[ \bm{X}^{\prime} \bm{X} \right]^{-1}$$ \\ \medskip
      \medskip
-    \item For the panel extension of White's HC/HAC estimator, \\we assume XSD-independence: no correlation between errors of different CS-units (groups), while allowing for heteroskedasticity across CS-units (and for serial correlation).
+    \item For the panel extension of White's HC/HAC estimator, \\we assume XSD-independence: no correlation between errors of different CS-units (groups), while allowing for heteroscedasticity across CS-units (and for serial correlation).
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1240,7 +1240,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \begin{itemize}
     \item \texttt{vcovHC(... , method="white1")}
     \medskip
-    \item \texttt{"white1"} allows for general heteroskedasticity but no XSD nor serial correlation, i.e.,\\
+    \item \texttt{"white1"} allows for general heteroscedasticity but no XSD nor serial correlation, i.e.,\\
     $$
     \bm{\Sigma}_i =
     \begin{bmatrix}
@@ -1278,7 +1278,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \begin{itemize}
     \item \texttt{vcovHC(... , method="arellano")}
     \medskip
-    \item \texttt{"arellano"} allows a fully general structure w.r.t. heteroskedasticity and serial correlation (no XSD):
+    \item \texttt{"arellano"} allows a fully general structure w.r.t. heteroscedasticity and serial correlation (no XSD):
     $$
     \bm{\Sigma}_i = 
     \begin{bmatrix}
