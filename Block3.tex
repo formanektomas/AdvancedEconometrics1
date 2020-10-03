@@ -737,7 +737,7 @@ I_{it} = \beta_1 I_{i,t-1} + \bm{k}_{it}^{\prime} \bm{\beta}_2  + \bm{x}_{it}^{\
 $$
 where $I_{it}$ is the GFCF, $\bm{k}_{it}$ is a vector of foreign sources (FDI, loans, etc.) and $\bm{x}_{it}$ contains control variables (e.g. M2 deviations from 3-year trend, GDP growth, etc.). 
 \smallskip
-\item FE creates regressors ($\ddot{\bm{x}}_{it}$) which cannot be distributed independently of errors. Inconsistency of $\hat{\beta}_1$ is of order $1/T$ as $N \rightarrow \infty$ (short panels!). If $\beta_1 > 0$, the bias is invariably negative, $\beta_1$ will be underestimated (Nickel). More precisely,\\ $(\hat{\beta}_1-\beta_1) \approx -(1 + \beta_1)/(T-1)$ for $N\rightarrow \infty$ and for $T$ reasonably large (say, 10). Remaining $\beta_j$ estimates are inconsistent as well.
+\item FE creates regressors ($\ddot{\bm{x}}_{it}$) which cannot be distributed independently of errors. Inconsistency of $\hat{\beta}_1$ is of order $1/T$ as $N \rightarrow \infty$ ($T$ fixed). If $\beta_1 > 0$, the bias is invariably negative, $\beta_1$ will be underestimated (Nickel bias). More precisely,\\ $(\hat{\beta}_1-\beta_1) \approx -(1 + \beta_1)/(T-1)$ for $N\rightarrow \infty$ and for $T$ reasonably large (say, 10). Remaining $\beta_j$ estimates are inconsistent as well.
 \smallskip
 \item AB estimator: FD removes all constant terms (including $a_i$):
 $$
