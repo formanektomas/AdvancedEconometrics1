@@ -794,9 +794,10 @@ We start by generalization of the (short) panel data model:
 \end{frame}
 %--------------------------------- 
 \begin{frame}{\texttt{pooltest()} -- \textit{F}-test of stability (Chow test)}
-\small 
+\footnotesize
 \begin{itemize}
-    \item Allows for different intercepts \& tests for equal slopes \\in all CS-units. \texttt{R} implementation compares pooling and FE estimators. Algorithm outline:
+    \item Test for data poolability. Test of stability (or Chow test) for the coefficients of a panel model.  
+    \item We allow for different intercepts \& tests for equal slopes \\in all CS-units. \texttt{R} implementation compares pooling and FE estimators. Algorithm outline:
     \begin{itemize}
         \item[1] Estimate model separately for each CS unit (ignore $a_i$).
         \item[2] Compare with FE estimator (allow individual effects, impose common slopes on regressors) using an $F$-test 
@@ -842,7 +843,7 @@ $\qquad F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{S
 \small 
 $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \lambda_t + \nu_{it}$\\ \medskip
 \begin{itemize}
-    \item Generalization of the previous test. \\ \medskip $F$-test of unobserved effects based on the comparison of ``pooling'' and ``within'' models. Significances of either ``individual'', ``time'' or ``twoways'' effects can be tested.
+    \item Alternative test for panel model validity. \\ \medskip $F$-test for significance of unobserved effects. Significances of either ``individual'', ``time'' or ``twoways'' effects can be tested.
     \medskip
     \item  Based on comparing FE-estimator against the pooling model. 
     \medskip 
@@ -860,14 +861,14 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \lambda_t + \nu_{it}$
 \begin{itemize}
     \item Using OLS-based (``pooling'') residuals, we test the null hypothesis of redundant individual $(a_i)$ and/or time $ (\lambda_t) $ effects.
     \bigskip
-    \item This LM-based tests uses residuals of the pooling model. \\In \texttt{R}, if performed on RE of FE model, corresponding pooling model is calculated internally first. 
+    \item This LM-based tests uses residuals of the pooling model. \\ \medskip In \texttt{R}, if this test is performed on RE of FE model, corresponding pooling model is calculated internally first. 
     \bigskip
     \item Implementation: \\ \medskip \texttt{plmtest(..., type="honda")} from the \texttt{\{plm\}} package
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{Honda (1985) test for individual and time effects}
-Panel model cast as: \\ \bigskip
+To describe Honda test, we start by casting the panel model: \\ \bigskip
 \begin{itemize}
     \item $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it}$
     \bigskip
@@ -889,7 +890,7 @@ Panel model cast as: \\ \bigskip
 \small
 $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it}$\\ \medskip Balanced panel assumed. \bigskip
 \begin{itemize}
-    \item Error component in matrix form: \\ \smallskip
+    \item Error component in vector form: \\ \smallskip
     $\bm{u}_i = \left( u_{i1}, u_{i2}, \dots, u_{iT} \right)^{\prime}$ and $\bm{u} = \left( \bm{u}_1^{\prime}, \bm{u}_2^{\prime}, \dots, \bm{u}_N^{\prime} \right)^{\prime}$ \\ \smallskip
     $\bm{u}_i$ is $T \times 1$ and $\bm{u}$ is $NT \times 1$.
     \medskip
@@ -945,16 +946,17 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 %---------------------------------------------------------------------
 \subsection*{Cross sectional dependency}
 \begin{frame}{Cross-sectional dependency (XSD)}
+\small
 \begin{itemize}
-    \item In principle, similar to serial correlation in TS data.
+    \item In principle, XSD is similar to serial correlation in TS data.
     \medskip
-    \item Can arise if individuals respond to common shocks or if spatial autocorrelation processes are present, relating individuals based on their distances (spatial models).
+    \item Can arise if individuals respond to common shocks or if spatial autocorrelation processes are present (i.e. processes relating individuals based on their distances). 
     \medskip
     \item If XSD is present, the consequence is, at a minimum, inefficiency of the usual estimators and invalid inference when using the standard covariance matrix.
     \medskip
     \item In \texttt{\{plm\}}, only misspeciffication tests to detect XSD are available – no robust method to perform valid inference in its presence.
     \medskip
-    \item In case of spatially determined XSD, spatial panel econometric models should be used (discussed separately).
+    \item In case of spatially determined XSD, spatial (spatial panel) econometric models should be used (discussed separately).
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1019,7 +1021,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 %---------------------------------
 \begin{frame}{FE vs FD estimator}
 \begin{itemize}
-\item As the time dimension increases, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
+\item As the time dimension increases, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD-approach helps us with transforming integrated series into weakly dependent series.
 \medskip
 \item If strict exogeneity is violated, both FE and FD are biased. However, FE is likely to have less bias than FD (unless $T=2$). The bias of FD does not depend on $T$, while the bias in FE tends to zero at rate $1/T$.
 \medskip
@@ -1032,10 +1034,10 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
 \begin{itemize}
     \item Serial correlation test that can be used as a specification test to choose the most efficient estimator -- FD vs FE.
-    \item If $\nu_{it}$ are not serially correlated, then: 
+    \item[$\bigstar$] If $\nu_{it}$ are not serially correlated, then: 
     \begin{itemize}
-          \item[a)] FE is more efficient than FD.
-          \item[b)] Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are correlated, \\with~ $\textnormal{cor}\left(e_{it},e_{i,t-1}\right)=-0.5$.
+          \item Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are correlated, \\with~ $\textnormal{cor}\left(e_{it},e_{i,t-1}\right)=-0.5$.
+          \item FE is more efficient than FD.
         \end{itemize}
         \item For models with individual effects, the test can be based on estimating the model $\hat{e}_{it}=\delta \hat{e}_{i,t-1}+\eta_{it}$ based on residuals of the FD model, where we test $H_0: \delta=-0.5$, corresponding to the null of no serial correlation in the original (undifferenced) residuals $\nu_{it}$. 
         \medskip
@@ -1046,13 +1048,15 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
 \end{frame}
 %---------------------------------
 \begin{frame}{FD vs FE estimator: Wooldridge's FD-based test}
+\small
 $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
 \begin{itemize}
-    \item If $\nu_{it}$ follow a random walk: 
+    \item[$\bigstar$] If $\nu_{it}$ follow a random walk (RW): 
     \begin{itemize}
+
+          \item Residuals in the FE model: $\nu_{it}=\nu_{i,t-1}+e_{it}$, ~~(RW).
+          \item Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are not serially correlated.
           \item FD is more efficient than FE.
-          \item Residuals in the FE model: $\nu_{it}=\nu_{i,t-1}+e_{it}$.
-          \item Residuals in the FD model: $e_{it} = \nu_{it}-\nu_{i,t-1}$ are not serially correlated, \\(definition of a random walk for $\nu_{it}$).
         \end{itemize}
         \smallskip
         \item \texttt{pwfdtest(..., h0="fd")} \\
@@ -1155,8 +1159,8 @@ $$y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$$
         \right)^{\!2}~ \right]^{1/2}}~
         \underset{H_0}{\sim}~ N(0,1)$;~~(asympt.), \\test does not rely on homoscedasticity assumptions.
     \medskip
-    \item $H_0: \sigma_{a}^2 = 0$, i.e., that there are no unobserved effects in the residuals (of RE model).
-    \item Test has power both against the RE specification (constant $a$ within every $i$), as well as against any kind of serial correlation. Test ``nests'' both RE and serial correlation tests, trading some power against more specific alternatives in exchange for robustness.
+    \item $H_0: \sigma_{a}^2 = 0$, i.e., no unobserved effects in the residuals of RE model. [Note: technically, $H_0$ only states $\textnormal{var}(a_i)=0$]. 
+    \item Test has power both against the RE specification ($\sigma_{a}^2 = 0$), as well as against any kind of serial correlation in error terms. Test ``nests'' both RE and serial correlation tests, trading some power (against more specific alternatives) in exchange for robustness.
     \item Not rejecting the null favours the use of pooled OLS.\\Rejection may follow from two sources (including serial correlation) \& doesn't truly support RE specification.
 \end{itemize}
 \end{frame}
@@ -1185,7 +1189,7 @@ $$y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$$
 \begin{itemize}
     \item \texttt{pbgtest()} ~Direct generalization of the Breusch-Godfrey test for panels, mainly for RE (and pooling) models.\\
     \smallskip
-    \item Under RE assumptions of homoskedasticity and no serial correlation in the idiosyncratic error, the residuals of the quasi-demeaned regression must be spherical as well.\\
+    \item Under RE assumptions of homoskedasticity and no serial correlation in the idiosyncratic error, residuals of the quasi-demeaned regression must be spherical as well.\\
     Hence, serial correlation test (BG test) is applied to residuals in the quasi-demeaned model (may be applied to pooled OLS residuals as well).\\
     \smallskip
     \item Technically, \texttt{pbgtest()} is a wrapper to \texttt{bgtest()} from the \texttt{lmtest()} package. 
