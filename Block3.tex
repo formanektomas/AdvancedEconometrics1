@@ -309,11 +309,17 @@ $(\textit{female} \times \textit{exper})_{it}$ is an interaction element, change
 %---------------------------------
 \subsection*{Estimation methods -- repetition from BSc courses}
 \begin{frame}{LSDV regression}
+\small 
 In the model \quad  $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it} \,$, \\
 \bigskip
-Elements $a_i$ are usually regarded as unobservable variables. \\
-This approach gives appropriate interpretation of $\bm{\beta}$. \\
-Traditional (old) approaches to fixed effects estimation view the $a_i$ as parameters to be estimated along with $\bm{\beta}$. \\
+\begin{itemize}
+    \item Elements $a_i$ are usually regarded as unobservable variables.
+    \smallskip
+    \item Accounting for $a_i$ can provide appropriate interpretation of $\bm{\beta}$.
+    \smallskip
+    \item Traditional (old) approaches to fixed effects estimation view the $a_i$ as parameters to be estimated along with $\bm{\beta}$. \\
+\end{itemize}
+
 \bigskip
 How to estimate $a_i$ values along with $\bm{\beta}$?\\
 \medskip
@@ -326,18 +332,21 @@ How to estimate $a_i$ values along with $\bm{\beta}$?\\
 \end{frame}
 %---------------------------------
 \begin{frame}{LSDV regression -- example}
-$$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{i}}} + \alpha_2 \mytikzmark{ind2}{\boxed{\textit{ind}2_{i}}} + \dots + \alpha_N \mytikzmark{indN}{\boxed{\textit{ind}N_{i}}} + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + u_{it}$$
-\medskip
+$$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{i}}} + \alpha_2 \mytikzmark{ind2}{\boxed{\textit{ind}2_{i}}} + \dots + \alpha_N \mytikzmark{indN}{\boxed{\textit{ind}N_{i}}} + \beta_1 x_{it1} + \dots + \beta_K x_{itK} + u_{it}$$\\
+\bigskip
 \begin{itemize}
-\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is identical to $\hat{\bm{\beta}}_{\textnormal{FE}}$ (explained next) - it is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$ \\(actually, consistency applies more generally).
-\item For $\hat{\bm{\alpha}}$ (vector of individual $\hat{\alpha}_i$ values), such consistency does not hold: as $N \rightarrow \infty$, information does not accumulate for $a_i$. \\ \bigskip
+\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is identical to $\hat{\bm{\beta}}_{\textnormal{FE}}$ (explained next). 
+\medskip
+\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$ (actually, consistency applies more generally).
+\medskip
+\item For $\hat{\bm{\alpha}}$ (vector of individual $\hat{\alpha}_i$ values), LSDV-estimator consistency does not hold: as $N \rightarrow \infty$, information does not accumulate for $a_i$. \\ \bigskip
 \end{itemize}
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
 \tikzset{
     mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=30em},
     myarrow/.style={->, >=stealth, thin, Red}
 }
-\node[mynode] at (5.5,4.3) (dummy){Dummy equals $1$ only if observations (time-invariant) relate to $i$-th C-S unit.};
+\node[mynode] at (5.5,4.7) (dummy){Dummy equals $1$ only if observations (time-invariant) relate to $i$-th C-S unit.};
 \draw[myarrow] (dummy) -- ++   (ind1);
 \draw[myarrow] (dummy) -- ++   (ind2);
 \draw[myarrow] (dummy) -- ++   (indN);
@@ -355,12 +364,12 @@ If the time-invariant regressors are of no interest, this is \\a robust estimato
 \end{itemize} \medskip
 Estimation can be done with FGLS (autocorrelation of transformed residuals), or OLS with HAC robust errors. \\
 \medskip
-FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used with more time periods, we have $N(T-1)$ observations after differencing)
+FD is most suitable when we have $t = \{1;2\}$, i.e. for a two period panel. FD may be used with more time periods, we have $N(T-1)$ observations after differencing.
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FD estimator – assumptions}
 \begin{itemize}
-\item[\textbf{FD.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FD.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_K x_{itK} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FD.2}] We have random sample from cross-sectional units.
 \item[\textbf{FD.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
 \item[\textbf{FD.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \quad $\forall \ t, s$]
@@ -425,16 +434,17 @@ $$\textit{crmrte}_{i1982} = \beta_0 + \delta_0 \cdot 0 + \beta_1 \textit{unem}_{
 \end{frame}
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator}
+\small
 ``Fixed'' means correlation of $a_i$ and $\bm{x}_{it}$, not that $a_i$ is non-stochastic.\\ \medskip
 We can rewrite $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$ as follows:\\
-$y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it},$$
+$y_{it} = \beta_1 x_{it1} + \dots + \beta_K x_{itK} + a_i + u_{it},$$
 \hfill $$i = 1, \dots, N$, \ $t = 1, \dots,T$ \\ 
 Now, \underline{for each $i$}, we \underline{average} the above equation \underline{over time}:\\
 \medskip
-${\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{a}_i + \overline{u}_i}$\\ ($N$ equations with individual averages)\\
+${\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_K \overline{x}_{iK} + \overline{a}_i + \overline{u}_i}$\\ ($N$ equations with individual averages)\\
 \medskip
 By subtracting individual averages from the original observations (time-demeaning), we get:\\ \medskip
-$\Rightarrow \boxed{[y_{it} - \overline{y}_{i}]} = \beta_1 \boxed{[x_{it1}-\overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}-\overline{x}_{ik}]}+\boxed{[u_{it}- \overline{u}_i]}$\\
+$\Rightarrow \boxed{[y_{it} - \overline{y}_{i}]} = \beta_1 \boxed{[x_{it1}-\overline{x}_{i1}]}+\dots+\beta_K \boxed{[x_{itK}-\overline{x}_{iK}]}+\boxed{[u_{it}- \overline{u}_i]}$\\
 \medskip
 Alternative notation: $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$; where $\ddot{y}_{it} = y_{it} - \overline{y}_{i}$, etc.\\
 \medskip
@@ -450,7 +460,7 @@ FE estimator, denoted $\bm{\hat{\beta}}_{FE}$, is the pooled OLS estimator appli
 \end{itemize}
 \medskip
 After FE estimation, $a_i$ elements may be estimated as follows:\\ \medskip
-$\hat{a}_i =\overline{y}_i - \hat{\beta}_1 \overline{x}_{i1} - \dots - \hat{\beta}_k \overline{x}_{ik},$ \ $i = 1, \dots, N$ \\
+$\hat{a}_i =\overline{y}_i - \hat{\beta}_1 \overline{x}_{i1} - \dots - \hat{\beta}_K \overline{x}_{iK},$ \ $i = 1, \dots, N$ \\
 \medskip
 However, in most practical applications, $a_i$ values bear limited useful information.\\ \medskip
 For each C-S observation $i$, we loose one d.f. in estimation ~ \dots for each $i$, the demeaned errors $\ddot{u}_{it}$ add up to zero when summed over time. Hence \ $df = N(T-1)-k$
@@ -458,7 +468,7 @@ For each C-S observation $i$, we loose one d.f. in estimation ~ \dots for each $
 %---------------------------------------------------------------------
 \begin{frame}{FE estimator – assumptions}
 \begin{itemize}
-\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_K x_{itK} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
 \item[\textbf{FE.3}] Each regressor changes in time at least for some $i$ and no perfect linear combination exists among regressors.
 \item[\textbf{FE.4}] For each $i$ and $t$, \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: regressors are strictly exogenous conditional on unobserved effects: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \quad $\forall \ t, s$]
@@ -526,8 +536,8 @@ $n = 162$, \ $R^2=.201$
 For equation  $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$, the FE estimator (pooled OLS on time-demeaned data) is often called ``within'' estimator, as it uses variation within each cross-section.
 \bigskip
 \item \textbf{Between estimator}\\
-Is obtained as the OLS estimation of $\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{a}_i + \overline{u}_i$ \qquad (see the FE estimator\dots) \\where we add an intercept and ``ignore'' $a_i$ (assume $\overline{a}_i=0$):\\ \medskip
-$\overline{y}_i = \beta_0 + \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} +  \overline{u}_i$
+Is obtained as the OLS estimation of $\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_K \overline{x}_{iK} + \overline{a}_i + \overline{u}_i$ \qquad (see the FE estimator\dots) \\where we add an intercept and ``ignore'' $a_i$ (assume $\overline{a}_i=0$):\\ \medskip
+$\overline{y}_i = \beta_0 + \beta_1 \overline{x}_{i1} + \dots + \beta_K \overline{x}_{ik} +  \overline{u}_i$
 \medskip
 \\The between estimator uses only variation between the CS observations (ignores information on how the variables change over time). Consistent for $a_i$ and $\bm{X}_i$ independent.\\
 \bigskip
@@ -553,7 +563,7 @@ If we can assume that $a_i$ is uncorrelated with each explanatory variable: $\te
 %---------------------------------
 \begin{frame}{RE estimator - FGLS}
 \small 
-$y_{it} = \beta_0 + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + v_{it};$\\
+$y_{it} = \beta_0 + \beta_1 x_{it1} + \dots + \beta_K x_{itK} + v_{it};$\\
 \bigskip
 The quasi-demeaning (quasi-differencing) parameter $\theta$ is used for the FGLS estimation:\\ \medskip
 $\theta = 1 - \big[ \sigma^2_u / (\sigma^2_u + T \sigma^2_{a}) \big]^{1/2}$, \quad  $0 \le \theta \le 1$\\ \medskip
@@ -563,13 +573,13 @@ where $\textit{var}(a_i) = \sigma^2_{a}$; \quad $\textit{var}(u_i) = \sigma^2_u$
 \item \small Their estimation is based on pooled OLS or FE. \\ Also, we use the fact that $\sigma^2_v = \sigma^2_{a} + \sigma^2_u$
 \end{itemize}
 RE estimator is a pooled OLS used on the quasi-demeaned data:\\ \medskip
-{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$} \\ \medskip
+{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_K \boxed{[x_{itK}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$} \\ \medskip
 (transformed errors follow G-M assumptions -- not autocorrelated)
 \end{frame}
 %---------------------------------
 \begin{frame}{RE estimator - FGLS}
 \
-{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$}\\
+{\footnotesize $$\boxed{[y_{it} - \theta \overline{y}_i]} = \beta_1 \boxed{[x_{it1}- \theta \overline{x}_{i1}]}+\dots+\beta_K \boxed{[x_{itK}- \theta \overline{x}_{ik}]}+\boxed{[a_i - \theta \overline{a}_i + u_{it}-\theta \overline{u}_i]}$$}\\
 \bigskip
 Interestingly, the FGLS equation is a general form that encompasses both FE and pooled OLS:
 \bigskip
@@ -582,7 +592,7 @@ Interestingly, the FGLS equation is a general form that encompasses both FE and 
 \begin{frame}{RE estimator – Assumptions}
 \footnotesize
 \begin{itemize}
-\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_k x_{itk} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
+\item[\textbf{FE.1}] Functional form: $y_{it} = \beta_1 x_{it1} + \dots + \beta_K x_{itK} + a_i + u_{it}$, $i = 1, \dots, N$, \ $t = 1, \dots, T$
 \item[\textbf{FE.2}] We have random sample from cross-sectional units.
 \item[\textbf{FE.4}] $\forall \ i, t$: \ $E (u_{it} \mid \bm{X}_i, a_i) = 0$. [Alt.: $\textnormal{corr}(x_{itj}, u_{is} \mid a_i)=0$, \ $\forall \ t, s$]
 \item[\textbf{FE.5}] Variance of idiosyncratic errors conditional on all regressors is constant: $\textnormal{var}(u_{it} \mid \bm{X}_i, a_i) = \textnormal{var}(u_{it}) = \sigma^2_u$, \quad $t= 1,2, \dots, T$. [homoscedasticity]
