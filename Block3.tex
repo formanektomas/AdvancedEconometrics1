@@ -780,12 +780,12 @@ We start by generalization of the (short) panel data model:
 \begin{frame}{LSDV-based test for individual intercepts}
 \small
 \begin{itemize}
-    \item Null hypothesis of common  intercept ($H_0:~a_1 = a_2 = \cdots = a_N$) is tested against the alternative of individual-specific intercepts. Common slopes (the same $\beta$-coefficients across CS units) are assumed (not tested).
+    \item General principle of the test: Null hypothesis of common  intercept ($H_0:~a_1 = a_2 = \cdots = a_N$) is tested against the alternative of individual-specific intercepts. Common slopes (the same $\beta$-coefficients across CS units) are assumed (not tested).
     \medskip
-    \item Test designed for individual effects (other variants by analogy).
+    \item Test designed to evaluate significance of unobserved individual effects (time and twoways effect test -- by analogy).
     \medskip
     \item Unrestricted model: $y_{it} = \alpha + \bm{d}^{\prime}\bm{\delta} + \bm{x}_t^{\prime} \bm{\beta} + u_{it}$ \\ \medskip
-    where $\bm{d}$ is a vector of CSID-based dummy variables and $\bm{\delta}$ is a vector of regression coefficients ($N-1$ dummies used to avoid dummy variable trap).
+    where $\bm{d}$ is a vector of CS-ID dummy variables and $\bm{\delta}$ is a vector of regression coefficients ($N-1$ dummies used to avoid dummy variable trap).
     \medskip
     \item Restricted model: $~~y_{it} = \alpha + \bm{x}_t^{\prime} \bm{\beta} + u_{it}$.
     \medskip
@@ -796,22 +796,20 @@ We start by generalization of the (short) panel data model:
 \begin{frame}{\texttt{pooltest()} -- \textit{F}-test of stability (Chow test)}
 \small 
 \begin{itemize}
-    
-    \smallskip
     \item Allows for different intercepts \& tests for equal slopes \\in all CS-units. \texttt{R} implementation compares pooling and FE estimators. Algorithm outline:
     \begin{itemize}
         \item[1] Estimate model separately for each CS unit (ignore $a_i$).
-        \item[2] Compare with FE estimator (individual intercept, common slopes on regressors) using an $F$-test 
+        \item[2] Compare with FE estimator (allow individual effects, impose common slopes on regressors) using an $F$-test 
         \item Are the slopes ($\beta$-coefficients) identical among CS-units?
+        \begin{itemize}
+    \item[] $H_0:~\bm{\beta}_{1}=\bm{\beta}_{2}=\dots=\bm{\beta}_{N}$  
+    \item[] $H_1:~\neg H_0$
+\end{itemize}
     \end{itemize}
     \smallskip
     \item \textbf{Drawback:} test cannot handle time-invariant regressors -- as the unrestricted model is estimated individually for each CS-unit, such regressors are perfectly correlated with the intercept. With FE estimator, all time-invariant regressors are eliminated. 
     \medskip
-    \item Single-regressor example:\\ \medskip Unrestricted model: $y_{it} = \alpha + \beta_{i1} x_{it} + a_i + u_{it}, \quad i=1,2,\dots,N$\\ \smallskip Restricted model: $\,~~y_{it} = \alpha + \beta_1 x_{it} + a_i + u_{it},$
-\begin{itemize}
-    \item[] $H_0:~\beta_{11}=\beta_{21}=\dots=\beta_{N1}$  
-    \item[] $H_1:~\neg H_0$
-\end{itemize}
+    \item Single-regressor example:\\ \medskip Unrestricted model: $y_{it} = \alpha_i + \beta_{i1} x_{it} + u_{it}, \quad i=1,2,\dots,N$\\ \smallskip Restricted model: $\,~~y_{it} = \alpha + \beta_1 x_{it} + a_i + u_{it},$\quad use FE
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------
