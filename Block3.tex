@@ -14,6 +14,7 @@
 \usepackage{xcolor}
 \usepackage{color}
 \usepackage{hyperref}
+\usepackage{pifont}
 %
 % For more themes, color themes and font themes, see:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -1239,7 +1240,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     \medskip
     $$\textnormal{var} \left(\hat{\bm{\beta}}|\bm{X}\right)= 
     \left[ \bm{X}^{\prime} \bm{X} \right]^{-1}
-    \left[ \bm{X}^{\prime} \hat{\sigma}^2 \bm{\Sigma} \bm{X} \right]
+    \left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]
     \left[ \bm{X}^{\prime} \bm{X} \right]^{-1}$$ \\ \medskip
      \medskip
     \item For the panel extension of White's HC/HAC estimator, \\we assume XSD-independence: no correlation between errors of different CS-units (groups), while allowing for heteroscedasticity across CS-units (and for serial correlation).
@@ -1247,10 +1248,11 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \end{frame}
 %---------------------------------
 \begin{frame}{Robust statistical inference}
+\small
 \begin{itemize}
     \item \texttt{vcovHC(... , method="white1")}
     \medskip
-    \item \texttt{"white1"} allows for general heteroscedasticity but no XSD nor serial correlation, i.e.,\\
+    \item \texttt{"white1"}: heteroscedasticity-consistent approach to covariance matrix $\bm{\Sigma}$ estimation. Allows for general heteroscedasticity but no XSD nor serial correlation, i.e., we assume: \\
     $$
     \bm{\Sigma}_i =
     \begin{bmatrix}
@@ -1263,7 +1265,8 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     and $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices.
     \smallskip
     \medskip
-    \item For FE estimators, ``White 1'' is inconsistent for fixed $T$ as $N$ grows (short-panel asymptotics), so in this case it is advisable to use the ``Arellano'' version.
+    \item[\ding{51}] \texttt{white1} can be used for RE models, does not rely on large $N$ asymptotics. \\ \smallskip 
+    \item[\ding{55}] Even if errors are uncorrelated, FE induces autocorrelation in residuals of transformed model  [$\textnormal{cor}\left(e_{it},e_{i,t-1}\right)=-1/(T-1)$]. Hence, \texttt{white1} is inconsistent (fixed $T$ as $N \rightarrow \infty$). In this case it is advisable to use the \texttt{arellano} version.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1271,9 +1274,12 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \begin{itemize}
     \item \texttt{vcovHC(... , method="white2")}
     \medskip
-    \item \texttt{"white2"} is a special case of \texttt{"white1"}, with common CS-variance: enforced $\bm{\Sigma}_i = \sigma^2_i \bm{I}_T$. Again, $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices
+    \item \texttt{"white2"} is a special case of \texttt{"white1"}, with constant variance ``inside'' every CS unit: $\bm{\Sigma}_i = \sigma^2_i \bm{I}_T$. Again, $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices.
+    \medskip
+    \item FE/RE features analogous to \texttt{"white1"}.
     \vspace{1.5cm}
-    \item Note (for all three robust estimators): the counterpart to CS-related sandwich estimator element $\left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]$ would be:
+    \footnotesize
+    \item Note (relevant for all three robust estimators): \\ smallskip The counterpart to CS-related sandwich estimator element $\left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]$ would be:
     $$
     \ddot{\bm{X}}^{\prime} \bm{\Sigma} \ddot{\bm{X}} = 
     \sum_{i=1}^N \left( 
@@ -1301,9 +1307,8 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     $$
     and $\bm{\Sigma}$ is a block-diagonal matrix of $\bm{\Sigma}_i$ matrices
     \smallskip
-    \item \texttt{"arellano"}: consistent w.r.t. timewise correlation of the errors, but (unlike \texttt{"white1"},\texttt{"white2"}), it relies on large $N$ asymptotics with small $T$ (short panels).
+    \item \texttt{"arellano"}: consistent w.r.t. timewise correlation of the errors, but (unlike \texttt{"white1"},\texttt{"white2"}), it relies on large $N$ asymptotics with small $T$ (short panels). \\ \medskip Typical \texttt{"arellano"} use: FE \& large $N$.
     \smallskip
-    \item \texttt{"white1"} is inconsistent for fixed $T$ as $N$ grows \\$\rightarrow$ use \texttt{"arellano"} in such case 
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1326,6 +1331,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
 \begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
 General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
+The following cases of $\bm{\Omega} = \textnormal{var}(\bm{\varepsilon}|\bm{X})$ can occur:\\ \medskip
 \begin{itemize}
     \item[(a)] $\varepsilon_t$ \textit{i.i.d.} -- corresponds to a CLRM: \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) = E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X})= 
     \begin{bmatrix}
@@ -1356,7 +1362,7 @@ General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
 %---------------------------------
 \begin{frame}{Long panels -- models and estimation (BSc repetition)}
 \footnotesize
-General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip
+General LRM (TS-based): $\bm{y} = \bm{X\beta}+\bm{\varepsilon}$\\ \medskip 
 \begin{itemize}
     \item[(c)] $\varepsilon_t$ with \texttt{ar(1)} (no heteroscedasticity): \\ \medskip $\textnormal{var}(\bm{\varepsilon}|\bm{X}) \! = \! E(\bm{\varepsilon \varepsilon}^{\prime}|\bm{X}) \!=  \!
      \frac{\sigma^2_e}{1-\rho^2} \!
@@ -1459,16 +1465,17 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
         &\cdots \\
         \bm{y}_M &= \bm{X}_M \bm{\beta}_M + \bm{\varepsilon}_M;\\
         &~ \\
-        \textnormal{general form:~~} \bm{y}_i &= \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots,M.
+        \textnormal{general form notation:~~} \bm{y}_i &= \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots,M.
     \end{align*}
-    \item Example: GDP dynamics in Germany's NUTS1 units ($M=16$):
-    $$\log (\textit{GDP}_{it}) = \beta_{1i} + \beta_{2i} \textit{Unemp}_{it} +~~ \cdots~~ + \varepsilon_{it}$$
+    \footnotesize
+    \item Example: Unemployment dynamics in Germany (NUTS1, $M=16$):
+    $$\textit{Unemp}_{it}  = \beta_{1i} + \beta_{2i} \log (\textit{GDP}_{it}) +~~ \cdots~~ + \varepsilon_{it}$$
     
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
-\small
+\begin{frame}{Long panels -- general SUR models}
+\footnotesize
 \begin{itemize}
     \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
     can be written in stacked matrix form as:
@@ -1492,30 +1499,32 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
     \item For the $MT \times 1$ vector of disturbances $\bm{\varepsilon}$, we assume:
     \begin{itemize}
         \item Strict exogeneity: $E[\bm{\varepsilon}|\bm{X}_1,\dots,\bm{X}_M]=\bm{0}$,
-        \item Homoscedasticity: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ii}\bm{I}_T$\\ (notation follows Greeene, ch 10.2: $\sigma_{ii}$ is the diagonal element of variance-covariance matrix for CS unit $i$).
+        \item Homoscedasticity in CS units: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ii}\bm{I}_T$\\ ($\sigma_{ii}$ -- error variance for $i$th unit, notation follows Greene).
         \item Disturbances uncorrelated across $T$ but contemporaneously correlated between CS units (equations):\\
         $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.
     \end{itemize}
+    \medskip
     \item Equation by equation OLS estimation: consistent. \\
-    GLS is efficent w.r.t. OLS: uses information in $\bm{\Sigma} = [\sigma_{ij}]$.
+    \medskip
+    \item GLS is efficent w.r.t. OLS: uses information on contemporaneous correlation among errors as in the matrix $\bm{\Sigma}= [\sigma_{ij}]$.
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
+\begin{frame}{Long panels -- general SUR models}
 \small
 \begin{itemize}
     \item Stacked matrix form of the SUR model:\\ \smallskip 
     $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$\\ \smallskip 
     \medskip
-    \item For the $MT \times 1$ vector of errors $\bm{\varepsilon}^{\prime} = (\bm{\varepsilon}_1^{\prime},\dots,\bm{\varepsilon}_M^{\prime})^{\prime}$\\
-    and the ``contemporaneous covariance matrix'' $\bm{\Sigma}$ ($M \times M$):\\ \medskip
+    \item $\bm{\Sigma}$ can be constructed from the vector of errors $\bm{\varepsilon}^{\prime} = (\bm{\varepsilon}_1^{\prime},\dots,\bm{\varepsilon}_M^{\prime})^{\prime}$\\
+    as follows:\\ \medskip
     $\qquad \qquad ~~\bm{\Sigma} = 
     \begin{bmatrix} 
     \sigma_{11} & \sigma_{12} & \cdots & \sigma_{1M} \\ 
     \sigma_{21} & \sigma_{22} & \cdots & \sigma_{2M} \\ 
       &   & \vdots &  \\ 
     \sigma_{M1} & \sigma_{M2} & \cdots & \sigma_{MM} \\ 
-    \end{bmatrix},$ \\ \medskip
+    \end{bmatrix} = [\sigma_{ij}],$ \\ \medskip
     \item the variance-covariance matrix for $\bm{\varepsilon}$ is given as $\bm{\Omega}$ ($MT \times MT$):\\ \medskip
     $\bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T = 
     \begin{bmatrix} 
@@ -1528,7 +1537,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
+\begin{frame}{Long panels -- general SUR models}
 \small
 \begin{itemize}
     \item Stacked matrix form of the SUR model:\\
@@ -1549,21 +1558,23 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models}
-\small
+\begin{frame}{Long panels -- general SUR models}
+\footnotesize
 $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}, \qquad \textnormal{var}(\bm{\varepsilon}) = \bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T.$ \\ \medskip
 $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]^{-1} \bm{X}^{\prime} \bm{\Omega}^{-1} \bm{y}$\\ \bigskip
     \begin{itemize}
-    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald, LR and/or LM tests.\\(compare to ``pooling model'' -- discussed next).
-    \bigskip
-    \item How much efficiency over OLS is gained by GLS (SURE)?
+    \item SURE: how much efficiency over OLS is gained by GLS (SURE)?
     \begin{itemize}
         \item Higher correlation of disturbances $\rightarrow$ higher efficiency gain.
-        \item Equations in SUR model actually unrelated ($\bm{\Sigma}=\bm{0}$) $\rightarrow$ no payoff in GLS (GLS is just equation-by-equation OLS).
-        \medskip
+         \smallskip
+        \item SUR equations actually unrelated ($\sigma_{ij} = 0$, for $i\neq j$): \\no payoff in GLS.
+        \smallskip
         \item The less correlation between the $\bm{X}$ matrices, the greater is the gain in efficency in using GLS (w.r.t. OLS). 
+         \smallskip
         \item SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed on next page).
     \end{itemize}
+    \bigskip
+    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model (analogous to `pooling OLS` model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald, LR and/or LM tests.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1579,11 +1590,11 @@ Topic is partially out of scope in terms of long-panel data. However, SUR models
     $$
     r_{it} - r_{ft} = \alpha_i + \beta_i (r_{mt} - r_{ft}) + \varepsilon_{it}
     $$
-    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{ft}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated of each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
+    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{mt}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated of each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models (identical regressors)}
+\begin{frame}{SURE \& equations with identical regressors}
 \small
 SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
 \begin{itemize}
@@ -1605,7 +1616,7 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bi
 \end{itemize}
 \end{frame}
 %---------------------------------
-\begin{frame}{Long panels -- SUR models (identical regressors)}
+\begin{frame}{SURE \& equations with identical regressors}
 \small
 SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
 \begin{align*}
@@ -1626,16 +1637,19 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
     (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_2 \\
   \vdots \\
     (\bm{X}_i^{\prime}\bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_M
+    \end{bmatrix} = 
+    \begin{bmatrix}
+    \bm{\hat{\beta}}_{1,\textnormal{OLS}} \\ \bm{\hat{\beta}}_{2,\textnormal{OLS}} \\ \vdots \\ \bm{\hat{\beta}}_{M,\textnormal{OLS}} \\ 
     \end{bmatrix}\\
-    &\dots \textnormal{ which is the same as equation-by-equation OLS.}
+    &\dots \textnormal{equation-by-equation OLS (VAR-model implications).}
 \end{align*} 
 \end{frame}
 %---------------------------------
 \subsection*{SURE \& ``pooled'' model}
 \begin{frame}{Long panels -- SUR ``pooled model''}
 \small
-SUR models with the same regressors (identical dimensions \& variables across $\bm{X}_i$, yet different observations) and \\
-all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\
+SUR models with the same regressors (identical dimensions \& variable structure across $\bm{X}_i$, yet different `$it$' observations) and with \\
+all coefficient vectors assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\
 \begin{itemize}
     \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
     can be written in stacked matrix form as:
@@ -1672,7 +1686,7 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
     where $\bm{X}$ is a ($MT\times K)$ matrix -- compare to the block diagonal ($MT \times MK$) in the general SUR model\\ \medskip
     and $\bm{\beta}$ is ($K\times 1$) instead of the ($MK\times 1$) for the general SUR model.\\
     \bigskip
-    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely.
+    \item General note: GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
 \end{itemize}
 \end{frame}
 %---------------------------------
