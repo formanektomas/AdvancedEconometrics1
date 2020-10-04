@@ -312,8 +312,8 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \begin{frame}{Method of moments}
 %\footnotesize
 \begin{itemize}
-\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies orthogonality condition: $$\textnormal{cov}[\bm{x}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta})]=\bm{0},$$ 
-may be transformed in \textbf{population moment equation:}
+\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies: $$E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta})]=\bm{0},$$ 
+which may be transformed into a \textbf{population moment equation:}
 $$
 E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
 = E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}\,,
@@ -364,9 +364,8 @@ The equation form of MM empirical equations can be produced as:
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
-
 \begin{itemize}
-\item GMM equation can be cast by analogy to the MM case: we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies orthogonality condition: $$\textnormal{cov}[\bm{z}_i, \varepsilon_i] = \bm{0} \textnormal{~~i.e.~~}E[\bm{z}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0}.$$ 
+\item GMM equation can be cast by analogy to the MM case: we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies: $$E[\bm{z}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0},$$ 
 and \textbf{population moment equation:}
 $$
 E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{z}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
