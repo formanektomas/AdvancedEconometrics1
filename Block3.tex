@@ -1692,19 +1692,21 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
 %---------------------------------
 \subsection*{SURE -- FGLS}
 \begin{frame}{Long panels -- SURE: FGLS estimator}
-\small
+\footnotesize
 \begin{itemize}
     \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ \bigskip
     \item FGLS estimator is based on OLS-estimated residuals $\bm{e}$:\\ \bigskip
-    $\hat{\sigma}_{ij} = \frac{1}{T}\bm{e}_i^{\prime}\bm{e}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$. \medskip
+    $\hat{\sigma}_{ij} = \frac{1}{T}\bm{e}_i^{\prime}\bm{e}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$ is estimated as follows: \medskip
     \begin{itemize}
-        \item $\hat{\bm{\Sigma}}$ for the general SUR model:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
+        \item[1] SURE, $\bm{X}$ is block diagonal with general $\bm{X}_i$ blocks:\\
+        $\hat{\bm{\Sigma}}$ for the general SUR model:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
         $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{e}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) block-diagonal matrix with $\bm{X}_1,\dots,\bm{X}_M$ on the diagonal \\
         (same coefficients and residuals from both approaches). \medskip
-        \item SUR model with identical regressors: FGLS not relevant as GLS = equation-by-equation OLS (shown previously). \\ \medskip
-        \item $\hat{\bm{\Sigma}}$ for the ``pooled'' SUR model: 
-        $\bm{e}_i$ is a subvector of OLS residuals: 
-        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times K$) \medskip
+        \item[2] SURE, $\bm{X}$ is block diagonal with identical $\bm{X}_i$ blocks:\\ 
+        SUR model with identical regressors: FGLS not relevant as GLS = equation-by-equation OLS (shown previously). \\ \medskip
+        \item[3] SURE, identical $\bm{\beta}_i$, i.e. $\bm{X}$ with $\bm{X}_i$ stacked vertically:  \\ $\hat{\bm{\Sigma}}$ for the ``pooled'' SUR model: 
+        $\bm{e}_i$ is a subvector of OLS residuals from 
+        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, \medskip
     \end{itemize}
     \item $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$
 \end{itemize}
