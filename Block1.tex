@@ -633,20 +633,23 @@ estimates are asymptotically normally distributed.\\ \medskip
 %---------------------------------------------
 \begin{frame}{Maximum likelihood estimator}
 \textbf{MLE - inference, three classic tests:}\\ \bigskip
-We have a ML estimate $\hat{\bm{\theta}}=(\hat{\theta}_1, \dots, \hat{\theta}_m)^{\prime}$,\\
-and test of the hypothesis $H_0 : \bm{h}(\bm{\theta}) = \bm{0}$,\\
-where $\bm{h}(\bm{\theta})$ is a $(r \times 1)$ vector function of $\bm{\theta}$ (linear/non-linear restrictions, continuous partial derivatives assumed).
+We have an unrestricted ML estimate $\hat{\bm{\theta}}=(\hat{\theta}_1, \dots, \hat{\theta}_m)^{\prime}$,\\
+and test of the hypothesis $H_0 : \bm{h}(\bm{\theta}) = \bm{q}$,\\
+where $\bm{q}$ is a $(r \times 1)$ vector function of $\bm{\theta}$ (linear/non-linear restrictions, continuous partial derivatives assumed).
 \bigskip
 \begin{itemize}
-    \item[2] \textbf{Wald test:} If the restriction $\bm{h}(\bm{\theta}) = \bm{0}$ is valid, then $\bm{h}(\hat{\bm{\theta}})$ should be close to zero since MLE is consistent.\\ \medskip
+    \item[2] \textbf{Wald test:} If restriction $\bm{h}(\bm{\theta}) = \bm{q}$ is valid, then $\bm{h}(\hat{\bm{\theta}})-\bm{q}$ should be close to zero since MLE is consistent.\\
     $$
-    W = \bm{h}(\hat{\bm{\theta}})^{\prime}
-    \left[ \bm{H}\!(\hat{\bm{\theta}}) \, \widehat{\textnormal{cov}}
-    (\hat{\bm{\theta}}) \, \bm{H}^{\prime}\!(\hat{\bm{\theta}})
-    \right]^{-1} \! \bm{h}(\hat{\bm{\theta}})
+    W = [\bm{h}(\hat{\bm{\theta}})-\bm{q}]^{\prime}
+    \left[  \textnormal{Asy.Var} [\bm{h}(\hat{\bm{\theta}})-\bm{q}]
+    \right]^{-1} \! [\bm{h}(\hat{\bm{\theta}})-\bm{q}]
     ~~\underset{H_0}{\sim} \chi^2(r),
     $$
-    where $\bm{H}(\hat{\bm{\theta}})= \partial \bm{h}(\bm{\theta}) / \partial \bm{\theta}^{\prime}$ at $\bm{\theta} = \hat{\bm{\theta}}$ and rank$(\bm{H})=r$.
+    where $\textnormal{Asy.Var} [\bm{h}(\hat{\bm{\theta}})-\bm{q}]
+    = \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}} 
+    \right] \textnormal{Asy.Var}(\hat{\bm{\theta}})
+    \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}} 
+    \right]$.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
