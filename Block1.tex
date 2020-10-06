@@ -927,20 +927,22 @@ Prob(F-statistics)                                                    & 0.000000
 \end{frame}
 %---------------------------------------------
 \subsection{Quantile regression}
-\begin{frame}{Quantile regression (QREG)}
+\begin{frame}{Quantile regression - LAD}
 \begin{itemize}
 \item Quantile regression estimates the relationship between regressors and a specified quantile of dependent variable.
-\medskip
-\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denotes the $q$-th quantile of $y$.
-\medskip
-\item One important special case of quantile regression is the least absolute deviations (LAD) estimator, which corresponds to fitting the conditional median of the response variable ($q=\frac{1}{2}$).
-\medskip
-\item QREG (LAD) estimator can be motivated as a robust  alternative to OLS (with respect to outliers).
+\smallskip
+\item LAD estimator is the QREG for $q=\tfrac{1}{2}$ (median) and the loss function can be described as (compare to OLS objective function): $$
+\underset{\bm{\hat{\beta}}_{q}}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_{q}) =
+\sum_{i=1}^n |y_i-\bm{x}_i\bm{\hat{\beta}}_{q}|
+$$
+\item LAD estimator predates OLS (itself older than 200 years). Until recently, QREG and LAD have seen little use in econometrics, as OLS is vastly easier to compute.
+\item Different software packages use a variety of optimization algorithms for QREG/LAD estimation.
+\item Linear programming can be used for finding QREG estimates (Koenkerr and Bassett (around 1980).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Quantile regression (QREG)}
-For LRMs, the $q$-th quantile regression estimator $\bm{\beta}_q$ minimizes:
+For LRMs, the $q$-th quantile QREG estimator $\bm{\beta}_q$ minimizes:
 $$
 \underset{\bm{\hat{\beta}}_q}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_q) =
 \! \! \sum^n_{i:\, e_i \, \geq \, 0} q|y_i - \bm{x}_i\bm{\hat{\beta}}_q| \,\, +
@@ -955,18 +957,21 @@ where $e_i = (y_i - \bm{x}_i\bm{\hat{\beta}}_q)$.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression - LAD}
+\begin{frame}{Quantile regression (QREG)}
 \begin{itemize}
-\item LAD estimator is the QREG for $q=\tfrac{1}{2}$ (median) and the loss function simplifies to: $$
-\underset{\bm{\hat{\beta}}_{q}}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_{q}) =
-\sum_{i=1}^n |y_i-\bm{x}_i\bm{\hat{\beta}}_{q}|
-$$
-\item LAD estimator predates OLS (itself older than 200 years). Until recently, QREG and LAD have seen little use in econometrics, as OLS is vastly easier to compute.
-\item Different software packages use a variety of optimization algorithms for QREG/LAD estimation.
-\item Linear programming can be used for finding QREG estimates (Koenkerr and Bassett (around 1980).
+\item Quantile regression: used to describe relationship between regressors and a specified quantile of dependent variable.
+\medskip
+\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denotes the $q$-th quantile of $y$.
+\medskip
+\item One important special case of quantile regression is the least absolute deviations (LAD) estimator, which corresponds to fitting the conditional median of the response variable ($q=\frac{1}{2}$).
+\medskip
+\item QREG (LAD) estimator can be motivated as a robust  alternative to OLS (with respect to outliers).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+
+
+
 \begin{frame}{Quantile regression}
 
 QREG coefficient interpretation example:\\
