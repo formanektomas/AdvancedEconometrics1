@@ -1142,7 +1142,7 @@ because~~$\textnormal{var}(\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c
 \begin{itemize}
 \item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
 \vspace{0.2cm}
-\item We estimate $\sigma^2$ from the original CLRM as $(\textit{SSR}/(n-K-1))$
+\item We estimate $\sigma^2$ from the original CLRM as $(\textit{SSR}/(n-K))$
 \vspace{0.2cm}
 \item We get $\textnormal{var}(\hat{y}_p)$ from the reparametrized LRM
 \end{itemize}
@@ -1223,7 +1223,8 @@ Variance of $\hat{e}_p$ (continued):
 With growing sample size (asymptotically), \\
 $\textnormal{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
 $\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
-  \textnormal{plim} \, \hat{\sigma}_p^2 = 0$
+  \textnormal{plim} \, \hat{\sigma}_p^2 = 0$\\ \medskip
+  (Note: recall consistency of the OLS estimator under A1--A5 conditions \& for the CLRM model - i.e. under A1--A6.)
 
 \end{frame}
 
