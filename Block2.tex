@@ -316,151 +316,74 @@ Use $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-Generalized linear regression model (GLRM) accomodates both autocorrelated and heteroscedastic residuals in the LRM.\\ \medskip
+\begin{frame}{Adjusting LRMs for serial correlation}
+LRM on TS with autocorrelation (for $|\rho|<1$):\\ \bigskip
 \begin{itemize}
-\item GLRM properties:
-\begin{itemize}
-\item $E(\boldsymbol{u})=\boldsymbol{0}$
-\item $E(\boldsymbol{uu}^{\prime})=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,\\ \medskip
+    ~~~we can substitute the autoregressive process into main LRM:\\ \bigskip
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} +\rho u_{t-1}+\varepsilon_t \, \qquad \textnormal{note:~} u_{t-1} = y_{t-1} - \bm{x}_{t-1}^{\prime} \bm{\beta} $, \\ \medskip ~~~hence: \\ \bigskip
+    \item $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} + \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \medskip 
+    ~~~which is non-linear in parameters ($\rho \bm{\beta}$) and can be \\ \smallskip
+    ~(a) estimated by NLS \\ \medskip
+    ~(b) re-arranged into \textbf{generalized first differences} specification\\ \medskip
+    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$,\\ \medskip
+    ~~~and estimated by `Hildreth-Lu', `Cochrane-Orctutt' \\ 
+    ~~~or `Prais-Winsten'.
 \end{itemize}
-\vspace{0.5cm}
-\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{\prime}=\bm{I}_n$) to get: \\ \medskip
-$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$ \\ \medskip
-in the transformed model.
+\end{frame}
+%------------------------------------------------------ 
+\begin{frame}{Adjusting LRMs for serial correlation}
+LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
+\begin{itemize}
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
+    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+\end{itemize}
+\medskip
+\textbf{Hildreth-Lu:} \\ \medskip
+\begin{itemize}
+    \item[a)] Start by repeated OLS estimation of the generalized first differences specification, using different (fixed) values of $\rho \in (-1,1)$. 
+    \item[b)] From such auxiliary regressions (i.e. $\rho$ values), select one that minimizes RSS.
+    \medskip
+    \item Potentially computationally expensive (fine-grain iterations along $\rho$-values). No advantage over ``other'' NLS methods.
+    \item Global optimum (min RSS) can be reached.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; OLS estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^{\prime}\boldsymbol{X})^{-1}\boldsymbol{X}^{\prime}\boldsymbol{y}$ \\
-~\\
-\textbf{GLRM} transformation principle:  $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\ \medskip
+\begin{frame}{Adjusting LRMs for serial correlation}
+LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
-\item For covariance matrix of the transformed model, we get:
-$$E(\boldsymbol{T}\boldsymbol{u}(\boldsymbol{T}\boldsymbol{u})^{\prime})=
-E(\boldsymbol{T}\boldsymbol{u}\boldsymbol{u}^{\prime}\boldsymbol{T}^{\prime})=\boldsymbol{T} E(\boldsymbol{u}\boldsymbol{u}^{\prime})\boldsymbol{T}^{\prime}=\sigma^2\boldsymbol{THT}^{\prime}$$
-We need $\boldsymbol{THT}^{\prime} \! = \boldsymbol{I}$; from this relation we derive the transformation matrix $\boldsymbol{T}$.
-Transformation gives us model that fulfills previously broken G-M assumption.
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
+    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+\end{itemize}
+\medskip
+\textbf{Cochrane-Orctutt:} \\ \medskip
+\begin{itemize}
+    \item[a)] Start by OLS estimation of original LRM and obtain residuals $\hat{u}_t$. Estimate $\hat{\rho}$ by estimating the \texttt{ar(1)} model $\hat{u}_t = \rho \hat{u}_{t-1}+\varepsilon_t$. 
+    \item[b)] Use $\hat{\rho}$ to calculate generalized first differences (GFD) and estimate $\bm{\beta}$ parameters of the GFD model.
+    \item[c)] Vector $\hat{\bm{\beta}}$ from step (b) can be used to produce `improved' residuals $\hat{u}_t = y_t - \bm{x}_t^{\prime}\hat{\bm{\beta}}$ and subsequent improved $\hat{\rho}$ estimates. 
+    \item[d)] $\bm{\beta}$ and $\rho$ estimates are iteratively improved until no substantial change in the estimated value of $\rho$ is observed.
+    \medskip
+    \item Computationally accessible, typically just a few iterations.
+    \item Can converge to a local but not global minimum of RSS.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-\textbf{GLSM algorithm:} \\ \medskip
-\begin{enumerate}
-\item Estimate the model using OLS.
-\item Test assumption $E(\boldsymbol{uu}^{\prime})=\sigma^2 \boldsymbol{I}_n$, if  broken:
-\item Find/set appropriate transformation matrix $\boldsymbol{T}$.
-\item Multiply variables of the model by $\boldsymbol{T}$, to get transformed variables.
-\item Estimate the model with transformed variables (use OLS for estimation).
-\item If necessary, reverse-transform the model estimated to get parameter estimates for the original specification of the LRM.
-\end{enumerate}
-\end{frame}
-%------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
+\begin{frame}{Adjusting LRMs for serial correlation}
+LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
-\item Matrices $\boldsymbol{H}$ and $\boldsymbol{T}$ of the GLSM algorithm differ for heteroscedasticity  and autocorrelation.
-\vspace{0.2cm}
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
+    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+\end{itemize}
+\medskip
+\textbf{Prais-Winsten:} \\ \medskip
 \begin{itemize}
-\item heteroscedasticity (CS data, matrix form, quick recap):\\
-$$\sigma^2 \bm{H} = \sigma^2 
-\begin{bmatrix}
-    h_1&  0 & \cdots & 0\\
-    0 &  h_2&  \cdots & 0\\ 
-     &    &  \vdots& \\ 
-     0 & 0 & \cdots & h_n 
-\end{bmatrix} = 
-\begin{bmatrix}
-    \sigma^2_1&  0 & \cdots & 0\\
-    0 &  \sigma^2_2&  \cdots & 0\\ 
-     &    &  \vdots& \\ 
-     0 & 0 & \cdots & \sigma^2_n 
-\end{bmatrix}
-$$
-GLS: $\bm{\hat{\beta}}=(\bm{X}^{\prime} \bm{\hat{H}}^{-1} \bm{X})^{-1} \bm{X}^{\prime} \bm{\hat{H}}^{-1} \bm{y}$\\
-where WLS or FGLS method is used to estimate/set $\bm{\hat{H}}$.
+    \item Small alteration to the Cochrane-Orcutt (CO) method.
+    \item CO disregards first observation from the dataset -- due to (generalized) first differences.
+    \medskip
+    \item PW transformation retains the first observation with weight $\sqrt{1-\rho^2}$.
+    \item All remaining steps and features of the PW method follow directly from CO. 
+    \item In small samples (short TS), PW is efficient w.r.t. CO, as sample size for estimation of the transformed model does not decrease.
 \end{itemize}
-\end{itemize}
-\end{frame}
-%------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-Autocorrelation (matrix form):
-\begin{itemize}
-\item Let's assume autocorrelation of the AR(1) form $u_t = \rho u_{t-1}+ \varepsilon_t$  ; \\ where $\rho$ is coefficient of autocorrelation $\rho \in (-1; 1)$
-\end{itemize}
-\vspace{0.2cm}
-If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^{\prime})$ is :
-$$E(\boldsymbol{uu}^{\prime})= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^2}
-    \begin{bmatrix}
-    1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
-    \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
-    \rho^2 &  \rho &  1& \rho  & \cdots & \rho^{n-3} \\ 
-    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
-     \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
-\end{bmatrix}$$
-( we assume homoscedasticity and known variance $\textnormal{var}(u_t)$ )
-\end{frame}
-%------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-\begin{itemize}
-\item Explanation of matrix $E(\boldsymbol{uu}^{\prime})$: start with $u_t = \rho u_{t-1}+ \varepsilon_t$\\
-$u_t= \varepsilon_t + \rho \varepsilon_{t-1} + \rho^2 \varepsilon_{t-2} + \dots$ \qquad where $\varepsilon$ are $i.i.d.$\\
-Hence, $\sigma^2_u \equiv \textnormal{var}(u_t)= 
-\sigma^2_{\varepsilon} + \rho^2 \sigma^2_{\varepsilon} + \rho^4 \sigma^2_{\varepsilon} 
-+ \rho^6 \sigma^2_{\varepsilon} + \dots
-= \frac{\sigma^2_{\varepsilon}}{1-\rho^2}$\\
-(Note: $\textnormal{cov}(u_t,u_{t+s})=\rho^s \sigma^2_u$ is independent of $t$ if $|\rho|<1$.)\\
-\vspace{0.3cm}
-\item That is why: 
-$H=\begin{bmatrix}
-    1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
-    \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
-    \rho^2 &  \rho &  1& \rho  & \cdots & \rho^{n-3} \\ 
-    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
-     \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
-\end{bmatrix}$
-\vspace{0.3cm}
-\item Usually, we do not know the matrix $\boldsymbol{H}$, it must be estimated. In such case, we call the method Feasible General Least Squares (FGLS).
-\end{itemize}
-\end{frame}
-%------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-\textbf{Prais -- Winsten method (transformation)}
-\begin{itemize}
-\item Transformation by $\boldsymbol{T}$: transformed vector $\boldsymbol{y}$ and matrix $\boldsymbol{X}$
-$$\boldsymbol{T}=\sqrt[]{\frac{1}{1-\rho^2}}
-\begin{bmatrix}
- \sqrt[]{1-\rho^2}&  0 & 0 & 0\\
- - \rho &  1&  0 & 0\\ 
- \cdots & \cdots & \cdots & \cdots \\
-0 &  -\rho &  1& 0\\ 
-0 & 0 & -\rho &1 
-\end{bmatrix}, \,\,
-\boldsymbol{y^\ast}=
-\begin{bmatrix}
-y_1\sqrt[]{1-\rho^2}\\
-y_2-\rho y_1\\
-y_3-\rho y_2 \\
-\cdots
-\end{bmatrix},
-$$ $$
-\boldsymbol{X^\ast}=\begin{bmatrix}
-\sqrt[]{1-\rho^2} & x_{11}\sqrt[]{1-\rho^2} & x_{21}\sqrt[]{1-\rho^2}\\
-1-\rho & x_{12}-\rho x_{11} & x_{22}-\rho x_{21} \\
-1-\rho & x_{13}-\rho x_{12} & x_{23}-\rho x_{22} \\
-\cdots & \cdots & \cdots &
-\end{bmatrix}
-$$
-\item P-W  transformation: quasi-differencing of all variables of the LRM and an approximation for the first period. In the transformation, we skip the fraction in front of $\boldsymbol{T}$-matrix. As a constant, it does not influence the regression result.
-\end{itemize}
-\end{frame}
-%------------------------------------------------------
-\begin{frame}{GLSM, matrix form description}
-\textbf{Cochrane-Orcutt method (transformation)}
-\begin{itemize}
-\item P-W method without the approximation of the first observation.
-\end{itemize}
-\vspace{1cm}
-For both the P-W and C-O methods, we usually use iterations to make the estimates of the autoregressive coefficient and regression parameters of the model more accurate.
 \end{frame}
 %------------------------------------------------------
 \section{Stationarity, unit root tests, cointegration}
