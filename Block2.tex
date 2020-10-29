@@ -317,18 +317,19 @@ Use $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q
 \end{frame}
 %------------------------------------------------------
 \begin{frame}{Adjusting LRMs for serial correlation}
-LRM on TS with autocorrelation (for $|\rho|<1$):\\ \bigskip
+LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,\\ \medskip
     ~~~we can substitute the autoregressive process into main LRM:\\ \bigskip
-    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} +\rho u_{t-1}+\varepsilon_t \, \qquad \textnormal{note:~} u_{t-1} = y_{t-1} - \bm{x}_{t-1}^{\prime} \bm{\beta} $, \\ \medskip ~~~hence: \\ \bigskip
+    \item $y_t=\bm{x}_t^{\prime} \bm{\beta} +\rho u_{t-1}+\varepsilon_t \, \qquad \textnormal{note:~} u_{t-1} = y_{t-1} - \bm{x}_{t-1}^{\prime} \bm{\beta} $, \\ \medskip ~~~hence: \\ \medskip
     \item $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} + \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \medskip 
-    ~~~which is non-linear in parameters ($\rho \bm{\beta}$) and can be \\ \smallskip
-    ~(a) estimated by NLS \\ \medskip
-    ~(b) re-arranged into \textbf{generalized first differences} specification\\ \medskip
+    ~~~which is non-linear in parameters ($\rho \bm{\beta}$) and can be \\ \medskip
+    \item[(a)] Estimated by NLS (general regressors)\\ \medskip
+    \item[(b)] Re-arranged into \textbf{generalized first differences} specification \\
+    (exogenous regressors)\\ \medskip
     \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$,\\ \medskip
     ~~~and estimated by `Hildreth-Lu', `Cochrane-Orctutt' \\ 
-    ~~~or `Prais-Winsten'.
+    ~~~or `Prais-Winsten' methods.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------ 
@@ -342,9 +343,9 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \textbf{Hildreth-Lu:} \\ \medskip
 \begin{itemize}
     \item[a)] Start by repeated OLS estimation of the generalized first differences specification, using different (fixed) values of $\rho \in (-1,1)$. 
-    \item[b)] From such auxiliary regressions (i.e. $\rho$ values), select one that minimizes RSS.
+    \item[b)] From such auxiliary regressions (i.e. for different $\rho$ values), select one that minimizes RSS.
     \medskip
-    \item Potentially computationally expensive (fine-grain iterations along $\rho$-values). No advantage over ``other'' NLS methods.
+    \item Potentially computationally expensive (fine-grain iterations along $\rho$-values). No advantage over NLS methods \\(Hildreth-Lu is a form of ``brute-force'' NLS estimator).
     \item Global optimum (min RSS) can be reached.
 \end{itemize}
 \end{frame}
@@ -358,7 +359,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \medskip
 \textbf{Cochrane-Orctutt:} \\ \medskip
 \begin{itemize}
-    \item[a)] Start by OLS estimation of original LRM and obtain residuals $\hat{u}_t$. Estimate $\hat{\rho}$ by estimating the \texttt{ar(1)} model $\hat{u}_t = \rho \hat{u}_{t-1}+\varepsilon_t$. 
+    \item[a)] Start by OLS estimation of original LRM and obtain residuals $\hat{u}_t$. Estimate $\hat{\rho}$ from the \texttt{ar(1)} model $\hat{u}_t = \rho \hat{u}_{t-1}+\varepsilon_t$. 
     \item[b)] Use $\hat{\rho}$ to calculate generalized first differences (GFD) and estimate $\bm{\beta}$ parameters of the GFD model.
     \item[c)] Vector $\hat{\bm{\beta}}$ from step (b) can be used to produce `improved' residuals $\hat{u}_t = y_t - \bm{x}_t^{\prime}\hat{\bm{\beta}}$ and subsequent improved $\hat{\rho}$ estimates. 
     \item[d)] $\bm{\beta}$ and $\rho$ estimates are iteratively improved until no substantial change in the estimated value of $\rho$ is observed.
@@ -384,6 +385,25 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
     \item All remaining steps and features of the PW method follow directly from CO. 
     \item In small samples (short TS), PW is efficient w.r.t. CO, as sample size for estimation of the transformed model does not decrease.
 \end{itemize}
+\end{frame}
+%------------------------------------------------------
+\begin{frame}{Adjusting LRMs for serial correlation}
+SLRM on TS with autocorrelation, example outline (for $|\rho|<1$):\\ \medskip
+\begin{itemize}
+    \item $y_t= \beta_1 + \beta_2 x_t + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
+    \smallskip
+    \item $[y_t - \rho y_{t-1}] =  \beta_1 (1-\rho) + \beta_2 [(x_t - \rho x_{t-1})] + \varepsilon_t$.\\
+    $~~~~~~y_t^{*}~~~~~~=~~~~~\beta_1^{*} ~~~~+~~~~ \beta_2 x_t^{*}~~~~~~~~~~~ + \varepsilon_t $
+\end{itemize}
+\bigskip
+where $ \bm{y} = \begin{bmatrix}
+y_1\\ y_2\\ y_3\\ \vdots\\ y_n \end{bmatrix}, \quad 
+\bm{y}^{*}_{\textnormal{CO}} = \begin{bmatrix}
+\textnormal{---}\\ y_2-\rho y_1\\ y_3-\rho y_2 \\ \vdots \\ y_n-\rho y_{n-1} \end{bmatrix}, \quad \bm{y}^{*}_{\textnormal{PW}} = \begin{bmatrix}
+y_1\sqrt[]{1-\rho^2}\\ y_2-\rho y_1\\ y_3-\rho y_2 \\ \vdots \\ y_n-\rho y_{n-1} \end{bmatrix}$,\\ \bigskip
+$\bm{X}$-matrix elements are transformed by analogy, \\ \smallskip
+FGLS (CO/PW) is the OLS on transformed data, \\ \medskip 
+$\hat{\beta}_1 = \frac{\hat{\beta}_1^{*}}{(1-\hat{\rho})}$ and $\hat{\beta}_2$ is used ``directly'' from the GFD form.
 \end{frame}
 %------------------------------------------------------
 \section{Stationarity, unit root tests, cointegration}
@@ -415,7 +435,8 @@ Weakly dependent time series
 Strongly dependent time series:\\
 Random walk:  
 \begin{align}\nonumber
-y_t &= y_{t-1}+e_t, \qquad \qquad \textnormal{by consecutive substitution:} \\\nonumber 
+y_t &= y_{t-1}+e_t, \qquad \qquad e_t \sim \textit{Distr\,}(0,\sigma^2), \textit{iid} \\ \nonumber
+\textnormal{by} & \textnormal{~consecutive substitutions:} \\ \nonumber 
 y_t &= y_{t-2}+e_{t-1}+e_t, \\\nonumber
 y_t &= y_{t-3}+e_{t-2}+e_{t-1}+e_t, \\\nonumber
 & \cdots \\ \nonumber
