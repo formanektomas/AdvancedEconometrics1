@@ -290,6 +290,7 @@ Testing AR(1) with strictly exogenous regressors\\ \medskip
 \begin{align}\nonumber
 y_t & = \beta_0+\beta_1 x_{t1}+\dots+\beta_k x_{tk}+u_t \\ \nonumber
 u_t & = \rho u_{t-1} + e_t \\ \nonumber
+\textnormal{we~}&\textnormal{estimate~}  \rho \textnormal{~from:} \\ \nonumber
 \hat{u}_t &= \rho \hat{u}_{t-1}+error \\ \nonumber
 H_0 & : \rho=0 \nonumber
 \end{align}
@@ -421,10 +422,10 @@ $\hat{\beta}_1 = \frac{\hat{\beta}_1^{*}}{(1-\hat{\rho})}$ and $\hat{\beta}_2$ i
 Weakly dependent time series
   \vspace{0.4cm}
 \begin{itemize}
-  \item Moving average process of order one \texttt{ma(1)} $x_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\Observations with higher time distance than 1 are uncorrelated. This process is stationary.
+  \item Moving average process of order one \texttt{ma(1)} $y_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\Observations with higher time distance than 1 are uncorrelated. This process is stationary.
   \vspace{0.7cm}
   \item For stable autoregressive process of order 1 \texttt{ar(1)}: \\ \smallskip
-  $y_t = \rho_1 y_{t-1} + e_t \Rightarrow \textnormal{cor}(y_t,y_{t+h})=\rho^h_1$\\
+  $y_t = \rho y_{t-1} + e_t \Rightarrow \textnormal{cor}(y_t,y_{t+h})=\rho^h$\\
   \vspace{0.4cm}
   If stability condition $|\rho|<1$  holds, the process is weakly dependent because correlation converges to zero with growing $h$. Also, this process is stationary for $y_0 =0$.
   \vspace{0.4cm}
@@ -508,7 +509,7 @@ We need to distinguish strongly and weakly dependent TS:
 \vspace{0.2cm}
 \item If we have to difference a TS once to get a weakly dependent TS, then it is integrated of order 1: $I(1)$.
 \vspace{0.2cm}
-\item Example of a $I(1)$ process:
+\item Random walk -- example of a $I(1)$ process:
 \begin{align}\nonumber
 y_t & =y_{t-1}+e_t  \hspace{0.55cm} \Rightarrow \Delta y_t = y_t-y_{t-1}=e_t \\\nonumber
  \log{y_t} & =\log{y_{t-1}}+e_t  \Rightarrow \Delta \log{y_t}=e_t
@@ -526,8 +527,8 @@ Unit root tests help to decide if a time series is $I(0)$ or not
 \item Informal procedures
 \begin{itemize}
 \item Analyze autocorrelation of the first order
-$$\hat{\rho}_1=\hat{\textnormal{corr}}(y_t,y_{t-1})$$
-\item If $\hat{\rho}_1$ approaches 1, it indicates that the series can have unit root. Alternatively, it could have a deterministic trend.
+$$\hat{\rho}=\hat{\textnormal{corr}}(y_t,y_{t-1})$$
+\item If $\hat{\rho}$ approaches 1, it indicates that the series can have unit root. Alternatively, it could have a deterministic trend.
 \end{itemize}
 \item We can analyze sample autocorrelations using \\a correlogram
 \end{itemize}
@@ -694,7 +695,7 @@ Also called \textbf{trend-stationary process}: has a linear trend, not a unit ro
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Stationarity in ar(\textit{p}) processes}
-Lag operators:\\ (for some ar(\textit{p}) TS $x_t$)
+Introduction: lag operators:\\ \medskip for some ar(\textit{p}) TS $x_t$:
 \begin{align*}
 Lx_t &= x_{t-1} \\
 L(Lx_t)=L^2x_t &= x_{t-2} ~~~~~~~~~~~~~~~~~\\
@@ -765,12 +766,13 @@ $$ (1-0.4L)(1+0.5L)(1-4L) =0 $$
     \medskip
 \item Differencing is popular, but it has drawbacks.
 \end{itemize}
+\item As a special case, LRMs can be estimated and inference performed if TS in the model are \textbf{cointegrated}.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Handling strongly dependent time series}
 \vspace{-0.5cm}
-\begin{block}{Example}
+\begin{block}{Example - differencing TS: }
 \vspace{-0.5cm}
 \begin{align} 
 y_t & = \beta_0 + \beta_1 x_t + \varepsilon_t & y_t, x_t \sim I(1) \\
@@ -778,21 +780,22 @@ y_{t-1} & = \beta_0 + \beta_1 x_{t-1} + \varepsilon_{t-1} & \varepsilon_t \sim i
 \Delta y_t & = \qquad \, \beta_1\Delta x_t + v_t  & v_t= \varepsilon_t - \varepsilon_{t-1}
 \end{align}
 \end{block}
-\begin{enumerate}
+\begin{itemize}
 \item Coefficient $\beta_1$ does not change between $(4)$ and $(6)$.
 \\ However, equations $(4)$ and $(6)$ are different.
-\\$\Rightarrow~~\beta_1$ is the change in $y_t$ for a unit change in $x_t$, \\but is it also the change in the growth of $y$ for a unit change in the growth of $x$.
-\item Three problems 
+\\$\Rightarrow~~\beta_1$ has two interpretations now: it is the change in $y_t$ for a unit change in $x_t$, but is it also the change in the growth of $y$ for a unit change in the growth of $x$.
+\item Problems involved in the approach: 
 \begin{enumerate}
-\item $v_t$ is no longer i.i.d.
-\item We loose information linked with the levels of variables, short term relation are stressed.
-\item Estimates often generate bad long-term predictions: 
+\item Differenced erros $v_t$ are no longer i.i.d.
+\item In model $(6)$, we loose information linked with the levels of variables, short term relation are stressed.
+\item Information drawn from $(6)$ often generates bad long-term predictions of level variables: 
 $ \Delta \hat{y}_t = \hat{\beta}_1 \Delta x_t$; $ \dots $ what if $\beta_0 \neq 0$? 
 \end{enumerate}
-\end{enumerate}
+\end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Handling strongly dependent time series}
+\textbf{Cointegrated TS -- motivation}\\ \medskip
 Some properties of integrated processes
 \medskip
 \begin{enumerate}
