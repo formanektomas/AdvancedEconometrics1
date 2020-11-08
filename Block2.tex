@@ -401,7 +401,7 @@ where $ \bm{y} = \begin{bmatrix}
 y_1\\ y_2\\ y_3\\ \vdots\\ y_n \end{bmatrix}, \quad 
 \bm{y}^{*}_{\textnormal{CO}} = \begin{bmatrix}
 \textnormal{---}\\ y_2-\rho y_1\\ y_3-\rho y_2 \\ \vdots \\ y_n-\rho y_{n-1} \end{bmatrix}, \quad \bm{y}^{*}_{\textnormal{PW}} = \begin{bmatrix}
-y_1\sqrt[]{1-\rho^2}\\ y_2-\rho y_1\\ y_3-\rho y_2 \\ \vdots \\ y_n-\rho y_{n-1} \end{bmatrix}$,\\ \bigskip
+y_{1\,}\sqrt[]{1-\rho^2}\\ y_2-\rho y_1\\ y_3-\rho y_2 \\ \vdots \\ y_n-\rho y_{n-1} \end{bmatrix}$,\\ \bigskip
 $\bm{X}$-matrix elements are transformed by analogy, \\ \smallskip
 FGLS (CO/PW) is the OLS on transformed data, \\ \medskip 
 $\hat{\beta}_1 = \frac{\hat{\beta}_1^{*}}{(1-\hat{\rho})}$ and $\hat{\beta}_2$ is used ``directly'' from the GFD form.
@@ -1382,12 +1382,12 @@ $k$-Fold Cross-Validation ($k$FCV) approach\\ \dots has limited empirical benefi
   \item Finite distributed Lag (FDL) model:
   $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + u_t $$
   \item Infinite distributed lag (IDL) model:
-  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \dots + u_t $$
+  $$ y_t = \alpha_0 + \delta_0 x_t + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $$
   \end{itemize}
 Dynamically complete (FDL) models
 \vspace{0.5cm}
 \begin{itemize}
-\item Model is dynamically complete if we have a ``sufficient'' number of lags of regressors, so that no more additional lags would help with explanation of variance in the dependent variable. 
+\item Model is dynamically complete if we have a ``sufficient'' number of lags of regressors, so that no more additional lags would help with explanation of variability in the dependent variable. 
 \smallskip
 \item In dynamically incomplete models, we usually detect autocorrelation in the error term of the LRM.
 \end{itemize}
@@ -1451,8 +1451,7 @@ $$
 \begin{itemize}
 \item Almon-type transformation of \eqref{Almon1} for $m=8$ and $k=2$:
 \begin{align} \nonumber
-y_t & =  \alpha + k_0 x_t + (k_0 + k_1 + k_2)x_{t-1} + (k_0 + 2k_1 + 4k_2)x_{t-2} + \\ & + \dots + (k_0 + 8k_1 + 64k_2)x_{t-8}+u_t 
-\\ \nonumber
+y_t & =  \alpha + k_0 x_t + (k_0 + k_1 + k_2)x_{t-1} + (k_0 + 2k_1 + 4k_2)x_{t-2} + \\ & + \dots + (k_0 + 8k_1 + 64k_2)x_{t-8}+u_t, \\ \nonumber
 y_t & = \alpha + k_0 (x_t + x_{t-1} + \dots + x_{t-8}) + \\ \nonumber & +  k_1(x_{t-1} + 2 x_{t-2} + \dots + 8 x_{t-8}) + \\ \nonumber & + k_2(x_{t-1} + 4x_{t-2} + \dots + 64x_{t-8}) = \\ 
 y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t \label{Alm01}\\
 y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
@@ -1489,19 +1488,20 @@ Assumption for the geometric $\delta_j$ weights:
 \begin{itemize}
 \item $ \delta_{j} = \gamma \rho^{\,j}$, \hspace{0.3cm} $0 < \rho < 1 $, $\hspace{0.3cm} j=0,1,2,\dots $\\
 \smallskip
-~~~~$\left( j \textnormal{~is the lag operator here} \right)$\\
-~~~~$\delta_0 \equiv \gamma$ for convenience of notation (see RDL)\\
-~~~~$|\rho|<1$ not used here (allows sign oscilations in $ \delta_{j}$).\\
+~~~~$\bullet$~$\left( j \textnormal{~is the lag operator here} \right)$\\
+~~~~$\bullet$~\textcolor{blue}{$\delta_0 \equiv \gamma$ for convenience of notation} (see RDL)\\
+~~~~$\bullet$~$|\rho|<1$ not used (it would allow sign oscillations in $ \delta_{j}$).\\
 \smallskip
 $\delta_j = \delta_{j-1}\, \rho, \hspace{0.3cm} 0 < \rho < 1 $.\\
-~~~~alternative notation of the above 
+~~~~$\bullet$~follows from assumption above 
 \end{itemize}
 \vspace{0.3cm}
-Instantaneous propensity (multiplier): $ \delta_0 = \gamma \rho^0 = \gamma$ 
+Instantaneous propensity (multiplier): $ \delta_0 \equiv \gamma = \gamma \rho^0 $ 
 \\ \vspace{0.3cm}
 Long-run propensity (multiplier):
 \\ \vspace{0.3cm}
-$\delta_0+\delta_1+\dots=\gamma(1+\rho+\rho^2+\rho^3+\dots)=\frac{\gamma}{1-\rho}$
+\footnotesize
+$\delta_0+\delta_1+\delta_2 + \dots=\gamma + \gamma \rho + \gamma \rho^2 + \cdots = \gamma(1+\rho+\rho^2+\dots)=\frac{\gamma}{1-\rho}$
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Geometric distributed lag (Koyck) }
@@ -1568,12 +1568,12 @@ With RDLs, impact propensity $\gamma_0 \equiv \delta_0$ can differ in sign from 
 \medskip
 $\delta_h = \rho^{h-1}(\rho \gamma_0 + \gamma_1)$ corresponds to the $x_{t-h}$ variable for $h \geq 1$. \\
 \smallskip
-~ \dots $\delta_0$ may differ in sign from ``lags'', even if $\rho > 0$.\\
+~ \dots $\delta_0$ may differ in sign from ``lags'', even if $0 < \rho < 1$.\\
 ~ \dots for $\rho > 0$, $\delta_h$ doesn't change sign with growing $h \geq 1$. \\
 \bigskip
 Long-run propensity: $\textit{LRP} = \frac{\gamma_0 + \gamma_1}{1-\rho},$\\
 \smallskip
-where $|\rho| < 1$ $\> \Rightarrow$ the sign of LRP follows the sign of $(\gamma_0+\gamma_1)$. \\
+where $(1-\rho) > 0$ $\> \Rightarrow$ the sign of LRP follows the sign of $(\gamma_0+\gamma_1)$. \\
 \medskip
 Also,  $u_t = v_t + \rho v_{t-1} + \rho^2 v_{t-2} + \cdots \> \>  MA(\infty)$
 \end{frame}
