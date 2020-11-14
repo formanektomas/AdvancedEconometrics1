@@ -179,7 +179,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \subsection*{Panel data}
 \begin{frame}{Panel data}
 \begin{itemize}
-\item In the dataset, $N$ individual CS units are followed over $T$ time periods. Typically, $t$ denotes a ``common'' time period (year, quarter, month) at which CS units are observed.
+\item Here, $N$ individual CS units are followed over $T$ time periods. Index $t$ denotes a common time period (year, quarter, month) at which CS units are observed.
 \medskip
 \item Regression model of the form $$y_i = \bm{x}_{it}^{\prime}\bm{\beta} + a_i + \varepsilon_{it},$$ where $i$ denotes CS units and $t$ identifies time periods, $a_i$ is the individual unobserved element  (person, company, group or other CS-unit). 
 \medskip
@@ -192,7 +192,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \bigskip
 \item \textbf{Balanced panels:} observations available for all time periods on all CS units. Often assumed for simplicity of interpretation.
 \bigskip
-\item \textbf{Unbalanced panels:} mechanics of coefficient estimation do not differ. Model interpretation may require formal description of why the panel may be unbalanced.\\Does the random sampling assumption hold? 
+\item \textbf{Unbalanced panels:} mechanics of coefficient estimation do not differ. Model interpretation may require formal description of why the panel may be unbalanced.\\Does the random sampling assumption (CS units) hold? 
 \bigskip
 \item Problems in unbalanced panels may be caused by: 
 \medskip
@@ -208,7 +208,7 @@ $F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur
 \footnotesize
 \begin{itemize}
 \item Short panels: $N \gg T$ \\
-Working with short panels is similar to CS data analysis. If CS units are randomly drawn from a population and $T$ is small and fixed, then asymptotic analysis (properties) hold for arbitrary time dependence and distributional heterogeneity across time.
+Working with short panels is similar to CS data analysis. If CS units are randomly drawn from a population and $T$ is small and fixed, then asymptotic analysis -- asymptotic properties -- hold for arbitrary time dependence and distributional heterogeneity across time.
 \medskip
 \item Long panels: $T \gg N$ \\
 Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations under scrutiny (typically with a common model specification), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate \\(see Greene, chapter 10.2)
@@ -230,11 +230,11 @@ Both CS and TS analysis assumptions apply, specialized estimators exist for larg
 \end{frame}
 %---------------------------------
 \begin{frame}{Basic features and motivation for panel data use}
-\textbf{Variation for the dependent variable and regressors}
+\textbf{Variation for the dependent variable and regressors:}
 \begin{itemize}
-\item Overall variation: variation over time and individuals.
-\item Between variation: variation between individuals.
-\item Within variation: variation within individuals (over time).
+\item overall variation -- variation over time and individuals
+\item between variation -- variation between individuals
+\item within variation -- variation within individuals (over time)
 \end{itemize}
 \tiny
 \begin{table}[]
@@ -261,17 +261,17 @@ $i$ & $t$  & $x_{it}$ & $\overline{x}_i$ & $\overline{x}$ & $x_{it}-\overline{x}
 \begin{frame}{Panel data models}
 \underline{Panel data model -- a structured notation example} \\
 \medskip
-$$y_{it} = \bm{g}_t \bm{\theta} + \bm{z}_i \bm{\delta} + \bm{w}_{it} \bm{\gamma} + a_i + u_{it}$$\\
+$$y_{it} = \bm{g}_t^{\prime} \bm{\theta} + \bm{z}_i^{\prime} \bm{\delta} + \bm{w}_{it}^{\prime} \bm{\gamma} + a_i + u_{it}$$\\
 \medskip
 where \quad $i = 1,2, \dots, N$; $t = 1, 2, \dots, T$, \\
 \medskip
-$\bm{g}_t$ is a vector of aggregate time effects (often time dummies),\\
+$\bm{g}_t^{\prime}$ is a row-vector of aggregate time effects (often time dummies),\\
 \medskip
 $\bm{z}_i$ is a set of time-constant observed variables, \\
 \medskip
 $\bm{w}_{it}$ changes across $i$ and $t$ (for at least some units $i$ and time periods $t$), can include interactions among time-constant and time varying variables, \\
 \medskip
-$\bm{\theta, \delta}$ and $\bm{\gamma}$ -- regression coefficients 
+$\bm{\theta, \delta}$ and $\bm{\gamma}$ -- column vectors of regression coefficients 
 \end{frame}
 %---------------------------------
 \begin{frame}{Panel data models}
@@ -338,7 +338,7 @@ $$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{i}}} + \alpha_2 \myt
 \begin{itemize}
 \item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is identical to $\hat{\bm{\beta}}_{\textnormal{FE}}$ (explained next). 
 \medskip
-\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$ (actually, consistency applies more generally).
+\item $\hat{\bm{\beta}}_{\textnormal{LSDV}}$ is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$.
 \medskip
 \item For $\hat{\bm{\alpha}}$ (vector of individual $\hat{\alpha}_i$ values), LSDV-estimator consistency does not hold: as $N \rightarrow \infty$, information does not accumulate for $a_i$. \\ \bigskip
 \end{itemize}
