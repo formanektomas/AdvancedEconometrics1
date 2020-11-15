@@ -553,8 +553,8 @@ If $a_i$ are uncorrelated with $\bm{x}_{it}$, then it may be appropriate to mode
 \begin{itemize}
 \item RE estimator potentially inconsistent if assumptions not met.
 \item $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
-If we can assume that $a_i$ is uncorrelated with each explanatory variable: $\textnormal{corr}(\bm{x}_{it}, a_i) = 0$; \ $t = 1,2, \dots, T$ \\then we may drop $a_i$ from the equation and $\beta_j$ estimates will remain unbiased.\\
-\item By dropping $a_i$ from the regression, we effectively create a new error term: $v_{it} = a_i + u_{it}$\\
+If we can assume that $a_i$ is uncorrelated with each explanatory variable: $\textnormal{corr}(\bm{x}_{it}, a_i) = 0$; \ $t = 1,2, \dots, T$ \\then we may simply drop $a_i$ from the equation and OLS-based $\beta_j$ estimates will remain unbiased \& consistent -- yet inefficient.\\
+\item By dropping $a_i$ from the regression, we effectively create a new error term: $v_{it} = a_i + u_{it}$.\\
 \medskip
 \item As $a_i$ is time-invariant, the random element $v_{it}$ contains a lot of ``inertia'', i.e. autocorrelation (unless $a_i = 0$).
 \end{itemize}
@@ -583,8 +583,8 @@ RE estimator is a pooled OLS used on the quasi-demeaned data:\\ \medskip
 Interestingly, the FGLS equation is a general form that encompasses both FE and pooled OLS:
 \bigskip
 \begin{align*}
-\hat{\theta} \rightarrow 1 \quad & \rightarrow \quad \textnormal{RE}  \rightarrow \ \textnormal{FE}\\
-\hat{\theta} \rightarrow 0 \quad & \rightarrow \quad \textnormal{RE}  \rightarrow \ \textnormal{Pooled}
+\hat{\theta} \rightarrow 1 \quad & \Rightarrow \quad \textnormal{RE}  \rightarrow \ \textnormal{FE}\\
+\hat{\theta} \rightarrow 0 \quad & \Rightarrow \quad \textnormal{RE}  \rightarrow \ \textnormal{Pooled}
 \end{align*}
 \end{frame}
 %---------------------------------
@@ -628,9 +628,9 @@ RE is asymptotically efficient
 {\small \textbf{Estimated wage equation:}}
 \begin{align*}
 \widehat{\log}(\textit{wage}_{it})
-  = \ & .92 \  \mytikzmark{educ}{\boxed{\textit{educ}_{it}}} - 
-       \textit{black}_{it} + \textit{hisp}_{it}      \\
-( & .011)  \qquad \quad  (.048)  \qquad \quad \ (.043) \\
+  = \ & .092 \  \mytikzmark{educ}{\boxed{\textit{educ}_{it}}} - 0.213~
+       \textit{black}_{it} + 0.054~\textit{hisp}_{it}      \\
+( & .011)  \qquad \quad  ~~(.048)  \qquad \quad \ ~~(.043) \\
 + \ & .106 \ \textit{exper}_{it} - .0047 \ \textit{exper}^2_{it} + .064 \ \textit{married}_{it} \\
 ( & .015)  \qquad \quad \ \  (.0007)  \qquad \quad \ \ (.017) \\
 + \ & .106 \ \textit{union}_{it} +  \textit{time dummies} \\
@@ -641,11 +641,11 @@ RE is asymptotically efficient
     mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.2em, minimum size=2em, text centered, text width=10em},
     myarrow/.style={<-, >=stealth, thin, Red}
 }
-\node[mynode] at (9.4,5.3) (box){RE approach is used because many of the variables are time-invariant. \underline{But is the random effects} \underline{assumption realistic?}};
+\node[mynode] at (9.4,5.1) (box){RE approach is used because many of the variables are time-invariant. \underline{But is the random effects} \underline{assumption realistic?}};
   \draw[myarrow] (educ) -- ++   (box);
 \end{tikzpicture}
 
-\textbf{Random effects or fixed effects?} In economics, unobserved individual effects are rarely uncorrelated with explanatory variables (say, individual ability and education would be correlated). Hence, FE model/estimation is more convincing.
+\textbf{Random effects or fixed effects?} In economics, unobserved individual effects are rarely uncorrelated with explanatory variables (say, individual ability and education would be correlated). CRE model/estimation may be more convincing.
 \end{frame}
 %---------------------------------
 \begin{frame}{CRE estimator}
@@ -656,7 +656,7 @@ Correlated Random Effects (CRE) estimator - a synthesis of the RE and FE approac
 \vspace{0.2cm}
 Specifically, as $a_i$ do not vary over time, it makes sense to allow for their correlation with the time average of $x_{it}:\overline{x}_i = T^{-1} \sum^T_{t=1}x_{it}$
 \vspace{0.2cm}
-\item CRE allows for incorporation of time-invariant regressors (compare to FE).
+\item CRE allows for incorporation of time-invariant regressors into a FE-like estimator (combines RE and FE features).
 \vspace{0.2cm}
 \item CRE allows for convenient testing of FE vs. RE.
 \end{itemize}
@@ -665,17 +665,18 @@ Specifically, as $a_i$ do not vary over time, it makes sense to allow for their 
 \begin{frame}{CRE estimator}
 CRE: The individual-specific effect $a_i$ is split up into a part that is related to the time-averages of the explanatory variables and a part $r_i$ (a time-constant unobservable) that is unrelated to the explanatory variables: 
 \begin{align*}
-\textnormal{For } y_{it} & =  \beta_1 x_{it} + a_i + u_{it}, \\
-&\textnormal{~~we assume (a single-regressor illustration):}\\ 
-a_i & = \alpha + \gamma \overline{x}_i + r_i \textnormal{,~~now: } \textnormal{corr}(r_i, \overline{x}_i) = 0 \Rightarrow \textnormal{corr}(r_i,x_{it}) = 0\\ 
-&\textnormal{~~(because $\overline{x}_i$  is a linear function of  $x_{it}$)}
+\textnormal{For } y_{it} & =  \beta_1 x_{it} + a_i + u_{it},\quad \textnormal{(a single-regressor illustration)} \\
+&\textnormal{~~we assume:}\\ 
+a_i & = \alpha + \gamma \overline{x}_i + r_i, \\
+&\textnormal{~~now: } \textnormal{corr}(r_i, \overline{x}_i) = 0 \Rightarrow \textnormal{corr}(r_i,x_{it}) = 0\\ 
+&\textnormal{~~because $\overline{x}_i$  is a linear function of  $x_{it}$)}
 \end{align*}
 
 By substituting for $a_i$ into the first equation, we obtain: \\
 $y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$ \\
 \bigskip
 \underline{This equation can be estimated using RE}\\
-As $\gamma \overline{x}_i$ controls for the correlation between $a_i$ and $x_{it}$, \\$r_i$ is uncorrelated with regressors.
+Element $\gamma \overline{x}_i$ controls for the correlation between $a_i$ and $x_{it}$, \\$r_i$ is uncorrelated with regressors.
 \end{frame}
 %---------------------------------
 \begin{frame}{CRE estimator}
@@ -683,7 +684,7 @@ CRE: \ $y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$
 \medskip
 \small CRE is a modified RE of the original equation $y_{it} =  \beta_1 x_{it} + a_i + u_{it}$: \\
 \vspace{0.2cm}
-with uncorrelated random effect $r_i$ but with the time averages as additional regressors. \\
+with random effect $r_i$ uncorrelated to other regressors \& with time averages as additional regressors. \\
 \vspace{0.3cm}
 \underline{The resulting CRE estimate for $\beta$ is identical to the FE estimator}. \\ \medskip
 CRE allows for convenient testing of FE vs. RE:
@@ -935,8 +936,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_
 \begin{frame}{Honda (1985) test for individual and time effects}
 $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + u_{it} \qquad$    where $u_{it}=a_i + \lambda_t + \nu_{it} \qquad$ \\Balanced panel assumed.\\ \vspace{0.3cm} \hrule \medskip
 \begin{itemize}
-    \item Honda (1985) provides a test statistic for\\ \vspace{0.3cm} $H_0^{a \lambda}: \sigma_{a}^2=\sigma_{\lambda}^2=0$ against a one-sided alternative
-    \\(not derived as a uniformly most powerful {\it LM} statistics):\\ \medskip
+    \item Honda (1985) provides a test statistic for\\ \vspace{0.3cm} $H_0^{a \lambda}: \sigma_{a}^2=\sigma_{\lambda}^2=0$ against a one-sided alternative.\\ \medskip
     $$
     \textnormal{HO}_{a \lambda} = \frac{\textnormal{HO}_{a}+\textnormal{HO}_{\lambda}}{\sqrt{2}} {\rightarrow}~N(0,1)
     $$
@@ -1042,9 +1042,10 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
         \end{itemize}
         \item For models with individual effects, the test can be based on estimating the model $\hat{e}_{it}=\delta \hat{e}_{i,t-1}+\eta_{it}$ based on residuals of the FD model, where we test $H_0: \delta=-0.5$, corresponding to the null of no serial correlation in the original (undifferenced) residuals $\nu_{it}$. 
         \medskip
-        \item If this $H_0$ is not rejected, we would prefer FE.
+        \item Implementation: \texttt{pwfdtest(..., h0="fe")} \\
+        $H_0:$ no serial correlation in FE-errors $\nu_{it}$, \\if not rejected, use FE.
         \medskip
-        \item Implementation: \texttt{pwfdtest()} from the \texttt{\{plm\}} package. \\ \smallskip  Test does not rely on large–T asymptotics and has good properties in short panels.
+        \item Test does not rely on large–T asymptotics and has good properties in short panels.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1063,10 +1064,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + \nu_{it}$\\ \medskip
         \item \texttt{pwfdtest(..., h0="fd")} \\
         $H_0:$ no serial correlation in FD-errors $e_{it}$, \\if not rejected, use FD.
         \smallskip
-        \item \texttt{pwfdtest(..., h0="fe")} \\
-        $H_0:$ no serial correlation in FE-errors $\nu_{it}$, \\if not rejected, use FE.
-        \smallskip
-        \item If both rejected, whichever estimator is chosen will have serially correlated errors: use the autocorrelation-robust covariance estimators.
+        \item If both null hypotheses \texttt{pwfdtest(..., h0="fe")} and \texttt{pwfdtest(..., h0="fd")} are rejected, whichever estimator is chosen will have serially correlated errors: use the autocorrelation-robust covariance estimators.
     \smallskip
 \end{itemize}
 \end{frame}
@@ -1279,7 +1277,7 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
     \item FE/RE features analogous to \texttt{"white1"}.
     \vspace{1.5cm}
     \footnotesize
-    \item Note (relevant for all three robust estimators): \\ smallskip The counterpart to CS-related sandwich estimator element $\left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]$ would be:
+    \item Note (relevant for all three robust estimators): \\ \smallskip The counterpart to CS-related sandwich estimator element $\left[ \bm{X}^{\prime} \bm{\Sigma} \bm{X} \right]$ would be:
     $$
     \ddot{\bm{X}}^{\prime} \bm{\Sigma} \ddot{\bm{X}} = 
     \sum_{i=1}^N \left( 
@@ -1514,7 +1512,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \small
 \begin{itemize}
     \item Stacked matrix form of the SUR model:\\ \smallskip 
-    $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$\\ \smallskip 
+    $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$, \quad where $\bm{y}$ is $(MT\times 1)$, $\bm{X}$ is block-diagonal, etc.\\ \smallskip 
     \medskip
     \item $\bm{\Sigma}$ can be constructed from the vector of errors $\bm{\varepsilon}^{\prime} = (\bm{\varepsilon}_1^{\prime},\dots,\bm{\varepsilon}_M^{\prime})^{\prime}$\\
     as follows:\\ \medskip
@@ -1581,7 +1579,7 @@ $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]
 \subsection*{SURE \& equations with identical regressors}
 \begin{frame}{Long panels -- SUR models (identical regressors)}
 \small
-SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
+SUR models with identical $\bm{X}_i$ regressors $\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$:\\ \bigskip
 Topic is partially out of scope in terms of long-panel data. However, SUR models with identical regressors have important empirical applications: \\ \bigskip
 \begin{itemize}
     \item VAR models (discussed separately in this course).
@@ -1590,13 +1588,13 @@ Topic is partially out of scope in terms of long-panel data. However, SUR models
     $$
     r_{it} - r_{ft} = \alpha_i + \beta_i (r_{mt} - r_{ft}) + \varepsilon_{it}
     $$
-    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{mt}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated of each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
+    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{mt}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated separately for each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
 \end{itemize}
 \end{frame}
 %---------------------------------
 \begin{frame}{SURE \& equations with identical regressors}
 \small
-SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bigskip
+SUR models with identical $\bm{X}_i$ regressors $\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$:\\ \bigskip
 \begin{itemize}
     \item $\bm{y} = \bm{X\beta}+\bm{\varepsilon},\qquad \textnormal{where:~} \bm{X}=
     \begin{bmatrix} 
@@ -1610,7 +1608,7 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bi
     \quad Note that: \\ \smallskip
     \quad $\bullet$~~ $\bm{X}^{\prime} = (\bm{I}_{\!M} \otimes \bm{X}_i)^{\prime} = \bm{I}_{\!M} \otimes \bm{X}_i^{\prime}$,\\ \smallskip 
     \quad $\bullet$~~ $(\bm{\Sigma} \otimes \bm{I}_T)^{-1} = \bm{\Sigma}^{-1} \otimes \bm{I}_T$, \\ \smallskip
-    \quad $\bullet$~~ $\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} = (\bm{I}_{\!M} \otimes \bm{X}_i^{\prime}) (\bm{\Sigma}^{-1} \otimes \bm{I}_T) = \textcolor{red}{\bm{\Sigma}^{-1} \otimes \bm{X}_i^{\prime}}$,\\ \smallskip 
+    \quad $\bullet$~~ $\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} = (\bm{I}_{\!M} \otimes \bm{X}_i^{\prime}) (\bm{\Sigma}^{-1} \otimes \bm{I}_T) = \textcolor{red}{\bm{\Sigma}^{-1} \otimes \bm{X}_i^{\prime}}$,\\ \bigskip 
     \quad $\bullet$~~ $[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}] = (\bm{\Sigma}^{-1} \! \otimes \! \bm{X}_i^{\prime})(\bm{I}_{\!M} \! \otimes \! \bm{X}_i) = \bm{\Sigma}^{-1} \! \otimes \! \bm{X}_i^{\prime}\bm{X}_i $,\\ \smallskip
     \quad $\bullet$~~ $[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} = \textcolor{blue}{\bm{\Sigma} \! \otimes \! (\bm{X}_i^{\prime}\bm{X}_i)^{-1}}$
 \end{itemize}
@@ -1618,7 +1616,7 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\ \bi
 %---------------------------------
 \begin{frame}{SURE \& equations with identical regressors}
 \small
-SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
+SUR models with identical $\bm{X}_i$ regressors $\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$:\\
 \begin{align*}
     \bm{\hat{\beta}}_{\textnormal{GLS}} &= \textcolor{blue}{[\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1}} \textcolor{red}{\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1}} \bm{y} \\
     &= \textcolor{blue}{(\bm{\Sigma} \! \otimes \! (\bm{X}_i^{\prime}\bm{X}_i)^{-1})}\textcolor{red}{(\bm{\Sigma}^{-1} \otimes \bm{X}_i^{\prime})}\bm{y}\\
@@ -1649,7 +1647,7 @@ SUR models with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$)\\
 \begin{frame}{Long panels -- SUR ``pooled model''}
 \small
 SUR models with the same regressors (identical dimensions \& variable structure across $\bm{X}_i$, yet different `$it$' observations) and with \\
-all coefficient vectors assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\
+all coefficient vectors assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$):\\
 \begin{itemize}
     \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
     can be written in stacked matrix form as:
@@ -1678,7 +1676,7 @@ all coefficient vectors assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{
 \begin{frame}{Long panels -- SUR ``pooled model''}
 \small
 SUR models with the same regressors (identical dimensions \& variables across $\bm{X}_i$, yet different observations) and \\
-all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$)\\ \bigskip
+all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$):\\ \bigskip
 \begin{itemize}
     \item GLS estimator of the SUR ``pooled'' model:\\ \bigskip
     $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ 
@@ -1690,25 +1688,51 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{Long panels -- SUR ``general model''}
+The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\beta}_i$ coefficients:\\ \medskip
+\begin{itemize}
+    \item $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$ model can be written as:\\
+    \bigskip
+    $\begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M
+    \end{bmatrix} = 
+    \begin{bmatrix} 
+    \bm{X}_1 & \bm{0} & \cdots & \bm{0} \\ 
+    \bm{0} & \bm{X}_2 & \cdots & \bm{0} \\ 
+      &   & \vdots &  \\ 
+    \bm{0} & \bm{0} & \cdots & \bm{X}_M \\ 
+    \end{bmatrix}
+    \begin{bmatrix}
+    \bm{\beta}_1 \\ \bm{\beta}_2 \\ \vdots \\ \bm{\beta}_M
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
+    \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$\\
+    \bigskip
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same form as in previous (``pooled'') case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
+    \bigskip
+    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
+\end{itemize}
+\end{frame}
+%---------------------------------
 \subsection*{SURE -- FGLS}
 \begin{frame}{Long panels -- SURE: FGLS estimator}
 \footnotesize
 \begin{itemize}
-    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ \bigskip
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} ~\,= [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ \smallskip
+        \item $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$\\ \bigskip
     \item FGLS estimator is based on OLS-estimated residuals $\bm{e}$:\\ \bigskip
     $\hat{\sigma}_{ij} = \frac{1}{T}\bm{e}_i^{\prime}\bm{e}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$ is estimated as follows: \medskip
     \begin{itemize}
-        \item[1] SURE, $\bm{X}$ is block diagonal with general $\bm{X}_i$ blocks:\\
-        $\hat{\bm{\Sigma}}$ for the general SUR model:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
-        $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{e}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) block-diagonal matrix with $\bm{X}_1,\dots,\bm{X}_M$ on the diagonal \\
-        (same coefficients and residuals from both approaches). \medskip
-        \item[2] SURE, $\bm{X}$ is block diagonal with identical $\bm{X}_i$ blocks:\\ 
-        SUR model with identical regressors: FGLS not relevant as GLS = equation-by-equation OLS (shown previously). \\ \medskip
-        \item[3] SURE, identical $\bm{\beta}_i$, i.e. $\bm{X}$ with $\bm{X}_i$ stacked vertically:  \\ $\hat{\bm{\Sigma}}$ for the ``pooled'' SUR model: 
+    \item[1] SURE, model with identical $\bm{X}_i$ blocks: FGLS not relevant as GLS = equation-by-equation OLS. \\ \medskip
+        \item[2] ``pooled'' case with identical $\bm{\beta}_i$ coefficients, where $\bm{X}$ is $(MT\times K)$:
         $\bm{e}_i$ is a subvector of OLS residuals from 
-        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, \medskip
+        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$.\\ \medskip
+        \item[3] ``general case'' SURE:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
+        $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{e}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) -- same residuals from both approaches. \medskip
+        \medskip
     \end{itemize}
-    \item $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$
+
 \end{itemize}
 \end{frame}
 %---------------------------------
