@@ -1852,7 +1852,7 @@ The mean group estimator (MGE):\\ \medskip
 \end{frame}
 %---------------------------------
 \begin{frame}{Cross-sectional dependence in large panels}
-Residual multi-factor approach:\\ \bigskip
+Residual multi-factor approach\\ \bigskip
 \footnotesize
     \begin{itemize}
         \item Outline of the approach only, detailed discussion is complex and requires definition and discussion of weak/strong XSD.\\ 
@@ -1865,48 +1865,53 @@ Residual multi-factor approach:\\ \bigskip
     \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{frame}{Cross-sectional dependence in large panels}
+Principal component estimator\\ \bigskip
+\footnotesize
+    \begin{itemize}
+        \item Model with strictly exogenous regressors and homogeneous slopes $(\bm{\beta}_i=\bm{\beta})$. Two stage approach:
+        \medskip
+        \item[1] In the first stage, principal components (PCs) are extracted from OLS residuals (which serve as proxies for unobserved variables).
+        \medskip
+        \item[2] In the second stage, an augmented regression model is estimated:\\ \medskip
+        $y_{it}=\bm{\alpha}_i^{\prime} \bm{d}_t + \bm{\alpha}_i^{\prime} \bm{x}_{it} + \bm{\gamma}_i^{\prime} \hat{\bm{f}}_{t} + e_{it}$, \\ \medskip
+        where $\hat{\bm{f}}_{t}$ is a vector of $m$ ``strong'' components of the residuals computed in first stage. PCA \& PCR discussed separately.
+        \textsubscript{ \textcolor{Blue}{\url{https://github.com/formanektomas/4EK417/raw/master/Block2/Block_2.pdf}} }
+        \bigskip \footnotesize
+        \item In principle, this method aims at controlling for XSD through PCs, which leads to unbiased $\bm{\alpha}_i$ and $\bm{\alpha}_i$ estimates. However, if the PCs and regressors are correlated (a common case), this estimator becomes inconsistent. To solve this problem (and related issues), various modifications of this estimator exist.
+        
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\subsection*{Unit root and cointegration in panels}
+\begin{frame}{Unit root and cointegration in panels}
+\footnotesize
+Testing unit root and cointegration hypotheses on panels (as opposed to individual TS) involves multiple complications:\\
+\medskip
+    \begin{itemize}
+        \item large amount of unobserved heterogeneity (CS-specific parameters) obfuscates results,
+        \item assumption of cross-sectional is often violated,
+        \item complicated interpretation of tests, if null hypothesis (UR) is rejected -- ``at least some fraction of CS units is stationary'',
+        \item with $I(1)$ variables, the possibility of both ``within group'' and ``across groups'' cointegration exists,
+        \item complicated asymptotic theory.
+    \end{itemize}
+    \bigskip
+    Unit root and cointegration in panels is a PhD-level topic, not covered by this course. For details, see e.g. Pesaran, M.H.: Time series and panel data econometrics (ch. 31).
+\end{frame}
 %---------------------------------
 \section{Panel data -- additional topics and extensions}
 \begin{frame}{Panel data -- additional topics and extensions}
 \begin{itemize}
-\item Advanced (PhD level) course on panel data \\
+\item Advanced (PhD-level) course on panel data \\
 \textsubscript{\textcolor{Blue}{\url{http://people.stern.nyu.edu/wgreene/Econometrics/PanelDataNotes.htm}} }
 \bigskip
-\item Mixed effects model \\
+\item Linear/generalized linear mixed effects model \\
 Extension to the RE model \\(intercept and -some- coefficients have a random term):
 $$
 y_{it}=\bm{x}_{it}^{\prime} \bm{\beta} + \bm{z}_{it}^{\prime}( \bm{\gamma} + \bm{h}_i) +
 (\alpha + u_i) + \varepsilon_{it}
 $$
-where $\bm{h}_i$ describes random variation of the paremeter(s) across individuals.\\
+where $\bm{h}_i$ describes random variation of the parameter(s) across individuals.\\
 \medskip
 
 \textsubscript{ \textcolor{Blue}{\url{http://www.bodowinter.com/tutorial/bw_LME_tutorial1.pdf}} } \\
