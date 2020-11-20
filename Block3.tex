@@ -1741,9 +1741,7 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
     \begin{itemize}
         \item Heterogeneous panels with strictly exogenous regressors
         \bigskip
-        \item Cross-sectional dependence in panels
-        \bigskip
-        \item Spatial panel models
+        \item Cross-sectional dependence in panels \\ \smallskip Spatial panel models
         \bigskip
         \item Unit root and cointegration in panels\\ \bigskip ~\\ \bigskip
     \end{itemize}
@@ -1752,6 +1750,7 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
     Models and notation in this section mostly follow from:\\ Pesaran, M.H.: Time series and panel data econometrics.
 \end{frame}
 %---------------------------------
+\subsection*{Heterogeneous panels with strictly exogenous regressors}
 \begin{frame}{Heterogeneous panels with strictly exogenous regressors}
     \begin{itemize}
         \item For stationary variables, the Swamy (1970) estimator is based on a panel model with $K$ strictly exogenous regressors:\\ \medskip 
@@ -1809,9 +1808,60 @@ Swamy estimator:\\ \medskip
         $~~~~~~=\left( \displaystyle\sum_{i=1}^N 
         \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{X}_i \right)^{-1}
         \displaystyle\sum_{i=1}^N 
-        \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{y}_i$ 
+        \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{y}_i$, 
         \bigskip
-        \item 
+        \item var$\left( \hat{\bm{\beta}}_{\textnormal{SW}} \right) = \left( \displaystyle\sum_{i=1}^N 
+        \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{X}_i \right)^{-1}$,\\ \medskip
+        and the $\hat{\bm{\Sigma}}_i$ elements (from $\hat{\sigma}^2_i$ and $\hat{\bm{\Omega}}_{\eta}$) can be obtained through separate OLS estimation across individual $i$-units.\\ \medskip
+        \item If errors $u_{it}$ and $\bm{\eta}_i$ are normally distributed, parameters of the model $\bm{\theta}=(\bm{\beta},\bm{\Omega}_{\eta}, \sigma^2_i)$ can be estimated by ML (may be computationally expensive).
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Heterogeneous panels with strictly exogenous regressors}
+The mean group estimator (MGE):\\ \medskip
+    \begin{itemize}
+        \item Alternative to Swamy's estimator (stationary variables). Defined as a simple average of OLS estimators for $\hat{\bm{\beta}}_i$:\\
+        \bigskip
+        \item $\hat{\bm{\beta}}_{\textnormal{MG}} =
+        \frac{1}{N} \displaystyle\sum_{i=1}^N \hat{\bm{\beta}}_i\,,$\\ \medskip
+        where \\ \smallskip
+        $\hat{\bm{\beta}}_i = (\bm{X}_i^{\prime} \bm{X}_i)^{-1}\bm{X}_i^{\prime} \bm{y}_i\,,$
+        \medskip
+        \item var$\left( \hat{\bm{\beta}}_{\textnormal{MG}} \right) =
+        \frac{1}{N(N-1)} \displaystyle\sum_{i=1}^N
+        \left( \hat{\bm{\beta}}_i - \hat{\bm{\beta}}_{\textnormal{MG}}  \right)
+        \left( \hat{\bm{\beta}}_i - \hat{\bm{\beta}}_{\textnormal{MG}}  \right)^{\prime}$,
+        \medskip
+        \item MGE only possible if $N$ and $T$ are sufficiently large. It is applicable irrespective of random (Swamy-like) or ``other'' $\bm{\beta}$-parameter type of distribution.
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\subsection*{Cross-sectional dependence in panels}
+\begin{frame}{Cross-sectional dependence in large panels}
+    \begin{itemize}
+        \item Ignoring XSD may have serious consequences on estimator properties.
+        \medskip
+        \item \textbf{Residual multi-factor approach:} XSD can be characterized by a small number of unobserved common factors.
+        \medskip
+        \item \textbf{Spatial dependency approach:} discussed separately in the course 4EK417.\\ \textsubscript{ \textcolor{Blue}{\url{https://github.com/formanektomas/4EK417/raw/master/Block3/Block_3.pdf}} }
+        \bigskip
+        \item Compare to other panel dimensions:\\ \smallskip 
+        With $N \gg T$, we may use spatial panels (data permitting). \\
+        With $T \gg N$, we use SURE.\\
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Cross-sectional dependence in large panels}
+Residual multi-factor approach:\\ \bigskip
+\footnotesize
+    \begin{itemize}
+        \item Outline of the approach only, detailed discussion is complex and requires definition and discussion of weak/strong XSD.\\ 
+        \bigskip
+        \item $y_{it}=\bm{\alpha}_i^{\prime} \bm{d}_t + \bm{\beta}_i^{\prime} \bm{x}_{it} + u_{it}$\\ \bigskip
+        is a heterogeneous panel data model where $\bm{d}_t$ is a $(N\!\times\!1)$ vector of common effects (intercepts, seas. dummies, etc.), $\bm{x}_{it}$ is a $(K\!\times\!1)$ vector of observed individual-specific regressors and $u_{it}$ have the following common factor structure:\\ \bigskip
+        $u_{it} = \gamma_{i1}f_{1t} + \gamma_{i2}f_{2t} + \dots + \gamma_{im}f_{mt} + e_{it}$\\
+        \bigskip
+        where $\bm{f}_t=(f_{1t},f_{2t},\dots,f_{mt})^{\prime}$ is an $m$-dimensional vector of unobserved common factors and $\bm{\gamma}$ is a corresponding vector of factor loadings (parameters).
     \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1843,13 +1893,9 @@ Swamy estimator:\\ \medskip
 
 
 
-
-
-
-
 %---------------------------------
 \section{Panel data -- additional topics and extensions}
-\begin{frame}{Panel data - Extensions}
+\begin{frame}{Panel data -- additional topics and extensions}
 \begin{itemize}
 \item Advanced (PhD level) course on panel data \\
 \textsubscript{\textcolor{Blue}{\url{http://people.stern.nyu.edu/wgreene/Econometrics/PanelDataNotes.htm}} }
