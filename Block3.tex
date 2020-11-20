@@ -1736,40 +1736,82 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
 \end{itemize}
 \end{frame}
 %---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%---------------------------------
-\section{Large panel data sets -- introduction to estimators and tests}
-\begin{frame}{Large panels -- introduction to estimators and tests}
+\section{Large panel data sets -- introduction}
+\begin{frame}{Large panels -- introduction}
     \begin{itemize}
-        \item Estimation methods - repetition from BSc courses
+        \item Heterogeneous panels with strictly exogenous regressors
         \bigskip
-        \item Choosing estimators: assumptions and tests
+        \item Cross-sectional dependence in panels
         \bigskip
-        \item Robust inference (autocorrelation and heteroscedasticity)
+        \item Spatial panel models
+        \bigskip
+        \item Unit root and cointegration in panels\\ \bigskip ~\\ \bigskip
+    \end{itemize}
+    
+    \footnotesize
+    Models and notation in this section mostly follow from:\\ Pesaran, M.H.: Time series and panel data econometrics.
+\end{frame}
+%---------------------------------
+\begin{frame}{Heterogeneous panels with strictly exogenous regressors}
+    \begin{itemize}
+        \item For stationary variables, the Swamy (1970) estimator is based on a panel model with $K$ strictly exogenous regressors:\\ \medskip 
+        \item $y_{it}=\displaystyle\sum_{k=1}^K \beta_{ki} x_{kit} + u_{it}, \qquad i=1,\dots,N;\quad t=1,\dots,T$,\\ \medskip
+        where coefficients $\bm{\beta}_{i}$ are random, with constant mean and variance-covariances:\\ \medskip
+        $\bm{\beta}_{i}=\bm{\beta}+\bm{\eta}_i \, ,$ \\ \medskip
+        with:\\ \medskip
+        \quad $E(\bm{\eta}_i)=\bm{0}$,\\
+        \quad $E(\bm{\eta}_i \bm{x}_{it}^{\prime})=\bm{0}$,\\
+        \quad $E(\bm{\eta}_i,\bm{\eta}_j)= 
+        \begin{cases}
+            \bm{\Omega}_{\eta}, & \textnormal{if~~} i=j,\\
+            \bm{0}, & \textnormal{if~~} i \neq j,
+        \end{cases}$ \\
+        \quad and $u_{it}$ is \textit{iid} across $i$ and $t$ and var$(u_{it})=\sigma^2_i$.
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Heterogeneous panels with strictly exogenous regressors}
+Swamy estimator:\\ \smallskip
+    \begin{itemize}
+        \item Using the substitution $\bm{\beta}_{i}=\bm{\beta}+\bm{\eta}_i$, we can write the model in a stacked form:\\ \smallskip
+        \item $\bm{y}_i = \bm{X}_i\bm{\beta}+\bm{v}_i$, \qquad 
+        with \qquad 
+        $\bm{v}_i=\bm{X}_i\bm{\eta}_i+\bm{u}_i$,\\ \medskip
+        which can be re-cast as:\\ \medskip
+        $\bm{y}= \bm{X \beta} + \bm{v}$,
+        where:\\ \footnotesize \medskip
+        $\bm{y}\! = \!\begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_N \\ 
+    \end{bmatrix}\!,~ \bm{X}\! =\!
+    \begin{bmatrix}
+    \bm{X}_1 \\ \bm{X}_2 \\ \vdots \\ \bm{X}_N \\ 
+    \end{bmatrix}\!,~ \bm{v} \!=\!
+    \begin{bmatrix}
+    \bm{v}_1 \\ \bm{v}_2 \\ \vdots \\ \bm{v}_N \\ 
+    \end{bmatrix}$,\\ \medskip
+    $\bm{\Sigma} = E(\bm{vv}^{\prime})\!=\!
+    \begin{bmatrix} 
+    \bm{\Sigma}_1 & \bm{0} & \cdots & \bm{0} \\ 
+    \bm{0} & \bm{\Sigma}_2 & \cdots & \bm{0} \\ 
+      &   & \ddots &  \\ 
+    \bm{0} & \bm{0} & \cdots & \bm{\Sigma}_N \\ 
+    \end{bmatrix}\!$, \quad and where \\ \smallskip
+    $\bm{\Sigma_i} = \sigma_i^2 \bm{I}_T + \bm{X}_i \bm{\Omega}_{\eta} \bm{X}_i^{\prime}$.
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Heterogeneous panels with strictly exogenous regressors}
+Swamy estimator:\\ \medskip
+    \begin{itemize}
+        \item $\hat{\bm{\beta}}_{\textnormal{SW}} = 
+        \left( \bm{X}^{\prime} \bm{\Sigma}^{-1} \bm{X}
+        \right)^{-1} \bm{X}^{\prime} \bm{\Sigma}^{-1} \bm{y}$\\ \medskip
+        $~~~~~~=\left( \displaystyle\sum_{i=1}^N 
+        \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{X}_i \right)^{-1}
+        \displaystyle\sum_{i=1}^N 
+        \bm{X}_i^{\prime} \bm{\Sigma}_i^{-1} \bm{y}_i$ 
+        \bigskip
+        \item 
     \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1783,8 +1825,30 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %---------------------------------
-\section{Panel data -- advanced topics and extensions}
+\section{Panel data -- additional topics and extensions}
 \begin{frame}{Panel data - Extensions}
 \begin{itemize}
 \item Advanced (PhD level) course on panel data \\
