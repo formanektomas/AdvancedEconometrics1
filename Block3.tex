@@ -1317,6 +1317,8 @@ $y_{it} = \alpha + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\ \medskip
         \bigskip
         \item Long panels and the SUR model / SURE
         \bigskip
+        \item Long panels and the general SUR model
+        \bigskip
         \item SURE \& equations with identical regressors
         \bigskip
         \item SURE \& ``pooled'' model
@@ -1472,6 +1474,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
+\subsection*{Long panels -- general SUR models}
 \begin{frame}{Long panels -- general SUR models}
 \footnotesize
 \begin{itemize}
@@ -1505,6 +1508,33 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
     \item Equation by equation OLS estimation: consistent. \\
     \medskip
     \item GLS is efficent w.r.t. OLS: uses information on contemporaneous correlation among errors as in the matrix $\bm{\Sigma}= [\sigma_{ij}]$.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- SUR ``general model''}
+The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\beta}_i$ coefficients:\\ \medskip
+\begin{itemize}
+    \item $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$ model can be written as:\\
+    \bigskip
+    $\begin{bmatrix}
+    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M
+    \end{bmatrix} = 
+    \begin{bmatrix} 
+    \bm{X}_1 & \bm{0} & \cdots & \bm{0} \\ 
+    \bm{0} & \bm{X}_2 & \cdots & \bm{0} \\ 
+      &   & \vdots &  \\ 
+    \bm{0} & \bm{0} & \cdots & \bm{X}_M \\ 
+    \end{bmatrix}
+    \begin{bmatrix}
+    \bm{\beta}_1 \\ \bm{\beta}_2 \\ \vdots \\ \bm{\beta}_M
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
+    \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$\\
+    \bigskip
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same form as in previous (``pooled'') case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
+    \bigskip
+    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1685,33 +1715,6 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
     and $\bm{\beta}$ is ($K\times 1$) instead of the ($MK\times 1$) for the general SUR model.\\
     \bigskip
     \item General note: GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
-\end{itemize}
-\end{frame}
-%---------------------------------
-\begin{frame}{Long panels -- SUR ``general model''}
-The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\beta}_i$ coefficients:\\ \medskip
-\begin{itemize}
-    \item $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$ model can be written as:\\
-    \bigskip
-    $\begin{bmatrix}
-    \bm{y}_1 \\ \bm{y}_2 \\ \vdots \\ \bm{y}_M
-    \end{bmatrix} = 
-    \begin{bmatrix} 
-    \bm{X}_1 & \bm{0} & \cdots & \bm{0} \\ 
-    \bm{0} & \bm{X}_2 & \cdots & \bm{0} \\ 
-      &   & \vdots &  \\ 
-    \bm{0} & \bm{0} & \cdots & \bm{X}_M \\ 
-    \end{bmatrix}
-    \begin{bmatrix}
-    \bm{\beta}_1 \\ \bm{\beta}_2 \\ \vdots \\ \bm{\beta}_M
-    \end{bmatrix} + 
-    \begin{bmatrix}
-    \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
-    \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$\\
-    \bigskip
-    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same form as in previous (``pooled'') case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
-    \bigskip
-    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
 \end{itemize}
 \end{frame}
 %---------------------------------
