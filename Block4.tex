@@ -103,7 +103,7 @@ Usually, $\textit{IQ}$ is not a good IV - it's often correlated with $\textit{ab
       & & u
     \end{matrix}
     \qquad \qquad \textnormal{and} \qquad
-    \frac{\textnormal{d} \, y}{\textnormal{d} \, x} = \beta_1 
+    \frac{\textnormal{d} \, y}{\textnormal{d} \, x} = \beta_1 = \frac{\textnormal{cov}(y,x)}{\textnormal{var}(x)}
     $$
     ~\\
     \item $y_i = \bm{x}_i \bm{\beta} + u_i$ \qquad MLRM with exogenous regressor(s):
@@ -149,9 +149,7 @@ Usually, $\textit{IQ}$ is not a good IV - it's often correlated with $\textit{ab
       & & u & &
     \end{matrix}
     \qquad \qquad \textnormal{and} \qquad
-    \frac{\textnormal{d} \, y}{\textnormal{d} \, x} = 
-    \frac{\textnormal{d} \, y ~/~ \textnormal{d} \, z}
-    {\textnormal{d} \, x ~/~ \textnormal{d} \, z}
+   \beta_1 = \frac{\textnormal{cov}(z,y)}{\textnormal{cov}(z,x)}
     $$
     \item $y_i = \bm{x}_i \bm{\beta} + u_i$ \qquad IVR in MLRMs:
     \begin{align*}
@@ -163,10 +161,10 @@ Usually, $\textit{IQ}$ is not a good IV - it's often correlated with $\textit{ab
     where $\bm{Z}$ is a matrix of instruments, same dimensions as $\bm{X}$.
     \small{
     \begin{itemize}
-        \item $\bm{Z}$ follows from $\bm{X}$, each endogenous regressor (column) is replaced by unique instrument (full column ranks of $\bm{X}$,$\bm{Z}$).
-        \item Exact identification: \# endogenous regressors~ =~ \# IVs
-        \item In IVR, $R^2$ has no interpretation (SST $\neq$ SSE + SSR).
-        \item For IVR, we use specialized robust standard errors
+        \item Exact identification: \# endogenous regressors~ =~ \# IVs,
+        \item $\bm{Z}$ follows from $\bm{X}$, each endogenous regressor (column) is replaced by unique instrument (full column ranks of $\bm{X}$,$\bm{Z}$),
+        \item in IVR, $R^2$ has no interpretation (SST $\neq$ SSE + SSR),
+        \item for IVR, we use specialized robust standard errors,
         \item \textbf{IVR estimator is biased and consistent.}
     \end{itemize}
     }
@@ -440,9 +438,11 @@ With multiple endogenous regressors, reduced forms for each endogenous regressor
 \begin{itemize}
 \item The standard errors from the OLS second stage regression are biased and inconsistent estimators with respect to the original structural equation (SW handles this problem automatically).
 \vspace{0.3cm}
-\item If there is one endogenous variable and one instrument then 2SLS = IV
+\item If there is one endogenous variable and one instrument then 2SLS = IVR
 \vspace{0.3cm}
-\item With multiple endogenous variables and/or multiple instruments, 2SLS is a special case of IVR.
+\item With multiple endogenous variables and/or multiple instruments, 2SLS is a special case of IVR.\\ \medskip
+\footnotesize
+Example:\\ Consider MLRM with one endogenous regressor and 3 relevant IVs. Choosing any IV (or any ad-hoc linear combination of IVs) results in IVR (MM-type \& consistent estimator). 2SLS (GMM-type approach) provides the ``best'' IVR estimator -- lowest variance in the $2^{\textnormal{nd}}$ stage comes from best fit between IVs and endogenous regressor in $1^{\textnormal{st}}$ stage.
 \vspace{0.3cm}
 \end{itemize}
 \end{frame}
@@ -465,7 +465,7 @@ With multiple endogenous regressors, reduced forms for each endogenous regressor
 \begin{itemize}
 \item Corrections for heteroscedasticity/serial correlation analogous to OLS
 \vspace{0.3cm}
-\item 2SLS/IV estimamtion easily extends to time series and panel data situations
+\item 2SLS/IVR estimamtion easily extends to time series and panel data situations
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -479,7 +479,7 @@ LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instrume
 & \rightarrow \hat{\beta}_{1,\textnormal{OLS}} \enspace \parbox[t]{24em}{ is a \textcolor{red}{biased and inconsistent estimator} \\(asymptotic errors)}\\
  & \rightarrow \hat{\beta}_{1, \textnormal{IV}} \enspace \parbox[t]{24em}{ is a \textcolor{blue}{biased and consistent estimator} (increased \\sample size (\textit{n}) lowers estimator bias and s.e.)} 
 \end{align*}
-\underline{IVR disadvantages (price for the IV regression)}:
+\underline{IVR disadvantages (price for the IVR)}:
 \begin{itemize}
 \item $\textnormal{s.e.}(\hat{\beta}_{1, \textnormal{IV}}) > \textnormal{s.e.}(\hat{\beta}_{1,\textnormal{OLS}})$
 \item $\hat{\beta}_{1, \textnormal{IV}}$ is biased, even if $y_2$ is actually exogenous\\
@@ -772,6 +772,30 @@ Estimation assumptions and ``problems'' involved:
 \medskip
 \item For the municipality policy, the $1^{st}$ equation is interesting: what is the impact of exogenous increase of police force on the murder rate? 
 \item However, the number of police officers  is not exogenous (simultaneity problem). 
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{SEM examples}
+SEM equation properties (for each equation):\\
+\smallskip
+\begin{itemize}
+\item Variables with proper ceteris paribus interpretation
+\item Structural equations describe process from different perspectives\\
+\begin{itemize}
+    \item Labor market: employees \quad ~vs. \quad employers
+    \item Criminality: \quad authorities \quad vs. \quad ``criminals''
+\end{itemize}
+\end{itemize} \bigskip
+\small
+Counter example: households' saving and housing expendituress:\\
+\medskip
+\qquad $\textit{housing} = \beta_{10} + \beta_{11} \textit{saving} ~\,+  \beta_{12} \textit{income} + \cdots + u_1$ \\
+\qquad \hspace{0.07cm} $\textit{saving} = \beta_{20} +\beta_{21} \textit{housing} +  \beta_{22} \textit{income} + \cdots + u_2$ \\
+\medskip
+\begin{itemize}
+    \item Both equations model household behavior
+    \item Both endogenous variables chosen by the same agent
+    \item Cannot reasonably change \textit{income} and hold \textit{saving} fixed (first equation)
 \end{itemize}
 \end{frame}
 %---------------------------------------------
