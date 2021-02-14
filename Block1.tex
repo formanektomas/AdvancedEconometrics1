@@ -178,7 +178,7 @@ LS and ML estimators belong to a class of \textbf{M estimators} \\ \footnotesize
 Assumptions for asymptotic properties of extremum estimators:
 \medskip
 \begin{itemize}
-    \item[1] \textbf{Parameter space:} must be convex and the parameter vector that is the object of estimation must be point in its interior. Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms \\(settings such as $\sigma^2 > 0$ are OK).
+    \item[1] \textbf{Parameter space:} must be convex and the parameter vector that is the object of estimation must be point in its interior. Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms \\(settings such as $\sigma^2 \geq 0$ are OK).
     \medskip
     \item[2] \textbf{Criterion function:} must be concave in the parameters (concave in the neighborhood of the true parameter vector). Criterion functions need not be globally concave. In such situation, there may be multiple optima (often associated with poor model specification).
 \end{itemize}
@@ -186,6 +186,7 @@ Assumptions for asymptotic properties of extremum estimators:
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
 Assumptions for asymptotic properties of extremum estimators:
+\small
 \medskip
 \begin{itemize}
     \item[3] \textbf{Identifiability of parameters:} has a relatively complex technical definition (anything like ``true parameters $\bm{\theta}_0$ are identified if...'' is problematic - leads to a paradox if condition is not met). Simple way to secure identification:
@@ -193,7 +194,7 @@ Assumptions for asymptotic properties of extremum estimators:
     \begin{itemize}
         \item \textbf{LS:} for a given set of any two different parameter vectors $\bm{\theta}$ and $\bm{\theta}_0$, a vector of  observations $\bm{x}_i$ must exist (for some $i$), leading to different conditional mean function ($\hat{y}_i$).
         \smallskip
-        \item \textbf{ML:} For any two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, a data vector $(y_i, \bm{x}_i)$ must exist, for which it is possible to produce different values of the density function $f(y_i|\bm{x}_i,\bm{\theta})$. \\ \smallskip Note: identifiability does not rule out the  $f(y_i|\bm{x}_i,\bm{\theta}) = f(y_i|\bm{x}_{\ell},\bm{\theta}), ~~i \neq \ell$ \\situation (A2 full rank condition must be observed).
+        \item \textbf{ML:} For any two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, a data vector $(y_i, \bm{x}_i)$ must exist, which generate different values of density function: $f(y_i|\bm{x}_i,\bm{\theta}) \neq f(y_i|\bm{x}_i,\bm{\theta}_0)$. \\ \smallskip Note: identifiability does not rule out \\$f(y_i|\bm{x}_i,\bm{\theta}) = f(y_{\ell}|\bm{x}_{\ell},\bm{\theta}), \textnormal{~~where},~~y_i=y_{\ell},~~\bm{x}_i \neq \bm{x}_{\ell}$ \\(but the A2 full rank condition must be observed).
         \smallskip
         \item \textbf{GMM:} sufficient condition for identification:\\ $E[\overline{\bm{m}}(\textbf{data},\bm{\theta})] \neq \bm{0}$ if $\bm{\theta} \neq \bm{\theta}_0$.
     \end{itemize}
@@ -207,7 +208,7 @@ Assumptions for asymptotic properties of extremum estimators:
     \item[4] \textbf{Behavior of the data:} Grenander conditions for well-behaved data:
     \medskip
     \begin{itemize}
-        \item[G1] For each $\bm{x}_k$ column of $\bm{X}$ and $d_{nk}^2 = \bm{x}_k^{\prime}\bm{x}_k = \sum_{i=1}^n x_{ik}^2$, \\it must hold that: $\lim_{n \rightarrow \infty} d_{nk}^2 = + \infty$. Sum of squares continue to grow with sample size \\($\bm{x}_k$ does not degenerate into a series of 0).
+        \item[G1] For each $\bm{x}_k$ column of $\bm{X}$ and $d_{nk}^2 = \bm{x}_k^{\prime}\bm{x}_k = \sum_{i=1}^n x_{ik}^2$, \\it must hold that: $\lim_{n \rightarrow \infty} d_{nk}^2 = + \infty$.\\ Sum of squares continue to grow with sample size, i.e. $\bm{x}_k$ does not degenerate into a series of 0.
         \smallskip
         \item[G2] The $\lim_{n \rightarrow \infty} x_{ik}^2 / d_{nk}^2 = 0$ for all $i=1,2,\dots,n$. Single observations become less important as sample size grows. No single observation will dominate $\bm{x}_k^{\prime}\bm{x}_k$.
         \smallskip
@@ -217,7 +218,7 @@ Assumptions for asymptotic properties of extremum estimators:
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
-\textbf{Quick convergence recap:} \\ \bigskip
+\textbf{Quick convergence recap (terminology):} \\ \bigskip
 \begin{itemize}
 \item Convergence in probability: a sequence of random variables $X_1, X_2, X_3, \dots$ converges in probability to a random variable $X$, denoted as $X_n \overset{p}{\rightarrow} X$, if:
 $$
@@ -574,9 +575,9 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Maximum likelihood estimator}
-\textbf{Basic MLE assumptions}\\
+\textbf{Basic MLE assumptions}\\ \medskip
 \begin{itemize}
-    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms (settings such as $\sigma^2 > 0$ are OK).
+    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms.
     \item \textbf{Identifiability:} The parameter vector $\bm{\theta}$ is identified (estimable), if for two vectors, $\bm{\theta}^{*} \neq \bm{\theta}$ and for some data observations $\bm{x}$, $L(\bm{\theta}^{*}|\bm{x}) \neq L(\bm{\theta}|\bm{x})$.
     \item \textbf{Well-behaved data:} Laws of large numbers (LLN) apply. Some form of CLT can be applied to the gradient (i.e. for the estimation method).
     \item \textbf{Regularity conditions:} ``well behaved'' derivatives of $f(y_i|\bm{\theta})$ with respect to $\bm{\theta}$ (see Greene, chapter 14.4.1).
@@ -584,7 +585,7 @@ $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lamb
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Maximum likelihood estimator}
-\textbf{MLE properties}\\
+\textbf{MLE properties}\\ \medskip
 \begin{itemize}
     \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}_0$ ~~($\bm{\theta}_0$ is the true parameter)
     \medskip
@@ -687,7 +688,7 @@ We have a ML estimate $\hat{\bm{\theta}}_R$ -- i.e. ML estimation of the restric
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Maximum likelihood estimator}
-\textbf{MLE -- summary}\\
+\textbf{MLE -- summary}\\ \medskip
 \begin{itemize}
 \item MLE is only possible if we know the form of the probability distribution function for the population (Normal, Poisson, Negative Binomial, etc.).
 \medskip
