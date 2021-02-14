@@ -68,7 +68,7 @@ $$
     \item[A4] \textbf{Homoscedastic \& nonautocorrelated disturbances:}$$E[\bm{\varepsilon\varepsilon}^{\prime}]=\sigma^2\bm{I}_n$$ Homoscedasticity: $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2, \qquad \forall~i=1,\dots,n$.\\Independent disturbances: $\textnormal{cov}[\varepsilon_t,\varepsilon_s|\bm{X}]=0, \qquad \forall~t \neq s$.\\ \smallskip 
     \tiny{
     \begin{itemize}
-        \item GARCH models [i.e. ARCH(1): $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$] do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$, but $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notation but left as implicit.
+        \item GARCH models [i.e. ARCH(1): $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}]=\sigma^2+\alpha \varepsilon_{t-1}$] do not violate the conditional variance assumption $\textnormal{var}[\varepsilon_i|\bm{X}]=\sigma^2$. However, $\textnormal{var}[\varepsilon_t|\varepsilon_{t-1}] \neq \textnormal{var}[\varepsilon_t]$, with conditioning on $\bm{X}$ omitted from notation but left as implicit.
     \end{itemize}}
     \normalsize
     \item[A5] \textbf{DGP of \textit{X}:} Variables in $\bm{X}$ may be fixed or random.
@@ -140,9 +140,10 @@ Properties of estimators - classification:
 \begin{itemize}
 \item \textbf{Unbiasedness}: can be described as $E(\hat{\bm{\theta}})= \bm{\theta}$. \\Rarely useful in finite (small) sample context. Even asymptotically (large sample), discussion would be directed towards consistency (far more desirable feature).
 \medskip
-\item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}$. \\Holds if $\hat{\bm{\theta}}$ is an unbiased estimator of $\bm{\theta}$ and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~i.e. [$\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
+\item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}$. \\
+As $n \rightarrow \infty$, vector $\hat{\bm{\theta}}$ is an unbiased estimator of $\bm{\theta}$ and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~[i.e. $\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
 \begin{itemize}
-\item Consistent estimators: unbiased \& their variance shrinks to zero as sample size grows (entire population is used).
+\item Consistent estimators: unbiased (asymptotically unbiased) \& their variance shrinks to zero as sample size grows \\(entire population is used).
 \item Minimal requirement for estimator used in statistics or econometrics.
 \item If some estimator is not consistent, then it does not provide estimates of population $\theta$ values, even with unlimited data.
 \item Unbiased estimators are not necessarily consistent. 
@@ -194,7 +195,7 @@ Assumptions for asymptotic properties of extremum estimators:
     \begin{itemize}
         \item \textbf{LS:} for a given set of any two different parameter vectors $\bm{\theta}$ and $\bm{\theta}_0$, a vector of  observations $\bm{x}_i$ must exist (for some $i$), leading to different conditional mean function ($\hat{y}_i$).
         \smallskip
-        \item \textbf{ML:} For any two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, a data vector $(y_i, \bm{x}_i)$ must exist, which generate different values of density function: $f(y_i|\bm{x}_i,\bm{\theta}) \neq f(y_i|\bm{x}_i,\bm{\theta}_0)$. \\ \smallskip Note: identifiability does not rule out possibility of:\\$f(y_i|\bm{x}_i,\bm{\theta}) = f(y_{\ell}|\bm{x}_{\ell},\bm{\theta}), \textnormal{~~where},~~y_i=y_{\ell},~~\bm{x}_i \neq \bm{x}_{\ell}$.
+        \item \textbf{ML:} For any two parameter vectors $\bm{\theta} \neq \bm{\theta}_0$, a data vector $(y_i, \bm{x}_i)$ must exist, which generates different values of density function: $f(y_i|\bm{x}_i,\bm{\theta}) \neq f(y_i|\bm{x}_i,\bm{\theta}_0)$. \\ \smallskip Note: identifiability does not rule out possibility of:\\$f(y_i|\bm{x}_i,\bm{\theta}) = f(y_{\ell}|\bm{x}_{\ell},\bm{\theta}), \textnormal{~~where},~~y_i=y_{\ell},~~\bm{x}_i \neq \bm{x}_{\ell}$.
         \smallskip
         \item \textbf{GMM:} sufficient condition for identification:\\ $E[\overline{\bm{m}}(\textbf{data},\bm{\theta})] \neq \bm{0}$ if $\bm{\theta} \neq \bm{\theta}_0$.
     \end{itemize}
