@@ -627,9 +627,9 @@ estimates are asymptotically normally distributed.\\ \medskip
 \begin{itemize}
     \item[1] \textbf{Likelihood ratio test:} If the restriction $\bm{h}(\bm{\theta}) = \bm{0}$ is valid, then imposing it should not lead to a large reduction in the log-likelihood function.
     $$
-    \textit{LR}~=~-2(LL_U - LL_R) \underset{H_0}{\sim} \chi^2(r),
+    \textit{LR}~=~2(LL_U - LL_R) \underset{H_0}{\sim} \chi^2(r),
     $$
-    where $LL_U$ is the $LL$ of unconstrained model, $LL_R$ denotes restricted model and $r$ is the number of restrictions imposed. To do this test you have to run two models (one nested) and get the results of both.
+    where $LL_U$ is the $LL$ of unconstrained model, $LL_R$ denotes restricted model and $r$ is the number of restrictions imposed. To do this test you have to estimate two models (one nested) and get the results of both.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
