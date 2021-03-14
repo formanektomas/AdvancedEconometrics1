@@ -327,8 +327,8 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
     ~~~which is non-linear in parameters ($\rho \bm{\beta}$) and can be \\ \medskip
     \item[(a)] Estimated by NLS (general regressors)\\ \medskip
     \item[(b)] Re-arranged into \textbf{generalized first differences} specification \\
-    (exogenous regressors)\\ \medskip
-    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$,\\ \medskip
+    for example: $(x_{tj}-\rho x_{t-1,j})$, where $|\rho|<1$.\\ \medskip
+    \item $(y_t - \rho y_{t-1}) =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$,\\ \medskip
     ~~~and estimated by `Hildreth-Lu', `Cochrane-Orctutt' \\ 
     ~~~or `Prais-Winsten' methods.
 \end{itemize}
@@ -338,7 +338,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
-    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+    \item $(y_t - \rho y_{t-1}) =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
 \end{itemize}
 \medskip
 \textbf{Hildreth-Lu:} \\ \medskip
@@ -355,7 +355,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
-    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+    \item $(y_t - \rho y_{t-1}) =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
 \end{itemize}
 \medskip
 \textbf{Cochrane-Orctutt:} \\ \medskip
@@ -374,7 +374,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
-    \item $y_t - \rho y_{t-1} =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
+    \item $(y_t - \rho y_{t-1}) =  ( \bm{x}_t^{\prime} - \rho \bm{x}_{t-1}^{\prime}) \bm{\beta} + \varepsilon_t$.
 \end{itemize}
 \medskip
 \textbf{Prais-Winsten:} \\ \medskip
@@ -393,7 +393,7 @@ SLRM on TS with autocorrelation, example outline (for $|\rho|<1$):\\ \medskip
 \begin{itemize}
     \item $y_t= \beta_1 + \beta_2 x_t + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,
     \smallskip
-    \item $[y_t - \rho y_{t-1}] =  \beta_1 (1-\rho) + \beta_2 [(x_t - \rho x_{t-1})] + \varepsilon_t$.\\
+    \item $(y_t - \rho y_{t-1}) =  \beta_1 (1-\rho) + \beta_2 (x_t - \rho x_{t-1}) + \varepsilon_t$.\\
     $~~~~~~y_t^{*}~~~~~~=~~~~~\beta_1^{*} ~~~~+~~~~ \beta_2 x_t^{*}~~~~~~~~~~~ + \varepsilon_t $
 \end{itemize}
 \bigskip
