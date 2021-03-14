@@ -256,7 +256,7 @@ Removing strict exogeneity (TS.3 $\rightarrow$ TS.3'): no restriction on how $u_
 \begin{itemize}
 \item We allow for feedback from (lagged) explained variable to ``future'' values of explanatory variables 
 \medskip
-\item We can use lagged dependent variable as regressors.
+\item We can use lagged dependent variable as a regressor.
 \end{itemize} \medskip
 Theorem: Asymptotic normality of OLS: Under assumptions TS.1' – TS.5', OLS estimators are asymptotically normally distributed. \medskip
 \begin{itemize}
@@ -422,7 +422,7 @@ $\hat{\beta}_1 = \frac{\hat{\beta}_1^{*}}{(1-\hat{\rho})}$ and $\hat{\beta}_2$ i
 Weakly dependent time series
   \vspace{0.4cm}
 \begin{itemize}
-  \item Moving average process of order one \texttt{ma(1)} $y_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\Observations with higher time distance than 1 are uncorrelated. This process is stationary.
+  \item Moving average process of order one \texttt{ma(1)} $y_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\$y_t$ and $y_{t+h}$ observations with distance $h \geq 2$ are uncorrelated. This process is stationary.
   \vspace{0.7cm}
   \item For stable autoregressive process of order 1 \texttt{ar(1)}: \\ \smallskip
   $y_t = \rho y_{t-1} + e_t \Rightarrow \textnormal{cor}(y_t,y_{t+h})=\rho^h$\\
