@@ -49,7 +49,7 @@
  \makeatother
 %
 %
-\title[Block 3]{Block 3 \\  Panel data - models, estimation and testing }
+\title[Block 3]{Block 3 \\  Panel data -- models, estimation and testing }
 \author{Advanced Econometrics 4EK608}
 \institute{Vysoká škola ekonomická v Praze}
 \date{}
@@ -1452,7 +1452,7 @@ b & c & 0 & 0 \\
 \end{frame}
 %---------------------------------
 \subsection*{Long panels and the SUR model / SURE}
-\begin{frame}{Long panels -- SUR models}
+\begin{frame}{Long panels and SUR models}
 \small
 Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \begin{itemize}
@@ -1474,8 +1474,7 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
-\subsection*{Long panels -- general SUR models}
-\begin{frame}{Long panels -- general SUR models}
+\begin{frame}{Long panels and SUR models}
 \footnotesize
 \begin{itemize}
     \item $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M,\qquad \bm{y}_i = (y_{i1},y_{i2},\dots,y_{iT})^{\prime}, $\\ \smallskip 
@@ -1511,6 +1510,20 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
 \end{itemize}
 \end{frame}
 %---------------------------------
+\begin{frame}{Long panels and SUR models}
+
+Three types of SUR/SURE models:\\
+\bigskip
+    \begin{itemize}
+        \item[1] General SURE:  Model with distinct (general) $\bm{X}_i$ \\matrices and distinct $\bm{\beta}_i$ vectors. Equation-by-equation OLS estimator is consistent, FGLS is efficient \\(details \& conditions discussed next).
+        \bigskip   
+        \item[2] SURE model with identical $\bm{X}_i$ blocks and (generally) distinct $\bm{\beta}_i$ vectors. FGLS not relevant as GLS is identical to equation-by-equation OLS. \\ 
+        \bigskip
+        \item[3] SURE model with  distinct (general) $\bm{X}_i$ matrices and identical $\bm{\beta}_i$ coefficients. ``Pooled'' OLS estimation is consistent, FGLS is efficient (details \& conditions discussed next).\medskip
+    \end{itemize}
+\end{frame}
+%---------------------------------
+\subsection*{SURE \& general model}
 \begin{frame}{Long panels -- SUR ``general model''}
 The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\beta}_i$ coefficients:\\ \medskip
 \begin{itemize}
@@ -1532,7 +1545,7 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
     \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
     \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$\\
     \bigskip
-    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same form as in previous (``pooled'') case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same matrix form as in ``pooled'' case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
     \bigskip
     \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
 \end{itemize}
