@@ -241,7 +241,7 @@ $$y_{i1}=\beta_0 + \beta_1 y_{i2} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + u_
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Instrumental variables: over-identification}
-\begin{block}{Projection matrices - repetition}
+\begin{block}{Projection matrices (exogenous $\bm{X}$) -- repetition}
 \vspace{-0.5cm}
 \begin{align*} 
 \hat{\bm{y}} & = \bm{X}\hat{\bm{\beta}} =  
@@ -254,11 +254,13 @@ $$y_{i1}=\beta_0 + \beta_1 y_{i2} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + u_
     \item Projection of columns of $\bm{X}$ in the column space of $\bm{Z}$:
 $$
 \hat{\bm{X}} = 
-\bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X},
+\bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X} = \bm{P}_{\bm{Z}}\bm{X},
 $$
-\item Columns of $\hat{\bm{X}}$ are linear combinations of columns in $\bm{Z}$, \\i.e. exogenous.
+\item Columns of $\hat{\bm{X}}$ are linear combinations of columns in $\bm{Z}$. 
+\medskip 
+\item Exogenous columns in $\bm{X}$ are repeated in $\bm{Z}$, hence projected on themselves \& therefore do not change between $\bm{X}$ and $\bm{Z}$.
 \medskip
-\item IV estimator (over-identification):
+\item General form of the IV estimator (over-identification):
 \begin{align*}
  \bm{\hat{\beta}}_{\textnormal{IV}} &= (\hat{\bm{X}}^{\prime}\bm{X})^{-1} \hat{\bm{X}}^{\prime}\bm{y}
 \end{align*}
@@ -272,8 +274,6 @@ $$
 \hat{\bm{X}} = 
 \bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X},
 $$
-\item Exogenous columns (regressors) in $\bm{X}$ appear in $\bm{Z}$ as well. Such columns are perfectly replicated in $\hat{\bm{X}}$.
-\medskip
 \item It may be shown that IVR is equivalent to OLS regression \\$\bm{y} \leftarrow \hat{\bm{X}}$:
 \begin{align*}
  \bm{\hat{\beta}}_{\textnormal{IV}} &= 
@@ -304,20 +304,6 @@ $$
 %---------------------------------------------
 \begin{frame}{Instrumental variables: statistical properties}
 \textbf{SLRM:} $y_{i1} = \beta_0 + \beta_1 x_{i1} + u_i \quad |~x_{i1} \textnormal{~endog.,~} z_{i1} \textnormal{~exists}$
-\medskip
-\begin{itemize}
-\item In large samples, IV estimator has approximately normal distribution (MM/GMM properties). 
-\medskip
-\item For calculation of standard errors, we usually need assumption of homoscedasticity conditional on IV(s).\\ Alternatively, we calculate robust errors. 
-\medskip
-\item Asymptotic variance of the IV estimator is always higher than  of the OLS estimator. 
-$$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \cdot R^2_{x,z}} ~~~>~~
-\textnormal{var}(\hat{\beta}_{1,OLS})=\frac{\hat{\sigma}^2}{\textit{SST}_x}$$
-\end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Instrumental variables: statistical properties}
-\textbf{SLRM:} $y_{i1} = \beta_0 + \beta_1 x_{i1} + u_i \quad |~x_{i1} \textnormal{~endog.,~} z_{i1} \textnormal{~exists}$
 \bigskip
 \begin{itemize}
 \item Asymptotic variance of the IV estimator decreases with increasing correlation between $z$ and $x$. 
@@ -327,6 +313,20 @@ $$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \
 \item Both endogenous explanatory variables and IVs can be binary variables.
 \medskip
 \item $R^2$ can be negative and has no interpretation nor relevance if IVR is used.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables: statistical properties}
+\textbf{SLRM:} $y_{i1} = \beta_0 + \beta_1 x_{i1} + u_i \quad |~x_{i1} \textnormal{~endog.,~} z_{i1} \textnormal{~exists}$
+\medskip
+\begin{itemize}
+\item In large samples, IV estimator has approximately normal distribution (MM/GMM properties). 
+\medskip
+\item For calculation of standard errors, we usually need assumption of homoscedasticity conditional on IV(s).\\ Alternatively, we calculate robust errors. 
+\medskip
+\item Asymptotic variance of the IV estimator is always higher than  of the OLS estimator. 
+$$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \cdot R^2_{x,z}} ~~~>~~
+\textnormal{var}(\hat{\beta}_{1,OLS})=\frac{\hat{\sigma}^2}{\textit{SST}_x}$$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -507,20 +507,22 @@ Is it meaningful to use IVR (considering IVRs ``price'')?\\
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Durbin-Wu-Hausman endogeneity test}
-$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} +  u_i ~~~~|~z_{i1}, \qquad \qquad (1)$$
+\small 
+$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} +  u_i ~~~~|~z_{i1}, $$
 \medskip
 \textbf{\underline{DWH test motivation:}} \\If $z_1$ is a proper instrument (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ (error from reduced form equation) is correlated with $u$. \\
 \medskip
 \begin{itemize}
-\item $y_2$ in \eqref{eq:one} is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
+\item If $y_2$ is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
 \item Reduced form: $y_2 = \textit{l.f.}(x_1, z_1) + \varepsilon ~\Rightarrow~ y_2 = \hat{y}_2 + \hat{\varepsilon}$
 \item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\hat{y}_2,u) = 0 ~\Rightarrow~ \textnormal{corr}(\hat{\varepsilon},u)\neq0 $
-\item $y_1$ is always correlated with $u$ in \eqref{eq:one}. 
-\item Hence, $\hat{\varepsilon}$ is significant in the regression, if $y_2$ is endogenous.
-\item IV/IVs uncorrelated with $u$ is essential for DWH to ``work''.
+\item $y_1$ is always correlated with $u$. 
+\item Hence, $\hat{\varepsilon}$ is significant in an auxiliary regression\\ \smallskip
+$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \delta \hat{\varepsilon}_i + u_i$, \\ \smallskip if $y_2$ is an endogenous regressor.
+\item IV/IVs being uncorrelated with $u$ is an essential condition for DWH test to ``work''.
 \end{itemize}
-\bigskip
-\textbf{\underline{Note:}} other versions of the DWH test exist...
+\medskip
+\textbf{\underline{Note:}} other variants of the DWH test exist...
 \end{frame}
 %---------------------------------------------
 \subsection{Durbin-Wu-Hausman (endogeneity in regressors)}
