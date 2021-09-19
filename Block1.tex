@@ -54,7 +54,8 @@ $$
 \begin{enumerate}
     \item[A1] \textbf{Linearity:} $y_i = \beta_1 + \beta_2 x_{i2} + \dots + \beta_K x_{iK} + \varepsilon_i$ \\LRM describes linear relationship between $y_i$ and $\bm{x}_i$.
     \item[A2] \textbf{Full rank:} Matrix $\bm{X}$ is an $n \! \times \! K$ matrix with rank $K$.\\ Columns of $\bm{X}$ are linearly independent and $n \geq K$.
-    \item[A3] \textbf{Exogeneity of regressors:} $E[\varepsilon_i | \bm{X}]=0$ (strict form). \\If relaxed to contemporaneous form in TS: $E[\varepsilon_t | \bm{x}_t]=0$.\\Law of iterated expectations: $E[\varepsilon_i | \bm{X}]=0 ~\Rightarrow~ E[\varepsilon]=0$.\\Also, we assume disturbances convey no information on each other: $E[\varepsilon_i|\varepsilon_1,\dots,\varepsilon_{i-1},\varepsilon_{i+1},\dots,\varepsilon_n]=0$.
+    \item[A3] \textbf{Exogeneity of regressors:} $E[\varepsilon_i | \bm{X}]=0$ (strict form). \\If relaxed to contemporaneous form in TS: $E[\varepsilon_t | \bm{x}_t]=0$.\\Law of iterated expectations: $E[\varepsilon_i | \bm{X}]=0 ~\Rightarrow~ E[\varepsilon]=0$.
+    %\\Also, we assume disturbances convey no information on each other: $E[\varepsilon_i|\varepsilon_1,\dots,\varepsilon_{i-1},\varepsilon_{i+1},\dots,\varepsilon_n]=0$.
 \end{enumerate}
 \end{frame}
 %------------------------------------------------------    
@@ -145,7 +146,7 @@ As $n \rightarrow \infty$, vector $\hat{\bm{\theta}}$ is an unbiased estimator o
 \begin{itemize}
 \item Consistent estimators: unbiased (asymptotically unbiased) \& their variance shrinks to zero as sample size grows \\(entire population is used).
 \item Minimal requirement for estimator used in statistics or econometrics.
-\item If some estimator is not consistent, then it does not provide estimates of population $\theta$ values, even with unlimited data.
+\item If some estimator is not consistent, then it does not provide relevant estimates of population $\theta$ values, even with unlimited data, i.e. as $n \rightarrow \infty$.
 \item Unbiased estimators are not necessarily consistent. 
 \end{itemize}
 \end{itemize}
