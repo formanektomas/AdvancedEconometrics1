@@ -1272,7 +1272,8 @@ $$ E(\Delta y_{t+1}|y_{t},y_{t-1},\dots,y_{0})=0$$
 \item \textbf{Process with exponential smoothing:}
 $$E(y_{t+1}|I_t)=\alpha y_t + \alpha (1- \alpha) y_{t-1}+ \dots + \alpha(1-\alpha)^ty_0; 
 \hspace{0.2cm} 0 < \alpha < 1.$$
-Set $f_0=y_0$, then for $t\geq 1$ : $f_t = \alpha y_t + (1-\alpha)f_{t-1}$
+If we set $f_0=y_0$, then for $t\geq 1$ : $f_t = \alpha y_t + (1-\alpha)f_{t-1}$ \\ \medskip
+\footnotesize (Simplification: forecast for $t+1$ is a weighted average of $y_t$ and forecast of $y_t$ made at $t-1$.)
 \end{enumerate}
 \end{frame}
 %---------------------------------------------
