@@ -687,7 +687,7 @@ CRE: \ $y_{it} = \alpha + \beta_1 x_{it} + \gamma \overline{x}_i + r_i + u_{it}$
 with random effect $r_i$ uncorrelated to other regressors \& with time averages as additional regressors. \\
 \vspace{0.3cm}
 \underline{The resulting CRE estimate for $\beta$ is identical to the FE estimator}. \\ \medskip
-CRE allows for convenient testing of FE vs. RE:
+CRE allows for convenient testing of FE vs. RE (validity of RE assumptions is tested):
 	\begin{itemize}
 	\item[$H_0$:] $\gamma = 0$ can be evaluated using $\hat{\gamma}_{\textit{CRE}}$ and appropriate (HCE) standard errors against
 	\item[$H_1$:] $\gamma \neq 0$ [RE assumes $\gamma = 0$: reject $H_0\rightarrow$ reject RE in favor of FE]
@@ -1631,7 +1631,7 @@ Topic is partially out of scope in terms of long-panel data. However, SUR models
     $$
     r_{it} - r_{ft} = \alpha_i + \beta_i (r_{mt} - r_{ft}) + \varepsilon_{it}
     $$
-    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{mt}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated separately for each $i$th financial isntrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
+    where $r_{it}$ is the return of instrument $i$ over time period $t$, $r_{ft}$ and $r_{mt}$ describe risk-free and market returns respectively; $\alpha_i$ and $\beta_i$ are parameters, estimated separately for each $i$th financial instrument -- same regressor $(r_{mt} - r_{ft})$ used in each regression equation.
 \end{itemize}
 \end{frame}
 %---------------------------------
