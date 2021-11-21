@@ -866,7 +866,7 @@ Order condition is fulfilled in both equations.
 \begin{itemize}
 \item Identification of the first equation (Supply). For the rank condition, either $\beta_{22}$ or $\beta_{23}$ non-zero population coefficient (in the second equation) is required -- so that $\textit{exper},~\textit{exper}^2$ (or both) can be used in the reduced form.
 \medskip
-\item To evaluate the rank condition for supply equation, we estimate the reduced form for $\log(\textit{wage})$ and test if we can reject the null hypothesis that coefficients for both coefficients for $exper$ and $\textit{exper}^2$ are zero. \\If $H_0$ is rejected, the rank condition is fulfilled.\\
+\item To evaluate the rank condition for supply equation, we estimate the reduced form for $\log(\textit{wage})$ and test if we can reject the null hypothesis that coefficients for both  $exper$ and $\textit{exper}^2$ are zero. \\If $H_0$ is rejected, the rank condition is fulfilled.\\
 \medskip
 \item We would do the evaluation of the rank condition for the demand equation analogically.
 \end{itemize}
@@ -901,16 +901,16 @@ Y_t & \equiv C_t + I_t + G_t \\
 \medskip
 \begin{itemize}
 \item Order condition for identification is the same as for two equations systems, rank condition is more complicated. 
-\item There exist complicated models based on macroeconomic time series. There is a lot of problems with these models: series are usually not weakly dependent, it is difficult to find enough exogenous variables as instruments. Question is, if any macroeconomic variables are exogenous at all.
+\item Complex models based on macroeconomic time series are sometimes used. Problems with these models: series are usually not weakly dependent, it is difficult to find enough exogenous variables as instruments. Question is, if any macroeconomic variables are exogenous at all.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Identification in SEMs with more than two equations}
 $\bm{y}_i = \bm{X}_i \bm{\beta}  + \bm{u}_i \qquad$ is the $i$-th equation of a SEM.\\
 \medskip
-$K$ - ~\# of exogenous/predetermined variables in the SEM,\\ 
-$K_i$ - \# of $K$ in the $i$-th equation,\\
-$G_i$ - \# of endogenous variables in the $i$-th equation.\\
+$K$ - number of exogenous/predetermined variables in the SEM,\\ 
+$K_i$ - number of $K$ in the $i$-th equation,\\
+$G_i$ - number of endogenous variables in the $i$-th equation.\\
 \bigskip
 \textbf{Order condition} for the $i$-th equation:\\
 necessary, not sufficient condition for identification\\
@@ -944,7 +944,7 @@ Single equation (limited information) estimator for each $i$-th equation:
 \item $\hat{\bm\beta}_{\textit{IVR}} = \hat{\bm\beta}_{2\textit{SLS,i}}=
 \left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}\! \hat{\bm{X}}^{\prime}_i \bm{y}$\\
 \medskip
-\item $\hat{\bm{X}}^{\prime}_i \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (GMM moment conditions)
+\item GMM -- moment equations can be used
 \end{itemize}
 \end{frame}
 %---------------------------------------------
