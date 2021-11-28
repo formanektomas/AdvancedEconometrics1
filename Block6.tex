@@ -973,7 +973,7 @@ Once $P(y=j|\bm{x})$ for $j = 1, \dots, J$ are known (estimated), we may simply 
 \begin{frame}{MDVs: Multinomial logit (MNL)}
 Maximum likelihood estimation of the $\bm{\beta}_j$ is straightforward. The log likelihood for random draw of $(\bm{x}_i, y_i)$ is: \\
 \bigskip
-$LL_i (\bm{\beta}) = \sum \limits_{j=0}^{J} 1[y_i = j] \log[p_j(\bm{x}_i \bm{\beta})]$ \\
+$LL_i (\bm{\beta}) = \sum \limits_{j=0}^{J} 1[y_i = j] \log[p_j(\bm{x}_i \bm{\beta}_j)]$ \\
 \bigskip
 Standard inference applies.
 \end{frame}
@@ -982,7 +982,7 @@ Standard inference applies.
 \underline{\textbf{Partial effect interpretation is complicated}}\\
 (continuous regressor $x_k$ example): \\
 \bigskip
-$\frac{\partial p_j (\bm{x})}{\partial x_k} = p_j(\bm{x}) \Bigg\{ \beta_{jk} - \frac{\big[\sum_{h=1}^{J} \beta_{hk} \exp (\bm{x} \bm{\beta}_h \big]}{\big[ 1+\sum_{h=1}^{J} \exp(\bm{x} \bm{\beta}_h) \big]} \Bigg\}$ \\
+$\frac{\partial p_j (\bm{x})}{\partial x_k} = p_j(\bm{x}) \Bigg\{ \beta_{jk} - \frac{\big[\sum_{h=1}^{J} \beta_{hk} \exp (\bm{x} \bm{\beta}_h) \big]}{\big[ 1+\sum_{h=1}^{J} \exp(\bm{x} \bm{\beta}_h) \big]} \Bigg\}$ \\
 \bigskip
 In this equation, RHS may differ in sign from $\beta_{jk}$\\
 \vspace{0.6cm}
