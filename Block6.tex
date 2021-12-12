@@ -1636,10 +1636,10 @@ $ = P(u_i \ge c_i - \bm{x}_i \bm{\beta}) = 1-\Phi[(c_i - \bm{x}_i \bm{\beta})/\s
 \bigskip
 Probability/density function of observed outcome conditional on explanatory variables:
 \begin{align*}
-f(w_i|\bm{x}_i; \bm{\beta}, \sigma) =
+f(w_i|\bm{x}_i,c_i; \bm{\beta}, \sigma) =
 \begin{cases}
-(2 \pi \sigma^2)^{- \frac{1}{2}} \exp [-(w_i - \bm{x}_i \bm{\beta})^2 / (2 \sigma^2)] & \ \text{if } \mytikzmark{1}{w_i} < c_i \\
-1 - \Phi((c_i - \bm{x}_i \bm{\beta})/\sigma) & \ \text{if } w_i = c_i
+(1/\sigma) \phi [(w_i - \bm{x}_i \bm{\beta})/\sigma] & \ \text{if } \mytikzmark{1}{w_i} < c_i \\
+1 - \Phi[(c_i - \bm{x}_i \bm{\beta})/\sigma] & \ \text{if } w_i = c_i
 \end{cases} 
 \end{align*} 
 \underline{Maximization of log-likelihood:} \\
@@ -1691,16 +1691,16 @@ $\max LL(\bm{\beta}, \sigma) = \sum \limits_{i=1}^{n} \log f(w_i|\bm{x}_i, c_i) 
 \draw[myarrow] (boxA) --++ (XA);
 	\node[mynode] at (8.4,3.9)(boxB){For example, if the time in prison was one month longer, this 		reduced the expected duration until the next arrest by about 1.9 \%.};
 	\draw[myarrow] (boxB) --++ (XB);
-		\node[mynode] at (8.4,1.8)(box){\textcolor{Blue}{\underline{In the censored regression 				model, the coefficients}} \textcolor{Blue}{\underline{can be directly interpreted.}} This is 		contrary to the Tobit model (coefficients cannot be directly interpreted). The censored 				regression model and the Tobit 	model have a similar structure, but in the Tobit model, the 		outcome is of a nonlinear nature whereas in the censored regression model, the outcome 			is linear but incompletely observed.};
+		\node[mynode] at (8.4,1.8)(box){\textcolor{Blue}{\underline{In the censored regression 				model, the coefficients}} \textcolor{Blue}{\underline{can be directly interpreted.}} This is 		contrary to the Tobit model. The censored 				regression model and the Tobit 	model have similar structures, but in the Tobit model, the 		outcome is of a nonlinear nature whereas in the censored regression model, the outcome is linear with respect to $\bm{\beta}$, but incompletely observed.};
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\subsection{Truncated data, Heckit}
+\subsection{Truncated data}
 \begin{frame}{Truncated data}
 \begin{itemize}
 \item Truncated data/regression models (for some observations, response variable is missing due to non-random selection)
-\item In a truncated regression model, the outcome and the explanatory variables are only observed if the outcome is less or equal some value $c_i$
-\item In this case, the sample is not a random sample from the population (because some units will never be a part of the sample)
+\item In a truncated regression model, the outcome and regressors are only observed if the outcome is less or equal some value $c_i$
+\item In this case, the sample is not a random sample from the population (systematically, some units will never be a part of the sample)
 \item \underline{Truncated normal regression model:}
 \end{itemize}
 \vspace*{-2mm}
@@ -1743,7 +1743,8 @@ As in the censored regression model, nonnormality \\or heteroscedasticity in the
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data}
+\subsection{Sample selection corrections}
+\begin{frame}{Sample selection corrections}
 \textbf{\underline{Sample selection corrections}}\\
 \begin{itemize}
 \item[] The question is under which assumptions a sample with nonrandom sample selection can be used to infer relationships in the population
@@ -1771,7 +1772,7 @@ $s_i y_i = s_i \bm{x}_i \bm{\beta} + \mytikzmark{R}{s_i u_i}$\\
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data}
+\begin{frame}{Sample selection corrections}
 
 {\small
 Unbiasedness: $E(u|x_1,x_2,\dots,x_k)=0$ vs. $E(su|sx_1,sx_2,\dots,sx_k)=0$\\
@@ -1792,7 +1793,7 @@ Unbiasedness: $E(u|x_1,x_2,\dots,x_k)=0$ vs. $E(su|sx_1,sx_2,\dots,sx_k)=0$\\
 \end{itemize}}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Sample selection corrections (non-random selection)}
 
 {\footnotesize
 \textbf{Incidental truncation (Heckman model)}
@@ -1810,7 +1811,7 @@ Unbiasedness: $E(u|x_1,x_2,\dots,x_k)=0$ vs. $E(su|sx_1,sx_2,\dots,sx_k)=0$\\
 \end{itemize}}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Sample selection corrections: Heckit model}
 \textbf{Definition of Heckman model}
 \begin{flalign*}
 & y = \bm{x \beta} + \mytikzmark{u}{u} && \\
@@ -1839,7 +1840,7 @@ $E(y|\bm{x}, \bm{z}, s = 1) = \bm{x \beta} + \mytikzmark{B}{\boxed{\rho \lambda 
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Sample selection corrections: Heckit model}
 \textbf{Estimation of Heckman model}\\ 
 \bigskip
 \underline{1) Estimation of correction term:}
@@ -1866,7 +1867,7 @@ $y_i = \beta_0 + \beta_1 x_{i1} + \dots + \beta_k x_{ik} + \mytikzmark{3}{\circl
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Sample selection corrections: Heckit model}
 \textbf{Heckit example: Wage offer for married women} 
 \begin{table}[]
 \hspace*{-5cm}
