@@ -78,6 +78,7 @@ $$
 \end{frame}
 %------------------------------------------------------
 \begin{frame}{Ordinary least squares (OLS)}
+\small
 \vspace{-0.3cm}
 $$
 \bm{y} = \bm{X\beta} + \bm{\varepsilon}
@@ -87,21 +88,26 @@ The least squares estimator is unbiased (given A1 -- A3):
 \begin{align*}
     \hat{\bm{\beta}}=\bm{b}&=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y}~=~\bm{\beta}+(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}, \\
     &\textnormal{take expectations}:\\
-    E[\bm{b}|\bm{X}]&= \bm{\beta}+\textcolor{blue}{E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]}~=~\bm{\beta}, ~~(\textnormal{\textcolor{blue}{zero by A3}}).\\
-\end{align*}
-
+    E[\bm{b}|\bm{X}]&= \bm{\beta}+\textcolor{blue}{E[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]}~=~\bm{\beta}, ~~(\textnormal{\textcolor{blue}{zero by A3}}).
+\end{align*}\\
+%\vspace{-0.1cm}
 Variance of the least squares estimator (A1 -- A4):
 \begin{align*}
-    \textnormal{var}[\bm{b}|\bm{X}]&=E[(\bm{b}-\bm{\beta})(\bm{b}-\bm{\beta})^{\prime}|\bm{X}]\\
-    &=\textcolor{blue}{E}[\bm{A \textcolor{blue}{\varepsilon \varepsilon}^{\prime}}\bm{A}^{\prime}|\bm{X}] \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
-    &= \textcolor{blue}{\sigma^2} (\bm{X}^{\prime}\bm{X})^{-1}. ~~~~~~\textnormal{(\textcolor{blue}{simplifies by A4})}\\
-\end{align*}
+    \textnormal{var}[\bm{b}|\bm{X}]&=\textnormal{var}\textcolor{blue}{[(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{\varepsilon}|\bm{X}]}\\
+    & \qquad \textnormal{because }  \textnormal{var}(\bm{\beta})=0. \textnormal{\textcolor{blue}{~Using A3 \& A4:}}  \\
+    &=\bm{A}\, \textcolor{blue}{\bm{\sigma}^{2}\bm{I}_n}\,\bm{A}^{\prime} \textnormal{~~where~~}\bm{A}=(\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\\
+    & \qquad \textnormal{which is a matrix quadratic form for var}(cZ)= c^2\textnormal{var}(Z) \\
+    &= \textcolor{blue}{\sigma^2} (\bm{X}^{\prime}\bm{X})^{-1} \\
+    & \qquad\textnormal{because } (\bm{AB})^{\prime}=\bm{B}^{\prime}\bm{A}^{\prime}; \textnormal{~dim. compatible matrices } \bm{A}, \bm{B}.\\
+\end{align*}\\
+\vspace{-0.5cm}
 Normal distribution of the least squares estimator (A1 -- A6):
 $$\bm{b} | \bm{X} \sim N[\bm{\beta}, \sigma^2(\bm{X}^{\prime}\bm{X})^{-1}].$$
 \end{frame}
 %------------------------------------------------------
 \subsection{General properties of estimators}
-\begin{frame}{Estimators and estimation methods}
+\begin{frame}{General properties of estimators}
+\textbf{Estimators and estimation methods:}\\ \bigskip
 \begin{itemize}
     \item LRM is not the only type of regression model.
     \bigskip
@@ -135,16 +141,17 @@ Basic notions:
 \end{align*}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-Properties of estimators - classification:
+\begin{frame}{Properties of estimators - classification:}
+\small 
 \medskip
 \begin{itemize}
-\item \textbf{Unbiasedness}: can be described as $E(\hat{\bm{\theta}})= \bm{\theta}$. \\Rarely useful in finite (small) sample context. Even asymptotically (large sample), discussion would be directed towards consistency (far more desirable feature).
+\item \textbf{Unbiasedness}: can be described as $E(\hat{\bm{\theta}})= \bm{\theta}$. \\Ocassionally useful -- in finite (small) sample context. \\
+\textbf{Asymptotic unbiasedness} (large sample property): \\not very useful, discussion would be directed towards consistency (which is a far more desirable feature).
 \medskip
 \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}$. \\
 As $n \rightarrow \infty$, vector $\hat{\bm{\theta}}$ is an unbiased estimator of $\bm{\theta}$ and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~[i.e. $\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
 \begin{itemize}
-\item Consistent estimators: unbiased (asymptotically unbiased) \& their variance shrinks to zero as sample size grows \\(entire population is used).
+\item Consistent estimators: unbiased (or at least asymptotically unbiased) \& their variance shrinks to zero as sample size grows (entire population is used).
 \item Minimal requirement for estimator used in statistics or econometrics.
 \item If some estimator is not consistent, then it does not provide relevant estimates of population $\theta$ values, even with unlimited data, i.e. as $n \rightarrow \infty$.
 \item Unbiased estimators are not necessarily consistent. 
@@ -152,12 +159,11 @@ As $n \rightarrow \infty$, vector $\hat{\bm{\theta}}$ is an unbiased estimator o
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-Properties of estimators - classification:
+\begin{frame}{Properties of estimators - classification:}
 \medskip
 \begin{itemize}
-\item \textbf{Efficiency, asymptotic efficiency:} an estimator is efficient if it is unbiased and no other unbiased estimator has a smaller variance. Often difficult to prove, we usually simplify the concept to \textit{relative efficiency} (e.g.: efficiency with respect to linear unbiased estimators, etc.). Asymptotic efficiency: Holds for an estimator that is asymptotically unbiased and no other asymptotically unbiased estimator has smaller asymptotic variance.
-\medskip
+\item \textbf{Efficiency:} an estimator is efficient if it is unbiased and no other unbiased estimator has a smaller variance. Often difficult to prove, we usually simplify the concept to \textit{relative efficiency} (e.g.: efficiency with respect to linear unbiased estimators, etc.).\\ \smallskip \textbf{Asymptotic efficiency:} holds for an estimator that is asymptotically unbiased and no other asymptotically unbiased estimator has smaller asymptotic variance.
+\bigskip
 \item \textbf{Normality, asymptotic normality:} basis for most statistical inference performed with common estimators. 
 \end{itemize}
 \end{frame}
@@ -222,7 +228,7 @@ Assumptions for asymptotic properties of extremum estimators:
 \begin{frame}{Estimators and estimation methods}
 \textbf{Quick convergence recap (terminology):} \\ \bigskip
 \begin{itemize}
-\item Convergence in probability: a sequence of random variables $X_1, X_2, X_3, \dots$ converges in probability to a random variable $X$, denoted as $X_n \overset{p}{\rightarrow} X$, if:
+\item Convergence in probability: a sequence of random variables $X_1, X_2, X_3, \dots$ converges in probability to a random variable $X$, denoted as $X_n \overset{p}{\rightarrow} X$ [or \textnormal{plim}$(X_n) = X$], if:
 $$
 \underset{n \rightarrow \infty}{\lim} P (|X_n - X| \geq \epsilon)=0, \qquad \forall~ \epsilon > 0.
 $$
@@ -454,7 +460,7 @@ The equation form of GMM empirical equations can be produced as:
   \begin{itemize}
       \item \textbf{Order condition:} $L \geq K$. Number of moment equations \\at least as large as number of parameters.
       \smallskip
-      \item \textbf{Rank condition:} matrix $\bm{G}(\bm{\beta})=\partial \, \overline{\mathbf{m}}(\bm{\beta}) / \partial \bm{\beta}^{\prime}$ (i.e. $\frac{1}{n}\bm{Z}^{\prime} \bm{X}$) is a $L\! \times \! K$ matrix with row rank equal to $K$. Moment conditions are not redundant (implies order condition).
+      \item \textbf{Rank condition:} matrix $\bm{G}(\bm{\beta})=\partial \, \overline{\mathbf{m}}(\bm{\beta}) / \partial \bm{\beta}^{\prime}$ (i.e. $\frac{1}{n}\bm{Z}^{\prime} \bm{X}$) is a $L\! \times \! K$ matrix with row rank equal to $K$. %Moment conditions are not redundant (implies order condition).
       \smallskip
       \item \textbf{Uniqueness:} unique solution/optimizer exists.
   \end{itemize}
@@ -472,7 +478,7 @@ The equation form of GMM empirical equations can be produced as:
 \medskip
 \item GMM is free from distributional assumptions. ``Cost'' of this approach: if we know the specific distribution of a DGP, GMM does not make use of such information $\rightarrow$ inefficient estimates.
 \medskip 
-\item Alternative approach: method of maximum likelihood utilizes distributional information and is more efficient (provided this information is valid).
+\item Alternative approach: method of maximum likelihood utilizes distributional information and is more efficient (provided this information is available \& valid).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -506,18 +512,18 @@ $\log L(\theta|\bm{y})~=~\displaystyle\sum_{i=1}^n ~ \log f(y_i|\theta)$.
 \begin{frame}{Maximum likelihood estimator}
 \textbf{MLE -- Poisson distribution example}\\ \smallskip
 \begin{itemize}
-    \item Consider 10 \textit{iid} observations from a Poisson distribution:\\$\bm{y}^{\prime}=(5,0,1,1,0,3,2,3,4,1)$.
+    \item Consider 10 \textit{iid} observations from a Poisson distribution:\\\textcolor{orange}{$\bm{y}^{\prime}=(5,0,1,1,0,3,2,3,4,1)$}.
     \smallskip
     \item The pdf: $f(y_i|\lambda) = \frac{e^{-\lambda}\lambda^{y_i}}{y_i!}$.
     \smallskip
-    \item Hence ($n=10$): $L(\lambda|\bm{y})=\displaystyle\prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{y_i}}{y_i!} =\frac{e^{-10\lambda}\lambda^{\sum_{i=1}^{10}y_i}}{\prod_{i=1}^{10}y_i!}$.
+    \item Likelihood function: $L(\lambda|\bm{y})=\displaystyle\prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{y_i}}{y_i!} = \textcolor{orange}{\frac{e^{-10\lambda}\lambda^{\sum_{i=1}^{10}y_i}}{\prod_{i=1}^{10}y_i!}}$.
     \smallskip
-    \item \textit{LL} (general): $\log L(\lambda|\bm{y}) = -n \lambda + \log \lambda \displaystyle\sum_{i=1}^n y_i - \displaystyle\sum_{i=1}^n \log ({y_i !})$,
+    \item log$L$: $\log L(\lambda|\bm{y}) = -n \lambda + \log \lambda \displaystyle\sum_{i=1}^n y_i - \displaystyle\sum_{i=1}^n \log ({y_i !})$,
     \smallskip
     \item $1^{st}$ order condition:
 $\frac{\partial \log L(\lambda|\bm{y}) }{\partial \lambda} = -n + \frac{1}{\lambda} \displaystyle\sum_{i=1}^n y_i = 0 $.
 \smallskip
-    \item From $1^{st}$ order condition: $\hat{\lambda}_{\textnormal{ML}}=\overline{y}_n$. \\For our empirical example, $\hat{\lambda}_{\textnormal{ML}}=2$.
+    \item From $1^{st}$ order condition: $\hat{\lambda}_{\textnormal{ML}}=\overline{y}_n$. \\For our empirical example: \textcolor{orange}{$\hat{\lambda}_{\textnormal{ML}}=2$}.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
