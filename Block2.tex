@@ -91,8 +91,8 @@ There is no perfect collinearity among regressors. \\
 {\footnotesize Comment: It allows collinearity among regressors.}
 \medskip
 \item TS.3 Strict exogeneity \\ 
-For each $t$, the expected value of error conditionally on the explanatory variables at all time periods is zero: $ E(u_t|\boldsymbol{X})=0, \hspace{0.5cm} t = 1,2,\dots,n$ \\ \medskip
-    {\footnotesize Note: Contemporaneous exogeneity (relaxed version): $E(u_t|x_{t1},x_{t2},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$.}  
+For each $t$, the expected value of error conditionally on the explanatory variables at all time periods is zero: $ E(u_t|\boldsymbol{X})=0, \hspace{0.5cm} t = 1,2,\dots,n$ \\ \bigskip
+    {\footnotesize \textbf{Note:} Compare strict exogeneity to a relaxed version, contemporaneous exogeneity (discussed next):\\ $E(u_t|x_{t1},x_{t2},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$.}  
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
@@ -366,7 +366,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
     \item[d)] $\bm{\beta}$ and $\rho$ estimates are iteratively improved until no substantial change in the estimated value of $\rho$ is observed.
     \medskip
     \item Computationally accessible, typically just a few iterations.
-    \item Can converge to a local but not global minimum of RSS.
+    \item Convergence to a local (not global) minimum of RSS can happen.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
