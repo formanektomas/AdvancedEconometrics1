@@ -323,7 +323,7 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} + u_t \,,\qquad \qquad \qquad~~~~~~~\, u_t = \rho u_{t-1}+\varepsilon_t$,\\ \medskip
     ~~~we can substitute the autoregressive process into main LRM:\\ \bigskip
     \item $y_t=\bm{x}_t^{\prime} \bm{\beta} +\rho u_{t-1}+\varepsilon_t \, \qquad \textnormal{note:~} u_{t-1} = y_{t-1} - \bm{x}_{t-1}^{\prime} \bm{\beta} $, \\ \medskip ~~~hence: \\ \medskip
-    \item $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} + \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \medskip 
+    \item $y_t= \rho y_{t-1} + \bm{x}_t^{\prime} \bm{\beta} - \rho (\bm{x}_{t-1}^{\prime} \bm{\beta}) + \varepsilon_t$, \\ \medskip 
     ~~~which is non-linear in parameters ($\rho \bm{\beta}$) and can be \\ \medskip
     \item[(a)] Estimated by NLS (general regressors)\\ \medskip
     \item[(b)] Re-arranged into \textbf{generalized first differences} specification \\
