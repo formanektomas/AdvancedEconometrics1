@@ -322,13 +322,13 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \begin{frame}{Method of moments}
 %\footnotesize
 \begin{itemize}
-\item For MM, the usual linear model assumption (concerning $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies: $$E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta})]=\bm{0},$$ 
-which may be transformed into a \textbf{population moment equation:}
+\item For MM, the usual linear model assumption (concerning \\ $1^{\textnormal{st}}$ population moment) $E[\bm{x}_i \varepsilon_i]=\bm{0}$ implies: $$E[\bm{x}_i(y_i-\bm{x}_i^{\prime}\bm{\beta})]=\bm{0},$$ 
+which constitutes a \textbf{population moment equation:}
 $$
-E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
-= E \left[ \overline{\bm{m}}(\bm{\beta}) \right] = \bm{0}\,,
+E \left[ \bm{x}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
+= E \left[ \bm{m}(\bm{\beta}) \right] = \bm{0}\,,
 $$
-and corresponding sample (empirical) moment equation:
+and the corresponding sample (empirical) moment equation can be formalized as:
 $$
 \left[ \frac{1}{n} \sum_{i=1}^n \bm{x}_i (y_i - \bm{x}_i^{\prime}\hat{\bm{\beta}}) \right]
 = \overline{\bm{m}}(\hat{\bm{\beta}}) = \bm{0}.
@@ -337,7 +337,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Method of moments}
-The equation form of MM empirical equations can be produced as:
+For a LRM with $K$ regressors, MM sample equations can be cast as:
 \medskip
 \footnotesize
 \begin{equation*}
@@ -351,15 +351,15 @@ The equation form of MM empirical equations can be produced as:
 \medskip
 \begin{itemize}
     \item Removing $\frac{1}{n}$ elements from equations does not affect the solution.
-    \item This is a system of $K$ equations with $K$ unknown parameters.
-    \item Equivalent to $1^{st}$ order conditions for the OLS estimator:
+    \item This is a system of $K$ equations with $K$ unknown parameters $\beta_j$.
+    \item The set of moment equations is equivalent to $1^{st}$ order conditions for the OLS estimator:
     $$ \underset{\hat{\bm{\beta}}}{\min}\sum_{i=1}^n \left( y_i - \hat{\beta}_1 - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_K x_{iK} \right)^2$$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
 \begin{itemize}
-    \item GMM is a very general class of estimators, includes most of other estimators as a special case (IVR, simultaneous equations, Arellano-Bond estimator for dynamic panels). 
+    \item GMM is a very general class of estimators, includes many other estimators as a special case (IVR, simultaneous equations, Arellano-Bond estimator for dynamic panels). 
     \medskip
     \item For single equation linear models, GMM may be conveniently described using the instrumental variable case:\\ \bigskip For the LRM $y_i = \bm{x}_i^{\prime}\bm{\beta} + \varepsilon_i$, 
     \begin{itemize}
@@ -375,11 +375,10 @@ The equation form of MM empirical equations can be produced as:
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
 \begin{itemize}
-\item GMM equation can be cast by analogy to the MM case: we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies: $$E[\bm{z}_i(y_i-\bm{x}_i^{\prime}\bm{\beta}]=\bm{0},$$ 
-and \textbf{population moment equation:}
+\item GMM equation (matrix form) can be cast by analogy to the MM case: \\ \bigskip we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies a \textbf{population moment equation:}
 $$
-E \left[ \frac{1}{n} \, \sum_{i=1}^n \bm{z}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
-= E \left[ \overline{\mathbf{m}}(\bm{\beta}) \right] = \bm{0}\,,
+E \left[ \bm{z}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
+= E \left[ \mathbf{m}(\bm{\beta}) \right] = \bm{0}\,,
 $$
 and corresponding sample (empirical) moment equation:
 $$
