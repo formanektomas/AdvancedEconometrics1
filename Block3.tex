@@ -1500,13 +1500,15 @@ Seemingly unrelated regression equations (SUR/SURE):\\ \medskip
     \begin{itemize}
         \item Strict exogeneity: $E[\bm{\varepsilon}|\bm{X}_1,\dots,\bm{X}_M]=\bm{0}$,
         \item Homoscedasticity in CS units: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ii}\bm{I}_T$\\ ($\sigma_{ii}$ -- error variance for $i$th unit, notation follows Greene).
-        \item Disturbances uncorrelated across $T$ but contemporaneously correlated between CS units (equations):\\
+        \item Disturbances uncorrelated across $T$ but contemporaneously dependent between CS units. Covariances are given as:\\
         $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}_1,\dots,\bm{X}_M]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.
     \end{itemize}
     \medskip
     \item Equation by equation OLS estimation: consistent. \\
-    \medskip
-    \item GLS is efficent w.r.t. OLS: uses information on contemporaneous correlation among errors as in the matrix $\bm{\Sigma}= [\sigma_{ij}]$.
+    \smallskip
+    \item GLS is efficent w.r.t. OLS: uses information on contemporaneous dependence among errors as in the matrix $\bm{\Sigma}= [\sigma_{ij}]$.
+    \smallskip 
+    \item FGLS uses empirically estimated $\bm{\Sigma}$: i.e. $\bm{\hat{\Sigma}}$
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1519,7 +1521,7 @@ Three types of SUR/SURE models:\\
         \bigskip   
         \item[2] SURE model with identical $\bm{X}_i$ blocks and (generally) distinct $\bm{\beta}_i$ vectors. FGLS not relevant as GLS is identical to equation-by-equation OLS. \\ 
         \bigskip
-        \item[3] SURE model with  distinct (general) $\bm{X}_i$ matrices and identical $\bm{\beta}_i$ coefficients. ``Pooled'' OLS estimation is consistent, FGLS is efficient (details \& conditions discussed next).\medskip
+        \item[3] SURE model with  general $\bm{X}_i$ matrices (same regressors for all CS units $i$, different observations) and identical $\bm{\beta}_i$ coefficients. ``Pooled'' OLS estimation is consistent, FGLS is efficient (details \& conditions discussed next).\medskip
     \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1545,9 +1547,9 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
     \bm{\varepsilon}_1 \\ \bm{\varepsilon}_2 \\ \vdots \\ \bm{\varepsilon}_M
     \end{bmatrix} = \bm{X\beta}+\bm{\varepsilon}$\\
     \bigskip
-    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ GLS estimator has the same matrix form as in ``pooled'' case, yet $\bm{X}$ and $\bm{\beta}$ dimensions are different.
+    \item $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$, \\ \smallskip GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely.
     \bigskip
-    \item GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
+    \item  $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\bm{\hat{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\hat{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1566,7 +1568,22 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
       &   & \vdots &  \\ 
     \sigma_{M1} & \sigma_{M2} & \cdots & \sigma_{MM} \\ 
     \end{bmatrix} = [\sigma_{ij}],$ \\ \medskip
-    \item the variance-covariance matrix for $\bm{\varepsilon}$ is given as $\bm{\Omega}$ ($MT \times MT$):\\ \medskip
+    \item For FGLS, $\bm{\hat{\Sigma}}$ can be constructed as follows:
+    \begin{enumerate}
+        \item Estimate $\bm{y}_i = \bm{X}_i \bm{\beta}_i + \bm{\varepsilon}_i,\qquad i = 1,\dots M$, \\and store residuals $\bm{\hat{\varepsilon}}_i$.
+        \item For all pairs of $(\bm{\hat{\varepsilon}}_i, \bm{\hat{\varepsilon}}_j)$, calculate $\hat{\sigma}_{ij}$ elements of the variance-covariance matrix $\bm{\hat{\Sigma}}$.
+    \end{enumerate}
+    Note: same $\bm{\hat{\Sigma}}$ is obtained from equation-by-equation OLS for each CS unit $i$,  and from pooled estimation of the general SUR model (we have to split $\bm{\hat{\varepsilon}}$ into corresponding $\bm{\hat{\varepsilon}}_i$ before calculation of the variance-covariance matrix).
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Long panels -- general SUR models}
+\small
+\begin{itemize}
+    \item Stacked matrix form of the SUR model:\\ \smallskip 
+    $\bm{y} = \bm{X} \bm{\beta} + \bm{\varepsilon}$, \quad where $\bm{y}$ is $(MT\times 1)$, $\bm{X}$ is block-diagonal, etc.\\ \smallskip 
+    \medskip
+    \item Based on $\bm{\Sigma}$, the variance-covariance matrix for the ``full'' vector $\bm{\varepsilon}$ is given as $\bm{\Omega}$ ($MT \times MT$):\\ \medskip
     $\bm{\Omega} = \bm{\Sigma} \otimes \bm{I}_T = 
     \begin{bmatrix} 
     \sigma_{11} \bm{I}_T & \sigma_{12} \bm{I}_T & \cdots & \sigma_{1M} \bm{I}_T \\ 
@@ -1575,6 +1592,8 @@ The general case of SUR model, with distinct $\bm{X}_i$ regressors and $\bm{\bet
     \sigma_{M1} \bm{I}_T & \sigma_{M2} \bm{I}_T & \cdots & \sigma_{MM} \bm{I}_T \\ 
     \end{bmatrix}.$\\ \smallskip
     This implies both heteroscedasticity (non-constant elements on the main diagonal) and autocorrelation (non-zero off-diagonal elements).
+    \medskip
+    \item For FGLS, we use $\bm{\hat{\Sigma}}$ to construct $\bm{\hat{\Omega}}$..
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1612,10 +1631,10 @@ $\bm{\hat{\beta}}_{\textnormal{GLS}} = [\bm{X}^{\prime} \bm{\Omega}^{-1} \bm{X}]
         \smallskip
         \item The less correlation between the $\bm{X}$ matrices, the greater is the gain in efficency in using GLS (w.r.t. OLS). 
          \smallskip
-        \item SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed on next page).
+        \item Hence, SUR model with identical regressors ($\bm{X}_1=\bm{X}_2=\cdots=\bm{X}_M$): OLS and GLS are identical (discussed on next page).
     \end{itemize}
     \bigskip
-    \item Homogeneity restrictions -- equal coefficients in all equations of the SUR model (analogous to `pooling OLS` model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald, LR and/or LM tests.
+    \item General case vs. identical coefficents\\ Homogeneity restrictions -- equal coefficients in all equations of the SUR model (`pooling OLS` model: $\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{\beta}_M$, \\ \smallskip i.e. $(M-1)K$ restrictions on the $(KM\times 1)$ vector $\bm{\beta}$ \\ \dots can be tested using Wald, LR and/or LM tests.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1709,7 +1728,7 @@ all coefficient vectors assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=\bm{
     \begin{itemize}
         \item Strict exogeneity: $E[\bm{\varepsilon_i}|\bm{X}]=\bm{0}$,
         \item Homoscedasticity: $E[\bm{\varepsilon}_i \bm{\varepsilon}_i^{\prime} |\bm{X}]=\sigma_{ii}\bm{I}_T$.
-        \item Disturbances uncorrelated across $T$ but contemporaneously correlated between CS units (equations):\\
+        \item Disturbances uncorrelated across $T$ but contemporaneously dependent between CS units (equations):\\
         $E[\varepsilon_{it} \varepsilon_{js} |\bm{X}]=\sigma_{ij}~~~\textnormal{if}~t=s;~0~\textnormal{otherwise}$.\\ Hence:\\
         $E[\bm{\varepsilon} \bm{\varepsilon}^{\prime} |\bm{X}] = \bm{\Sigma} \otimes \bm{I}_T$, \quad where $\bm{\Sigma} = [\sigma_{ij}]$.
     \end{itemize}
@@ -1727,7 +1746,7 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
     where $\bm{X}$ is a ($MT\times K)$ matrix -- compare to the block diagonal ($MT \times MK$) in the general SUR model\\ \medskip
     and $\bm{\beta}$ is ($K\times 1$) instead of the ($MK\times 1$) for the general SUR model.\\
     \bigskip
-    \item General note: GLS computation assumes $\bm{\Sigma}$ is known, which is unlikely (with FGLS, $\bm{\Sigma}$ is estimated).
+    \item FGLS: $\bm{\Sigma}$ is estimated).
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1737,17 +1756,20 @@ all coefficient vectors are assumed the same ($\bm{\beta}_1=\bm{\beta}_2=\cdots=
 \begin{itemize}
     \item $\bm{\hat{\beta}}_{\textnormal{GLS}} ~\,= [\bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\bm{\Sigma} \otimes \bm{I}_T)^{-1} \bm{y}$ \\ \smallskip
         \item $\bm{\hat{\beta}}_{\textnormal{FGLS}} = [\bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{X}]^{-1} \bm{X}^{\prime} (\hat{\bm{\Sigma}} \otimes \bm{I}_T)^{-1} \bm{y}$\\ \bigskip
-    \item FGLS estimator is based on OLS-estimated residuals $\bm{e}$:\\ \bigskip
-    $\hat{\sigma}_{ij} = \frac{1}{T}\bm{e}_i^{\prime}\bm{e}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$ is estimated as follows: \medskip
-    \begin{itemize}
-    \item[1] SURE, model with identical $\bm{X}_i$ blocks: FGLS not relevant as GLS = equation-by-equation OLS. \\ \medskip
-        \item[2] ``pooled'' case with identical $\bm{\beta}_i$ coefficients, where $\bm{X}$ is $(MT\times K)$:
-        $\bm{e}_i$ is a subvector of OLS residuals from 
-        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$.\\ \medskip
-        \item[3] ``general case'' SURE:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
-        $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{e}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) -- same residuals from both approaches. \medskip
+    \item FGLS estimator is based on OLS-estimated residuals $\bm{\hat{\varepsilon}}$:\\ \bigskip
+    $\hat{\sigma}_{ij} = \frac{1}{T}\bm{\hat{\varepsilon}}_i^{\prime}\bm{\hat{\varepsilon}}_j$ \quad and \quad $\hat{\bm{\Sigma}}=[\hat{\sigma}_{ij}]$ is estimated as follows: \medskip
+    \begin{enumerate}
+    \item ``general case'' SURE:  $\bm{e}_i$ vectors come from equation-by-equation OLS: 
+        $\bm{\hat{\beta}}_{i,\textnormal{OLS}} = [\bm{X}_i^{\prime}\bm{X}_i]^{-1} \bm{X}_i^{\prime} \bm{y}_i$,\\ or as subvector of $\bm{\hat{\varepsilon}}$ from OLS estimation of the stacked model: $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$, where $\bm{X}$ is ($MT \times MK$) -- same residuals from both approaches.
+       \medskip 
+        \item model with identical $\bm{X}_i$ blocks: FGLS not relevant as GLS = equation-by-equation OLS. \\ 
         \medskip
-    \end{itemize}
+        \item ``pooled'' case with identical $\bm{\beta}_i$ coefficients, where $\bm{X}$ is $(MT\times K)$:
+        $\bm{\hat{\varepsilon}}_i$ is a subvector of OLS residuals from 
+        $\bm{\hat{\beta}}_{\textnormal{OLS}} = [\bm{X}^{\prime}\bm{X}]^{-1} \bm{X}^{\prime} \bm{y}$.\\ \medskip
+         \medskip
+        \medskip
+    \end{enumerate}
 
 \end{itemize}
 \end{frame}
