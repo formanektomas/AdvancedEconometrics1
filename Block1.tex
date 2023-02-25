@@ -945,7 +945,7 @@ Prob(F-statistics)                                                    & 0.000000
 \smallskip
 \item LAD estimator is the QREG for $q=\tfrac{1}{2}$ (median) and the loss function can be described as (compare to OLS objective function): $$
 \underset{\bm{\hat{\beta}}_{q}}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_{q}) =
-\sum_{i=1}^n |y_i-\bm{x}_i\bm{\hat{\beta}}_{q}|
+\sum_{i=1}^n |y_i-\bm{x}_i^{\prime}\bm{\hat{\beta}}_{q}|
 $$
 \item LAD estimator predates OLS (itself older than 200 years). Until recently, QREG and LAD have seen little use in econometrics, as OLS is vastly easier to compute.
 \item Different software packages use a variety of optimization algorithms for QREG/LAD estimation.
@@ -957,10 +957,10 @@ $$
 For LRMs, the $q$-th quantile QREG estimator $\bm{\beta}_q$ minimizes:
 $$
 \underset{\bm{\hat{\beta}}_q}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_q) =
-\! \! \sum^n_{i:\, e_i \, \geq \, 0} q|y_i - \bm{x}_i\bm{\hat{\beta}}_q| \,\, +
-\! \! \sum^n_{i:\, e_i\, < \, 0} (1-q)|y_i - \bm{x}_i\bm{\hat{\beta}}_q|,
+\! \! \sum^n_{i:\, e_i \, \geq \, 0} q|y_i - \bm{x}_i^{\prime}\bm{\hat{\beta}}_q| \,\, +
+\! \! \sum^n_{i:\, e_i\, < \, 0} (1-q)|y_i - \bm{x}_i^{\prime}\bm{\hat{\beta}}_q|,
 $$
-where $e_i = (y_i - \bm{x}_i\bm{\hat{\beta}}_q)$.
+where $e_i = (y_i - \bm{x}_i^{\prime}\bm{\hat{\beta}}_q)$.
 
 \begin{itemize}
     \item We use the notation $\bm{\hat{\beta}}_q$ to make clear that different choices of $q$ lead to different  $\bm{\hat{\beta}}$.
