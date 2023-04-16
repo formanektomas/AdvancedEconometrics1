@@ -552,10 +552,10 @@ Reduced form for $y_2$:
 \begin{frame}{Weak instruments}
 \textbf{Motivation for Weak instruments and Sargan tests:} \\
 \medskip
-LRM: \quad $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \ $z$ instrument exists
+LRM: \quad $y_{i1}=\beta_0+\beta_1 y_{i2}+u_i$; \ $z$ instrument exists
 \bigskip
 \begin{itemize}
-\item IVR is consistent if $\mathrm{cov}(z,y_2) \neq 0$ and $\mathrm{cov}(z, u) = 0$
+\item IVR is consistent if $\mathrm{corr}(z,y_2) \neq 0$ and $\mathrm{corr}(z, u) = 0$
 \item If we allow for (weak) correlation between $z$ and $u$, the asymptotic error of IV estimator is:
 \small $$\mathrm{plim}(\hat{\beta}_{1, IV}) = \beta_1 + \frac{\mathrm{corr}(z,u)}{\mathrm{corr}(z,y_2)} \cdot \frac{\sigma_u}{\sigma_{y_2}} $$
 %BOX
