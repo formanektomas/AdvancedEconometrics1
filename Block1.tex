@@ -337,7 +337,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Method of moments}
-For a LRM with $K$ regressors, MM sample equations can be cast as:
+For a LRM with $K$ exogenous regressors, MM sample equations can be cast as:
 \medskip
 \footnotesize
 \begin{equation*}
@@ -364,9 +364,9 @@ For a LRM with $K$ regressors, MM sample equations can be cast as:
     \item For single equation linear models, GMM may be conveniently described using the instrumental variable case:\\ \bigskip For the LRM $y_i = \bm{x}_i^{\prime}\bm{\beta} + \varepsilon_i$, 
     \begin{itemize}
     \medskip
-        \item  we abandon the assumption $E[\bm{x}_i^{\prime} \varepsilon_i]=0$ and
+        \item  we abandon the assumption $E[\bm{x}_i \varepsilon_i]=0$ and
         \medskip
-        \item we replace it by $E[\bm{z}_i^{\prime} \varepsilon_i]=0$.
+        \item we replace it by $E[\bm{z}_i \varepsilon_i]=0$.
         \medskip
         \item Hence, columns of $\bm{X}~(n\!\times\!K)$ are potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.
     \end{itemize}
