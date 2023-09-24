@@ -493,10 +493,11 @@ The equation form of GMM empirical equations can be produced as:
 \begin{frame}{Maximum likelihood estimator}
 \textbf{Maximum likelihood estimator -- single parameter}\\
 \medskip
+\small
 For a stochastic variable $y$ with a known distribution, described by a single $\theta$ parameter:\\
 \medskip
 \begin{itemize}
-\item $f(y|\theta)$ is the pdf of $y$, conditioned on parameter $\theta$.
+\item $f(y|\theta)$ is the pdf/pmf of $y$, conditioned on parameter $\theta$. \\(pmf: probability mass function, discrete probability density f.)
 \medskip
 \item For $n$ \textit{iid} observations, joint density of this process: \\
 $f(y_1,y_2,\dots,y_n|\theta)~=~\displaystyle\prod_{i=1}^n f(y_i|\theta)~=~L(\theta|\bm{y})$ \\is the likelihood function.\\
@@ -513,7 +514,7 @@ $\log L(\theta|\bm{y})~=~\displaystyle\sum_{i=1}^n ~ \log f(y_i|\theta)$.
 \begin{itemize}
     \item Consider 10 \textit{iid} observations from a Poisson distribution:\\\textcolor{orange}{$\bm{y}^{\prime}=(5,0,1,1,0,3,2,3,4,1)$}.
     \smallskip
-    \item The pdf: $f(y_i|\lambda) = \frac{e^{-\lambda}\lambda^{y_i}}{y_i!}$.
+    \item The pmf: $f(y_i|\lambda) = \textnormal{Pr}(Y=y_i) = \frac{e^{-\lambda}\lambda^{y_i}}{y_i!}$.
     \smallskip
     \item Likelihood function: $L(\lambda|\bm{y})=\displaystyle\prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{y_i}}{y_i!} = \textcolor{orange}{\frac{e^{-10\lambda}\lambda^{\sum_{i=1}^{10}y_i}}{\prod_{i=1}^{10}y_i!}}$.
     \smallskip
