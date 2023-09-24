@@ -654,10 +654,10 @@ where $\bm{q}$ is a $(r \times 1)$ vector function of $\bm{\theta}$ (linear/non-
     ~~\underset{H_0}{\sim} \chi^2(r),
     $$
     where the estimated\\ $\textnormal{Asy.Var} [\bm{h}(\hat{\bm{\theta}})-\bm{q}]
-    = \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}} 
-    \right] \textnormal{Asy.Var}(\hat{\bm{\theta}})
-    \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}} 
-    \right]$.
+    = \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}^{\prime}} 
+    \right] \textnormal{Est.Asy.\!Var}(\hat{\bm{\theta}})
+    \left[ \frac{\partial \bm{h}(\hat{\bm{\theta}})}{\partial \hat{\bm{\theta}}^{\prime}} 
+    \right]^{\prime}$.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -668,7 +668,7 @@ We have a ML estimate $\hat{\bm{\theta}}_R$ -- i.e. ML estimation of the restric
     \item[3] \textbf{Lagrange multiplier test:} If the restriction is valid, then the restricted estimator should be near the point that maximizes the log-likelihood. Therefore, the slope of the log-likelihood function should be near zero at the restricted estimator. The test is based on the slope of the log-likelihood at the point where the function is maximized subject to the restriction.\\ \smallskip
     $$
     \textit{LM} = 
-    \left( \frac{\partial \log L(\hat{\bm{\theta}}_R)}{\partial \hat{\bm{\theta}}_R} \right)^{\prime}
+    \left( \frac{\partial \log L(\hat{\bm{\theta}}_R)}{\partial \hat{\bm{\theta}}_R} \right)^{\! \prime}
     \bm{I}[\hat{\bm{\theta}}_R]^{-1}
     \left( \frac{\partial \log L(\hat{\bm{\theta}}_R)}{\partial \hat{\bm{\theta}}_R} \right)
     ~~\underset{H_0}{\sim} \chi^2(r),
