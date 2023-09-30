@@ -952,6 +952,35 @@ $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+\begin{frame}{Quantile regression - example and motivation}
+
+OLS / LAD / QREG coefficient interpretation example:\\
+\bigskip
+\begin{itemize}
+    \item[(1)] $\textnormal{wage}_i = \beta_1 + u_i$
+    \item[(2)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + u_i$
+    \item[(3)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + \beta_3 \, \textnormal{exper}_i + u_i$
+\end{itemize}
+\bigskip
+The above equations are estimated by OLS / LAD / QREG:\\
+\bigskip
+\tiny
+\begin{tabular}{|l| l |l |l|}
+ \hline
+ Coefficient   &     OLS     &   LAD ($q=\tfrac{1}{2}$)   &  QREG ($q=\tfrac{3}{4}$)\\
+ \hline 
+ (1) $\beta_1$ &   $\hat{\beta}_1=\overline{y}$ & $\hat{\beta}_1=\tilde{\,y\,}$ & $\hat{\beta}_1=Q_3$\\
+ & sample mean  & sample median & sample $3^{rd}$ quartile\\
+ \hline
+ (2) $\beta_1, \beta_1\!+\!\beta_2$ & conditional sample mean & cond. sample median & conditional sample $Q_3$\\
+  & wage: male / female & wage: male / female & wage: male / female \\
+  \hline
+  (3) $\beta_3$ & change in expected mean & change in exp. median & change in expected $Q_3$\\
+   & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$\\
+   \hline
+\end{tabular}
+\end{frame}
+%---------------------------------------------
 \begin{frame}{Quantile regression (QREG)}
 For LRMs, the $q$-th quantile QREG estimator $\bm{\beta}_q$ minimizes:
 $$
@@ -981,37 +1010,6 @@ where $e_i = (y_i - \bm{x}_i^{\prime}\bm{\hat{\beta}}_q)$.
 \end{frame}
 %---------------------------------------------
 
-
-
-\begin{frame}{Quantile regression}
-
-QREG coefficient interpretation example:\\
-\bigskip
-\begin{itemize}
-    \item[(1)] $\textnormal{wage}_i = \beta_1 + u_i$
-    \item[(2)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + u_i$
-    \item[(3)] $\textnormal{wage}_i = \beta_1 + \beta_2 \textnormal{female}_i + \beta_3 \, \textnormal{exper}_i + u_i$
-\end{itemize}
-\bigskip
-The above equations are estimated by OLS / LAD / QREG:\\
-\bigskip
-\tiny
-\begin{tabular}{|l| l |l |l|}
- \hline
- Coefficient   &     OLS     &   LAD ($q=\tfrac{1}{2}$)   &  QREG ($q=\tfrac{3}{4}$)\\
- \hline 
- (1) $\beta_1$ &   $\hat{\beta}_1=\overline{y}$ & $\hat{\beta}_1=\tilde{\,y\,}$ & $\hat{\beta}_1=Q_3$\\
- & sample mean  & sample median & sample $3^{rd}$ quartile\\
- \hline
- (2) $\beta_1, \beta_1\!+\!\beta_2$ & conditional sample mean & cond. sample median & conditional sample $Q_3$\\
-  & wage: male / female & wage: male / female & wage: male / female \\
-  \hline
-  (3) $\beta_3$ & change in expected mean & change in exp. median & change in expected $Q_3$\\
-   & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$ & wage for $\Delta\textnormal{exper}=1$\\
-   \hline
-\end{tabular}
-\end{frame}
-%---------------------------------------------
 
 \begin{frame}{Quantile regression example}
 Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
