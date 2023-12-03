@@ -148,9 +148,9 @@ $\mytikzmark{a}{P}(y=1|\bm{x}) = \mytikzmark{b}{G}(\beta_0 + \beta_1 x_1 + \dots
 \hspace*{7mm}
 \begin{minipage}[t]{.3\textwidth}
 \begin{flalign*}
-G(z_i & = -\infty) & = 0  \\
-G(z_i & = ~~0) & = 0.5  \\
-G(z_i & = + \infty) & = 1 
+G(z_i & \rightarrow -\infty) & \rightarrow 0  \\
+G(z_i & ~~= ~~0) & ~~= 0.5  \\
+G(z_i & \rightarrow + \infty) & \rightarrow 1 
 \end{flalign*}
 \end{minipage}
 \end{frame}
@@ -168,7 +168,7 @@ G(z_i & = + \infty) & = 1
 \end{frame}
 %---------------------------------
 \begin{frame}{Logit – interpretation of model coefficients $\beta$}
-$\circled{$P_i $} = P(y_i = 1|\bm{x}_i) = \hat{y}_i = G(\bm{x}_i \bm{\beta}) = G(z)= \circled{$\frac{e^z}{1+e^z}$}$, also:\\
+$\circled{$P_i $} = P(y_i = 1|\bm{x}_i) = \hat{y}_i = G(\bm{x}_i \bm{\beta}) = G(z)= \circled{$\frac{e^z}{1+e^z}$}$, \\ \medskip also:\\ \medskip
 \medskip
 $\frac{P_i}{1-P_i}$  \quad is the relative chance of success: \textbf{Odds ratio}\\
 \bigskip
