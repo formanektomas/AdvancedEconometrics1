@@ -708,12 +708,12 @@ Negative binomial distribution can be used to model count data with overdispersi
 \bigskip
 $$P(Y \!=y|\mu, \alpha) = \frac{\Gamma(y+\alpha^{-1})}{y! \Gamma(\alpha^{-1})} \Big(\frac{\alpha^{-1}}{\alpha^{-1} + \mu}\Big)^{\alpha^{-1}} \! \Big( \frac{\mu}{\alpha^{-1} + \mu} \Big)^{y}, ~~y=0,1,2,\dots$$
 \bigskip
-where $\Gamma(\cdot)$ is the CDF  for Gamma distr., defined for $r>0$ 
+where $\Gamma(\cdot)$ is the gamma function, defined for $r>0$ 
 \vspace{-0.3cm}
 \\by the following expression: 
-$$\Gamma(r) = \int_0^{\infty} z^{r-1} \exp (-z) dz.$$
+$$\Gamma(r) = \int_0^{\infty} z^{r-1} \exp (-z) dz,$$
 \medskip
-where $\mu_i = \exp (\bm{x}^{\prime} \bm{\beta}) = E(y_i|\bm{x}_i)$
+and where $\mu_i = \exp (\bm{x}^{\prime} \bm{\beta}) = E(y_i|\bm{x}_i)$
 \end{frame}
 %---------------------------------
 \begin{frame}{Poisson and NB regression models}
