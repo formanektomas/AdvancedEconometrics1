@@ -364,11 +364,11 @@ For a LRM with $K$ exogenous regressors, MM sample equations can be cast as:
     \item For single equation linear models, GMM may be conveniently described using the instrumental variable case:\\ \bigskip For the LRM $y_i = \bm{x}_i^{\prime}\bm{\beta} + \varepsilon_i$, 
     \begin{itemize}
     \medskip
-        \item  we abandon the assumption $E[\bm{x}_i \varepsilon_i]=0$ and
+        \item  We abandon the assumption $E[\bm{x}_i \varepsilon_i]=0$ and
         \medskip
-        \item we replace it by $E[\bm{z}_i \varepsilon_i]=0$.
+        \item we replace it by $E[\bm{z}_i \varepsilon_i]=0$.  \\
         \medskip
-        \item Hence, columns of $\bm{X}~(n\!\times\!K)$ are potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.
+        \item Hence, columns of $\bm{X}~(n\!\times\!K)$ are potentially endogenous \\ \medskip and $\bm{Z}~(n\!\times\!L)$ is a matrix of exogenous instruments.\\ \medskip All exogenous columns in $\bm{X}$ are repeated in $\bm{Z}$ and each endogenous column in $\bm{X}$ is replaced in $\bm{Z}$ by at least one instrument (exogenous variable not present in $\bm{X}$).
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -952,6 +952,26 @@ $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+\begin{frame}{Quantile regression - LAD}
+\textbf{~~OLS vs LAD estimator}
+\begin{columns}
+        % Column 1
+        \begin{column}{.5\textwidth}
+            \includegraphics[width=1\textwidth]{img/B1_L1_L2.pdf}
+        \end{column}
+        % Column 2
+        \begin{column}{.5\textwidth}
+        \tiny
+            Objective (loss) function of the estimators:\\ \medskip
+            $\min : \displaystyle\sum_{i=1}^N \rho(e_i) = \sum_{i=1}^N \rho(y_i - \bm{x}_i^{\prime} \hat{\bm{\beta}})$\\
+            \medskip
+            For OLS, $\rho(\cdot)$ is the $L_2$ norm:  $e_i^2$. \\ \smallskip For LAD, $\rho(\cdot)$ is the $L_1$ norm: $|e_i|$. \\ \medskip
+            LAD estimation gives much less weight \\to large deviations.
+            
+        \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------
 \begin{frame}{Quantile regression - example and motivation}
 
 OLS / LAD / QREG coefficient interpretation example:\\
@@ -995,6 +1015,21 @@ where $e_i = (y_i - \bm{x}_i^{\prime}\bm{\hat{\beta}}_q)$.
     \item Slope of the loss function $Q_n$ is asymmetrical \\(around $e_i=0$).
     \item The loss function is not differentiable (at $e_i=0$) \\$\rightarrow$ gradient methods are not applicable \\(linear programming can be used).
 \end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Quantile regression - LAD}
+\textbf{\qquad QREG: different quantiles}
+\begin{columns}
+        % Column 1
+        \begin{column}{.7\textwidth}
+            \includegraphics[width=1\textwidth]{img/B1_QREG.pdf}
+        \end{column}
+        % Column 2
+        \begin{column}{.3\textwidth}
+        \tiny
+            For $q= 0.5$, positive and negative errors are treated symmetrically. \\ \medskip For $q \neq 0.5$, positive and negative errors (of the same magnitude $e_i$) have different weights (penalties), which is reflected in quantile-specific estimates $\hat{\bm{\beta}}_q$.    
+        \end{column}
+    \end{columns}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Quantile regression (QREG)}
