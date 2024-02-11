@@ -121,7 +121,7 @@ $$\bm{b} | \bm{X} \sim N[\bm{\beta}, \sigma^2(\bm{X}^{\prime}\bm{X})^{-1}].$$
 \begin{frame}{Estimators and estimation methods}
 Notation/definitions:
 \begin{itemize}
-\item $\bm{x}_j = (x_{1j},\dots,x_{nj})^{\prime}$ - random sample of $n$ observations.
+\item $\bm{x}_j^{\prime} = (x_{1j},\dots,x_{nj})$ - random sample of $n$ observations.
 \item $\bm{\theta}$ - population parameter [unknown parameter(s)]
 \item $f(\bm{x}_j,\bm{\theta})$: probability distribution function
 \item $\hat{\bm{\theta}}$ is some estimator of $\bm{\theta}$
@@ -133,7 +133,7 @@ Basic notions:
 ~~mean: $E(\hat{\theta})$\\
 ~~variance: $E[(\hat{\theta}-E(\hat{\theta}))^2]$, etc.\\
 \item Estimators $\times$ estimate 
-\item Generally, many estimators exist for a given parameter. \\Population mean example:
+\item Generally, many estimators exist for a given parameter. \\Population mean example (two sample-based estimators):
 \end{itemize}
 \begin{align*}
 \hat{\theta}_1 & = \overline{x} = \frac{\sum_{i=1}^nx_i}{n}\\
@@ -143,18 +143,18 @@ Basic notions:
 %---------------------------------------------
 \begin{frame}{Properties of estimators - classification:}
 \small 
-\medskip
 \begin{itemize}
 \item \textbf{Unbiasedness}: can be described as $E(\hat{\bm{\theta}})= \bm{\theta}$. \\Ocassionally useful -- in finite (small) sample context. \\
 \textbf{Asymptotic unbiasedness} (large sample property): \\not very useful, discussion would be directed towards consistency (which is a far more desirable feature).
 \medskip
 \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}$. \\
-As $n \rightarrow \infty$, vector $\hat{\bm{\theta}}$ is an unbiased estimator of $\bm{\theta}$ and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~[i.e. $\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
+$\hat{\bm{\theta}} \rightarrow \bm{\theta}$ as $n \rightarrow \infty$: vector $\hat{\bm{\theta}}$ is at least asymptotically unbiased\\and $\textnormal{plim}(\textnormal{var}(\hat{\bm{\theta}}))=\bm{0}$ ~[i.e. $\textnormal{var}(\hat{\bm{\theta}}) \rightarrow \bm{0} \textnormal{ as } n \rightarrow \infty$].
 \begin{itemize}
-\item Consistent estimators: unbiased (or at least asymptotically unbiased) \& their variance shrinks to zero as sample size grows (entire population is used).
+\item Consistent estimators: unbiased or asymptotically unbiased \& their variance shrinks to zero as sample size grows.
 \item Minimal requirement for estimator used in statistics or econometrics.
 \item If some estimator is not consistent, then it does not provide relevant estimates of population $\theta$ values, even with unlimited data, i.e. as $n \rightarrow \infty$.
 \item Unbiased estimators are not necessarily consistent. 
+\item Biased and consistent estimators are often useful \\(small-sample bias, yet consistent: IVR, ML, etc.).
 \end{itemize}
 \end{itemize}
 \end{frame}
