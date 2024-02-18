@@ -375,7 +375,7 @@ For a LRM with $K$ exogenous regressors, MM sample equations can be cast as:
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
 \begin{itemize}
-\item GMM equations can be cast by analogy to the MM case: \\ \bigskip we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies a \textbf{population moment equation:}
+\item GMM equations can be cast by analogy to the MM case: \\ \bigskip we start by $E[\bm{z}_i \varepsilon_i]=\bm{0}$, which implies a \textbf{population moment equation} (matrix form):
 $$
 E \left[ \bm{z}_i (y_i - \bm{x}_i^{\prime}\bm{\beta}) \right] 
 = E \left[ \mathbf{m}(\bm{\beta}) \right] = \bm{0}\,,
@@ -390,7 +390,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Generalized method of moments}
-The equation form of GMM empirical equations can be produced as:
+GMM empirical equations can also be cast as:
 \medskip
 \footnotesize
 \begin{equation*}
@@ -437,7 +437,7 @@ The equation form of GMM empirical equations can be produced as:
 \begin{itemize}
     \item[3] With $L > K$, there is no unique solution to the equation system $\overline{\mathbf{m}}(\hat{\bm{\beta}}) = \bm{0}$. \\
     \medskip
-    One intuitite solution is the ``least squares approach'':
+    One intuitive solution is the ``least squares approach'':
     $$\underset{\bm{\beta}}{\min}\left(  \overline{\mathbf{m}}(\hat{\bm{\beta}})^{\prime} \overline{\mathbf{m}}(\hat{\bm{\beta}})  \right)$$
     Through the first order conditions, we obtain a GMM estimator as
     $$
