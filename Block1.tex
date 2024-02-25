@@ -1124,14 +1124,14 @@ Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \subsection{Predictions from a CLRM (repetition from BSc courses)}
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item CLRM and its estimate:
+\item CLRM and its estimate (for $i=1,\dots,n$):
 \begin{align}\nonumber
-y & = \beta_1 + \beta_2 x_2 +\beta_3 x_3 + \dots + \beta_K x_K + u\\ \nonumber
-\hat{y} & = \hat{\beta}_1 + \hat{\beta}_2 x_2 +\hat{\beta}_3 x_3 + \dots + \hat{\beta}_K x_K \\ \nonumber
+y_i & = \beta_1 + \beta_2 x_{i2} +\beta_{3} x_{i3} + \dots + \beta_K x_{iK} + \varepsilon_i \\ \nonumber
+\hat{y}_i & = \hat{\beta}_1 + \hat{\beta}_2 x_{i2} +\hat{\beta}_3 x_{i3} + \dots + \hat{\beta}_K x_{iK} \\ \nonumber
 \end{align}
-\item Prediction of expected value: 
+\item Prediction of expected value ($\bm{x}_p^{\prime}$ can be out of sample): 
 \begin{align}\nonumber
-\hat{y}_p & = E(y|x_1 = 1, x_2 = c_2,\dots,x_K = c_K)\\ \nonumber
+\hat{y}_p & = E(y|x_{p1} = 1, x_{p2} = c_2,\dots,x_{pK} = c_K)\\ \nonumber
 \hat{y}_p & = \hat{\beta}_1 + \hat{\beta}_2 c_2 +\hat{\beta}_3 c_3 + \dots + \hat{\beta}_K c_K  \nonumber
 \end{align}
 \item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textnormal{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
@@ -1146,7 +1146,7 @@ $\textnormal{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
 \vspace{0.5cm}
 \begin{itemize}
 \item Reparametrized CLRM:
-$$y^*=\beta^*_1 + \beta^*_2 (x_2 -c_2) + \beta^*_3(x_3 - c_3) + \dots + u$$
+$$y^*=\beta^*_1 + \beta^*_2 (x_2 -c_2) + \beta^*_3(x_3 - c_3) + \dots + \varepsilon$$
 \item The following holds:
 \begin{align} \nonumber
  \hat{y}_p &= \hat{\beta_1^*} \\ \nonumber
@@ -1164,12 +1164,12 @@ $$y^*=\beta^*_1 + \beta^*_2 (x_2 -c_2) + \beta^*_3(x_3 - c_3) + \dots + u$$
 \item Predicted and actual values of $y_p$:
 \begin{align}\nonumber
 \hat{y}_p &  = \hat{\beta}_1 + \hat{\beta}_2 c_2 + \hat{\beta}_3 c_3 + \dots + \hat{\beta}_K c_K\\ \nonumber
-y_p & = \beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K + u_p \nonumber
+y_p & = \beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K + \varepsilon_p \nonumber
 \end{align} 
 \item Prediction error
-$$\hat{e}_p = y_p - \hat{y}_p = (\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K) + u_p - \hat{y}_p$$
+$$\hat{e}_p = y_p - \hat{y}_p = (\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K) + \varepsilon_p - \hat{y}_p$$
 \item Prediction error variance
-$$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
+$$\textnormal{var}(\hat{e}_p) = \textnormal{var}(\varepsilon_p) + \textnormal{var}(\hat{y}_p)$$
 because~~$\textnormal{var}(\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c_K)=0$
 \end{itemize}
 \end{frame}
@@ -1178,7 +1178,7 @@ because~~$\textnormal{var}(\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c
 
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item In CLRM, homoscedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
+\item In CLRM, as homoscedasticity holds, $\sigma^2 = \textnormal{var}(\varepsilon_p)$: \\
 
 \begin{itemize}
 \item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
@@ -1208,16 +1208,16 @@ because~~$\textnormal{var}(\beta_1 + \beta_2 c_2 + \beta_3 c_3 + \dots+\beta_K c
 \begin{itemize}
 \item Prediction with logarithmic dependent variable
 \begin{align}\nonumber
-\log(y) &= \beta_1 + \beta_2 x_2 + \dots + \beta_K x_K + u\\\nonumber
+\log(y) &= \beta_1 + \beta_2 x_2 + \dots + \beta_K x_K + \varepsilon \\ \nonumber
 \widehat{\log(y)} &= \hat{\beta}_1 + \hat{\beta}_2 x_2 + \dots + \hat{\beta}_K x_K 
 \end{align}
-$\hat{y} =e^{\widehat{\log(y)}}$ systematically underestimates $\hat{y}$ , \\
+$\hat{y} = \exp (\widehat{\log(y)}) = e^{\widehat{\log(y)}}$ systematically underestimates $\hat{y}$ , \\
 \vspace{0.3cm}
 we can use a correction: $\hat{y}=\widehat{\alpha}_0 e^{\widehat{\log(y)}}$ \\
 \vspace{0.3cm}
-where $\widehat{\alpha}_0 = n^{-1} \sum_{i=1}^n \exp(\hat{u}_i)$ \\
+where $\widehat{\alpha}_0 = n^{-1} \sum_{i=1}^n \exp(\hat{\varepsilon}_i)$ \\
 \vspace{0.3cm}
-is a consistent (not unbiased) estimator of $\exp{(u)}$.
+is a consistent (not unbiased) estimator of $\exp{(\varepsilon)}$.
 \end{itemize}
 \end{frame}
 
@@ -1227,22 +1227,22 @@ Prediction based on estimated model:\\
 \vspace{0.3cm}
 $\hat{y}_p = \bm{x}_{p}^\prime \hat{\bm{\beta}}$\\
 \vspace{0.3cm}
-Difference between prediction and actual $y_p$ value:\\
+Difference between actual $y_p$ and prediction value:\\
 \vspace{0.3cm}
-$\hat{e}_p \,=\, \hat{y}_p - y_p
-  \,=\, \bm{x}_{p}^\prime \hat{\bm{\beta}} - \bm{x}_{p}^\prime \bm{\beta} - u_p
-  \,=\, \bm{x}_{p}^\prime (\hat{\bm{\beta}} - \bm{\beta}) - u_p$\\
+$\hat{e}_p \,=\,  y_p - \hat{y}_p 
+  \,=\,(\bm{x}_{p}^\prime \bm{\beta} + \varepsilon_p) - \bm{x}_{p}^\prime \hat{\bm{\beta}} 
+  \,=\, \bm{x}_{p}^\prime (\bm{\beta} - \hat{\bm{\beta}}) + \varepsilon_p$\\
 \vspace{0.3cm}
 If $\hat{\bm{\beta}}$ is unbiased estimator for $\bm{\beta}$, \\
 $\hat{y}_p$ is an unbiased estimator for $y_p$ value:\\
 \vspace{0.3cm}
-$E(\hat{e}_p) \,=\, E(\hat{y}_p - y_p)
-   \,=\, \bm{x}_{p}^\prime E(\hat{\bm{\beta}} - \bm{\beta}) + E(-u_p) =0$\\
+$E(\hat{e}_p) \,=\, E(y_p - \hat{y}_p)
+   \,=\, \bm{x}_{p}^\prime E(\bm{\beta} - \hat{\bm{\beta}}) + E(\varepsilon_p) =0$\\
 \vspace{0.3cm}
 and the variance of $\hat{e}_p$ can be expressed as:\\
 \vspace{0.3cm}
 $E(\hat{e}_p^2) \,=\,\textnormal{var}(\hat{e}_p)
-   \,=\, \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p) $
+   \,=\, \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(\varepsilon_p) $
 \end{frame}
 
 %---------------------------------------------
@@ -1252,18 +1252,18 @@ Variance of $\hat{e}_p$ (continued):
 \begin{equation*}
 \begin{aligned}
 \textnormal{var}(\hat{e}_p) \,&=\,
-  \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
+  \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(\varepsilon_p)\\
  \,&=\,
-   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
-   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoscedasticity)}\\
+   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(\varepsilon_p)\\
+   & \textnormal{substitute $\sigma^2 = \textnormal{var}(\varepsilon_p)$, with $\hat{\sigma}^2$ (homoscedasticity)}\\
   \,&=\,
    \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
    + \hat{\sigma}^2
 \end{aligned}
 \end{equation*}
 With growing sample size (asymptotically), \\
-$\textnormal{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
-$\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
+$\textnormal{var}(\hat{e}_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
+$\dots$ because  $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
   \textnormal{plim} \, \hat{\sigma}_p^2 = 0$\\ \medskip
   (Note: recall consistency of the OLS estimator under A1--A5 conditions \& for the CLRM model - i.e. under A1--A6.)
 
@@ -1272,27 +1272,27 @@ $\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrighta
 %---------------------------------------------
 \begin{frame}{Predictions - basics (Matrix form)}
 Variance of $\hat{e}_p$ (continued):
-\begin{equation*}
-\begin{aligned}
-\textnormal{var}(\hat{e}_p) \,&=\,
-\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}
-   + \hat{\sigma}^2\\
-   & \textnormal{after re-arranging, $\textnormal{s.e.}(\hat{e}_p)$ may be written as}\\
-   &~\\
-   \textnormal{s.e.}(\hat{e}_p) \,&=\, \hat{\sigma} \cdot \,  
-   \sqrt[]{1+ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,,\\
-   &\textnormal{which relates to the individual prediction error. }\\~&~\\
-   &\textnormal{For mean prediction errors (considering $\hat{\sigma}_p^2$ only): }\\
-   \textnormal{s.e.}(\widetilde{e}_p) \,&=\, \hat{\sigma} \cdot \,  
-   \sqrt[]{~~~~ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,.\\
-\end{aligned}
-\end{equation*}
-
+$$
+\qquad \textnormal{var}(\hat{e}_p) \,=\,
+\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \hat{\sigma}^2.
+$$
+\begin{itemize}
+    \item \textbf{Individual prediction error:} after re-arranging, the above expression can be cast for $\textnormal{s.e.}(\hat{e}_p)$ as
+    $$
+    ~\textnormal{s.e.}(\hat{e}_p) \,=\, \hat{\sigma} \cdot \,  
+   \sqrt[]{1+ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,,
+    $$
+    \item \textbf{Mean prediction error:} calculated considering $\hat{\sigma}_p^2$ only
+    $$
+    \textnormal{s.e.}(\widetilde{e}_p) \,=\, \hat{\sigma} \cdot \,  
+   \sqrt[]{~~~~ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,.
+    $$
+\end{itemize}
 \end{frame}
 
 %---------------------------------------------
-\begin{frame}{Predictions - basics (Matrix form)}
-Prediction intervals: individual vs. mean value predictions:\\
+\begin{frame}{Predictions - basics}
+\textbf{Prediction intervals:} \\ \smallskip Individual vs. mean value prediction intervals:\\
 \vspace{0.3cm}
 \textbf{Individual prediction:} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\hat{e}_p)$\\
 \vspace{0.3cm}
