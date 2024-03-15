@@ -305,16 +305,16 @@ H_0 & : \rho=0 \nonumber
 \end{frame}
 %------------------------------------------------------
 \begin{frame}{Serial correlation of the error term in TSRM}
-Testing serial correlation with general regressors\\ \medskip
+Breusch-Godfrey (BG) test for serial correlation with general regressors\\ \medskip
 \begin{itemize}
-\item Testing AR(1):
+\item BG test for an ar(1) process in residuals:
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tK} + \rho \hat{u}_{t-1} + \textit{error}$$
 $$H_0 : \rho = 0$$
 We can use a heteroscedasticity-robust version of the $t$-test.\\ \bigskip
-\item Breusch-Godfrey test for AR($q$) serial correlation:
+\item BG test for ar($q$) serial correlation in residuals:
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tK} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
 $$H_0 : \rho_1 = \dots = \rho_q = 0$$ \\ \medskip
-Use $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q)}$.
+Use robust $F$-test \quad or \quad LM-test: $(n-q)R_a^2 \underset{H_0}{\sim} \chi^2_{(q)}$.
 \end{itemize}
 \end{frame}
 %------------------------------------------------------
