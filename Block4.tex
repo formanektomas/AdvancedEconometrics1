@@ -741,7 +741,7 @@ $\Rightarrow y_2  = \bigg[ \frac{\alpha_2 \beta_1}{1-\alpha_2 \alpha_1} \bigg] z
 \quad \ $y_1  = \beta_{10} + \beta_{11} y_2 + \beta_{12} z_1 + u_1 $ \\
 \medskip
 \quad \ $y_2  = \beta_{20}+\beta_{21} y_1 + \beta_{22} z_2 + u_2 $ \\
-\bigskip
+\bigskip 
 \textbf{Reduced form equations}\\
 \medskip
 \quad $y_1 = \pi_{10} + \pi_{11} z_1 + \pi_{12} z_2 + \varepsilon_1 \qquad 
@@ -749,13 +749,30 @@ $\Rightarrow y_2  = \bigg[ \frac{\alpha_2 \beta_1}{1-\alpha_2 \alpha_1} \bigg] z
 \medskip
 \quad $y_2 = \pi_{20} + \pi_{21} z_1 + \pi_{22} z_2 + \varepsilon_2 \qquad 
 \Rightarrow  \qquad \hat{y}_2~~$by OLS\\
-\bigskip
+\bigskip 
 \textbf{2SLS} (a special case of IVR)\\
 \begin{itemize}
 \item $1^{st}$ stage: Estimate reduced forms, get $\hat{y}_1$ and $\hat{y}_2$.
 \item $2^{nd}$ stage: Replace endogenous regressors in structural equations by fitted values from $1^{st}$ stage, estimate by OLS.\\
 \end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Structural equations}
+\textbf{Structural equations} (example)\\
 \medskip
+\quad \ $y_1  = \beta_{10} + \beta_{11} y_2 + \beta_{12} z_1 + u_1 $ \\
+\medskip
+\quad \ $y_2  = \beta_{20}+\beta_{21} y_1 + \beta_{22} z_2 + u_2 $ \\
+\bigskip
+\textbf{Structural equations:}\\
+\medskip
+\begin{itemize}
+    \item Theoretically defined relationships modelled
+    \item Causal \& ceteris paribus interpretation of coefficients
+    \item Different perspectives on DGP (discussed next)
+    \item Describe the structure of factors of the DGP
+\end{itemize}
+\bigskip
 Estimation assumptions and ``problems'' involved:
 \begin{itemize}
 \item[] \dots ~Identification of structural equations, \\

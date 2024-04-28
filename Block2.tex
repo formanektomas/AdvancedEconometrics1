@@ -888,8 +888,8 @@ $$\textnormal{ADL}(p,q)\!: \, y_t = \beta_0 \, + \sum_{i=1}^p \beta_i y_{t-i} \,
          \gamma_0 x_t + \gamma_1 x_{t-1} + u_t \,.
 \end{equation}
 %~\\         
-Additional ADL$(1,1)$ restrictions: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$
-$$\textnormal{give a model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
+\textbf{Note:} ADLs are versatile. For example, restrictions can be imposed on the ADL$(1,1)$: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$, and we get a model in $1^{st}$ diffs.:
+$$\Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -969,7 +969,7 @@ to establish ECMs. It is again possible to rearrange and re-parametrize ADL(2,2)
 \item $\hat{\beta}_j$ converge in probability to their true values $\beta_j$ more quickly in the cointegrated non-stationary case than in the stationary case (asymptotic efficiency).
 \end{enumerate}
 \begin{block}{Consequences:}
-For simple static regression between two cointegrated variables: $y_t, x_t \sim C(1,1)$, super-consistency applies (with deterministic regressors such as intercept and trend added upon relevance). Dynamic misspecifications do not necessarily have serious consequences. This is a large sample property - in small samples, OLS estimators are biased.\\ (Specific statistical inference applies to cointegrating vectors.)
+For simple static regression between two cointegrated variables: $y_t, x_t \sim CI(1,1)$, super-consistency applies (with deterministic regressors such as intercept and trend added upon relevance). Dynamic misspecifications do not necessarily have serious consequences. This is a large sample property - in small samples, OLS estimators are biased.\\ (Specific statistical inference applies to cointegrating vectors.)
 \end{block}
 \end{frame}
 %---------------------------------------------
