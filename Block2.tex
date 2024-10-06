@@ -263,8 +263,8 @@ Theorem: Asymptotic normality of OLS: Under assumptions TS.1' – TS.5', OLS est
 \begin{itemize}
 \item Usual OLS standard errors, $t$-statistics and $F$-statistics are asymptotically valid.
 $$
-\hat{\bm{\beta}} \rightarrow N(\bm{\beta}, \hat{\sigma}^2(\bm{X}^{\prime} \bm{X})^{-1} )
-\textnormal{~as~} n \rightarrow \infty
+\hat{\bm{\beta}}~~ \underset{\textnormal{as.}}{\sim}~~ N(\bm{\beta}, \hat{\sigma}^2(\bm{X}^{\prime} \bm{X})^{-1} )
+\quad \textnormal{~as~} n \rightarrow \infty
 $$
 \end{itemize}
 \end{frame}
@@ -305,7 +305,7 @@ H_0 & : \rho=0 \nonumber
 \end{frame}
 %------------------------------------------------------
 \begin{frame}{Serial correlation of the error term in TSRM}
-Breusch-Godfrey (BG) test for serial correlation with general regressors (regressors from main equation are used in the auxiliary regression for the BG test). Large sample validity.\\ \medskip
+Breusch-Godfrey (BG) test for serial correlation with general regressors (contemporaneous exogneity holding). Large sample validity only. Regressors from main equation are used in the auxiliary regression for the BG test:\\ \medskip
 \begin{itemize}
 \item BG test for an ar(1) process in residuals:
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tK} + \rho \hat{u}_{t-1} + \textit{error}$$
@@ -344,8 +344,8 @@ LRM on TS with autocorrelation (for $|\rho|<1$):\\ \medskip
 \medskip
 \textbf{Hildreth-Lu:} \\ \medskip
 \begin{itemize}
-    \item[a)] Start by repeated OLS estimation of the generalized first differences specification, using different (fixed) values of $\rho \in (-1,1)$. 
-    \item[b)] From such auxiliary regressions (i.e. for different $\rho$ values), select one that minimizes RSS.
+    \item[a)] Start by repeated OLS estimation of the generalized first differences specification, using different (fixed) values of $\rho \in (-1,1)$, to get alternative $\bm{\hat{\beta}}_{\rho}$ vectors at each $\rho$. 
+    \item[b)] From such auxiliary regressions (i.e. for different $\rho$ values), select the $\bm{\hat{\beta}}_{\rho}$ which minimizes RSS.
     \medskip
     \item Potentially computationally expensive (fine-grain iterations along $\rho$-values). No advantage over NLS methods \\(Hildreth-Lu is a form of ``brute-force'' NLS estimator).
     \item Global optimum (min RSS) can be reached.
